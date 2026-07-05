@@ -10,84 +10,10 @@ import { FAQ } from '@/components/FAQ';
 import { ShopCTA } from '@/components/ShopCTA';
 import { Footer } from '@/components/Footer';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { CAPTAIN_MAID_PRODUCTS } from '@/lib/products';
 
-const PRODUCTS = [
-  {
-    id: 'glass-cleaner',
-    name: 'Glass Cleaner',
-    description: 'Crystal clear cleaning results for sparkling windows',
-    price: 5.99,
-    priceThb: 209,
-    originalPrice: 7.99,
-    originalPriceThb: 279,
-    image: '/images/products/glass-cleaner.svg',
-    category: 'Glass',
-    rating: 4.8,
-    reviewCount: 245,
-    inStock: true,
-  },
-  {
-    id: 'bathroom-cleaner',
-    name: 'Bathroom Cleaner',
-    description: 'Deep clean for tiles, tubs, and fixtures',
-    price: 6.99,
-    priceThb: 244,
-    image: '/images/products/bathroom-cleaner.svg',
-    category: 'Bath',
-    rating: 4.9,
-    reviewCount: 312,
-    inStock: true,
-  },
-  {
-    id: 'kitchen-cleaner',
-    name: 'Kitchen Cleaner',
-    description: 'Effective against everyday stains and grease',
-    price: 5.99,
-    priceThb: 209,
-    image: '/images/products/kitchen-cleaner.svg',
-    category: 'Kitchen',
-    rating: 4.7,
-    reviewCount: 189,
-    inStock: true,
-  },
-  {
-    id: 'floor-cleaner',
-    name: 'Floor Cleaner',
-    description: 'Quick-dry formula, safe for all floor types',
-    price: 7.99,
-    priceThb: 279,
-    image: '/images/products/floor-cleaner.svg',
-    category: 'Floor',
-    rating: 4.8,
-    reviewCount: 267,
-    inStock: true,
-    featured: true,
-  },
-  {
-    id: 'drain-foamer',
-    name: 'Drain Foamer',
-    description: 'Foaming action clears drains naturally',
-    price: 6.99,
-    priceThb: 244,
-    image: '/images/products/drain-foamer.svg',
-    category: 'Drain',
-    rating: 4.6,
-    reviewCount: 156,
-    inStock: true,
-  },
-  {
-    id: 'drain-cleaner',
-    name: 'Drain Cleaner',
-    description: 'Powerful drain maintenance solution',
-    price: 7.99,
-    priceThb: 279,
-    image: '/images/products/drain-cleaner.svg',
-    category: 'Drain',
-    rating: 4.5,
-    reviewCount: 98,
-    inStock: true,
-  },
-];
+// Use real product data from scraping (2026-07-06)
+const PRODUCTS = CAPTAIN_MAID_PRODUCTS;
 
 const FEATURES = [
   {
