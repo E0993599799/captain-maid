@@ -23,7 +23,6 @@ interface ProductCardProps {
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
   (
     {
-      id,
       name,
       description,
       price,
