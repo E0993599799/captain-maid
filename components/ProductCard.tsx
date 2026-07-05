@@ -37,7 +37,6 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     },
     ref
   ) => {
-    const [isHovered, setIsHovered] = React.useState(false);
     const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
     return (
@@ -46,8 +45,6 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
         className={`group flex flex-col rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 bg-white dark:bg-slate-800 ${
           featured ? 'md:col-span-2 md:row-span-2' : ''
         }`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         {/* Image Container */}
         <div className="relative h-64 md:h-80 overflow-hidden bg-slate-100 dark:bg-slate-700">
