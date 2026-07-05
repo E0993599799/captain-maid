@@ -104,8 +104,8 @@ export const Footer = () => {
             <h4 className="font-bold text-lg mb-6">Products</h4>
             <ul className="space-y-3 text-slate-400">
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-teal-400 transition-colors inline-flex items-center gap-2">
-                  Glass Cleaner <ArrowRight size={16} className="opacity-0 group-hover:opacity-100" />
+                <a href="#products" className="hover:text-teal-400 transition-colors">
+                  Glass Cleaner
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
