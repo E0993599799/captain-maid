@@ -2,7 +2,6 @@
 
 import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
