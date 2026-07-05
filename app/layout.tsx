@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { ThemeProvider } from 'next-themes';
 
 export const viewport = { width: 'device-width', initialScale: 1 };
 export const metadata: Metadata = {
@@ -27,9 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/images/logos/captain-maid-icon.webp" />
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
