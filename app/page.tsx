@@ -2,6 +2,7 @@
 
 import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
@@ -9,6 +10,7 @@ import { Button } from '@/components/Button';
 import { FAQ } from '@/components/FAQ';
 import { ShopCTA } from '@/components/ShopCTA';
 import { Footer } from '@/components/Footer';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 const PRODUCTS = [
   {
@@ -16,8 +18,10 @@ const PRODUCTS = [
     name: 'Glass Cleaner',
     description: 'Crystal clear cleaning results for sparkling windows',
     price: 5.99,
+    priceThb: 209,
     originalPrice: 7.99,
-    image: '/images/products/glass-cleaner.webp',
+    originalPriceThb: 279,
+    image: '/images/products/glass-cleaner.svg',
     category: 'Glass',
     rating: 4.8,
     reviewCount: 245,
@@ -28,7 +32,8 @@ const PRODUCTS = [
     name: 'Bathroom Cleaner',
     description: 'Deep clean for tiles, tubs, and fixtures',
     price: 6.99,
-    image: '/images/products/bathroom-cleaner.webp',
+    priceThb: 244,
+    image: '/images/products/bathroom-cleaner.svg',
     category: 'Bath',
     rating: 4.9,
     reviewCount: 312,
@@ -39,7 +44,8 @@ const PRODUCTS = [
     name: 'Kitchen Cleaner',
     description: 'Effective against everyday stains and grease',
     price: 5.99,
-    image: '/images/products/kitchen-cleaner.webp',
+    priceThb: 209,
+    image: '/images/products/kitchen-cleaner.svg',
     category: 'Kitchen',
     rating: 4.7,
     reviewCount: 189,
@@ -50,7 +56,8 @@ const PRODUCTS = [
     name: 'Floor Cleaner',
     description: 'Quick-dry formula, safe for all floor types',
     price: 7.99,
-    image: '/images/products/floor-cleaner.webp',
+    priceThb: 279,
+    image: '/images/products/floor-cleaner.svg',
     category: 'Floor',
     rating: 4.8,
     reviewCount: 267,
@@ -62,7 +69,8 @@ const PRODUCTS = [
     name: 'Drain Foamer',
     description: 'Foaming action clears drains naturally',
     price: 6.99,
-    image: '/images/products/drain-foamer.webp',
+    priceThb: 244,
+    image: '/images/products/drain-foamer.svg',
     category: 'Drain',
     rating: 4.6,
     reviewCount: 156,
@@ -73,7 +81,8 @@ const PRODUCTS = [
     name: 'Drain Cleaner',
     description: 'Powerful drain maintenance solution',
     price: 7.99,
-    image: '/images/products/drain-cleaner.webp',
+    priceThb: 279,
+    image: '/images/products/drain-cleaner.svg',
     category: 'Drain',
     rating: 4.5,
     reviewCount: 98,
@@ -125,6 +134,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
+      {/* Language Selector */}
+      <LanguageSelector />
+
       {/* Navigation */}
       <NavigationEnhanced />
 

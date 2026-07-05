@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Star, ShoppingCart } from 'lucide-react';
 import { Button } from './Button';
@@ -10,7 +10,9 @@ interface ProductCardProps {
   name: string;
   description: string;
   price: number;
+  priceThb?: number;
   originalPrice?: number;
+  originalPriceThb?: number;
   image: string;
   category: string;
   rating?: number;
@@ -26,7 +28,9 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
       name,
       description,
       price,
+      priceThb,
       originalPrice,
+      originalPriceThb,
       image,
       category,
       rating = 4.5,
@@ -37,7 +41,18 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     },
     ref
   ) => {
-    const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+    const [lang, setLang] = useState<'en' | 'th'>('en');
+
+    useEffect(() => {
+      const savedLang = (localStorage.getItem('language') || 'en') as 'en' | 'th';
+      setLang(savedLang);
+    }, []);
+
+    const displayPrice = lang === 'th' ? priceThb || price : price;
+    const displayOriginalPrice = lang === 'th' ? originalPriceThb || originalPrice : originalPrice;
+    const currencySymbol = lang === 'th' ? '฿' : '$';
+
+    const discount = displayOriginalPrice ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100) : 0;
 
     return (
       <div
@@ -109,11 +124,11 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {/* Pricing */}
           <div className="flex items-baseline gap-2 mb-6">
             <span className="text-2xl md:text-3xl font-bold text-blue-700 dark:text-blue-400">
-              ${price.toFixed(2)}
+              {currencySymbol}{lang === 'th' ? Math.round(displayPrice) : displayPrice.toFixed(2)}
             </span>
-            {originalPrice && (
+            {displayOriginalPrice && (
               <span className="text-sm text-slate-500 dark:text-slate-500 line-through">
-                ${originalPrice.toFixed(2)}
+                {currencySymbol}{lang === 'th' ? Math.round(displayOriginalPrice) : displayOriginalPrice.toFixed(2)}
               </span>
             )}
           </div>
