@@ -1,274 +1,318 @@
 'use client';
 
 import Link from 'next/link';
-import { Sparkles, Leaf, Heart, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { Leaf, Sparkles, Heart, ShoppingCart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { NavigationEnhanced } from '@/components/NavigationEnhanced';
+import { HeroEnhanced } from '@/components/HeroEnhanced';
+import { ProductCard } from '@/components/ProductCard';
+import { Button } from '@/components/Button';
+
+const PRODUCTS = [
+  {
+    id: 'glass-cleaner',
+    name: 'Glass Cleaner',
+    description: 'Crystal clear cleaning results for sparkling windows',
+    price: 5.99,
+    originalPrice: 7.99,
+    image: '/images/products/glass-cleaner.webp',
+    category: 'Glass',
+    rating: 4.8,
+    reviewCount: 245,
+    inStock: true,
+  },
+  {
+    id: 'bathroom-cleaner',
+    name: 'Bathroom Cleaner',
+    description: 'Deep clean for tiles, tubs, and fixtures',
+    price: 6.99,
+    image: '/images/products/bathroom-cleaner.webp',
+    category: 'Bath',
+    rating: 4.9,
+    reviewCount: 312,
+    inStock: true,
+  },
+  {
+    id: 'kitchen-cleaner',
+    name: 'Kitchen Cleaner',
+    description: 'Effective against everyday stains and grease',
+    price: 5.99,
+    image: '/images/products/kitchen-cleaner.webp',
+    category: 'Kitchen',
+    rating: 4.7,
+    reviewCount: 189,
+    inStock: true,
+  },
+  {
+    id: 'floor-cleaner',
+    name: 'Floor Cleaner',
+    description: 'Quick-dry formula, safe for all floor types',
+    price: 7.99,
+    image: '/images/products/floor-cleaner.webp',
+    category: 'Floor',
+    rating: 4.8,
+    reviewCount: 267,
+    inStock: true,
+    featured: true,
+  },
+  {
+    id: 'drain-foamer',
+    name: 'Drain Foamer',
+    description: 'Foaming action clears drains naturally',
+    price: 6.99,
+    image: '/images/products/drain-foamer.webp',
+    category: 'Drain',
+    rating: 4.6,
+    reviewCount: 156,
+    inStock: true,
+  },
+  {
+    id: 'drain-cleaner',
+    name: 'Drain Cleaner',
+    description: 'Powerful drain maintenance solution',
+    price: 7.99,
+    image: '/images/products/drain-cleaner.webp',
+    category: 'Drain',
+    rating: 4.5,
+    reviewCount: 98,
+    inStock: true,
+  },
+];
+
+const FEATURES = [
+  {
+    icon: Leaf,
+    title: 'Natural Ingredients',
+    description: 'Eco-friendly formula with plant-based components',
+  },
+  {
+    icon: Sparkles,
+    title: 'Powerful Cleaning',
+    description: 'Advanced encapsulation technology for deep clean',
+  },
+  {
+    icon: Heart,
+    title: 'Family Safe',
+    description: 'Gentle on kids and pets, dermatologist tested',
+  },
+];
 
 export default function Home() {
-  const features = [
-    { icon: Leaf, title: 'Natural Ingredients', desc: 'Eco-friendly, safe components' },
-    { icon: Sparkles, title: 'Powerful Cleaning', desc: 'Effective against tough stains' },
-    { icon: Heart, title: 'Family Safe', desc: 'Gentle on family and pets' },
-  ];
+  const handleAddToCart = (productId: string) => {
+    console.log(`Added ${productId} to cart`);
+  };
 
-  const products = [
-    { id: 1, name: 'Glass Cleaner', emoji: '🪟', price: '5.99' },
-    { id: 2, name: 'Drain Foamer', emoji: '🚿', price: '7.99' },
-    { id: 3, name: 'Floor Cleaner', emoji: '🧹', price: '6.99' },
-    { id: 4, name: 'All-Purpose', emoji: '🧼', price: '4.99' },
-  ];
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
 
   return (
-    <div style={{ minHeight: '100vh' }}>
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       {/* Navigation */}
-      <nav style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.5rem 2rem',
-        background: 'rgba(0, 0, 0, 0.1)',
-        backdropFilter: 'blur(10px)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-      }}>
-        <div style={{
-          fontSize: '1.5rem',
-          fontWeight: 'bold',
-          color: 'white',
-          textDecoration: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-        }}>
-          🧹 Captain Maid
-        </div>
-        <div style={{
-          display: 'flex',
-          gap: '2rem',
-          color: 'white',
-        }}>
-          <a href="#products" style={{ cursor: 'pointer', opacity: 0.9 }}>Products</a>
-          <a href="/blog" style={{ cursor: 'pointer', opacity: 0.9 }}>Blog</a>
-          <a href="#about" style={{ cursor: 'pointer', opacity: 0.9 }}>About</a>
-          <a href="#contact" style={{ cursor: 'pointer', opacity: 0.9 }}>Contact</a>
-        </div>
-      </nav>
+      <NavigationEnhanced />
 
       {/* Hero Section */}
-      <section style={{
-        background: 'linear-gradient(135deg, #0066cc 0%, #004fa3 100%)',
-        color: 'white',
-        padding: '6rem 2rem',
-        minHeight: '60vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-      }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 style={{
-            fontSize: '3.5rem',
-            marginBottom: '1rem',
-            fontWeight: 'bold',
-            lineHeight: 1.2,
-          }}>
-            Made for Easy Home Cleaning
-          </h1>
-          <p style={{
-            fontSize: '1.25rem',
-            marginBottom: '2rem',
-            opacity: 0.9,
-            maxWidth: '600px',
-            margin: '0 auto 2rem',
-          }}>
-            Premium cleaning products made from natural ingredients. Clean better, live better.
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            style={{
-              padding: '1rem 2.5rem',
-              background: '#22c55e',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0.5rem',
-              fontSize: '1rem',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
+      <HeroEnhanced />
+
+      {/* Features Section */}
+      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-800">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12 md:mb-16"
           >
-            Shop Now <ArrowRight size={20} />
-          </motion.button>
-        </motion.div>
+            <h2 className="text-h2 md:text-h1 font-bold text-slate-900 dark:text-white mb-4">
+              Why Choose Captain Maid?
+            </h2>
+            <p className="text-body text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              We combine nature-derived ingredients with advanced cleaning technology for a superior clean
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {FEATURES.map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  variants={itemVariants}
+                  className="p-6 md:p-8 rounded-xl bg-white dark:bg-slate-700 shadow-card hover:shadow-card-hover transition-shadow duration-300"
+                >
+                  <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center mb-4">
+                    <Icon className="text-teal-700 dark:text-teal-400" size={24} />
+                  </div>
+                  <h3 className="text-h4 font-bold text-slate-900 dark:text-white mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-body text-slate-600 dark:text-slate-400">
+                    {feature.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
       </section>
 
-      {/* Features */}
-      <section style={{
-        padding: '4rem 2rem',
-        background: '#f9fafb',
-      }}>
-        <h2 style={{
-          fontSize: '2.5rem',
-          textAlign: 'center',
-          marginBottom: '3rem',
-        }}>
-          Why Choose Captain Maid?
-        </h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '2rem',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}>
-          {features.map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                style={{
-                  background: 'white',
-                  padding: '2rem',
-                  borderRadius: '0.75rem',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  textAlign: 'center',
-                }}
-              >
-                <Icon size={48} style={{
-                  color: '#0066cc',
-                  marginBottom: '1rem',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }} />
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  marginBottom: '0.5rem',
-                  fontWeight: 'bold',
-                }}>
-                  {feature.title}
-                </h3>
-                <p style={{ color: '#666' }}>
-                  {feature.desc}
-                </p>
+      {/* Products Section */}
+      <section id="products" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12 md:mb-16"
+          >
+            <h2 className="text-h2 md:text-h1 font-bold text-slate-900 dark:text-white mb-4">
+              Featured Products
+            </h2>
+            <p className="text-body text-slate-600 dark:text-slate-400">
+              Discover our complete line of premium cleaning solutions
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
+            {PRODUCTS.map((product) => (
+              <motion.div key={product.id} variants={itemVariants}>
+                <ProductCard
+                  {...product}
+                  onAddCart={() => handleAddToCart(product.id)}
+                />
               </motion.div>
-            );
-          })}
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mt-12 md:mt-16"
+          >
+            <Button size="lg" variant="secondary">
+              View All Products
+            </Button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Products */}
-      <section id="products" style={{
-        padding: '4rem 2rem',
-      }}>
-        <h2 style={{
-          fontSize: '2.5rem',
-          textAlign: 'center',
-          marginBottom: '3rem',
-        }}>
-          Featured Products
-        </h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '2rem',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}>
-          {products.map((product) => (
-            <div
-              key={product.id}
-              style={{
-                background: 'white',
-                border: '1px solid #e0e0e0',
-                borderRadius: '0.75rem',
-                padding: '2rem',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{
-                fontSize: '4rem',
-                marginBottom: '1rem',
-              }}>
-                {product.emoji}
+      {/* Trust Section */}
+      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-slate-800 dark:to-slate-700">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-h2 md:text-h1 font-bold text-slate-900 dark:text-white mb-6">
+              Trusted by 2,500+ Families
+            </h2>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-2xl text-yellow-400">
+                    ★
+                  </span>
+                ))}
               </div>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
-                {product.name}
-              </h3>
-              <p style={{
-                fontSize: '1.5rem',
-                color: '#0066cc',
-                fontWeight: 'bold',
-                marginBottom: '1rem',
-              }}>
-                ${product.price}
-              </p>
-              <button style={{
-                padding: '0.5rem 1rem',
-                background: '#0066cc',
-                color: 'white',
-                border: 'none',
-                borderRadius: '0.25rem',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-              }}>
-                Add to Cart
-              </button>
+              <span className="text-body font-semibold text-slate-900 dark:text-white">
+                4.8/5 from 1,000+ reviews
+              </span>
             </div>
-          ))}
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <Link href="/products" style={{
-            display: 'inline-block',
-            padding: '0.75rem 2rem',
-            background: '#0066cc',
-            color: 'white',
-            borderRadius: '0.5rem',
-            fontWeight: 'bold',
-            textDecoration: 'none',
-          }}>
-            View All Products
-          </Link>
+            <Button size="lg" variant="primary">
+              Join Our Community
+            </Button>
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{
-        background: 'linear-gradient(135deg, #0066cc 0%, #004fa3 100%)',
-        color: 'white',
-        padding: '4rem 2rem',
-        textAlign: 'center',
-      }}>
-        <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
-          Join Thousands of Happy Customers
-        </h2>
-        <p style={{ fontSize: '1rem', marginBottom: '2rem', opacity: 0.9 }}>
-          Experience the difference of natural, effective cleaning products.
-        </p>
-        <Link href="/products" style={{
-          display: 'inline-block',
-          padding: '0.75rem 2rem',
-          background: '#22c55e',
-          color: 'white',
-          borderRadius: '0.5rem',
-          fontWeight: 'bold',
-          textDecoration: 'none',
-        }}>
-          Start Shopping Today
-        </Link>
-      </section>
+      {/* Footer */}
+      <footer className="bg-slate-900 dark:bg-slate-950 text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            {/* Brand */}
+            <div>
+              <div className="relative h-12 w-12 mb-4">
+                <Image
+                  src="/images/logos/captain-maid-icon.webp"
+                  alt="Captain Maid"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="font-bold text-lg mb-2">Captain Maid</h3>
+              <p className="text-slate-400 text-sm">
+                Premium cleaning solutions for modern homes
+              </p>
+            </div>
+
+            {/* Products */}
+            <div>
+              <h4 className="font-bold mb-4">Products</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-white transition">Glass Cleaner</a></li>
+                <li><a href="#" className="hover:text-white transition">Bathroom Cleaner</a></li>
+                <li><a href="#" className="hover:text-white transition">Floor Cleaner</a></li>
+                <li><a href="#" className="hover:text-white transition">Drain Solutions</a></li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="font-bold mb-4">Company</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-white transition">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition">Contact</a></li>
+                <li><a href="#" className="hover:text-white transition">Careers</a></li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="font-bold mb-4">Legal</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition">Shipping Info</a></li>
+                <li><a href="#" className="hover:text-white transition">Returns</a></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
+            <p>© 2026 ARIGEO, Inc. All rights reserved. | Made with ♥ for cleaner homes</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -1,8 +1,154 @@
 import type { Config } from 'tailwindcss';
+
 const config: Config = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  theme: { extend: { colors: { captain: { dark: '#1a1a1a', light: '#ffffff', accent: '#0066cc', success: '#22c55e' } } } },
-  plugins: [],
   darkMode: 'class',
+  theme: {
+    extend: {
+      // Color System - Emerald Teal Base
+      colors: {
+        'primary': {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#145231',
+          950: '#052e16',
+        },
+        'teal': {
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#14b8a6',
+          600: '#0d9488',
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+          950: '#0d3331',
+        },
+        'brand': {
+          primary: '#0f766e',   // Emerald Teal
+          secondary: '#14b8a6', // Bright Teal
+          accent: '#22c55e',    // Success Green
+          light: '#f0fdfa',     // Background
+          dark: '#0d3331',      // Dark mode
+        },
+      },
+
+      // Typography
+      fontSize: {
+        'h1': ['48px', { lineHeight: '1.2', fontWeight: '700' }],
+        'h2': ['36px', { lineHeight: '1.3', fontWeight: '600' }],
+        'h3': ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+        'h4': ['18px', { lineHeight: '1.5', fontWeight: '600' }],
+        'body': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+        'body-sm': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+        'label': ['12px', { lineHeight: '1.5', fontWeight: '500' }],
+      },
+
+      fontFamily: {
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'display': ['Inter', 'system-ui', 'sans-serif'],
+      },
+
+      // Spacing System
+      spacing: {
+        'xs': '4px',
+        'sm': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        '2xl': '32px',
+        '3xl': '40px',
+        '4xl': '48px',
+        '5xl': '64px',
+        '6xl': '80px',
+      },
+
+      // Border Radius
+      borderRadius: {
+        'none': '0',
+        'sm': '4px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        '2xl': '24px',
+        'full': '9999px',
+      },
+
+      // Box Shadows
+      boxShadow: {
+        'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'sm': '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+        'card': '0 1px 3px rgba(0, 0, 0, 0.12)',
+        'card-hover': '0 10px 25px rgba(0, 0, 0, 0.15)',
+      },
+
+      // Animations
+      animation: {
+        'fade-in': 'fadeIn 0.3s ease-in',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'slide-down': 'slideDown 0.3s ease-out',
+        'bounce-gentle': 'bounceGentle 2s infinite',
+        'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'zoom': 'zoom 0.3s ease-out',
+      },
+
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceGentle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '.8' },
+        },
+        zoom: {
+          '0%': { transform: 'scale(1)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+      },
+
+      // Transitions
+      transitionDuration: {
+        '200': '200ms',
+        '300': '300ms',
+        '400': '400ms',
+        '500': '500ms',
+      },
+
+      // Backdrop
+      backdropBlur: {
+        'sm': '4px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+      },
+    },
+  },
+  plugins: [],
 };
+
 export default config;
