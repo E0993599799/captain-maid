@@ -2,9 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Facebook, Twitter, Instagram, Linkedin, ArrowRight, ChevronUp } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, ChevronUp } from 'lucide-react';
 
 export const Footer = () => {
   const scrollToTop = () => {
