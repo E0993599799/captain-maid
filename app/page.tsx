@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
