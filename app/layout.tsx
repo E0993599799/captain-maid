@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description: 'Premium cleaning products made with nature-derived ingredients',
     type: 'website',
     url: 'https://captain-maid.vercel.app',
-    images: [{ url: '/images/logos/captain-maid-logo.webp' }],
+    images: [{ url: '/images/logos/captain-maid-icon.svg' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/images/logos/captain-maid-icon.webp" />
+        <link rel="icon" href="/images/logos/captain-maid-icon.svg" />
       </head>
       <body suppressHydrationWarning>
         {children}
