@@ -60,7 +60,7 @@ export const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-teal-700 transition-colors"
+                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
@@ -69,7 +69,7 @@ export const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-teal-700 transition-colors"
+                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter size={20} />
@@ -78,7 +78,7 @@ export const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-teal-700 transition-colors"
+                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
@@ -87,7 +87,7 @@ export const Footer = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-teal-700 transition-colors"
+                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
@@ -104,27 +104,27 @@ export const Footer = () => {
             <h4 className="font-bold text-lg mb-6">Products</h4>
             <ul className="space-y-3 text-slate-400">
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-teal-400 transition-colors">
+                <a href="#products" className="hover:text-blue-400 transition-colors">
                   Glass Cleaner
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-teal-400 transition-colors">
+                <a href="#products" className="hover:text-blue-400 transition-colors">
                   Bathroom Cleaner
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-teal-400 transition-colors">
+                <a href="#products" className="hover:text-blue-400 transition-colors">
                   Kitchen Cleaner
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-teal-400 transition-colors">
+                <a href="#products" className="hover:text-blue-400 transition-colors">
                   Floor Cleaner
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-teal-400 transition-colors">
+                <a href="#products" className="hover:text-blue-400 transition-colors">
                   Drain Solutions
                 </a>
               </motion.li>
@@ -140,27 +140,27 @@ export const Footer = () => {
             <h4 className="font-bold text-lg mb-6">Company</h4>
             <ul className="space-y-3 text-slate-400">
               <motion.li variants={linkVariants}>
-                <a href="#about" className="hover:text-teal-400 transition-colors">
+                <a href="#about" className="hover:text-blue-400 transition-colors">
                   About Us
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#blog" className="hover:text-teal-400 transition-colors">
+                <a href="#blog" className="hover:text-blue-400 transition-colors">
                   Blog
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#faq" className="hover:text-teal-400 transition-colors">
+                <a href="#faq" className="hover:text-blue-400 transition-colors">
                   FAQ
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#contact" className="hover:text-teal-400 transition-colors">
+                <a href="#contact" className="hover:text-blue-400 transition-colors">
                   Contact Us
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-teal-400 transition-colors">
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Careers
                 </a>
               </motion.li>
@@ -176,27 +176,27 @@ export const Footer = () => {
             <h4 className="font-bold text-lg mb-6">Support & Legal</h4>
             <ul className="space-y-3 text-slate-400">
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-teal-400 transition-colors">
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Shipping Info
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-teal-400 transition-colors">
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Returns & Refunds
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-teal-400 transition-colors">
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Privacy Policy
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-teal-400 transition-colors">
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Terms of Service
                 </a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-teal-400 transition-colors">
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Cookie Policy
                 </a>
               </motion.li>
@@ -209,7 +209,7 @@ export const Footer = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-12 md:mb-16 p-8 bg-gradient-to-r from-teal-700 to-emerald-700 rounded-xl"
+          className="mb-12 md:mb-16 p-8 bg-gradient-to-r from-blue-700 to-blue-700 rounded-xl"
         >
           <div className="max-w-md">
             <h4 className="font-bold text-lg mb-2">Stay Updated</h4>
@@ -222,7 +222,7 @@ export const Footer = () => {
               />
               <button
                 type="submit"
-                className="px-6 py-2 bg-white text-teal-700 font-semibold rounded-lg hover:bg-white/90 transition-colors"
+                className="px-6 py-2 bg-white text-blue-700 font-semibold rounded-lg hover:bg-white/90 transition-colors"
               >
                 Subscribe
               </button>
@@ -251,7 +251,7 @@ export const Footer = () => {
             </div>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-lg bg-slate-800 hover:bg-teal-700 transition-colors"
+              className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
               aria-label="Scroll to top"
             >
               <ChevronUp size={20} />

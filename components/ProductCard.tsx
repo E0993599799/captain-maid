@@ -70,12 +70,12 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
         {/* Content Container */}
         <div className="flex flex-col flex-1 p-4 md:p-6">
           {/* Category Badge */}
-          <span className="text-xs font-semibold text-teal-700 dark:text-teal-400 uppercase tracking-wide mb-2">
+          <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wide mb-2">
             {category}
           </span>
 
           {/* Product Name */}
-          <h3 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors">
+          <h3 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
             {name}
           </h3>
 
@@ -108,7 +108,7 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* Pricing */}
           <div className="flex items-baseline gap-2 mb-6">
-            <span className="text-2xl md:text-3xl font-bold text-teal-700 dark:text-teal-400">
+            <span className="text-2xl md:text-3xl font-bold text-blue-700 dark:text-blue-400">
               ${price.toFixed(2)}
             </span>
             {originalPrice && (

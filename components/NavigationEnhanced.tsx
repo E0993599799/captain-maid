@@ -53,7 +53,7 @@ export const NavigationEnhanced = () => {
                 className="object-contain"
               />
             </div>
-            <span className="hidden sm:inline text-lg md:text-xl font-bold text-teal-700 dark:text-teal-400 group-hover:text-teal-800 dark:group-hover:text-teal-300 transition-colors">
+            <span className="hidden sm:inline text-lg md:text-xl font-bold text-blue-700 dark:text-blue-400 group-hover:text-blue-800 dark:group-hover:text-blue-300 transition-colors">
               Captain Maid
             </span>
           </Link>
@@ -64,7 +64,7 @@ export const NavigationEnhanced = () => {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 transition-colors duration-200 font-medium"
+                className="text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 transition-colors duration-200 font-medium"
               >
                 {item.label}
               </Link>

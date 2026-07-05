@@ -34,13 +34,13 @@ export const HeroEnhanced = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-teal-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ y: [0, 30, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-20 right-20 w-40 h-40 bg-teal-300/20 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-40 h-40 bg-blue-300/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ y: [0, -30, 0] }}
@@ -60,7 +60,7 @@ export const HeroEnhanced = () => {
           {/* Main Headline */}
           <motion.h1 variants={itemVariants} className="text-h1 md:text-h1 font-bold text-slate-900 dark:text-white leading-tight">
             Made for Easy{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-700 to-emerald-600 dark:from-teal-400 dark:to-emerald-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-600 dark:from-blue-400 dark:to-blue-400">
               Home Cleaning
             </span>
           </motion.h1>
@@ -92,7 +92,7 @@ export const HeroEnhanced = () => {
                 {[...Array(3)].map((_, i) => (
                   <div
                     key={i}
-                    className="h-10 w-10 rounded-full border-2 border-white dark:border-slate-800 bg-gradient-to-br from-teal-400 to-emerald-400 flex items-center justify-center text-white font-semibold text-sm"
+                    className="h-10 w-10 rounded-full border-2 border-white dark:border-slate-800 bg-gradient-to-br from-blue-400 to-blue-400 flex items-center justify-center text-white font-semibold text-sm"
                   >
                     {i + 1}
                   </div>

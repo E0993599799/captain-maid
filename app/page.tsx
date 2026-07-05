@@ -162,8 +162,8 @@ export default function Home() {
                   variants={itemVariants}
                   className="p-6 md:p-8 rounded-xl bg-white dark:bg-slate-700 shadow-card hover:shadow-card-hover transition-shadow duration-300"
                 >
-                  <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center mb-4">
-                    <Icon className="text-teal-700 dark:text-teal-400" size={24} />
+                  <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-4">
+                    <Icon className="text-blue-700 dark:text-blue-400" size={24} />
                   </div>
                   <h3 className="text-h4 font-bold text-slate-900 dark:text-white mb-2">
                     {feature.title}
@@ -225,7 +225,7 @@ export default function Home() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-slate-800 dark:to-slate-700">
+      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-blue-50 dark:from-slate-800 dark:to-slate-700">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

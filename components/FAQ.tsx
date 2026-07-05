@@ -108,7 +108,7 @@ export const FAQ = () => {
                   transition={{ duration: 0.3 }}
                   className="flex-shrink-0 ml-4"
                 >
-                  <ChevronDown className="text-teal-700 dark:text-teal-400" size={24} />
+                  <ChevronDown className="text-blue-700 dark:text-blue-400" size={24} />
                 </motion.div>
               </button>
 
@@ -138,14 +138,14 @@ export const FAQ = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 p-6 md:p-8 bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-slate-800 dark:to-slate-700 rounded-xl text-center"
+          className="mt-12 p-6 md:p-8 bg-gradient-to-r from-blue-50 to-blue-50 dark:from-slate-800 dark:to-slate-700 rounded-xl text-center"
         >
           <p className="text-slate-700 dark:text-slate-300 mb-4">
             Can't find your answer? We're here to help!
           </p>
           <a
             href="#contact"
-            className="inline-block px-6 py-3 bg-teal-700 text-white rounded-lg hover:bg-teal-800 transition-colors font-semibold"
+            className="inline-block px-6 py-3 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors font-semibold"
           >
             Contact Support
           </a>
