@@ -7,6 +7,9 @@ import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
 import { Button } from '@/components/Button';
+import { FAQ } from '@/components/FAQ';
+import { ShopCTA } from '@/components/ShopCTA';
+import { Footer } from '@/components/Footer';
 
 const PRODUCTS = [
   {
@@ -252,66 +255,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Shop CTA Section */}
+      <ShopCTA />
+
+      {/* FAQ Section */}
+      <FAQ />
+
       {/* Footer */}
-      <footer className="bg-slate-900 dark:bg-slate-950 text-white py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            {/* Brand */}
-            <div>
-              <div className="relative h-12 w-12 mb-4">
-                <Image
-                  src="/images/logos/captain-maid-icon.webp"
-                  alt="Captain Maid"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Captain Maid</h3>
-              <p className="text-slate-400 text-sm">
-                Premium cleaning solutions for modern homes
-              </p>
-            </div>
-
-            {/* Products */}
-            <div>
-              <h4 className="font-bold mb-4">Products</h4>
-              <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">Glass Cleaner</a></li>
-                <li><a href="#" className="hover:text-white transition">Bathroom Cleaner</a></li>
-                <li><a href="#" className="hover:text-white transition">Floor Cleaner</a></li>
-                <li><a href="#" className="hover:text-white transition">Drain Solutions</a></li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="font-bold mb-4">Company</h4>
-              <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition">Careers</a></li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h4 className="font-bold mb-4">Legal</h4>
-              <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition">Shipping Info</a></li>
-                <li><a href="#" className="hover:text-white transition">Returns</a></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
-            <p>© 2026 ARIGEO, Inc. All rights reserved. | Made with ♥ for cleaner homes</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
