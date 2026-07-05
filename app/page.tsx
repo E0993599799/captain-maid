@@ -1,8 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { Leaf, Sparkles, Heart, ShoppingCart } from 'lucide-react';
+import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
