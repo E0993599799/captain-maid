@@ -22,7 +22,7 @@ interface BlogCardProps {
  * Features image hover zoom, category badge, and hover lift animation
  */
 export const BlogCard = React.forwardRef<HTMLDivElement, BlogCardProps>(
-  ({ id, title, excerpt, image, category, date, readTime, slug }, ref) => {
+  ({ title, excerpt, image, category, date, readTime, slug }, ref) => {
     return (
       <motion.div
         ref={ref}
