@@ -56,8 +56,7 @@ export const NavigationEnhanced = () => {
   const menuItems = [
     { id: 'shop', label: 'สินค้า', href: '#products' },
     { id: 'essentials', label: 'ผลิตภัณฑ์', href: '#products' },
-    { id: 'best-sellers', label: 'ขายดี', href: '#products' },
-    { id: 'blog', label: 'บล็อก', href: '/blog' },
+    { id: 'blog', label: 'บทความ', href: '/blog' },
     { id: 'about', label: 'เกี่ยวกับเรา', href: '#about' },
   ];
 
