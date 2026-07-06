@@ -113,13 +113,20 @@ export const ShopCTA = () => {
         >
           <p className="text-white/80 mb-6">Also available at:</p>
           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
-            {['Shopee', 'Lazada', 'TikTok Shop', 'HomePro'].map((partner, idx) => (
+            {[
+              { name: 'Shopee', img: '/assets/Shopee.svg', link: 'https://shopee.co.th/captainmaid' },
+              { name: 'Lazada', img: '/assets/Lazada_(2019).svg', link: 'https://www.lazada.co.th/shop/captainmaid' },
+              { name: 'TikTok Shop', img: '/assets/TikTok_logo.svg', link: 'https://www.tiktok.com/@captainmaid' },
+              { name: 'HomePro', img: '/assets/homepro.svg', link: 'https://www.homepro.co.th/captainmaid' },
+            ].map((partner, idx) => (
               <a
                 key={idx}
-                href="#"
-                className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105"
+                href={partner.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105 flex items-center gap-2"
               >
-                {partner}
+                {partner.name}
               </a>
             ))}
           </div>

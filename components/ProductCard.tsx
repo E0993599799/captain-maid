@@ -71,7 +71,7 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             quality={95}
           />
           {discount > 0 && (
-            <div className="absolute top-3 right-3 sale-badge px-3 py-1 rounded-full text-sm font-semibold">
+            <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
               -{discount}%
             </div>
           )}
