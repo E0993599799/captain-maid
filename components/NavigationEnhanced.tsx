@@ -20,11 +20,12 @@ export const NavigationEnhanced = () => {
   }, []);
 
   const menuItems = [
-    { id: 'shop', label: 'SHOP', href: '#products' },
-    { id: 'essentials', label: 'ESSENTIALS', href: '#essentials' },
-    { id: 'best-sellers', label: 'BEST SELLERS', href: '#products' },
-    { id: 'about', label: 'ABOUT US', href: '#about' },
-  ];
+      { id: 'shop', label: 'SHOP', href: '#products' },
+      { id: 'essentials', label: 'ESSENTIALS', href: '#products' },
+      { id: 'best-sellers', label: 'BEST SELLERS', href: '#products' },
+      { id: 'blog', label: 'BLOG', href: '/blog' },
+      { id: 'about', label: 'ABOUT US', href: '#about' },
+    ];
 
   return (
     <>
