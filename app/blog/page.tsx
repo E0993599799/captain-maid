@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Calendar, User } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 const blogPosts = [
   {
