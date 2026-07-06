@@ -166,3 +166,4 @@ export const CAPTAIN_MAID_PRODUCTS = [
 ];
 
 export type Product = (typeof CAPTAIN_MAID_PRODUCTS)[0];
+export const products = CAPTAIN_MAID_PRODUCTS;
