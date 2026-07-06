@@ -2,6 +2,7 @@
 
 import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
@@ -17,22 +18,24 @@ const PRODUCTS = CAPTAIN_MAID_PRODUCTS;
 const FEATURES = [
   {
     icon: Leaf,
-    title: 'Natural Ingredients',
-    description: 'Eco-friendly formula with plant-based components',
+    titleKey: 'Natural Ingredients',
+    descriptionKey: 'Eco-friendly formula with plant-based components',
   },
   {
     icon: Sparkles,
-    title: 'Powerful Cleaning',
-    description: 'Advanced encapsulation technology for deep clean',
+    titleKey: 'Powerful Cleaning',
+    descriptionKey: 'Advanced encapsulation technology for deep clean',
   },
   {
     icon: Heart,
-    title: 'Family Safe',
-    description: 'Gentle on kids and pets, dermatologist tested',
+    titleKey: 'Family Safe',
+    descriptionKey: 'Gentle on kids and pets, dermatologist tested',
   },
 ];
 
 export default function Home() {
+  const t = useTranslations();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -73,7 +76,7 @@ export default function Home() {
               Why Choose Captain Maid?
             </h2>
             <p className="text-body text-[#506090] max-w-2xl mx-auto">
-              We combine nature-derived ingredients with advanced cleaning technology for a superior clean
+              {t('hero.subtitle')}
             </p>
           </motion.div>
 
@@ -95,10 +98,10 @@ export default function Home() {
                     <Icon className="text-[#001360]" size={24} />
                   </div>
                   <h3 className="text-h4 font-bold text-[#001360] mb-2">
-                    {feature.title}
+                    {feature.titleKey}
                   </h3>
                   <p className="text-body text-[#506090]">
-                    {feature.description}
+                    {feature.descriptionKey}
                   </p>
                 </motion.div>
               );
@@ -117,10 +120,10 @@ export default function Home() {
             className="text-center mb-12 md:mb-16"
           >
             <h2 className="section-heading text-h3 md:text-h2 mb-4">
-              Featured Products
+              {t('products.title')}
             </h2>
             <p className="text-body text-[#506090]">
-              Discover our complete line of premium cleaning solutions
+              {t('products.subtitle')}
             </p>
           </motion.div>
 
@@ -146,7 +149,7 @@ export default function Home() {
             className="text-center mt-12 md:mt-16"
           >
             <Button size="lg" variant="secondary">
-              View All Products
+              {t('products.viewAll')}
             </Button>
           </motion.div>
         </div>

@@ -3,9 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { Facebook, Twitter, Instagram, Linkedin, ChevronUp } from 'lucide-react';
+import { Link } from '@/lib/navigation';
 
 export const Footer = () => {
+  const t = useTranslations();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -53,7 +57,7 @@ export const Footer = () => {
               <h3 className="font-script text-2xl text-white">Captain Maid</h3>
             </div>
             <p className="text-[#b0d0f0] text-sm mb-6">
-              Premium cleaning solutions for modern homes. Made with nature-derived ingredients, safe for your family and pets.
+              {t('footer.brand')}
             </p>
             <div className="flex gap-4">
               <a
@@ -127,19 +131,19 @@ export const Footer = () => {
             initial="hidden"
             whileInView="visible"
           >
-            <h4 className="font-bold text-lg mb-6">Company</h4>
+            <h4 className="font-bold text-lg mb-6">{t('footer.company') || 'Company'}</h4>
             <ul className="space-y-3 text-[#b0d0f0]">
               <motion.li variants={linkVariants}>
-                <a href="#about" className="hover:text-[#02a6e3] transition-colors">About Us</a>
+                <Link href="/about" className="hover:text-[#02a6e3] transition-colors">{t('footer.about')}</Link>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#blog" className="hover:text-[#02a6e3] transition-colors">Blog</a>
+                <Link href="/blog" className="hover:text-[#02a6e3] transition-colors">{t('footer.blog')}</Link>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#faq" className="hover:text-[#02a6e3] transition-colors">FAQ</a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">{t('footer.faq')}</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#contact" className="hover:text-[#02a6e3] transition-colors">Contact Us</a>
+                <Link href="/contact" className="hover:text-[#02a6e3] transition-colors">{t('footer.contact')}</Link>
               </motion.li>
               <motion.li variants={linkVariants}>
                 <a href="#" className="hover:text-[#02a6e3] transition-colors">Careers</a>
@@ -206,7 +210,7 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-[#b0d0f0] text-sm text-center md:text-left">
-            <p>© 2026 ARIGEO, Inc. All rights reserved. | Made with ♥ for cleaner homes</p>
+            <p>{t('footer.copyright')}</p>
           </div>
 
           {/* Company Logo */}

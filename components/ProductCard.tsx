@@ -1,14 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Star, ShoppingCart } from 'lucide-react';
-import { RetailerModal } from './RetailerModal';
+import { Star, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/navigation';
+import { Button } from './Button';
 
 interface ProductCardProps {
   id: string;
   name: string;
   description: string;
+  price: number;
+  priceThb?: number;
+  originalPrice?: number;
+  originalPriceThb?: number;
   image: string;
   category: string;
   rating?: number;
@@ -20,8 +26,13 @@ interface ProductCardProps {
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
   (
     {
+      id,
       name,
       description,
+      price,
+      priceThb,
+      originalPrice,
+      originalPriceThb,
       image,
       category,
       rating = 4.5,
@@ -31,7 +42,12 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     },
     ref
   ) => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const t = useTranslations();
+    const displayPrice = priceThb || price;
+    const displayOriginalPrice = originalPriceThb || originalPrice;
+    const currencySymbol = '฿';
+
+    const discount = displayOriginalPrice ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100) : 0;
 
     return (
       <div
@@ -49,6 +65,11 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             className="object-cover group-hover:scale-110 transition-transform duration-300"
             quality={95}
           />
+          {discount > 0 && (
+            <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+              -{discount}%
+            </div>
+          )}
           {!inStock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <span className="text-white font-semibold">Out of Stock</span>
@@ -95,21 +116,35 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             )}
           </div>
 
-          {/* Action */}
-          <button
-            onClick={() => setModalOpen(true)}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#02a6e3] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#0190c7] hover:scale-[1.02] active:scale-[0.98]"
-          >
-            <ShoppingCart size={20} />
-            Shop Now
-          </button>
-        </div>
+          {/* Pricing */}
+          <div className="flex items-baseline gap-2 mb-6">
+            <span className="text-2xl md:text-3xl font-bold text-[#02a6e3]">
+              {currencySymbol}{Math.round(displayPrice)}
+            </span>
+            {displayOriginalPrice && (
+              <span className="text-sm text-[#506090] line-through">
+                {currencySymbol}{Math.round(displayOriginalPrice)}
+              </span>
+            )}
+          </div>
 
-        <RetailerModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          productName={name}
-        />
+          {/* View Details Link */}
+          <Link
+            href={`/products/${id}`}
+            className="block"
+          >
+            <Button
+              variant="primary"
+              size="md"
+              disabled={!inStock}
+              icon={<ChevronRight size={20} />}
+              iconPosition="right"
+              className="w-full"
+            >
+              {t('products.moreDetail')}
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
