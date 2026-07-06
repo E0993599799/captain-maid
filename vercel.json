@@ -4,5 +4,6 @@
   "devCommand": "npm run dev",
   "cleanUrls": true,
   "trailingSlash": false,
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "rootDirectory": "."
 }
