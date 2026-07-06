@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/navigation';
 import { Calendar } from 'lucide-react';
 
 const blogPosts = [
@@ -13,7 +14,7 @@ const blogPosts = [
     author: 'Captain Maid',
     date: '2026-07-01',
     readTime: '5 min read',
-    image: '/images/logos/captain-maid-logo.webp',
+    image: '/images/logos/captain-maid-logo.jpg',
   },
   {
     id: 2,
@@ -23,7 +24,7 @@ const blogPosts = [
     author: 'Captain Maid',
     date: '2026-06-25',
     readTime: '7 min read',
-    image: '/images/logos/captain-maid-logo.webp',
+    image: '/images/logos/captain-maid-logo.jpg',
   },
   {
     id: 3,
@@ -33,11 +34,13 @@ const blogPosts = [
     author: 'Captain Maid',
     date: '2026-06-18',
     readTime: '6 min read',
-    image: '/images/logos/captain-maid-logo.webp',
+    image: '/images/logos/captain-maid-logo.jpg',
   },
 ];
 
 export default function BlogPage() {
+  const t = useTranslations();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -49,10 +52,10 @@ export default function BlogPage() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold text-[#001360] mb-4">
-              Captain Maid Blog
+              {t('blog.title')}
             </h1>
             <p className="text-lg text-[#506090] max-w-2xl">
-              Tips, tricks, and insights for keeping your home clean naturally.
+              {t('blog.subtitle')}
             </p>
           </motion.div>
         </div>

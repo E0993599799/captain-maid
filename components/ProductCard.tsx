@@ -2,7 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Star, ShoppingCart } from 'lucide-react';
+import { Star, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/navigation';
 import { Button } from './Button';
 
 interface ProductCardProps {
@@ -19,12 +21,12 @@ interface ProductCardProps {
   reviewCount?: number;
   inStock?: boolean;
   featured?: boolean;
-  onAddCart?: () => void;
 }
 
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
   (
     {
+      id,
       name,
       description,
       price,
@@ -37,10 +39,10 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
       reviewCount = 0,
       inStock = true,
       featured = false,
-      onAddCart,
     },
     ref
   ) => {
+    const t = useTranslations();
     const displayPrice = priceThb || price;
     const displayOriginalPrice = originalPriceThb || originalPrice;
     const currencySymbol = '฿';
@@ -126,18 +128,22 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             )}
           </div>
 
-          {/* Add to Cart Button */}
-          <Button
-            variant="primary"
-            size="md"
-            disabled={!inStock}
-            onClick={onAddCart}
-            icon={<ShoppingCart size={20} />}
-            iconPosition="left"
-            className="w-full"
+          {/* View Details Link */}
+          <Link
+            href={`/products/${id}`}
+            className="block"
           >
-            Add to Cart
-          </Button>
+            <Button
+              variant="primary"
+              size="md"
+              disabled={!inStock}
+              icon={<ChevronRight size={20} />}
+              iconPosition="right"
+              className="w-full"
+            >
+              {t('products.moreDetail')}
+            </Button>
+          </Link>
         </div>
       </div>
     );

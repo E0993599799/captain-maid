@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, ShoppingCart, Search, Heart } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/navigation';
 
 export const NavigationEnhanced = () => {
+  const t = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartCount] = useState(0);
@@ -20,10 +22,10 @@ export const NavigationEnhanced = () => {
   }, []);
 
   const menuItems = [
-    { id: 'shop', label: 'SHOP', href: '#products' },
-    { id: 'essentials', label: 'ESSENTIALS', href: '#essentials' },
-    { id: 'best-sellers', label: 'BEST SELLERS', href: '#products' },
-    { id: 'about', label: 'ABOUT US', href: '#about' },
+    { id: 'shop', labelKey: 'nav.shop', href: '/products' },
+    { id: 'essentials', labelKey: 'nav.essentials', href: '/products' },
+    { id: 'best-sellers', labelKey: 'nav.bestSellers', href: '/products' },
+    { id: 'about', labelKey: 'nav.about', href: '/about' },
   ];
 
   return (
@@ -79,7 +81,7 @@ export const NavigationEnhanced = () => {
                   href={item.href}
                   className="text-sm font-medium text-[#222222] hover:text-[#02a6e3] transition-colors duration-200 tracking-wide"
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
             </div>
@@ -126,7 +128,7 @@ export const NavigationEnhanced = () => {
                     className="block px-3 py-2 rounded-md text-sm font-medium text-[#222222] hover:bg-slate-100 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 ))}
               </div>
