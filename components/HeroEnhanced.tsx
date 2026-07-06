@@ -61,7 +61,7 @@ export const HeroEnhanced = () => {
         <div className="md:hidden mb-8 w-full flex justify-center">
           <div className="relative w-full max-w-sm h-80">
             <Image
-              src="/images/heroes/captain-maid-hero.svg"
+              src="/images/heroes/captain-maid-hero.png"
               alt="Captain Maid Hero Character"
               fill
               className="object-contain object-bottom"
@@ -79,7 +79,7 @@ export const HeroEnhanced = () => {
           >
             <div className="relative w-full h-full max-w-md">
               <Image
-                src="/images/heroes/captain-maid-hero.svg"
+                src="/images/heroes/captain-maid-hero.png"
                 alt="Captain Maid Hero Character"
                 fill
                 className="object-contain object-bottom"
