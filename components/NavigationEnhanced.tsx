@@ -13,12 +13,22 @@ export const NavigationEnhanced = () => {
   const [cartCount] = useState(0);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    let lastScrollY = 0;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      lastScrollY = window.scrollY;
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsScrolled(lastScrollY > 10);
+      }, 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const menuItems = [
