@@ -3,23 +3,18 @@
 import React from 'react';
 import Image from 'next/image';
 import { Star, ShoppingCart } from 'lucide-react';
-import { Button } from './Button';
 
 interface ProductCardProps {
   id: string;
   name: string;
   description: string;
-  price: number;
-  priceThb?: number;
-  originalPrice?: number;
-  originalPriceThb?: number;
   image: string;
   category: string;
   rating?: number;
   reviewCount?: number;
   inStock?: boolean;
   featured?: boolean;
-  onAddCart?: () => void;
+  productUrl?: string;
 }
 
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
@@ -27,26 +22,16 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     {
       name,
       description,
-      price,
-      priceThb,
-      originalPrice,
-      originalPriceThb,
       image,
       category,
       rating = 4.5,
       reviewCount = 0,
       inStock = true,
       featured = false,
-      onAddCart,
+      productUrl,
     },
     ref
   ) => {
-    const displayPrice = priceThb || price;
-    const displayOriginalPrice = originalPriceThb || originalPrice;
-    const currencySymbol = '฿';
-
-    const discount = displayOriginalPrice ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100) : 0;
-
     return (
       <div
         ref={ref}
@@ -63,11 +48,6 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             className="object-cover group-hover:scale-110 transition-transform duration-300"
             quality={95}
           />
-          {discount > 0 && (
-            <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-              -{discount}%
-            </div>
-          )}
           {!inStock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <span className="text-white font-semibold">Out of Stock</span>
@@ -114,30 +94,16 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             )}
           </div>
 
-          {/* Pricing */}
-          <div className="flex items-baseline gap-2 mb-6">
-            <span className="text-2xl md:text-3xl font-bold text-[#02a6e3]">
-              {currencySymbol}{Math.round(displayPrice)}
-            </span>
-            {displayOriginalPrice && (
-              <span className="text-sm text-[#506090] line-through">
-                {currencySymbol}{Math.round(displayOriginalPrice)}
-              </span>
-            )}
-          </div>
-
-          {/* Add to Cart Button */}
-          <Button
-            variant="primary"
-            size="md"
-            disabled={!inStock}
-            onClick={onAddCart}
-            icon={<ShoppingCart size={20} />}
-            iconPosition="left"
-            className="w-full"
+          {/* Action */}
+          <a
+            href={productUrl || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#02a6e3] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#0190c7] hover:scale-[1.02] active:scale-[0.98]"
           >
-            Add to Cart
-          </Button>
+            <ShoppingCart size={20} />
+            Shop Now
+          </a>
         </div>
       </div>
     );

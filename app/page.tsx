@@ -33,10 +33,6 @@ const FEATURES = [
 ];
 
 export default function Home() {
-  const handleAddToCart = (productId: string) => {
-    console.log(`Added ${productId} to cart`);
-  };
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -138,7 +134,6 @@ export default function Home() {
               <motion.div key={product.id} variants={itemVariants}>
                 <ProductCard
                   {...product}
-                  onAddCart={() => handleAddToCart(product.id)}
                 />
               </motion.div>
             ))}
