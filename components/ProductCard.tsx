@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Star, ShoppingCart } from 'lucide-react';
+import { RetailerModal } from './RetailerModal';
 
 interface ProductCardProps {
   id: string;
@@ -14,7 +15,6 @@ interface ProductCardProps {
   reviewCount?: number;
   inStock?: boolean;
   featured?: boolean;
-  productUrl?: string;
 }
 
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
@@ -28,10 +28,11 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
       reviewCount = 0,
       inStock = true,
       featured = false,
-      productUrl,
     },
     ref
   ) => {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
       <div
         ref={ref}
@@ -95,16 +96,20 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           </div>
 
           {/* Action */}
-          <a
-            href={productUrl || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setModalOpen(true)}
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#02a6e3] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#0190c7] hover:scale-[1.02] active:scale-[0.98]"
           >
             <ShoppingCart size={20} />
             Shop Now
-          </a>
+          </button>
         </div>
+
+        <RetailerModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          productName={name}
+        />
       </div>
     );
   }
