@@ -174,3 +174,6 @@ export const blogPosts: BlogPost[] = BLOG_MD.map((entry, index) => {
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);
 }
+export function getAllBlogPosts(): BlogPost[] {
+  return blogPosts;
+}
