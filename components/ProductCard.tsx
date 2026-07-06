@@ -169,4 +169,3 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
 ProductCard.displayName = 'ProductCard';
 
-export { ProductCard };
