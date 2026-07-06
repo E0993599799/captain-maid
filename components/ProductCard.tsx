@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Star, ShoppingCart } from 'lucide-react';
 import { Button } from './Button';
@@ -41,16 +41,9 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     },
     ref
   ) => {
-    const [lang, setLang] = useState<'en' | 'th'>('en');
-
-    useEffect(() => {
-      const savedLang = (localStorage.getItem('language') || 'en') as 'en' | 'th';
-      setLang(savedLang);
-    }, []);
-
-    const displayPrice = lang === 'th' ? priceThb || price : price;
-    const displayOriginalPrice = lang === 'th' ? originalPriceThb || originalPrice : originalPrice;
-    const currencySymbol = lang === 'th' ? '฿' : '$';
+    const displayPrice = priceThb || price;
+    const displayOriginalPrice = originalPriceThb || originalPrice;
+    const currencySymbol = '฿';
 
     const discount = displayOriginalPrice ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100) : 0;
 
@@ -124,11 +117,11 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {/* Pricing */}
           <div className="flex items-baseline gap-2 mb-6">
             <span className="text-2xl md:text-3xl font-bold text-[#02a6e3]">
-              {currencySymbol}{lang === 'th' ? Math.round(displayPrice) : displayPrice.toFixed(2)}
+              {currencySymbol}{Math.round(displayPrice)}
             </span>
             {displayOriginalPrice && (
               <span className="text-sm text-[#506090] line-through">
-                {currencySymbol}{lang === 'th' ? Math.round(displayOriginalPrice) : displayOriginalPrice.toFixed(2)}
+                {currencySymbol}{Math.round(displayOriginalPrice)}
               </span>
             )}
           </div>
