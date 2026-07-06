@@ -5,83 +5,81 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
-      // Color System — Captain Maid Blue
+      // Color System — Captain Maid Brand Palette
       colors: {
-        brand: {
-          50: '#e8f7ff',
-          100: '#b0e4ff',
-          200: '#70cfff',
-          300: '#40b8f0',
-          400: '#20a0e0',
-          500: '#02a6e3',
-          600: '#0090c8',
-          700: '#1070b0',
-          800: '#2060a0',
-          900: '#001360',
-          950: '#000d40',
-          primary: '#02a6e3',
-          secondary: '#20a0e0',
-          accent: '#90d0f0',
-          light: '#b0d0f0',
-          dark: '#1070b0',
-          deep: '#2060a0',
-          text: '#001360',
-          muted: '#506090',
-          surface: '#f0f8ff',
+        // Captain Maid Core Colors
+        captain: {
+          primary: '#02A6E3',    // main aqua / logo background
+          accent: '#90D0F0',     // soft blue surface
+          light: '#B0D0F0',      // pale card / section blue
+          dark: '#1070B0',       // hover / deeper blue
+          text: '#001360',       // deep navy text
+          muted: '#506090',      // secondary text
+          white: '#FFFFFF',      // white highlights
+          border: '#D9EAF6',     // subtle borders
+          soft: '#EAF6FD',       // soft background
+        },
+        // Semantic Colors
+        semantic: {
+          error: '#E53E3E',
+          success: '#38A169',
+          warning: '#ECC94B',
+          info: '#3182CE',
         },
       },
 
-      // Typography — MACC Essentials inspired
+      // Typography — Captain Maid Essentials
       fontFamily: {
-        'sans': ['Montserrat', 'Noto Sans Thai', 'system-ui', 'sans-serif'],
-        'display': ['Poppins', 'Montserrat', 'system-ui', 'sans-serif'],
-        'script': ['"Monotype Corsiva"', 'cursive'],
+        'heading': ['Poppins', 'Noto Sans Thai', 'sans-serif'],
+        'body': ['Montserrat', 'Noto Sans Thai', 'sans-serif'],
+        'accent': ['"Monotype Corsiva"', 'cursive'],
       },
 
       fontSize: {
         'h1': ['54px', { lineHeight: '1.2', fontWeight: '700' }],
         'h2': ['42px', { lineHeight: '1.3', fontWeight: '700' }],
         'h3': ['36px', { lineHeight: '1.3', fontWeight: '700' }],
-        'h4': ['24px', { lineHeight: '1.4', fontWeight: '500' }],
+        'h4': ['24px', { lineHeight: '1.4', fontWeight: '700' }],
+        'h5': ['20px', { lineHeight: '1.4', fontWeight: '700' }],
+        'h6': ['18px', { lineHeight: '1.5', fontWeight: '700' }],
         'body': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
         'body-sm': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
-        'label': ['12px', { lineHeight: '1.5', fontWeight: '500' }],
+        'label': ['12px', { lineHeight: '1.5', fontWeight: '600' }],
       },
 
       // Spacing System
       spacing: {
-        'xs': '4px',
-        'sm': '8px',
-        'md': '12px',
-        'lg': '16px',
-        'xl': '24px',
-        '2xl': '32px',
-        '3xl': '40px',
-        '4xl': '48px',
-        '5xl': '64px',
-        '6xl': '80px',
+        'space-1': '4px',
+        'space-2': '8px',
+        'space-3': '12px',
+        'space-4': '16px',
+        'space-5': '20px',
+        'space-6': '24px',
+        'space-8': '32px',
+        'space-10': '40px',
+        'space-12': '48px',
+        'space-16': '64px',
+        'space-20': '80px',
       },
 
       // Border Radius
       borderRadius: {
-        'none': '0',
-        'sm': '4px',
-        'md': '8px',
-        'lg': '12px',
-        'xl': '16px',
-        '2xl': '24px',
-        'full': '9999px',
+        'radius-sm': '10px',
+        'radius-md': '16px',
+        'radius-lg': '24px',
+        'radius-xl': '32px',
+        'radius-pill': '999px',
       },
 
-      // Box Shadows
+      // Box Shadows — Captain Maid Soft Shadows
       boxShadow: {
         'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
         'sm': '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
         'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
         'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
         'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
-        'card': '0 1px 3px rgba(0, 0, 0, 0.12)',
-        'card-hover': '0 10px 25px rgba(0, 0, 0, 0.15)',
+        'brand': '0 10px 30px rgba(0, 19, 96, 0.12)',
+        'brand-hover': '0 14px 34px rgba(0, 19, 96, 0.14)',
       },
 
       // Animations
@@ -89,9 +87,9 @@ const config: Config = {
         'fade-in': 'fadeIn 0.3s ease-in',
         'slide-up': 'slideUp 0.3s ease-out',
         'slide-down': 'slideDown 0.3s ease-out',
+        'scale': 'scaleIn 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'zoom': 'zoom 0.3s ease-out',
       },
 
       keyframes: {
@@ -107,22 +105,23 @@ const config: Config = {
           '0%': { transform: 'translateY(-10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
         bounceGentle: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-5px)' },
         },
         pulseSubtle: {
           '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '.8' },
-        },
-        zoom: {
-          '0%': { transform: 'scale(1)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { opacity: '0.8' },
         },
       },
 
       // Transitions
       transitionDuration: {
+        '180': '180ms',
         '200': '200ms',
         '300': '300ms',
         '400': '400ms',
