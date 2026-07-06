@@ -21,4 +21,5 @@ export { ShopCTA } from './ShopCta';
 
 // Utilities
 export { LanguageSelector } from './LanguageSelector';
+export { LanguageToggle } from './LanguageToggle';
 export { RetailerModal } from './RetailerModal';

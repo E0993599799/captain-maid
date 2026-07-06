@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Menu, X, ShoppingCart, Search, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
+import { LanguageToggle } from './LanguageToggle';
 
 /**
  * Enhanced Navigation component with top utility bar and main navigation
@@ -117,6 +118,11 @@ export const NavigationEnhanced = () => {
 
             {/* Right Actions */}
             <div className="flex items-center gap-3">
+              {/* Language Toggle */}
+              <div className="hidden md:block">
+                <LanguageToggle />
+              </div>
+
               {/* Heart / Wishlist */}
               <button className="hidden md:flex p-2 rounded-[16px] hover:bg-captain-soft transition-colors duration-180">
                 <Heart size={20} className="text-captain-text" />

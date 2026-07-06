@@ -5,7 +5,9 @@
     "bestSellers": "BEST SELLERS",
     "about": "ABOUT US",
     "blog": "BLOG",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "help": "Help",
+    "freeDelivery": "FREE Delivery on all orders!"
   },
   "hero": {
     "title": "Make Home Cleaning Easier",
@@ -61,6 +63,16 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "copyright": "© 2026 Captain Maid. All rights reserved",
-    "company": "Company"
+    "company": "Company",
+    "products": "Products",
+    "glassCleanser": "Glass Cleaner",
+    "bathroomCleaner": "Bathroom Cleaner",
+    "kitchenCleaner": "Kitchen Cleaner",
+    "floorCleaner": "Floor Cleaner",
+    "support": "Support & Legal",
+    "stayUpdated": "Stay Updated",
+    "newsletter": "Get exclusive offers and cleaning tips delivered to your inbox.",
+    "enterEmail": "Enter your email",
+    "subscribe": "Subscribe"
   }
 }
