@@ -40,6 +40,7 @@ export const NavigationEnhanced = () => {
     { id: 'essentials', labelKey: 'nav.essentials', href: '/products' },
     { id: 'best-sellers', labelKey: 'nav.bestSellers', href: '/products' },
     { id: 'about', labelKey: 'nav.about', href: '/about' },
+    { id: 'blog', labelKey: 'nav.blog', href: '/blog' },
   ];
 
   return (
