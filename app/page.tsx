@@ -7,7 +7,7 @@ import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
 import { Button } from '@/components/Button';
 import { FAQ } from '@/components/FAQ';
-import { ShopCTA } from '@/components/ShopCTA';
+import { ShopCTA } from '@/components/ShopCta';
 import { Footer } from '@/components/Footer';
 import { CAPTAIN_MAID_PRODUCTS } from '@/lib/products';
 
