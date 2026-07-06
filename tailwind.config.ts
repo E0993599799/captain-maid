@@ -19,6 +19,23 @@ const config: Config = {
           border: '#D9EAF6',     // subtle borders
           soft: '#EAF6FD',       // soft background
         },
+        // New Captain Maid Brand Colors (UXCam-inspired)
+        cm: {
+          // Primary Colors
+          'primary-blue': '#0057B8',      // Captain Blue (CTA, headline accent)
+          'navy': '#063A78',               // Deep Navy (headings, footer)
+          'fresh-green': '#21A85B',        // Fresh Green (nature, clean, eco)
+          'mint': '#E8F8EF',               // Soft Mint (light bg)
+          'sky-light': '#EAF5FF',          // Light Sky Blue (card backgrounds)
+          'sparkle': '#FFD84D',            // Sparkle Yellow (badges, promotion)
+
+          // Neutral
+          'text-primary': '#102033',
+          'text-secondary': '#506175',
+          'border-soft': '#DCEAF5',
+          'surface-light': '#F7FBFF',
+          'white': '#FFFFFF',
+        },
         // Semantic Colors
         semantic: {
           error: '#E53E3E',
@@ -97,6 +114,8 @@ const config: Config = {
         'scale': 'scaleIn 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'float': 'float 5s ease-in-out infinite',
+        'sparkle': 'sparkle 2.4s ease-in-out infinite',
       },
 
       keyframes: {
@@ -123,6 +142,14 @@ const config: Config = {
         pulseSubtle: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.8' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(-8px)' },
+          '50%': { transform: 'translateY(8px)' },
+        },
+        sparkle: {
+          '0%, 100%': { opacity: '0.35' },
+          '50%': { opacity: '1' },
         },
       },
 
