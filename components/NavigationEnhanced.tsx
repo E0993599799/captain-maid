@@ -27,10 +27,10 @@ export const NavigationEnhanced = () => {
   }, []);
 
   const menuItems = [
-    { label: 'SHOP', href: '#products' },
-    { label: 'ESSENTIALS', href: '#essentials' },
-    { label: 'BEST SELLERS', href: '#products' },
-    { label: 'ABOUT US', href: '#about' },
+    { id: 'shop', label: 'SHOP', href: '#products' },
+    { id: 'essentials', label: 'ESSENTIALS', href: '#essentials' },
+    { id: 'best-sellers', label: 'BEST SELLERS', href: '#products' },
+    { id: 'about', label: 'ABOUT US', href: '#about' },
   ];
 
   return (
@@ -82,7 +82,7 @@ export const NavigationEnhanced = () => {
             <div className="hidden md:flex items-center gap-8">
               {menuItems.map((item) => (
                 <Link
-                  key={item.href}
+                  key={item.id}
                   href={item.href}
                   className="text-sm font-medium text-[#222222] hover:text-[#02a6e3] transition-colors duration-200 tracking-wide"
                 >
@@ -143,7 +143,7 @@ export const NavigationEnhanced = () => {
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {menuItems.map((item) => (
                   <Link
-                    key={item.href}
+                    key={item.id}
                     href={item.href}
                     className="block px-3 py-2 rounded-md text-sm font-medium text-[#222222] hover:bg-slate-100 transition-colors"
                     onClick={() => setIsOpen(false)}

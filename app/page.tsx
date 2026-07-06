@@ -9,7 +9,6 @@ import { Button } from '@/components/Button';
 import { FAQ } from '@/components/FAQ';
 import { ShopCTA } from '@/components/ShopCTA';
 import { Footer } from '@/components/Footer';
-import { LanguageSelector } from '@/components/LanguageSelector';
 import { CAPTAIN_MAID_PRODUCTS } from '@/lib/products';
 
 // Use real product data from scraping (2026-07-06)
@@ -59,9 +58,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Language Selector */}
-      <LanguageSelector />
-
       {/* Navigation */}
       <NavigationEnhanced />
 
