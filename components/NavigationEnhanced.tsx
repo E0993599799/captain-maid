@@ -67,7 +67,7 @@ export const NavigationEnhanced = () => {
             <Link href="/" className="flex-shrink-0 flex items-center gap-3 group">
               <div className="relative h-10 w-10 md:h-12 md:w-12">
                 <Image
-                  src="/images/logos/captain-maid-logo.jpg"
+                  src="/images/logos/captain-maid-logo.webp"
                   alt="Captain Maid"
                   fill
                   className="object-contain rounded-lg"
