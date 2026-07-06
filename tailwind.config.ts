@@ -5,57 +5,47 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
-      // Color System - Blue Base
+      // Color System — Captain Maid Blue
       colors: {
-        'primary': {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
-        },
-        'blue': {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
-        },
-        'brand': {
-          primary: '#1d4ed8',   // Deep Blue
-          secondary: '#2563eb', // Bright Blue
-          accent: '#60a5fa',    // Light Blue
-          light: '#eff6ff',     // Background
-          dark: '#172554',      // Dark mode
+        brand: {
+          50: '#e8f7ff',
+          100: '#b0e4ff',
+          200: '#70cfff',
+          300: '#40b8f0',
+          400: '#20a0e0',
+          500: '#02a6e3',
+          600: '#0090c8',
+          700: '#1070b0',
+          800: '#2060a0',
+          900: '#001360',
+          950: '#000d40',
+          primary: '#02a6e3',
+          secondary: '#20a0e0',
+          accent: '#90d0f0',
+          light: '#b0d0f0',
+          dark: '#1070b0',
+          deep: '#2060a0',
+          text: '#001360',
+          muted: '#506090',
+          surface: '#f0f8ff',
         },
       },
 
-      // Typography
+      // Typography — MACC Essentials inspired
+      fontFamily: {
+        'sans': ['Montserrat', 'Noto Sans Thai', 'system-ui', 'sans-serif'],
+        'display': ['Poppins', 'Montserrat', 'system-ui', 'sans-serif'],
+        'script': ['"Monotype Corsiva"', 'cursive'],
+      },
+
       fontSize: {
-        'h1': ['48px', { lineHeight: '1.2', fontWeight: '700' }],
-        'h2': ['36px', { lineHeight: '1.3', fontWeight: '600' }],
-        'h3': ['24px', { lineHeight: '1.4', fontWeight: '600' }],
-        'h4': ['18px', { lineHeight: '1.5', fontWeight: '600' }],
+        'h1': ['54px', { lineHeight: '1.2', fontWeight: '700' }],
+        'h2': ['42px', { lineHeight: '1.3', fontWeight: '700' }],
+        'h3': ['36px', { lineHeight: '1.3', fontWeight: '700' }],
+        'h4': ['24px', { lineHeight: '1.4', fontWeight: '500' }],
         'body': ['16px', { lineHeight: '1.6', fontWeight: '400' }],
         'body-sm': ['14px', { lineHeight: '1.5', fontWeight: '400' }],
         'label': ['12px', { lineHeight: '1.5', fontWeight: '500' }],
-      },
-
-      fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'display': ['Inter', 'system-ui', 'sans-serif'],
       },
 
       // Spacing System

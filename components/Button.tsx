@@ -10,11 +10,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-blue-700 text-white hover:bg-blue-800 focus:ring-teal-500 shadow-md hover:shadow-lg active:scale-95',
+          'bg-[#02a6e3] text-white hover:bg-[#0090c8] focus:ring-[#90d0f0] shadow-md hover:shadow-lg active:scale-95',
         secondary:
-          'bg-blue-100 text-blue-700 hover:bg-blue-200 focus:ring-teal-500 dark:bg-blue-900 dark:text-blue-100',
+          'bg-[#b0d0f0] text-[#001360] hover:bg-[#90d0f0] focus:ring-[#90d0f0]',
         ghost:
-          'text-blue-700 hover:bg-blue-50 focus:ring-teal-500 dark:text-blue-400 dark:hover:bg-blue-900/30',
+          'text-[#001360] hover:bg-[#f0f8ff] focus:ring-[#90d0f0]',
       },
       size: {
         sm: 'h-9 px-3 text-sm gap-2',

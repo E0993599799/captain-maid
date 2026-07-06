@@ -31,7 +31,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-slate-900 dark:bg-slate-950 text-white pt-16 md:pt-24 pb-8">
+    <footer className="bg-[#001360] text-white pt-16 md:pt-24 pb-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
@@ -44,15 +44,15 @@ export const Footer = () => {
             <div className="flex items-center gap-3 mb-4">
               <div className="relative h-12 w-12">
                 <Image
-                  src="/images/logos/captain-maid-icon.webp"
+                  src="/images/logos/captain-maid-logo.jpg"
                   alt="Captain Maid"
                   fill
-                  className="object-contain"
+                  className="object-contain rounded-lg"
                 />
               </div>
-              <h3 className="font-bold text-lg">Captain Maid</h3>
+              <h3 className="font-script text-2xl text-white">Captain Maid</h3>
             </div>
-            <p className="text-slate-400 text-sm mb-6">
+            <p className="text-[#b0d0f0] text-sm mb-6">
               Premium cleaning solutions for modern homes. Made with nature-derived ingredients, safe for your family and pets.
             </p>
             <div className="flex gap-4">
@@ -60,7 +60,7 @@ export const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
+                className="p-2 rounded-lg bg-[#1070b0] hover:bg-[#02a6e3] transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
@@ -69,7 +69,7 @@ export const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
+                className="p-2 rounded-lg bg-[#1070b0] hover:bg-[#02a6e3] transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter size={20} />
@@ -78,7 +78,7 @@ export const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
+                className="p-2 rounded-lg bg-[#1070b0] hover:bg-[#02a6e3] transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
@@ -87,7 +87,7 @@ export const Footer = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
+                className="p-2 rounded-lg bg-[#1070b0] hover:bg-[#02a6e3] transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
@@ -102,31 +102,21 @@ export const Footer = () => {
             whileInView="visible"
           >
             <h4 className="font-bold text-lg mb-6">Products</h4>
-            <ul className="space-y-3 text-slate-400">
+            <ul className="space-y-3 text-[#b0d0f0]">
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-blue-400 transition-colors">
-                  Glass Cleaner
-                </a>
+                <a href="#products" className="hover:text-[#02a6e3] transition-colors">Glass Cleaner</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-blue-400 transition-colors">
-                  Bathroom Cleaner
-                </a>
+                <a href="#products" className="hover:text-[#02a6e3] transition-colors">Bathroom Cleaner</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-blue-400 transition-colors">
-                  Kitchen Cleaner
-                </a>
+                <a href="#products" className="hover:text-[#02a6e3] transition-colors">Kitchen Cleaner</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-blue-400 transition-colors">
-                  Floor Cleaner
-                </a>
+                <a href="#products" className="hover:text-[#02a6e3] transition-colors">Floor Cleaner</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#products" className="hover:text-blue-400 transition-colors">
-                  Drain Solutions
-                </a>
+                <a href="#products" className="hover:text-[#02a6e3] transition-colors">Drain Solutions</a>
               </motion.li>
             </ul>
           </motion.div>
@@ -138,31 +128,21 @@ export const Footer = () => {
             whileInView="visible"
           >
             <h4 className="font-bold text-lg mb-6">Company</h4>
-            <ul className="space-y-3 text-slate-400">
+            <ul className="space-y-3 text-[#b0d0f0]">
               <motion.li variants={linkVariants}>
-                <a href="#about" className="hover:text-blue-400 transition-colors">
-                  About Us
-                </a>
+                <a href="#about" className="hover:text-[#02a6e3] transition-colors">About Us</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#blog" className="hover:text-blue-400 transition-colors">
-                  Blog
-                </a>
+                <a href="#blog" className="hover:text-[#02a6e3] transition-colors">Blog</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#faq" className="hover:text-blue-400 transition-colors">
-                  FAQ
-                </a>
+                <a href="#faq" className="hover:text-[#02a6e3] transition-colors">FAQ</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#contact" className="hover:text-blue-400 transition-colors">
-                  Contact Us
-                </a>
+                <a href="#contact" className="hover:text-[#02a6e3] transition-colors">Contact Us</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-blue-400 transition-colors">
-                  Careers
-                </a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">Careers</a>
               </motion.li>
             </ul>
           </motion.div>
@@ -174,31 +154,21 @@ export const Footer = () => {
             whileInView="visible"
           >
             <h4 className="font-bold text-lg mb-6">Support & Legal</h4>
-            <ul className="space-y-3 text-slate-400">
+            <ul className="space-y-3 text-[#b0d0f0]">
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-blue-400 transition-colors">
-                  Shipping Info
-                </a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">Shipping Info</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-blue-400 transition-colors">
-                  Returns & Refunds
-                </a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">Returns & Refunds</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-blue-400 transition-colors">
-                  Privacy Policy
-                </a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">Privacy Policy</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-blue-400 transition-colors">
-                  Terms of Service
-                </a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">Terms of Service</a>
               </motion.li>
               <motion.li variants={linkVariants}>
-                <a href="#" className="hover:text-blue-400 transition-colors">
-                  Cookie Policy
-                </a>
+                <a href="#" className="hover:text-[#02a6e3] transition-colors">Cookie Policy</a>
               </motion.li>
             </ul>
           </motion.div>
@@ -209,7 +179,7 @@ export const Footer = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-12 md:mb-16 p-8 bg-gradient-to-r from-blue-700 to-blue-700 rounded-xl"
+          className="mb-12 md:mb-16 p-8 bg-gradient-to-r from-[#02a6e3] to-[#0090c8] rounded-xl"
         >
           <div className="max-w-md">
             <h4 className="font-bold text-lg mb-2">Stay Updated</h4>
@@ -222,7 +192,7 @@ export const Footer = () => {
               />
               <button
                 type="submit"
-                className="px-6 py-2 bg-white text-blue-700 font-semibold rounded-lg hover:bg-white/90 transition-colors"
+                className="px-6 py-2 bg-white text-[#001360] font-semibold rounded-lg hover:bg-white/90 transition-colors"
               >
                 Subscribe
               </button>
@@ -231,11 +201,11 @@ export const Footer = () => {
         </motion.div>
 
         {/* Divider */}
-        <div className="border-t border-slate-800 mb-8"></div>
+        <div className="border-t border-[#1070b0] mb-8"></div>
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-slate-400 text-sm text-center md:text-left">
+          <div className="text-[#b0d0f0] text-sm text-center md:text-left">
             <p>© 2026 ARIGEO, Inc. All rights reserved. | Made with ♥ for cleaner homes</p>
           </div>
 
@@ -251,7 +221,7 @@ export const Footer = () => {
             </div>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-lg bg-slate-800 hover:bg-blue-700 transition-colors"
+              className="p-2 rounded-lg bg-[#1070b0] hover:bg-[#02a6e3] transition-colors"
               aria-label="Scroll to top"
             >
               <ChevronUp size={20} />

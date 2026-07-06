@@ -49,7 +49,7 @@ export const ShopCTA = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-700 via-blue-600 to-blue-700">
+    <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#02a6e3] via-[#0090c8] to-[#1070b0]">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
@@ -67,7 +67,7 @@ export const ShopCTA = () => {
             <Button
               size="lg"
               variant="primary"
-              className="bg-white text-blue-700 hover:bg-white/90 border-0"
+              className="bg-white text-[#001360] hover:bg-white/90 border-0"
             >
               Shop Now
             </Button>

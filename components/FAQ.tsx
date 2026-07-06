@@ -78,10 +78,10 @@ export const FAQ = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-h2 md:text-h1 font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="text-h2 md:text-h1 font-bold text-[#001360] mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-body text-slate-600 dark:text-slate-400">
+          <p className="text-body text-[#506090]">
             Find answers to common questions about Captain Maid products
           </p>
         </motion.div>
@@ -108,7 +108,7 @@ export const FAQ = () => {
                   transition={{ duration: 0.3 }}
                   className="flex-shrink-0 ml-4"
                 >
-                  <ChevronDown className="text-blue-700 dark:text-blue-400" size={24} />
+                  <ChevronDown className="text-[#02a6e3]" size={24} />
                 </motion.div>
               </button>
 
@@ -134,22 +134,17 @@ export const FAQ = () => {
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 p-6 md:p-8 bg-gradient-to-r from-blue-50 to-blue-50 dark:from-slate-800 dark:to-slate-700 rounded-xl text-center"
-        >
-          <p className="text-slate-700 dark:text-slate-300 mb-4">
+        <div className="mt-12 p-6 md:p-8 bg-gradient-to-r from-[#b0d0f0] to-[#90d0f0] rounded-xl text-center">
+          <p className="text-[#001360] mb-4">
             Can't find your answer? We're here to help!
           </p>
           <a
             href="#contact"
-            className="inline-block px-6 py-3 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors font-semibold"
+            className="inline-block px-6 py-3 bg-[#02a6e3] text-white rounded-lg hover:bg-[#0090c8] transition-colors font-semibold"
           >
             Contact Support
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
