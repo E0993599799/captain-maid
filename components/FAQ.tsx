@@ -75,7 +75,8 @@ export const FAQ = () => {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
+          viewport={{ once: true, margin: '-100px' }}
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-h2 md:text-h1 font-bold text-[#001360] mb-4">
@@ -93,7 +94,8 @@ export const FAQ = () => {
               key={item.id}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+              transition={{ duration: 0.2, delay: index * 0.02 }}
+              viewport={{ once: true, margin: '-50px' }}
               className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-50 dark:bg-slate-800 hover:shadow-md transition-shadow"
             >
               <button

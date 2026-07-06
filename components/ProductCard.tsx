@@ -62,8 +62,10 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             src={image}
             alt={name}
             fill
-            className="object-cover group-hover:scale-110 transition-transform duration-300"
-            quality={95}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-200"
+            quality={85}
+            priority={featured}
           />
           {discount > 0 && (
             <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
