@@ -17,7 +17,7 @@ export { ProductCard } from './ProductCard';
 
 // Sections
 export { FAQ } from './FAQ';
-export { ShopCta } from './ShopCta';
+export { ShopCTA } from './ShopCta';
 
 // Utilities
 export { LanguageSelector } from './LanguageSelector';
