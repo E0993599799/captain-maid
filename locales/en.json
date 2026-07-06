@@ -74,5 +74,22 @@
     "newsletter": "Get exclusive offers and cleaning tips delivered to your inbox.",
     "enterEmail": "Enter your email",
     "subscribe": "Subscribe"
-  }
+  },
+  "footer.brand": "Captain Maid",
+  "footer.about": "About Us",
+  "footer.blog": "Blog",
+  "footer.faq": "FAQ",
+  "footer.contact": "Contact Us",
+  "footer.products": "Products",
+  "footer.glassCleanser": "Glass Cleaner",
+  "footer.bathroomCleaner": "Bathroom Cleaner",
+  "footer.kitchenCleaner": "Kitchen Cleaner",
+  "footer.floorCleaner": "Floor Cleaner",
+  "footer.company": "Company",
+  "footer.support": "Support",
+  "footer.stayUpdated": "Stay Updated",
+  "footer.newsletter": "Subscribe to our newsletter",
+  "footer.enterEmail": "Enter your email",
+  "footer.subscribe": "Subscribe",
+  "footer.copyright": "© 2026 Captain Maid. All rights reserved."
 }
