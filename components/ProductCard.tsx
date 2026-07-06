@@ -6,6 +6,7 @@ import { Star, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
 import { Button } from './Button';
+import { Badge } from './Badge';
 
 interface ProductCardProps {
   id: string;
@@ -21,8 +22,13 @@ interface ProductCardProps {
   reviewCount?: number;
   inStock?: boolean;
   featured?: boolean;
+  badge?: string;
 }
 
+/**
+ * Product card component with light blue surface and hover effects
+ * Features price, discount badge, rating, and CTA button
+ */
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
   (
     {
@@ -39,6 +45,7 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
       reviewCount = 0,
       inStock = true,
       featured = false,
+      badge,
     },
     ref
   ) => {
@@ -47,17 +54,19 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     const displayOriginalPrice = originalPriceThb || originalPrice;
     const currencySymbol = '฿';
 
-    const discount = displayOriginalPrice ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100) : 0;
+    const discount = displayOriginalPrice
+      ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100)
+      : 0;
 
     return (
       <div
         ref={ref}
-        className={`group flex flex-col rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 bg-white ${
+        className={`group flex flex-col rounded-[24px] overflow-hidden shadow-brand hover:shadow-brand-hover transition-all duration-180 bg-captain-light border border-captain-border hover:-translate-y-1 ${
           featured ? 'md:col-span-2 md:row-span-2' : ''
         }`}
       >
         {/* Image Container */}
-        <div className="relative h-64 md:h-80 overflow-hidden bg-[#f3f3f3]">
+        <div className="relative h-64 md:h-80 overflow-hidden bg-captain-soft">
           <Image
             src={image}
             alt={name}
@@ -68,13 +77,22 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
             priority={featured}
           />
           {discount > 0 && (
-            <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-              -{discount}%
+            <div className="absolute top-4 right-4">
+              <Badge variant="error" size="md">
+                -{discount}%
+              </Badge>
+            </div>
+          )}
+          {badge && (
+            <div className="absolute top-4 left-4">
+              <Badge variant="primary" size="md">
+                {badge}
+              </Badge>
             </div>
           )}
           {!inStock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <span className="text-white font-semibold">Out of Stock</span>
+              <span className="text-white font-semibold text-lg">Out of Stock</span>
             </div>
           )}
         </div>
@@ -82,17 +100,17 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
         {/* Content Container */}
         <div className="flex flex-col flex-1 p-4 md:p-6">
           {/* Category Badge */}
-          <span className="text-xs font-semibold text-[#1070b0] uppercase tracking-wide mb-2">
+          <span className="text-xs font-semibold text-captain-dark uppercase tracking-wide mb-2">
             {category}
           </span>
 
           {/* Product Name */}
-          <h3 className="text-lg md:text-xl font-semibold text-[#001360] mb-2 line-clamp-2 group-hover:text-[#02a6e3] transition-colors">
+          <h3 className="text-lg md:text-xl font-heading font-bold text-captain-text mb-2 line-clamp-2 group-hover:text-captain-primary transition-colors duration-180">
             {name}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-[#506090] mb-4 line-clamp-2 flex-grow">
+          <p className="text-sm text-captain-muted mb-4 line-clamp-2 flex-grow">
             {description}
           </p>
 
@@ -105,14 +123,14 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
                   size={16}
                   className={`${
                     i < Math.floor(rating)
-                      ? 'fill-[#02a6e3] text-[#02a6e3]'
-                      : 'text-slate-300'
+                      ? 'fill-captain-primary text-captain-primary'
+                      : 'text-captain-border'
                   }`}
                 />
               ))}
             </div>
             {reviewCount > 0 && (
-              <span className="text-xs text-[#506090]">
+              <span className="text-xs text-captain-muted">
                 ({reviewCount})
               </span>
             )}
@@ -120,21 +138,18 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* Pricing */}
           <div className="flex items-baseline gap-2 mb-6">
-            <span className="text-2xl md:text-3xl font-bold text-[#02a6e3]">
-              {currencySymbol}{Math.round(displayPrice)}
+            <span className="text-2xl md:text-3xl font-heading font-bold text-captain-primary">
+              {currencySymbol}{Math.round(displayPrice).toLocaleString()}
             </span>
             {displayOriginalPrice && (
-              <span className="text-sm text-[#506090] line-through">
-                {currencySymbol}{Math.round(displayOriginalPrice)}
+              <span className="text-sm text-captain-muted line-through">
+                {currencySymbol}{Math.round(displayOriginalPrice).toLocaleString()}
               </span>
             )}
           </div>
 
           {/* View Details Link */}
-          <Link
-            href={`/products/${id}`}
-            className="block"
-          >
+          <Link href={`/products/${id}`} className="block">
             <Button
               variant="primary"
               size="md"
@@ -143,7 +158,7 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
               iconPosition="right"
               className="w-full"
             >
-              {t('products.moreDetail')}
+              {t('products.moreDetail') || 'View Details'}
             </Button>
           </Link>
         </div>
@@ -153,3 +168,5 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 );
 
 ProductCard.displayName = 'ProductCard';
+
+export { ProductCard };

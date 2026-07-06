@@ -47,6 +47,13 @@ const config: Config = {
         'label': ['12px', { lineHeight: '1.5', fontWeight: '600' }],
       },
 
+      // Height System - for buttons and form inputs
+      height: {
+        '11': '44px',  // md button height
+        '13': '52px',  // lg button height
+        '15': '60px',  // xl button height
+      },
+
       // Spacing System
       spacing: {
         'space-1': '4px',
