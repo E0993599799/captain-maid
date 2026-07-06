@@ -3,19 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ShoppingCart, Moon, Sun, Search, Heart } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Menu, X, ShoppingCart, Search, Heart } from 'lucide-react';
 
 export const NavigationEnhanced = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartCount] = useState(0);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,21 +90,6 @@ export const NavigationEnhanced = () => {
               <button className="hidden md:flex p-2 rounded-lg hover:bg-slate-100 transition-colors">
                 <Heart size={20} className="text-[#222222]" />
               </button>
-
-              {/* Theme Toggle */}
-              {mounted && (
-                <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
-                  aria-label="Toggle theme"
-                >
-                  {theme === 'dark' ? (
-                    <Sun size={20} className="text-yellow-500" />
-                  ) : (
-                    <Moon size={20} className="text-[#222222]" />
-                  )}
-                </button>
-              )}
 
               {/* Shopping Cart — MACC badge style */}
               <button className="relative p-2 rounded-lg hover:bg-slate-100 transition-colors">
