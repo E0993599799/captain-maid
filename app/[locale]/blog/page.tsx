@@ -4,39 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
 import { Calendar } from 'lucide-react';
-
-const blogPosts = [
-  {
-    id: 1,
-    title: 'How to Clean Every Surface in Your Home',
-    slug: 'clean-every-surface',
-    excerpt: 'Learn the best techniques for cleaning different surfaces safely and effectively.',
-    author: 'Captain Maid',
-    date: '2026-07-01',
-    readTime: '5 min read',
-    image: '/images/logos/captain-maid-logo.jpg',
-  },
-  {
-    id: 2,
-    title: 'Natural Cleaning Products: Why They Matter',
-    slug: 'natural-cleaning-products',
-    excerpt: 'Discover why natural ingredients are better for your home and family.',
-    author: 'Captain Maid',
-    date: '2026-06-25',
-    readTime: '7 min read',
-    image: '/images/logos/captain-maid-logo.jpg',
-  },
-  {
-    id: 3,
-    title: 'Pet-Friendly Cleaning Solutions',
-    slug: 'pet-friendly-solutions',
-    excerpt: 'Safe cleaning tips for homes with cats and dogs.',
-    author: 'Captain Maid',
-    date: '2026-06-18',
-    readTime: '6 min read',
-    image: '/images/logos/captain-maid-logo.jpg',
-  },
-];
+import { blogPosts } from '@/lib/blog-posts';
 
 export default function BlogPage() {
   const t = useTranslations();
@@ -79,7 +47,7 @@ export default function BlogPage() {
                 {/* Image */}
                 <div className="relative h-48 bg-[#B0D0F0] group-hover:bg-[#90D0F0] transition-colors">
                   <img
-                    src={post.image}
+                    src="/images/logos/captain-maid-logo.jpg"
                     alt={post.title}
                     className="w-full h-full object-cover"
                   />
@@ -99,7 +67,7 @@ export default function BlogPage() {
                   <div className="flex items-center gap-4 text-xs text-[#506090] border-t border-[#D9EAF6] pt-4">
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
-                      {new Date(post.date).toLocaleDateString()}
+                      {new Date(post.date).toLocaleDateString('th-TH')}
                     </div>
                     <span>{post.readTime}</span>
                   </div>
