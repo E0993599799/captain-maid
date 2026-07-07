@@ -7,17 +7,17 @@ const config: Config = {
     extend: {
       // Color System — Captain Maid Brand Palette
       colors: {
-        // Captain Maid Core Colors
+        // Captain Maid Core Colors (Updated - Blue tone, improved contrast)
         captain: {
-          primary: '#02A6E3',    // main aqua / logo background
-          accent: '#90D0F0',     // soft blue surface
-          light: '#B0D0F0',      // pale card / section blue
-          dark: '#1070B0',       // hover / deeper blue
-          text: '#001360',       // deep navy text
-          muted: '#506090',      // secondary text
+          primary: '#0066CC',    // vibrant captain blue (CTA, primary actions)
+          accent: '#5B9FFF',     // bright sky blue (hover states, accents)
+          light: '#E3F2FD',      // pale sky blue (card backgrounds, light surfaces)
+          dark: '#003D99',       // deep navy blue (headings, footer, dark states)
+          text: '#0A1E4D',       // dark blue text (excellent contrast on white)
+          muted: '#5B7FA6',      // muted blue-gray (secondary text, hints)
           white: '#FFFFFF',      // white highlights
-          border: '#D9EAF6',     // subtle borders
-          soft: '#EAF6FD',       // soft background
+          border: '#B3D9FF',     // soft blue borders (subtle division lines)
+          soft: '#F0F7FF',       // very soft blue background (light sections)
         },
         // New Captain Maid Brand Colors (UXCam-inspired)
         cm: {
