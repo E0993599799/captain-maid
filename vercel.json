@@ -3,5 +3,6 @@
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "installCommand": "npm install --legacy-peer-deps"
 }
