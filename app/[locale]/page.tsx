@@ -3,10 +3,10 @@
 import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/navigation';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
-import { Button } from '@/components/Button';
 import { FAQ } from '@/components/FAQ';
 import { ShopCTA } from '@/components/ShopCta';
 import { Footer } from '@/components/Footer';
@@ -111,9 +111,12 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center mt-12">
-            <Button href="/products" variant="primary">
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center px-8 py-3 font-semibold rounded-lg bg-[#00A3E0] text-white hover:bg-[#0080A3] transition-colors"
+            >
               {t('products.viewAll') || 'View All Products'}
-            </Button>
+            </Link>
           </div>
         </div>
       </section>
