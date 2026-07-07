@@ -7,34 +7,31 @@ const config: Config = {
     extend: {
       // Color System — Captain Maid Brand Palette
       colors: {
-        // Captain Maid Core Colors (Updated - Blue tone, improved contrast)
+        // Captain Maid Core Colors (Mapped to CSS Variables for Dark Mode support)
         captain: {
-          primary: '#0066CC',    // vibrant captain blue (CTA, primary actions)
-          accent: '#5B9FFF',     // bright sky blue (hover states, accents)
-          light: '#E3F2FD',      // pale sky blue (card backgrounds, light surfaces)
-          dark: '#003D99',       // deep navy blue (headings, footer, dark states)
-          text: '#0A1E4D',       // dark blue text (excellent contrast on white)
-          muted: '#5B7FA6',      // muted blue-gray (secondary text, hints)
-          white: '#FFFFFF',      // white highlights
-          border: '#B3D9FF',     // soft blue borders (subtle division lines)
-          soft: '#F0F7FF',       // very soft blue background (light sections)
+          primary: 'var(--cm-primary)',
+          accent: 'var(--cm-accent)',
+          light: 'var(--cm-light)',
+          dark: 'var(--cm-dark)',
+          text: 'var(--cm-text)',
+          muted: 'var(--cm-muted)',
+          white: 'var(--cm-white)',
+          border: 'var(--cm-border)',
+          soft: 'var(--cm-soft)',
         },
-        // New Captain Maid Brand Colors (UXCam-inspired)
+        // New Captain Maid Brand Colors
         cm: {
-          // Primary Colors
-          'primary-blue': '#0057B8',      // Captain Blue (CTA, headline accent)
-          'navy': '#063A78',               // Deep Navy (headings, footer)
-          'fresh-green': '#21A85B',        // Fresh Green (nature, clean, eco)
-          'mint': '#E8F8EF',               // Soft Mint (light bg)
-          'sky-light': '#EAF5FF',          // Light Sky Blue (card backgrounds)
-          'sparkle': '#FFD84D',            // Sparkle Yellow (badges, promotion)
-
-          // Neutral
-          'text-primary': '#102033',
-          'text-secondary': '#506175',
-          'border-soft': '#DCEAF5',
-          'surface-light': '#F7FBFF',
-          'white': '#FFFFFF',
+          'primary-blue': 'var(--cm-primary-blue)',
+          'navy': 'var(--cm-navy)',
+          'fresh-green': 'var(--cm-fresh-green)',
+          'mint': 'var(--cm-mint)',
+          'sky-light': 'var(--cm-sky-light)',
+          'sparkle': 'var(--cm-sparkle)',
+          'text-primary': 'var(--cm-text-primary)',
+          'text-secondary': 'var(--cm-text-secondary)',
+          'border-soft': 'var(--cm-border-soft)',
+          'surface-light': 'var(--cm-surface-light)',
+          'white': 'var(--cm-white)',
         },
         // Semantic Colors
         semantic: {

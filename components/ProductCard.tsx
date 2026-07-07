@@ -49,7 +49,7 @@ export function ProductCard(props: ProductCardProps) {
   const badgeLabels = product ? [product.filters.scent, ...product.filters.need.slice(0, 2)] : [props.badge].filter(Boolean) as string[];
 
   return (
-    <article className={`overflow-hidden rounded-3xl border border-captain-border bg-white shadow-brand transition hover:-translate-y-1 hover:shadow-brand-hover ${props.className ?? ''}`}>
+    <article className={`overflow-hidden rounded-3xl border border-captain-border bg-captain-white shadow-brand transition hover:-translate-y-1 hover:shadow-brand-hover ${props.className ?? ''}`}>
       <Link
         href={href}
         onClick={() => trackEvent('click_product_card', { slug: slugOrId, product_name: name })}
@@ -59,7 +59,7 @@ export function ProductCard(props: ProductCardProps) {
           <Image src={image} alt={imageAlt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
           <div className="absolute left-3 top-3 flex flex-wrap gap-2 pr-3">
             <span className="rounded-full bg-captain-primary px-3 py-1 text-xs font-semibold text-white">{category}</span>
-            {status ? <span className="rounded-full bg-white/95 px-3 py-1 text-xs font-semibold text-captain-text">{status}</span> : null}
+            {status ? <span className="rounded-full bg-captain-white/95 px-3 py-1 text-xs font-semibold text-captain-text">{status}</span> : null}
           </div>
         </div>
       </Link>

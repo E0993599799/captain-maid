@@ -43,7 +43,7 @@ export const HeroEnhanced = () => {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-captain-soft via-white to-captain-light min-h-screen flex items-center">
+    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-captain-soft via-captain-white to-captain-light min-h-screen flex items-center">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -122,7 +122,7 @@ export const HeroEnhanced = () => {
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-3 text-left p-3 rounded-lg bg-white/70 backdrop-blur-sm hover:bg-white/80 transition-colors"
+                  className="flex items-center gap-3 text-left p-3 rounded-lg bg-captain-soft/50 backdrop-blur-sm hover:bg-captain-soft/80 transition-colors border border-captain-border/30"
                 >
                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-captain-primary flex items-center justify-center flex-shrink-0">
                     <Check size={16} className="text-white" />

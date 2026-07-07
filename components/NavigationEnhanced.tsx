@@ -75,8 +75,8 @@ export const NavigationEnhanced = () => {
       <nav
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-md'
-            : 'bg-white border-b border-captain-border'
+            ? 'bg-captain-white/95 backdrop-blur-md shadow-md'
+            : 'bg-captain-white border-b border-captain-border'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

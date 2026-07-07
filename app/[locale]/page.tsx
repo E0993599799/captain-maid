@@ -37,11 +37,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-captain-white">
       <NavigationEnhanced />
       <HeroEnhanced />
 
-      <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-[#EAF6FD]">
+      <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-captain-white to-captain-soft">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -6,15 +6,15 @@
 
 :root {
   /* Captain Maid Core Colors */
-  --cm-primary: #02A6E3;
-  --cm-accent: #90D0F0;
-  --cm-light: #B0D0F0;
-  --cm-dark: #1070B0;
-  --cm-text: #000B2B;
-  --cm-muted: #1E3A5F;
+  --cm-primary: #0066CC;
+  --cm-accent: #5B9FFF;
+  --cm-light: #E3F2FD;
+  --cm-dark: #003D99;
+  --cm-text: #0A1E4D;
+  --cm-muted: #5B7FA6;
   --cm-white: #FFFFFF;
-  --cm-border: #D9EAF6;
-  --cm-soft: #EAF6FD;
+  --cm-border: #B3D9FF;
+  --cm-soft: #F0F7FF;
   --cm-shadow: rgba(0, 19, 96, 0.12);
 
   /* New UXCam-inspired Colors */
