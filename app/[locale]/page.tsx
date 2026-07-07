@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { Leaf, Sparkles, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
@@ -11,7 +13,6 @@ import { FAQ } from '@/components/FAQ';
 import { ShopCTA } from '@/components/ShopCta';
 import { Footer } from '@/components/Footer';
 import { CAPTAIN_MAID_PRODUCTS } from '@/lib/products';
-
 // Use real product data from scraping (2026-07-06)
 const PRODUCTS = CAPTAIN_MAID_PRODUCTS;
 
