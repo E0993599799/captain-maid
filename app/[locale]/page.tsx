@@ -14,40 +14,32 @@ import { CAPTAIN_MAID_PRODUCTS } from '@/lib/products';
 
 const PRODUCTS = CAPTAIN_MAID_PRODUCTS;
 
-const FEATURES = [
-  {
-    icon: Leaf,
-    titleKey: 'Natural Ingredients',
-    descriptionKey: 'Eco-friendly formula with plant-based components',
-  },
-  {
-    icon: Sparkles,
-    titleKey: 'Powerful Cleaning',
-    descriptionKey: 'Advanced encapsulation technology for deep clean',
-  },
-  {
-    icon: Heart,
-    titleKey: 'Family Safe',
-    descriptionKey: 'Non-toxic and dermatologist tested',
-  },
-];
-
 export default function Home() {
-  let t;
-  try {
-    t = useTranslations();
-  } catch (error) {
-    console.error('Failed to get translations:', error);
-    // Fallback if translations fail
-    t = (key: string) => key;
-  }
+  const t = useTranslations();
+
+  const FEATURES = [
+    {
+      icon: Leaf,
+      title: 'Natural Ingredients',
+      description: 'Eco-friendly formula with plant-based components',
+    },
+    {
+      icon: Sparkles,
+      title: 'Powerful Cleaning',
+      description: 'Advanced encapsulation technology for deep clean',
+    },
+    {
+      icon: Heart,
+      title: 'Family Safe',
+      description: 'Non-toxic and dermatologist tested',
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
       <NavigationEnhanced />
       <HeroEnhanced />
 
-      {/* Features Section */}
       <section className="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-[#EAF6FD]">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -79,9 +71,9 @@ export default function Home() {
                     <Icon className="w-16 h-16 text-[#00A3E0]" />
                   </div>
                   <h3 className="text-xl font-bold text-[#001360] mb-2">
-                    {feature.titleKey}
+                    {feature.title}
                   </h3>
-                  <p className="text-[#506090]">{feature.descriptionKey}</p>
+                  <p className="text-[#506090]">{feature.description}</p>
                 </motion.div>
               );
             })}
@@ -89,7 +81,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Products Section */}
       <section className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -121,7 +112,7 @@ export default function Home() {
 
           <div className="flex justify-center mt-12">
             <Button href="/products" variant="primary">
-              View All Products
+              {t('products.viewAll') || 'View All Products'}
             </Button>
           </div>
         </div>
