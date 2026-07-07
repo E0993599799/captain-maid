@@ -1,7 +1,5 @@
-export const dynamic = "force-dynamic";
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import '@/app/globals.css';
 import { i18n } from '@/i18n.config';
 
@@ -19,10 +17,8 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
-    title: t('title') || 'Captain Maid - Premium Home Cleaning Products',
-    description:
-      t('description') ||
-      'Professional-grade cleaning products. Eco-friendly, family-safe, dermatologist tested.',
+    title: t('title'),
+    description: t('description'),
     metadataBase: new URL('https://captain-maid.vercel.app'),
   };
 }
@@ -36,7 +32,6 @@ export default async function LocaleLayout({
   params,
 }: Props) {
   const { locale } = await params;
-  unstable_setRequestLocale(locale);
 
   return (
     <html lang={locale}>
