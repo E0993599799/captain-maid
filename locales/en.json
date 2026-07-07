@@ -1,95 +1,563 @@
 {
-  "nav": {
-    "shop": "SHOP",
-    "essentials": "ESSENTIALS",
-    "bestSellers": "BEST SELLERS",
-    "about": "ABOUT US",
-    "blog": "BLOG",
-    "contact": "CONTACT",
-    "help": "Help",
-    "freeDelivery": "FREE Delivery on all orders!"
+  "metadata": {
+    "siteTitle": "Captain Maid - Premium Natural Cleaning Products",
+    "siteDescription": "Premium cleaning products made from natural ingredients. Clean better, live better.",
+    "keywords": "cleaning products, natural, safe, family, home, house cleaning",
+    "author": "Captain Maid Thailand",
+    "language": "en",
+    "charset": "UTF-8",
+    "viewport": "width=device-width, initial-scale=1"
+  },
+  "header": {
+    "logo": "Captain Maid",
+    "tagline": "Clean Smart",
+    "searchPlaceholder": "Search products...",
+    "cartIcon": "Cart",
+    "accountIcon": "Account",
+    "helpIcon": "Help"
+  },
+  "navigation": {
+    "main": {
+      "home": "Home",
+      "shop": "Shop",
+      "essentials": "Essentials",
+      "bestSellers": "Best Sellers",
+      "newArrivals": "New Arrivals",
+      "aboutUs": "About Us",
+      "blog": "Blog",
+      "contact": "Contact Us",
+      "faq": "FAQ",
+      "help": "Help"
+    },
+    "secondary": {
+      "trackOrder": "Track Order",
+      "returnPolicy": "Return Policy",
+      "warranty": "Warranty",
+      "shippingInfo": "Shipping Info"
+    },
+    "banner": {
+      "freeDelivery": "Free Delivery on all orders!",
+      "offer": "Save up to 20% with membership",
+      "contact": "Contact us: 1800-CAPTAIN"
+    }
   },
   "hero": {
-    "title": "Make Home Cleaning Easier",
-    "subtitle": "Premium cleaning products made from natural ingredients. Clean better, live better.",
-    "cta1": "Shop Now",
-    "cta2": "Learn More"
+    "mainHeading": "Make Home Cleaning Easier",
+    "subHeading": "Premium cleaning products made from natural ingredients",
+    "description": "Clean better, live better with safe family-friendly cleaning technology",
+    "ctaPrimary": "Shop Now",
+    "ctaSecondary": "Learn More",
+    "heroImageAlt": "Captain Maid Cleaning Products"
+  },
+  "features": {
+    "sectionTitle": "Why Choose Captain Maid",
+    "sectionSubtitle": "We combine natural ingredients with modern cleaning technology to deliver the best cleaning results",
+    "items": {
+      "natural": {
+        "title": "100% Natural Ingredients",
+        "description": "Eco-friendly formula with diverse plant-based components",
+        "benefits": [
+          "Won't dry skin",
+          "Safe for kids and pets",
+          "Biodegradable"
+        ]
+      },
+      "powerful": {
+        "title": "Powerful Cleaning",
+        "description": "Advanced coating technology for deep cleaning",
+        "benefits": [
+          "Removes stubborn stains easily",
+          "Long-term surface protection",
+          "50% reduction in friction"
+        ]
+      },
+      "safe": {
+        "title": "Safe for Family",
+        "description": "Gentle on kids and pets, dermatologist tested",
+        "benefits": [
+          "DERMATOLOGIST tested",
+          "No harmful chemicals",
+          "Health certified"
+        ]
+      },
+      "sustainable": {
+        "title": "Eco-Friendly",
+        "description": "100% recyclable packaging",
+        "benefits": [
+          "Reduce plastic waste",
+          "Low carbon production",
+          "Supports environmental education"
+        ]
+      }
+    }
   },
   "products": {
-    "title": "Featured Products",
-    "subtitle": "Discover our complete line of premium cleaning products",
+    "sectionTitle": "Featured Products",
+    "sectionSubtitle": "Discover our complete line of premium cleaning products",
     "viewAll": "View All Products",
-    "moreDetail": "More Detail",
-    "inStock": "In Stock",
-    "outOfStock": "Out of Stock"
+    "filterBy": "Filter By",
+    "sortBy": "Sort By",
+    "priceRange": "Price Range",
+    "category": "Category",
+    "items": {
+      "floralPassionate": {
+        "name": "Floral Passionate",
+        "sku": "SKU: 1313735",
+        "description": "Gentle floral cleaning solution",
+        "shortDesc": "Sweet floral formula",
+        "price": "฿76.63",
+        "originalPrice": "฿99.99",
+        "discount": "23%",
+        "rating": "4.8",
+        "reviews": "1,234",
+        "inStock": "In Stock",
+        "quantity": "500 ml",
+        "ingredients": "Water, natural surfactants, rose oil, diverse floral blend",
+        "usage": "For floor, wall, and general surface cleaning",
+        "directions": "Mix 1 part with 4 parts water. Use with damp cloth",
+        "precautions": "If in eyes, rinse with water. If ingested, contact poison control",
+        "properties": [
+          "Natural floral aroma",
+          "Concentrated formula saves money",
+          "Multi-purpose use"
+        ],
+        "specifications": {
+          "size": "500 ml",
+          "weight": "550 grams",
+          "height": "20 cm",
+          "width": "8 cm",
+          "depth": "8 cm",
+          "shelfLife": "24 months",
+          "origin": "Made in Thailand"
+        },
+        "addToCart": "Add to Cart",
+        "buyNow": "Buy Now",
+        "moreDetails": "View More Details",
+        "relatedProducts": "Related Products"
+      },
+      "lavenderKerry": {
+        "name": "Lavender Kerry",
+        "sku": "SKU: 1313729",
+        "description": "Calming lavender cleaning solution",
+        "shortDesc": "Soothing lavender formula",
+        "price": "฿76.63",
+        "originalPrice": "฿99.99",
+        "discount": "23%",
+        "rating": "4.9",
+        "reviews": "2,156",
+        "inStock": "In Stock",
+        "quantity": "500 ml",
+        "ingredients": "Water, natural surfactants, French lavender oil, plant protein",
+        "usage": "For general cleaning and dry cleaning",
+        "directions": "Use directly 2-3 drops per surface. Dampen with water and wipe",
+        "precautions": "If uncomfortable, stop use and rinse thoroughly",
+        "properties": [
+          "Pure lavender scent",
+          "Calming and soothing properties",
+          "Suitable for sensitive skin"
+        ],
+        "specifications": {
+          "size": "500 ml",
+          "weight": "550 grams",
+          "height": "20 cm",
+          "width": "8 cm",
+          "depth": "8 cm",
+          "shelfLife": "24 months",
+          "origin": "Made in Thailand"
+        }
+      },
+      "teaTreeFlash": {
+        "name": "Tea Tree Flash",
+        "sku": "SKU: 1313716",
+        "description": "Powerful green tea cleaning solution",
+        "shortDesc": "Strongest formula for tough stains",
+        "price": "฿76.63",
+        "originalPrice": "฿99.99",
+        "discount": "23%",
+        "rating": "4.7",
+        "reviews": "1,987",
+        "inStock": "In Stock",
+        "quantity": "500 ml",
+        "ingredients": "Water, natural surfactants, green tea oil, natural disinfectant",
+        "usage": "For warm cleaning, kitchen, and bacteria-related stains",
+        "directions": "Mix 1 part with 3 parts water. Use undiluted for heavy stains",
+        "precautions": "Test for color fastness before using on delicate surfaces",
+        "properties": [
+          "Kills 99.9% bacteria",
+          "Deep cleaning",
+          "Fresh green tea scent"
+        ],
+        "specifications": {
+          "size": "500 ml",
+          "weight": "550 grams",
+          "height": "20 cm",
+          "width": "8 cm",
+          "depth": "8 cm",
+          "shelfLife": "24 months",
+          "origin": "Made in Thailand"
+        }
+      }
+    }
   },
-  "productDetail": {
-    "price": "Price",
-    "stock": "Stock",
-    "description": "Description",
-    "properties": "Key Benefits",
-    "usage": "Usage",
-    "directions": "Directions",
-    "precautions": "Precautions",
-    "specifications": "Specifications",
-    "size": "Size",
-    "weight": "Weight",
-    "height": "Height",
-    "width": "Width",
-    "depth": "Depth",
-    "backToProducts": "Back to Products"
+  "productCategories": {
+    "allProducts": "All Products",
+    "floorCleaners": "Floor Cleaners",
+    "kitchenCleaners": "Kitchen Cleaners",
+    "bathroomCleaners": "Bathroom Cleaners",
+    "glassCleaners": "Glass Cleaners",
+    "laundryDetergent": "Laundry Detergent",
+    "disinfectants": "Disinfectants",
+    "airFresheners": "Air Fresheners",
+    "specialOffers": "Special Offers"
+  },
+  "trust": {
+    "sectionTitle": "Trusted by 2,500+ Families",
+    "rating": "4.8 stars from 1,000+ reviews",
+    "cta": "Join Our Community",
+    "testimonials": {
+      "testimonial1": {
+        "text": "Great products, safe for children, reasonable price. Love them!",
+        "author": "Somying",
+        "location": "Bangkok",
+        "rating": "5"
+      },
+      "testimonial2": {
+        "text": "Cleans well and doesn't dry skin. Will definitely buy again.",
+        "author": "Wichai",
+        "location": "Chiang Mai",
+        "rating": "5"
+      },
+      "testimonial3": {
+        "text": "Thank you Captain Maid. Our home smells fresh and clean.",
+        "author": "Nan",
+        "location": "Chon Buri",
+        "rating": "4"
+      },
+      "testimonial4": {
+        "text": "Used for 2 months and see real results. Don't need to clean cloths often.",
+        "author": "Sawat",
+        "location": "Lopburi",
+        "rating": "5"
+      }
+    },
+    "socialProof": {
+      "totalCustomers": "2,500+ Happy Customers",
+      "totalReviews": "1,000+ Genuine Reviews",
+      "averageRating": "4.8 Stars",
+      "repeatCustomers": "80% Repeat Customers"
+    }
   },
   "shop": {
-    "title": "Ready to Clean Smarter?",
-    "freeShip": "Free Shipping",
-    "secure": "Secure Checkout",
-    "guarantee": "Money-Back Guarantee",
-    "easy": "Easy Returns",
-    "partners": "Also Available at"
+    "sectionTitle": "Ready to Clean Smart?",
+    "sectionSubtitle": "Join thousands of customers who switched to Captain Maid and experienced the difference of natural, effective cleaning",
+    "shopButton": "Visit Shop",
+    "learnButton": "Learn More",
+    "benefits": {
+      "freeShipping": {
+        "title": "Free Shipping",
+        "subtitle": "On All Orders",
+        "description": "We deliver your products safely without additional shipping costs"
+      },
+      "secureCheckout": {
+        "title": "Secure Payment",
+        "subtitle": "100% Safe Transactions",
+        "description": "Your payment information is encrypted and protected with latest technology"
+      },
+      "moneyBack": {
+        "title": "Money-Back Guarantee",
+        "subtitle": "30-Day Satisfaction Guarantee",
+        "description": "Not satisfied? Full refund in 30 days, no questions asked"
+      },
+      "easyReturns": {
+        "title": "Easy Returns",
+        "subtitle": "Hassle-Free Process",
+        "description": "Need to return? Just contact us, we handle everything"
+      }
+    },
+    "partners": {
+      "title": "Also Available at",
+      "shopee": "Shopee Thailand",
+      "lazada": "Lazada Thailand",
+      "tiktok": "TikTok Shop Thailand",
+      "homepro": "HomePro Thailand"
+    }
   },
   "blog": {
-    "title": "Captain Maid Blog",
-    "subtitle": "Tips, tricks, and insights for keeping your home clean naturally.",
-    "readMore": "Read More"
+    "sectionTitle": "Captain Maid Blog",
+    "sectionSubtitle": "Tips and insights about cleaning",
+    "readMore": "Read More",
+    "category": "Category",
+    "tags": "Tags",
+    "postedBy": "Posted by",
+    "on": "on",
+    "relatedPosts": "Related Posts",
+    "posts": {
+      "post1": {
+        "title": "5 Ways to Clean Your Bathroom with Natural Ingredients",
+        "excerpt": "Learn how to clean your bathroom naturally and safely with natural ingredients",
+        "author": "Paññā",
+        "date": "July 5, 2026",
+        "category": "Tips",
+        "tags": ["bathroom", "natural", "budget"],
+        "content": "The bathroom is important for family hygiene...",
+        "image": "bathroom-cleaning.jpg"
+      },
+      "post2": {
+        "title": "Money and Energy Saving Cleaning Tips",
+        "excerpt": "Discover cleaning methods that save both money and the environment",
+        "author": "Witthaya",
+        "date": "July 3, 2026",
+        "category": "Environment",
+        "tags": ["savings", "environment", "tips"],
+        "content": "In today's world, saving resources is important...",
+        "image": "save-water.jpg"
+      },
+      "post3": {
+        "title": "Gentle Cleaning Formulas for Sensitive Skin",
+        "excerpt": "Safe and gentle cleaning methods for children",
+        "author": "Dr. Suchat",
+        "date": "July 1, 2026",
+        "category": "Health",
+        "tags": ["children", "skin", "safe"],
+        "content": "Children's skin is delicate and needs special care...",
+        "image": "gentle-cleaning.jpg"
+      }
+    }
+  },
+  "faq": {
+    "sectionTitle": "Frequently Asked Questions",
+    "sectionSubtitle": "Find answers to common questions about Captain Maid products",
+    "contactSupport": "Contact Support",
+    "questions": [
+      {
+        "q": "Are Captain Maid products safe for children?",
+        "a": "Yes, all our products have been tested for safety and are suitable for use in homes with children. However, they should be kept away from children and pets."
+      },
+      {
+        "q": "How do I use this product?",
+        "a": "Follow the instructions on the product label. All our products come with clear instructions and details, or you can check the product page on our website."
+      },
+      {
+        "q": "Do you offer free shipping?",
+        "a": "Yes, we offer free shipping on all orders. There are no additional shipping costs."
+      },
+      {
+        "q": "What is your return policy?",
+        "a": "We offer a 30-day satisfaction guarantee. If you're not satisfied, we'll refund 100% with no questions asked."
+      },
+      {
+        "q": "How long is the shelf life?",
+        "a": "Most products have a shelf life of 24 months from the manufacturing date. Please check the date on the packaging."
+      },
+      {
+        "q": "What is the product weight?",
+        "a": "Weight varies depending on the product. Please check the product details for weight information."
+      },
+      {
+        "q": "Can I buy in bulk (wholesale)?",
+        "a": "Yes, we offer discounts for bulk orders. Please contact our sales team."
+      },
+      {
+        "q": "Is the product safe for pets?",
+        "a": "Our products are safe for pets, but should be used carefully and not ingested by pets."
+      },
+      {
+        "q": "Are there certifications from Thai health authorities?",
+        "a": "Yes, our products are certified by the Thai FDA and other relevant agencies."
+      },
+      {
+        "q": "How many package sizes are available?",
+        "a": "Standard size is 500 ml. We may offer other sizes in the future. Stay tuned for updates."
+      }
+    ]
   },
   "footer": {
-    "brand": "Premium cleaning products for modern homes",
-    "about": "About Us",
-    "blog": "Blog",
-    "faq": "FAQ",
-    "contact": "Contact Us",
-    "shipping": "Shipping Info",
-    "returns": "Returns & Refunds",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
-    "copyright": "© 2026 Captain Maid. All rights reserved",
-    "company": "Company",
-    "products": "Products",
-    "glassCleanser": "Glass Cleaner",
-    "bathroomCleaner": "Bathroom Cleaner",
-    "kitchenCleaner": "Kitchen Cleaner",
-    "floorCleaner": "Floor Cleaner",
-    "support": "Support & Legal",
-    "stayUpdated": "Stay Updated",
-    "newsletter": "Get exclusive offers and cleaning tips delivered to your inbox.",
-    "enterEmail": "Enter your email",
-    "subscribe": "Subscribe"
+    "company": {
+      "heading": "Company",
+      "about": "About Captain Maid",
+      "careers": "Careers",
+      "press": "Press",
+      "blog": "Blog",
+      "sustainability": "Sustainability"
+    },
+    "support": {
+      "heading": "Support & Legal",
+      "contact": "Contact Us",
+      "faq": "FAQ",
+      "shipping": "Shipping Info",
+      "returns": "Returns & Refunds",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    },
+    "products": {
+      "heading": "Products",
+      "all": "All Products",
+      "floorCleaners": "Floor Cleaners",
+      "kitchenCleaners": "Kitchen Cleaners",
+      "bathroomCleaners": "Bathroom Cleaners",
+      "glassCleaners": "Glass Cleaners",
+      "laundry": "Laundry Detergent"
+    },
+    "newsletter": {
+      "heading": "Stay Updated",
+      "description": "Get exclusive offers and cleaning tips delivered to your inbox",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "unsubscribe": "Unsubscribe"
+    },
+    "social": {
+      "heading": "Follow Us",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter",
+      "youtube": "YouTube",
+      "tiktok": "TikTok"
+    },
+    "contact": {
+      "phone": "Phone: 1800-CAPTAIN",
+      "email": "Email: support@captainmaid.co.th",
+      "address": "Address: 123 Suan Lumpini Road, Bangkok 10330"
+    },
+    "copyright": "© 2026 Captain Maid Thailand. All rights reserved.",
+    "legal": "Legal Terms",
+    "accessibility": "Accessibility"
   },
-  "footer.brand": "Captain Maid",
-  "footer.about": "About Us",
-  "footer.blog": "Blog",
-  "footer.faq": "FAQ",
-  "footer.contact": "Contact Us",
-  "footer.products": "Products",
-  "footer.glassCleanser": "Glass Cleaner",
-  "footer.bathroomCleaner": "Bathroom Cleaner",
-  "footer.kitchenCleaner": "Kitchen Cleaner",
-  "footer.floorCleaner": "Floor Cleaner",
-  "footer.company": "Company",
-  "footer.support": "Support",
-  "footer.stayUpdated": "Stay Updated",
-  "footer.newsletter": "Subscribe to our newsletter",
-  "footer.enterEmail": "Enter your email",
-  "footer.subscribe": "Subscribe",
-  "footer.copyright": "© 2026 Captain Maid. All rights reserved."
+  "buttons": {
+    "addToCart": "Add to Cart",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewMore": "View More",
+    "viewLess": "View Less",
+    "seeAll": "See All",
+    "select": "Select",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "submit": "Submit",
+    "send": "Send",
+    "backToTop": "Back to Top",
+    "loadMore": "Load More"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "success": "Success",
+    "warning": "Warning",
+    "noResults": "No results found",
+    "tryAgain": "Try Again",
+    "optional": "Optional",
+    "required": "Required",
+    "selectOne": "Select at least one",
+    "invalidInput": "Invalid input",
+    "confirmDelete": "Are you sure you want to delete?",
+    "or": "or",
+    "and": "and",
+    "home": "Home",
+    "welcome": "Welcome",
+    "goodbye": "Goodbye",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK"
+  },
+  "forms": {
+    "fullName": "Full Name",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "address": "Address",
+    "city": "City/Province",
+    "state": "Province",
+    "zipCode": "Postal Code",
+    "country": "Country",
+    "cardNumber": "Credit Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV Code",
+    "message": "Message",
+    "subject": "Subject",
+    "comment": "Comment",
+    "quantity": "Quantity",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "agreeTerms": "I agree to the Terms of Service and Privacy Policy"
+  },
+  "messages": {
+    "addedToCart": "Added to cart successfully",
+    "removedFromCart": "Removed from cart successfully",
+    "cartEmpty": "Your cart is empty",
+    "orderPlaced": "Order placed successfully",
+    "orderCancelled": "Order cancelled successfully",
+    "paymentSuccessful": "Payment successful",
+    "paymentFailed": "Payment failed. Please try again.",
+    "welcomeBack": "Welcome back",
+    "thankYou": "Thank you for your purchase",
+    "confirmEmail": "Please confirm your email",
+    "emailSent": "Email sent. Please check your inbox.",
+    "orderShipped": "Your order has been shipped",
+    "deliveryExpected": "Expected delivery on",
+    "accountCreated": "Account created successfully",
+    "passwordReset": "Password reset link sent to your email",
+    "loginRequired": "You must log in first"
+  },
+  "pricing": {
+    "price": "Price",
+    "discount": "Discount",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "shipping": "Shipping",
+    "total": "Total",
+    "free": "Free",
+    "perMonth": "per month",
+    "perYear": "per year",
+    "save": "Save",
+    "originalPrice": "Original Price",
+    "discount_percent": "Save {percent}%",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "preOrder": "Pre-Order"
+  },
+  "account": {
+    "login": "Log In",
+    "logout": "Log Out",
+    "register": "Sign Up",
+    "myAccount": "My Account",
+    "myOrders": "My Orders",
+    "myProfile": "My Profile",
+    "myAddresses": "My Addresses",
+    "myPayments": "My Payment Methods",
+    "accountSettings": "Account Settings",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account"
+  },
+  "cart": {
+    "cart": "Cart",
+    "emptyCart": "Your cart is empty",
+    "continueShopping": "Continue Shopping",
+    "proceedToCheckout": "Proceed to Checkout",
+    "quantity": "Quantity",
+    "price": "Price",
+    "remove": "Remove",
+    "updateCart": "Update Cart"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "shippingAddress": "Shipping Address",
+    "billingAddress": "Billing Address",
+    "paymentMethod": "Payment Method",
+    "orderReview": "Order Review",
+    "placeOrder": "Place Order",
+    "continueToPayment": "Continue to Payment"
+  },
+  "search": {
+    "search": "Search",
+    "searchProducts": "Search Products",
+    "noSearchResults": "No results found for: {query}",
+    "suggestions": "Search Suggestions"
+  }
 }
