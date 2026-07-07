@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
+import Image from 'next/image';
 import { Calendar } from 'lucide-react';
-import { blogPosts } from '@/lib/blog-posts';
+import { blogPosts } from '@/data/blogPosts';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { Footer } from '@/components/Footer';
 
@@ -12,11 +13,11 @@ export default function BlogPage() {
   const t = useTranslations();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-captain-white">
       <NavigationEnhanced />
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-captain-soft via-white to-captain-light py-16 md:py-24 px-4">
+      <div className="bg-gradient-to-br from-captain-soft via-captain-white to-captain-light py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -43,17 +44,19 @@ export default function BlogPage() {
         >
           {blogPosts.map((post) => (
             <Link
-              key={post.id}
+              key={post.slug}
               href={`/blog/${post.slug}`}
               className="group"
             >
-              <div className="bg-captain-light rounded-2xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 h-full flex flex-col">
+              <div className="bg-captain-white border border-captain-border rounded-2xl overflow-hidden shadow-brand hover:shadow-brand-hover hover:scale-[1.02] transition-all duration-300 h-full flex flex-col">
                 {/* Image */}
-                <div className="relative h-48 bg-captain-border group-hover:bg-captain-accent transition-colors">
-                  <img
-                    src="/images/logos/captain-maid-logo.jpg"
+                <div className="relative h-48 bg-captain-soft group-hover:bg-captain-accent transition-colors overflow-hidden">
+                  <Image
+                    src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 
@@ -68,12 +71,12 @@ export default function BlogPage() {
                   </p>
 
                   {/* Meta */}
-                  <div className="flex items-center gap-4 text-xs text-captain-muted border-t border-captain-border pt-4">
+                  <div className="flex items-center justify-between gap-4 text-xs text-captain-muted border-t border-captain-border pt-4">
                     <div className="flex items-center gap-1">
                       <Calendar size={14} className="text-captain-primary" />
                       <span>{new Date(post.date).toLocaleDateString('th-TH')}</span>
                     </div>
-                    <span className="font-medium text-captain-text">{post.readTime}</span>
+                    <span className="font-semibold text-captain-primary">{post.readTime}</span>
                   </div>
                 </div>
               </div>

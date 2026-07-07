@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/lib/navigation';
 import type { BlogPost } from '@/data/blogPosts';
 import { trackEvent } from '@/lib/analytics';
 
