@@ -64,12 +64,14 @@ export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
         className={`group flex flex-col rounded-[24px] overflow-hidden shadow-brand hover:shadow-brand-hover transition-all duration-180 bg-captain-light border border-captain-border hover:-translate-y-1 ${
           featured ? 'md:col-span-2 md:row-span-2' : ''
         }`}
+        role="article"
+        aria-label={`${name} - ${currencySymbol}${Math.round(displayPrice).toLocaleString()}`}
       >
         {/* Image Container */}
         <div className="relative h-64 md:h-80 overflow-hidden bg-captain-soft">
           <Image
             src={image}
-            alt={name}
+            alt={`${name} - ${description}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-200"

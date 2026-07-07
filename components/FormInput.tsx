@@ -38,6 +38,8 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
     ref
   ) => {
     const inputId = React.useId();
+    const errorId = `${inputId}-error`;
+    const helperId = `${inputId}-helper`;
 
     return (
       <div className="w-full">
@@ -47,7 +49,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
             className="block text-sm font-medium text-captain-text mb-2"
           >
             {label}
-            {required && <span className="text-semantic-error ml-1">*</span>}
+            {required && <span className="text-semantic-error ml-1" aria-label="required">*</span>}
           </label>
         )}
 
@@ -57,6 +59,9 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
           type={type}
           placeholder={placeholder}
           disabled={disabled}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : helperText ? helperId : undefined}
+          required={required}
           className={`
             w-full h-11 px-4 py-2.5
             font-body text-base
@@ -77,13 +82,13 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
         />
 
         {error && (
-          <p className="mt-2 text-sm font-medium text-semantic-error">
+          <p id={errorId} className="mt-2 text-sm font-medium text-semantic-error" role="alert">
             {error}
           </p>
         )}
 
         {helperText && !error && (
-          <p className="mt-2 text-sm text-captain-muted">
+          <p id={helperId} className="mt-2 text-sm text-captain-muted">
             {helperText}
           </p>
         )}
