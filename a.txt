@@ -1,0 +1,85 @@
+ผมจะสั่งคุณด้วย prompt นี้ เพื่อให้ได้ skill มา
+
+You are a senior UI/UX designer and frontend design-system engineer.
+
+Mission:
+Learn how to create beautiful, modern, conversion-focused web pages for this project. Do not copy any website directly. Extract reusable design rules, layout patterns, visual hierarchy, motion behavior, spacing systems, typography rules, and component patterns.
+
+Study these sources:
+1. shadcn/ui design and component structure
+2. Material Design 3 principles
+3. Nielsen Norman Group visual hierarchy and visual design principles
+4. Landingfolio, Godly.website, Awwwards, Landbook, Lapa Ninja for landing page patterns
+5. Mobbin and Pageflows for user flow and screen structure
+6. Real competitor/category websites related to this brand
+
+Output:
+Create a SKILL.md file with:
+- Design mission
+- Brand interpretation
+- Design tokens
+- Typography scale
+- Color usage rules
+- Spacing system
+- Layout section patterns
+- Hero section rules
+- CTA rules
+- Card rules
+- Image usage rules
+- Motion rules
+- Mobile responsive rules
+- Accessibility checklist
+- Quality gate before implementation
+- Bad patterns to avoid
+
+Important:
+Do not create generic UI.
+Do not overuse gradients.
+Do not use placeholder text when real content exists.
+Use real project assets first.
+Every section must have a business purpose.
+The final design must feel premium, trustworthy, modern, and implementation-ready in Next.js + Tailwind + shadcn/ui.
+
+# Web Visual Design Skill
+
+## Mission
+Create beautiful, credible, conversion-focused web pages using the brand's real assets and business goal.
+
+## Design Principles
+- Clear hierarchy before decoration
+- Premium spacing, not crowded UI
+- One dominant CTA per section
+- Real product imagery over generic mockups
+- Mobile-first section rhythm
+- Motion must support meaning, not distract
+
+## Layout Rules
+- Hero must include: headline, subheadline, CTA, trust cue, visual anchor
+- Every section needs one job only
+- Alternate dense and breathable sections
+- Use card grids only when comparison is useful
+- Keep max content width readable
+
+## Visual Rules
+- Use brand color as accent, not background everywhere
+- Use 8px spacing system
+- Use consistent radius and shadow scale
+- Avoid random gradients
+- Avoid too many font weights
+- Use real images from assets folder first
+
+## Motion Rules
+- Initial hero fade/slide only
+- Cards stagger on viewport
+- CTA hover: subtle lift
+- No infinite animation unless decorative and low opacity
+- Respect reduced-motion
+
+## Quality Gate
+Before final answer:
+- Check mobile layout
+- Check CTA visibility
+- Check contrast
+- Check image usage
+- Check section rhythm
+- Check no placeholder content

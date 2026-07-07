@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "shop": "SHOP",
+    "essentials": "ESSENTIALS",
+    "bestSellers": "BEST SELLERS",
+    "about": "ABOUT US",
+    "blog": "BLOG",
+    "contact": "CONTACT",
+    "help": "Help",
+    "freeDelivery": "FREE Delivery on all orders!"
+  },
+  "hero": {
+    "title": "Make Home Cleaning Easier",
+    "subtitle": "Premium cleaning products made from natural ingredients. Clean better, live better.",
+    "cta1": "Shop Now",
+    "cta2": "Learn More"
+  },
+  "products": {
+    "title": "Featured Products",
+    "subtitle": "Discover our complete line of premium cleaning products",
+    "viewAll": "View All Products",
+    "moreDetail": "More Detail",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock"
+  },
+  "productDetail": {
+    "price": "Price",
+    "stock": "Stock",
+    "description": "Description",
+    "properties": "Key Benefits",
+    "usage": "Usage",
+    "directions": "Directions",
+    "precautions": "Precautions",
+    "specifications": "Specifications",
+    "size": "Size",
+    "weight": "Weight",
+    "height": "Height",
+    "width": "Width",
+    "depth": "Depth",
+    "backToProducts": "Back to Products"
+  },
+  "shop": {
+    "title": "Ready to Clean Smarter?",
+    "freeShip": "Free Shipping",
+    "secure": "Secure Checkout",
+    "guarantee": "Money-Back Guarantee",
+    "easy": "Easy Returns",
+    "partners": "Also Available at"
+  },
+  "blog": {
+    "title": "Captain Maid Blog",
+    "subtitle": "Tips, tricks, and insights for keeping your home clean naturally.",
+    "readMore": "Read More"
+  },
+  "footer": {
+    "brand": "Premium cleaning products for modern homes",
+    "about": "About Us",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact Us",
+    "shipping": "Shipping Info",
+    "returns": "Returns & Refunds",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2026 Captain Maid. All rights reserved",
+    "company": "Company",
+    "products": "Products",
+    "glassCleanser": "Glass Cleaner",
+    "bathroomCleaner": "Bathroom Cleaner",
+    "kitchenCleaner": "Kitchen Cleaner",
+    "floorCleaner": "Floor Cleaner",
+    "support": "Support & Legal",
+    "stayUpdated": "Stay Updated",
+    "newsletter": "Get exclusive offers and cleaning tips delivered to your inbox.",
+    "enterEmail": "Enter your email",
+    "subscribe": "Subscribe"
+  }
+}

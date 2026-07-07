@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captain Maid — Superhero Cleaning Solutions 🦸‍♀️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066FF;
+            --dark-navy: #001F3F;
+            --cyan: #00BFFF;
+            --hot-pink: #FF1493;
+            --green: #00AA44;
+            --purple: #7B2CBF;
+            --light-gray: #F8F9FA;
+            --white: #FFFFFF;
+            --shadow: 0 4px 16px rgba(0, 102, 255, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 102, 255, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            color: var(--dark-navy);
+            line-height: 1.6;
+            background: var(--light-gray);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 16px 20px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+            color: var(--dark-navy);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+            padding: 60px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '✨';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            top: 10%;
+            left: 5%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '💫';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            bottom: 10%;
+            right: 5%;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--primary-blue);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .hero-highlight {
+            color: var(--primary-blue);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--dark-navy);
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            gap: 8px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #0052CC;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 102, 255, 0.05);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: var(--dark-navy);
+            opacity: 0.8;
+            margin-bottom: 60px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .product-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card.green .product-image {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+        }
+
+        .product-card.pink .product-image {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%);
+        }
+
+        .product-card.purple .product-image {
+            background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%);
+        }
+
+        .product-info {
+            padding: 24px;
+        }
+
+        .product-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .product-card.green .product-color {
+            background: var(--green);
+        }
+
+        .product-card.pink .product-color {
+            background: var(--hot-pink);
+        }
+
+        .product-card.purple .product-color {
+            background: var(--purple);
+        }
+
+        .product-variant {
+            font-size: 12px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 12px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: var(--dark-navy);
+            opacity: 0.8;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .rating {
+            color: #FFB800;
+            font-weight: 600;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+        }
+
+        .price-currency {
+            font-size: 18px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .product-actions .btn {
+            flex: 1;
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0052CC 100%);
+            color: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: var(--light-gray);
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--dark-navy);
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: var(--dark-navy);
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-navy);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        footer p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            nav ul {
+                gap: 16px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 12px 16px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .hero {
+                padding: 40px 16px 60px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🦸‍♀️ Captain Maid</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#features">Why Us</a></li>
+                <li><a href="#shop">Shop Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-badge">🦸‍♀️ Meet Captain Maid</div>
+            <h1>Professional Cleaning <span class="hero-highlight">Powers</span><br>For Every Home</h1>
+            <p>Experience superhero-level cleanliness with eco-friendly, colorful solutions that work like magic!</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="alert('Shop Now! Coming soon')">🛒 Shop Now</button>
+                <button class="btn btn-secondary" onclick="alert('Learn More')">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title">Our Colorful Collection</h2>
+            <p class="section-subtitle">Choose your power-packed cleaning companion</p>
+
+            <div class="products-grid">
+                <!-- Green Product -->
+                <div class="product-card green">
+                    <div class="product-image">🟢</div>
+                    <div class="product-info">
+                        <div class="product-variant"><span class="product-color"></span>Spring Fresh</div>
+                        <h3 class="product-name">Natural Floor Cleaner</h3>
+                        <p class="product-description">Eco-friendly formula with natural ingredients, perfect for fresh mornings</p>
+                        <div class="product-meta">
+                            <span class="rating">⭐ 4.8 (245)</span>
+                            <span>900ml</span>
+                        </div>
+                        <div class="price"><span class="price-currency">฿</span>119</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="alert('Added to cart!')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pink Product -->
+                <div class="product-card pink">
+                    <div class="product-image">🩷</div>
+                    <div class="product-info">
+                        <div class="product-variant"><span class="product-color"></span>Floral Breeze</div>
+                        <h3 class="product-name">Tea Tree Floor Cleaner</h3>
+                        <p class="product-description">Antibacterial powerhouse with natural tea tree oil protection</p>
+                        <div class="product-meta">
+                            <span class="rating">⭐ 4.7 (189)</span>
+                            <span>900ml</span>
+                        </div>
+                        <div class="price"><span class="price-currency">฿</span>119</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="alert('Added to cart!')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purple Product -->
+                <div class="product-card purple">
+                    <div class="product-image">🟣</div>
+                    <div class="product-info">
+                        <div class="product-variant"><span class="product-color"></span>Premium Aroma</div>
+                        <h3 class="product-name">Lavender Floor Cleaner</h3>
+                        <p class="product-description">Luxurious lavender scent for a spa-like home experience</p>
+                        <div class="product-meta">
+                            <span class="rating">⭐ 4.6 (156)</span>
+                            <span>900ml</span>
+                        </div>
+                        <div class="price"><span class="price-currency">฿</span>119</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="alert('Added to cart!')">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Superhero Strength</h3>
+                <p>Powerful cleaning that tackles tough dirt and grime like never before</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌿</div>
+                <h3>Eco-Friendly</h3>
+                <p>Natural ingredients safe for your family, pets, and the planet</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Colorful Choices</h3>
+                <p>Choose your favorite scent and color to match your mood</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & Easy</h3>
+                <p>Quick-dry formula means less wait time, more shine time</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="shop">
+        <div class="container">
+            <h2>Ready to Experience Superhero Cleaning?</h2>
+            <p>Join thousands of happy homes powered by Captain Maid</p>
+            <button class="btn btn-primary" onclick="alert('Coming soon!')">🛒 Start Shopping Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Captain Maid. Cleaning with Superpowers. 🦸‍♀️</p>
+        <p style="margin-top: 12px; opacity: 0.8;">Bright Blue Energy. Colorful Solutions. One Mission: A Cleaner Home.</p>
+    </footer>
+</body>
+</html>

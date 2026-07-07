@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//tmp/claude-1000/-mnt-d-01-Main-Work-Boots-Agentic-AI-mission-control/ecbba1ca-fbca-4131-b4d1-bbee99a62ebb/tasks/**)"
+    ]
+  }
+}

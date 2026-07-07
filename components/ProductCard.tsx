@@ -46,7 +46,7 @@ export function ProductCard(props: ProductCardProps) {
       : `/products/${slugOrId}`;
   const priceText = product?.priceText ?? (typeof props.priceThb === 'number' ? `฿${props.priceThb}` : typeof props.price === 'number' ? `฿${props.price}` : '[รอข้อมูล]');
   const status = product?.status ?? (props.inStock === false ? 'สินค้าหมด' : 'พร้อมวางขาย');
-  const badgeLabels = product ? [product.filters.scent, ...product.filters.needs.slice(0, 2)] : [props.badge].filter(Boolean) as string[];
+  const badgeLabels = product ? [product.filters.scent, ...product.filters.need.slice(0, 2)] : [props.badge].filter(Boolean) as string[];
 
   return (
     <article className={`overflow-hidden rounded-3xl border border-captain-border bg-white shadow-brand transition hover:-translate-y-1 hover:shadow-brand-hover ${props.className ?? ''}`}>
@@ -69,7 +69,7 @@ export function ProductCard(props: ProductCardProps) {
           <h3 className="mt-1 text-lg font-bold text-captain-text">{name}</h3>
           <p className="mt-2 text-sm leading-6 text-captain-muted">{description}</p>
         </div>
-        {product ? <ProductBadges product={product} /> : null}
+        {badgeLabels.length ? <ProductBadges badges={badgeLabels} /> : null}
         <div className="flex items-center justify-between gap-3">
           <span className="text-xl font-bold text-captain-primary">{priceText}</span>
           <Link

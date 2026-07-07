@@ -1,0 +1,35 @@
+ให้ไปศึกษาเวปพวกนี้ 
+shadcn/ui — ดีมากสำหรับเว็บ Next.js + Tailwind เพราะเป็น component ที่เอาไปใช้จริงได้และปรับเองได้
+Material Design 3 — ใช้เรียนเรื่อง spacing, typography, color, state, component behavior แบบเป็นระบบ
+Radix UI / Tailwind / Framer Motion — ใช้เป็นฐาน component + accessibility + animation
+
+แล้วสกัดข้อมูลพวกนี้ออกมา
+
+design tokens
+spacing scale
+font scale
+border radius
+shadow system
+button/input/card rules
+section layout rules
+animation rules
+mobile responsive rules
+accessibility rules
+
+
+ดูเว็บพวกนี้:
+Awwwards — เว็บสาย premium / creative / motion
+Godly.website — เว็บ SaaS / startup ที่ modern มาก
+Landingfolio — หน้า landing page ที่คัดมาแล้ว เหมาะกับ conversion
+Landbook / Lapa Ninja / One Page Love — ใช้ดู layout ของหน้าเดียวและ hero section
+Mobbin / Pageflows — ใช้เรียน user flow, screen pattern, onboarding, dashboard
+แล้วแยกเป็น
+layout pattern
+visual hierarchy
+spacing
+typography
+CTA placement
+section rhythm
+motion behavior
+component style
+conversion intent

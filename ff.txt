@@ -1,0 +1,7 @@
+https://github.com/DietrichGebert/ponytail
+https://github.com/rtk-ai/rtk
+https://github.com/headroomlabs-ai/headroom
+
+
+
+cp "/home/user/.claude/projects/-mnt-d-01-Main-Work-Boots-Agentic-AI-mission-control/memory/nextjs-next-intl-deployment.md" "/mnt/c/Users/User/Desktop/"

@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Made for Easy Home Cleaning",
+    "subtitle": "Premium cleaning products made from nature-derived ingredients. Clean better, live better.",
+    "cta1": "Shop Now",
+    "cta2": "Learn More"
+  },
+  "features": {
+    "title": "Why Choose Captain Maid?",
+    "subtitle": "We combine nature-derived ingredients with advanced cleaning technology for a superior clean",
+    "natural": {
+      "title": "Natural Ingredients",
+      "desc": "Eco-friendly formula with plant-based components"
+    },
+    "powerful": {
+      "title": "Powerful Cleaning",
+      "desc": "Advanced encapsulation technology for deep clean"
+    },
+    "safe": {
+      "title": "Family Safe",
+      "desc": "Gentle on kids and pets, dermatologist tested"
+    }
+  },
+  "products": {
+    "title": "Featured Products",
+    "subtitle": "Discover our complete line of premium cleaning solutions",
+    "viewAll": "View All Products"
+  },
+  "trust": {
+    "title": "Trusted by 2,500+ Families",
+    "rating": "4.8/5 from 1,000+ reviews",
+    "cta": "Join Our Community"
+  },
+  "shop": {
+    "title": "Ready to Clean Smarter?",
+    "subtitle": "Join thousands of happy customers who have switched to Captain Maid. Experience the difference of natural, effective cleaning.",
+    "shopBtn": "Shop Now",
+    "learnBtn": "Learn More",
+    "freeShip": "Free Shipping",
+    "onOrders": "On orders over $50",
+    "secure": "Secure Checkout",
+    "safe": "100% safe transactions",
+    "guarantee": "Money-Back Guarantee",
+    "satisfy": "30-day satisfaction guarantee",
+    "easy": "Easy Returns",
+    "hassle": "Hassle-free return process",
+    "partners": "Also available at:"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about Captain Maid products",
+    "contact": "Contact Support"
+  },
+  "footer": {
+    "brand": "Premium cleaning solutions for modern homes",
+    "products": "Products",
+    "company": "Company",
+    "support": "Support & Legal",
+    "about": "About Us",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact Us",
+    "careers": "Careers",
+    "shipping": "Shipping Info",
+    "returns": "Returns & Refunds",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "newsletter": "Stay Updated",
+    "subscribe": "Subscribe",
+    "copyright": "© 2026 ARIGEO, Inc. All rights reserved. | Made with ♥ for cleaner homes"
+  }
+}

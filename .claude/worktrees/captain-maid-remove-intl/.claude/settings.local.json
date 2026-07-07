@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:captain-maid.com)",
+      "WebFetch(domain:captain-maid.vercel.app)"
+    ]
+  }
+}

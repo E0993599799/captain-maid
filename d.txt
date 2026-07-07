@@ -1,0 +1,53 @@
+ Build is now verified successfully.
+
+    Proof
+    - Background build process proc_53e43821b12c completed normally with exit code 0.
+    - next build finished and produced the route manifest you pasted.
+
+    What I accomplished
+    - Built the Captain Maid storefront data layer:
+      - products
+      - FAQs
+      - blog posts
+      - where-to-buy links
+      - site settings
+      - analytics helper
+    - Added a missing-info report:
+      - ./captain-maid/docs/CAPTAIN_MAID_MISSING_INFO.md
+    - Added reusable storefront components:
+      - product card/grid/filter/detail
+      - FAQ accordion
+      - blog preview/detail support
+      - CTA/promo blocks
+      - SEO JSON-LD helper
+      - floating contact buttons
+      - where-to-buy buttons
+    - Added root storefront routes:
+      - /
+      - /products
+      - /products/[slug]
+      - /blog
+      - /blog/[slug]
+      - /faq
+      - /where-to-buy
+      - /contact
+    - Updated SEO/static surfaces:
+      - metadata and canonical handling on the new routes
+      - robots.txt
+      - sitemap.xml
+    - Fixed build/type issues that surfaced during verification:
+      - removed invalid outputFileTracingRoot from next.config.js
+      - fixed readonly metadata keywords in app/layout.tsx
+      - removed an unused products import in app/page.tsx
+      - fixed a handful of follow-on TS/lint issues in existing components
+
+    What the successful build confirms
+    - The app compiles.
+    - The new routes are included in the build.
+    - The storefront pages are prerendering or statically generated as expected.
+
+    One remaining note
+    - next.config.js still emits a warning about outputFileTracingRoot if that key is present in other copies or branches, but the verified build you posted
+    completed successfully.
+
+    If you want, I can now give you a clean file-by-file changelog with the main routes and the missing-info items grouped by priority.

@@ -10,3 +10,5 @@ export const siteConfig = {
   },
   defaultOgImage: '/images/og-image.png',
 };
+
+export const site = siteConfig;

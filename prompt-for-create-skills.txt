@@ -1,0 +1,835 @@
+You are a senior AI web-product engineer, UI/UX reviewer, frontend performance engineer, web security reviewer, and Vercel deployment engineer.
+
+Mission:
+Browse, study, and extract practical rules from the specified public web references below. Then create production-ready skill documents for future AI agents working on this project.
+
+Important:
+Do not only summarize the websites.
+Do not copy any website directly.
+Do not write vague theory.
+Do not create generic advice.
+Turn everything into strict, practical, enforceable, implementation-ready rules for Next.js + Tailwind CSS + shadcn/ui + Vercel projects.
+
+Project Context:
+
+* Framework: Next.js
+* Styling: Tailwind CSS
+* UI foundation: shadcn/ui / Radix UI style components
+* Deployment: Vercel
+* Goal: beautiful, fast, secure, production-ready websites
+* Future agents must follow these skills before claiming DONE
+
+Existing Skill:
+
+* visual-design.md already exists and is the main visual/UI design skill.
+* Do not create DESIGN_SKILL.md.
+* Do not replace visual-design.md unless explicitly requested.
+* You may reference visual-design.md inside the new skill index.
+* If visual-design.md exists, inspect it and connect the new performance/security/deploy/proof gates to it.
+* If visual-design.md does not exist, create a short placeholder note in SKILLS_INDEX.md saying that visual-design.md is expected but not found.
+
+Create or update the following files only:
+
+/skills/performance.md
+/skills/security.md
+/skills/vercel-deploy.md
+/skills/final-proof.md
+/skills/SKILLS_INDEX.md
+
+Required Gate Order:
+visual-design.md → performance.md → security.md → vercel-deploy.md → final-proof.md
+
+Do not create:
+/skills/DESIGN_SKILL.md
+/skills/PERFORMANCE_SKILL.md
+/skills/SECURITY_SKILL.md
+/skills/VERCEL_DEPLOY_SKILL.md
+/skills/FINAL_PROOF_SKILL.md
+
+Use lowercase kebab-case filenames exactly as specified.
+
+============================================================
+SECTION 1 — SOURCES TO STUDY
+============================
+
+You must browse and study these sources carefully.
+
+A) Visual Design / UI / UX references
+Use these only to connect with the existing visual-design.md and SKILLS_INDEX.md. Do not create a new design skill.
+
+1. shadcn/ui
+
+* https://ui.shadcn.com/
+* https://ui.shadcn.com/docs
+* https://ui.shadcn.com/docs/components/button
+* https://ui.shadcn.com/docs/components/card
+* https://ui.shadcn.com/docs/components/form
+* https://ui.shadcn.com/docs/components/dialog
+* https://ui.shadcn.com/docs/components/navigation-menu
+  Purpose:
+  Study practical component structure, composition, accessibility, Tailwind usage, and modern UI component patterns.
+
+2. Radix UI
+
+* https://www.radix-ui.com/primitives
+* https://www.radix-ui.com/primitives/docs/overview/introduction
+* https://www.radix-ui.com/primitives/docs/components/dialog
+* https://www.radix-ui.com/primitives/docs/components/dropdown-menu
+* https://www.radix-ui.com/primitives/docs/components/navigation-menu
+  Purpose:
+  Study accessible component primitives, keyboard interaction, focus management, and state behavior.
+
+3. Tailwind CSS
+
+* https://tailwindcss.com/docs/styling-with-utility-classes
+* https://tailwindcss.com/docs/responsive-design
+* https://tailwindcss.com/docs/dark-mode
+* https://tailwindcss.com/docs/theme
+  Purpose:
+  Study utility-first implementation, responsive design, theming, spacing, color tokens, and dark mode.
+
+4. Material Design 3
+
+* https://m3.material.io/
+* https://m3.material.io/foundations
+* https://m3.material.io/foundations/layout/overview
+* https://m3.material.io/foundations/color/overview
+* https://m3.material.io/foundations/typography/overview
+* https://m3.material.io/foundations/motion/overview
+  Purpose:
+  Study layout, color, typography, elevation, motion, hierarchy, and state systems.
+
+5. Apple Human Interface Guidelines
+
+* https://developer.apple.com/design/human-interface-guidelines
+* https://developer.apple.com/design/human-interface-guidelines/layout
+* https://developer.apple.com/design/human-interface-guidelines/typography
+* https://developer.apple.com/design/human-interface-guidelines/color
+  Purpose:
+  Study clarity, depth, typography, spacing, platform expectations, and premium interaction quality.
+
+6. Nielsen Norman Group
+
+* https://www.nngroup.com/articles/visual-hierarchy-ux-definition/
+* https://www.nngroup.com/articles/principles-visual-design/
+* https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/
+* https://www.nngroup.com/articles/how-users-read-on-the-web/
+* https://www.nngroup.com/articles/ten-usability-heuristics/
+  Purpose:
+  Study visual hierarchy, usability principles, scanning behavior, readability, and UX quality gates.
+
+7. Landing Page / UI inspiration references
+
+* https://www.awwwards.com/
+* https://godly.website/
+* https://www.landingfolio.com/
+* https://land-book.com/
+* https://www.lapa.ninja/
+* https://onepagelove.com/
+  Purpose:
+  Study landing page structure, hero patterns, premium section rhythm, CTA placement, trust cues, and visual polish.
+
+8. Product flow references
+
+* https://mobbin.com/
+* https://pageflows.com/
+  Purpose:
+  Study onboarding, dashboard, app screens, UI flows, responsive screen patterns, and conversion-oriented product UX.
+
+B) Frontend Performance references
+
+1. web.dev Core Web Vitals
+
+* https://web.dev/articles/vitals
+* https://web.dev/articles/lcp
+* https://web.dev/articles/inp
+* https://web.dev/articles/cls
+  Purpose:
+  Study LCP, INP, CLS, field metrics, performance thresholds, and user experience impact.
+
+2. web.dev Performance
+
+* https://web.dev/learn/performance
+* https://web.dev/articles/optimize-lcp
+* https://web.dev/articles/optimize-inp
+* https://web.dev/articles/optimize-cls
+* https://web.dev/articles/lazy-loading-images
+* https://web.dev/articles/efficiently-encode-images
+  Purpose:
+  Study practical performance optimization for images, JavaScript, layout stability, and interaction latency.
+
+3. Lighthouse
+
+* https://developer.chrome.com/docs/lighthouse/overview/
+* https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/
+* https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint/
+* https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/
+  Purpose:
+  Study Lighthouse scoring, audit categories, lab testing limitations, and performance proof.
+
+4. Next.js Performance / Optimization
+
+* https://nextjs.org/docs
+* https://nextjs.org/docs/app/building-your-application/optimizing
+* https://nextjs.org/docs/app/building-your-application/optimizing/images
+* https://nextjs.org/docs/app/building-your-application/optimizing/fonts
+* https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading
+* https://nextjs.org/docs/app/building-your-application/optimizing/package-bundling
+* https://nextjs.org/docs/app/building-your-application/rendering/server-components
+* https://nextjs.org/docs/app/building-your-application/rendering/client-components
+  Purpose:
+  Study Next.js image optimization, font optimization, server/client component boundaries, dynamic import, lazy loading, bundle optimization, and App Router performance.
+
+5. Vercel Performance
+
+* https://vercel.com/docs
+* https://vercel.com/docs/speed-insights
+* https://vercel.com/docs/analytics
+* https://vercel.com/docs/functions/streaming-functions
+  Purpose:
+  Study deployment-side performance monitoring, speed insights, analytics, runtime behavior, and Vercel-specific proof.
+
+C) Web Security references
+
+1. OWASP Top 10
+
+* https://owasp.org/www-project-top-ten/
+* https://owasp.org/Top10/
+  Purpose:
+  Study the main web application security risks and map them to Next.js applications.
+
+2. OWASP Cheat Sheet Series
+
+* https://cheatsheetseries.owasp.org/
+* https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html
+* https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+* https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+* https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+* https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html
+* https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html
+* https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+  Purpose:
+  Study input validation, authentication, authorization, XSS prevention, CSP, file upload, and secure logging.
+
+3. MDN Web Security
+
+* https://developer.mozilla.org/en-US/docs/Web/Security
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+  Purpose:
+  Study HTTP security headers, CSP, browser security model, and practical header rules.
+
+4. Next.js Security / CSP / Headers
+
+* https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy
+* https://nextjs.org/docs/pages/api-reference/config/next-config-js/headers
+* https://nextjs.org/docs/app/api-reference/file-conventions/middleware
+* https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+  Purpose:
+  Study CSP in Next.js, custom headers, middleware, server actions, server/client boundaries, and secure route handling.
+
+5. Supabase Security if Supabase exists in the project
+
+* https://supabase.com/docs/guides/auth
+* https://supabase.com/docs/guides/database/postgres/row-level-security
+* https://supabase.com/docs/guides/api/api-keys
+* https://supabase.com/docs/guides/platform/going-into-prod
+  Purpose:
+  Study Supabase Auth, RLS, anon key vs service role key, production readiness, and database access safety.
+
+6. Vercel Environment Variables and Security
+
+* https://vercel.com/docs/environment-variables
+* https://vercel.com/docs/environment-variables/managing-environment-variables
+* https://vercel.com/docs/deployment-protection
+  Purpose:
+  Study environment variable safety, production/preview separation, secret management, and deployment protection.
+
+D) Vercel Deploy / Production references
+
+1. Vercel CLI
+
+* https://vercel.com/docs/cli
+* https://vercel.com/docs/cli/deploy
+* https://vercel.com/docs/cli/env
+* https://vercel.com/docs/cli/logs
+  Purpose:
+  Study deploy commands, env commands, logs, production deployment, and CLI-based verification.
+
+2. Vercel Deployments
+
+* https://vercel.com/docs/deployments
+* https://vercel.com/docs/deployments/overview
+* https://vercel.com/docs/deployments/generated-urls
+* https://vercel.com/docs/deployments/managing-deployments
+  Purpose:
+  Study preview deployments, production deployments, generated URLs, deployment lifecycle, and deployment management.
+
+3. Vercel Environment Variables
+
+* https://vercel.com/docs/environment-variables
+* https://vercel.com/docs/environment-variables/managing-environment-variables
+* https://vercel.com/docs/environment-variables/framework-environment-variables
+  Purpose:
+  Study development, preview, production envs, env pull, env changes, and redeploy requirements.
+
+4. Vercel Domains
+
+* https://vercel.com/docs/domains
+* https://vercel.com/docs/domains/working-with-domains
+* https://vercel.com/docs/domains/working-with-domains/add-a-domain
+  Purpose:
+  Study custom domains, DNS, domain verification, and production URL checks.
+
+5. Vercel Deployment Protection
+
+* https://vercel.com/docs/deployment-protection
+* https://vercel.com/docs/deployment-protection/methods-to-protect-deployments
+  Purpose:
+  Study password protection, Vercel authentication, protected previews, and sensitive preview safety.
+
+6. Vercel Rollback / Instant Rollback
+
+* https://vercel.com/docs/deployments/instant-rollback
+  Purpose:
+  Study how to recover from bad production deployments and verify service recovery.
+
+7. Next.js Deployment on Vercel
+
+* https://nextjs.org/docs/app/building-your-application/deploying
+* https://vercel.com/docs/frameworks/nextjs
+  Purpose:
+  Study Next.js deployment behavior, build/runtime issues, App Router deployment, and Vercel integration.
+
+============================================================
+SECTION 2 — WHAT TO EXTRACT
+===========================
+
+Do not paste long content from the sources.
+Extract reusable principles only.
+
+For visual-design.md connection:
+
+* layout patterns
+* hero section patterns
+* typography rules
+* spacing systems
+* color usage rules
+* CTA patterns
+* card/component patterns
+* trust-building patterns
+* section rhythm
+* mobile responsive patterns
+* motion behavior
+* accessibility rules
+* bad UI patterns to avoid
+
+For performance.md:
+
+* Core Web Vitals targets
+* LCP rules
+* INP rules
+* CLS rules
+* image optimization rules
+* font optimization rules
+* bundle-size rules
+* server vs client component rules
+* dynamic import rules
+* animation performance rules
+* mobile performance rules
+* pre-merge performance checklist
+* common AI performance mistakes to avoid
+
+For security.md:
+
+* OWASP-based threat model
+* authentication rules
+* authorization rules
+* API route security rules
+* server action security rules
+* input validation rules
+* output sanitization rules
+* environment variable rules
+* NEXT_PUBLIC rules
+* CSP rules
+* security header rules
+* file upload security rules
+* secure logging rules
+* database access rules
+* Supabase RLS and service-role-key rules if applicable
+* common AI security mistakes to avoid
+
+For vercel-deploy.md:
+
+* package manager detection rules
+* build command detection rules
+* env variable workflow
+* preview deployment workflow
+* production deployment workflow
+* promote preview workflow
+* deployment protection rules
+* deployment log inspection rules
+* rollback workflow
+* Vercel debugging checklist
+* deployment proof format
+* common AI deployment mistakes to avoid
+
+For final-proof.md:
+
+* how to prove work is complete
+* files changed
+* commands run
+* build/typecheck/lint result
+* design proof
+* performance proof
+* security proof
+* deploy proof
+* known remaining risks
+* rollback note if deployed
+* strict DONE rules
+
+============================================================
+SECTION 3 — FILE REQUIREMENTS
+=============================
+
+Create or update:
+
+/skills/performance.md
+/skills/security.md
+/skills/vercel-deploy.md
+/skills/final-proof.md
+/skills/SKILLS_INDEX.md
+
+Do not create design.md.
+Do not create DESIGN_SKILL.md.
+The existing design skill name is:
+
+/skills/visual-design.md
+
+If /skills/visual-design.md exists:
+
+* Read it.
+* Do not overwrite it.
+* Add a short integration note in SKILLS_INDEX.md.
+* Make sure the new skills do not contradict it.
+
+If /skills/visual-design.md does not exist:
+
+* Do not create it unless explicitly requested.
+* Add a warning in SKILLS_INDEX.md:
+  "Expected /skills/visual-design.md was not found. Visual design gate is referenced but not available."
+
+Each skill file must include:
+
+1. Mission
+   Explain what this skill is responsible for.
+
+2. Scope
+   Define when this skill must be used.
+
+3. Source References Studied
+   List the exact source URLs or source groups studied.
+   If a source cannot be accessed, list it under "Could not access".
+
+4. Core Principles
+   Write practical rules future AI agents must follow.
+
+5. Implementation Rules
+   Write specific rules for Next.js + Tailwind CSS + shadcn/ui + Vercel.
+
+6. Checklist
+   Create a strict pass/fail checklist.
+
+7. Common AI Mistakes
+   List mistakes AI agents often make and how to avoid them.
+
+8. Quality Gate
+   Define what proof is required before saying DONE.
+
+9. Output Contract
+   Define exactly what future agents must report after applying the skill.
+
+============================================================
+SECTION 4 — CONTENT REQUIREMENTS PER FILE
+=========================================
+
+A) /skills/performance.md must include:
+
+* Mission: make pages fast, responsive, stable, and production-ready
+* Scope: every page/component change, especially landing pages, dashboards, forms, media-heavy pages
+* Core Web Vitals targets:
+
+  * LCP should be good
+  * INP should be good
+  * CLS should be good
+  * If exact measurement is unavailable, clearly say not measured
+* Image rules:
+
+  * Use next/image where appropriate
+  * Set width/height or stable aspect-ratio
+  * Avoid oversized source images
+  * Compress images before use when needed
+  * Avoid loading hidden desktop/mobile duplicate images
+  * Lazy-load non-critical images
+  * Prioritize only the true LCP image
+* Font rules:
+
+  * Use next/font or local fonts
+  * Limit font families and weights
+  * Avoid external blocking font chains
+  * Avoid layout shift from late font loading
+* JavaScript rules:
+
+  * Avoid unnecessary "use client"
+  * Keep components server-rendered by default
+  * Use client components only for actual interaction/state/browser APIs
+  * Avoid importing heavy libraries for simple UI
+  * Use dynamic import for heavy client-only components
+  * Avoid large icon imports
+* Animation rules:
+
+  * Keep animation subtle and meaningful
+  * Avoid layout-triggering animation
+  * Prefer transform and opacity
+  * Respect reduced-motion
+  * Avoid infinite animation unless decorative and very lightweight
+* Bundle rules:
+
+  * Check package imports
+  * Avoid duplicate packages
+  * Avoid client-bundling server-only utilities
+  * Use bundle analyzer when available
+* Mobile rules:
+
+  * Test mobile first
+  * Avoid huge hero height on mobile
+  * Ensure tap targets are usable
+  * Avoid horizontal overflow
+* Performance proof:
+
+  * commands run
+  * build result
+  * Lighthouse/Core Web Vitals if measured
+  * before/after notes if available
+  * unmeasured risks clearly stated
+
+B) /skills/security.md must include:
+
+* Mission: protect app, users, data, secrets, and production environment
+* Scope: every auth route, API route, server action, form, upload, dashboard, admin page, and deploy
+* OWASP-based threat model
+* Environment rules:
+
+  * Never expose secrets in frontend
+  * NEXT_PUBLIC_* means browser-visible
+  * Never put Supabase service role key in frontend
+  * Do not paste secrets into chat/logs
+  * Separate development, preview, and production envs
+* Auth rules:
+
+  * Do not rely only on hidden UI
+  * Enforce auth on server
+  * Check role/permission on server
+  * Protect admin routes
+  * Protect API routes
+* Input validation:
+
+  * Validate all server inputs
+  * Validate API body/query/params
+  * Validate server action input
+  * Use schema validation when possible
+* Output sanitization:
+
+  * Avoid dangerouslySetInnerHTML
+  * Sanitize user-generated HTML if unavoidable
+  * Prevent XSS
+* API rules:
+
+  * Check method
+  * Check auth
+  * Check authorization
+  * Validate input
+  * Rate-limit or abuse-protect sensitive routes when possible
+  * Return safe errors
+* File upload rules:
+
+  * Limit file type
+  * Limit file size
+  * Avoid trusting filename
+  * Avoid path traversal
+  * Store outside executable paths
+* Database rules:
+
+  * Use parameterized queries or safe ORM/client
+  * Use RLS where applicable
+  * Keep service role key server-only
+  * Never trust client-side filters for authorization
+* Header rules:
+
+  * Content-Security-Policy
+  * X-Content-Type-Options
+  * Referrer-Policy
+  * Permissions-Policy
+  * frame-ancestors or X-Frame-Options
+  * Strict-Transport-Security when appropriate
+* Logging rules:
+
+  * Log enough for debugging
+  * Never log tokens/passwords/secrets
+  * Avoid exposing stack traces to users
+* Security proof:
+
+  * routes checked
+  * env exposure checked
+  * auth checked
+  * API/server actions checked
+  * headers checked
+  * remaining risks
+
+C) /skills/vercel-deploy.md must include:
+
+* Mission: safely deploy, verify, debug, rollback, and document Vercel deployments
+* Scope: any preview deploy, production deploy, env change, domain change, rollback, or deploy debug task
+* Package manager detection:
+
+  * pnpm-lock.yaml means pnpm
+  * package-lock.json means npm
+  * yarn.lock means yarn
+  * bun.lockb or bun.lock means bun
+  * Do not switch package manager without explicit reason
+* Build command detection:
+
+  * Read package.json scripts
+  * Use project-defined build script
+  * Do not invent build commands
+* Env workflow:
+
+  * identify required env variables from code and docs
+  * never reveal env values
+  * separate development/preview/production
+  * if env changed, redeploy
+  * use Vercel env tools when available
+* Preview deployment workflow:
+
+  * validate locally when possible
+  * deploy preview
+  * capture preview URL
+  * inspect logs
+  * test main routes
+  * test API/auth routes if relevant
+  * record proof
+* Production deployment workflow:
+
+  * deploy production only if explicitly requested
+  * preview should pass first unless emergency
+  * use production env
+  * capture production URL
+  * inspect production logs
+  * test critical routes
+  * record rollback point
+* Promote preview workflow:
+
+  * only promote verified preview
+  * production env may differ from preview env
+  * verify production after promotion
+* Deployment protection:
+
+  * protect sensitive previews
+  * use Vercel Authentication/password protection when appropriate
+  * do not expose admin/test pages publicly
+* Rollback:
+
+  * if production is broken and users are affected, rollback first
+  * verify recovery
+  * inspect bad deployment logs
+  * document root cause
+* Debugging:
+
+  * read first real build error
+  * check TypeScript errors
+  * check missing env
+  * check package manager mismatch
+  * check Next.js runtime mismatch
+  * check Edge vs Node issues
+  * check failed submodules
+  * check import path/case sensitivity
+  * check server/client component boundary
+* Deploy proof:
+
+  * target
+  * branch/commit if available
+  * commands run
+  * build status
+  * preview URL
+  * production URL if applicable
+  * logs checked
+  * routes tested
+  * env changes made without exposing values
+  * rollback point
+  * remaining risks
+
+D) /skills/final-proof.md must include:
+
+* Mission: prevent fake DONE and force evidence-based completion
+* Scope: every task before final response
+* Strict DONE rules:
+
+  * Do not say DONE without proof
+  * Do not say OK if only code changed but build/test/deploy was not verified
+  * If proof is partial, final status must be PARTIAL, not DONE
+  * If build fails, final status must be FAILED or BLOCKED
+  * If deploy was not requested, do not claim deployed
+  * If Lighthouse was not run, do not claim performance score
+  * If security headers were not checked, do not claim full security completion
+* Required proof sections:
+
+  * request summary
+  * files changed
+  * commands run
+  * build/typecheck/lint result
+  * design gate result
+  * performance gate result
+  * security gate result
+  * Vercel deploy result if applicable
+  * logs reviewed
+  * screenshots or URLs if available
+  * remaining risks
+  * next safe action
+  * final status
+* Output statuses:
+
+  * DONE
+  * PARTIAL
+  * FAILED
+  * BLOCKED
+  * NEEDS_USER_ACTION
+* Proof quality:
+
+  * proof must be specific
+  * proof must name actual files/commands/routes
+  * proof must not invent logs
+  * proof must not hide errors
+  * proof must include one-error-output-path if script/run generated errors
+* Final response contract:
+
+  * concise summary
+  * proof
+  * remaining risks
+  * exact next command if user must run something
+
+E) /skills/SKILLS_INDEX.md must include:
+
+* Purpose of the skills system
+* List of skill files:
+
+  * visual-design.md
+  * performance.md
+  * security.md
+  * vercel-deploy.md
+  * final-proof.md
+* Required gate order:
+
+  1. visual-design.md
+  2. performance.md
+  3. security.md
+  4. vercel-deploy.md
+  5. final-proof.md
+* When to use each skill
+* How the skills interact
+* Strict final workflow:
+
+  1. Decode request
+  2. Inspect project
+  3. Apply visual-design.md if UI is affected
+  4. Apply performance.md if frontend or media is affected
+  5. Apply security.md if auth/API/env/forms/uploads/deploy are affected
+  6. Apply vercel-deploy.md if deployment is requested or affected
+  7. Apply final-proof.md before final response
+* Final status rules:
+
+  * DONE only with proof
+  * PARTIAL when some proof is missing
+  * FAILED when validation fails
+  * BLOCKED when required access/data is missing
+  * NEEDS_USER_ACTION when user must run or provide something
+
+============================================================
+SECTION 5 — HARD RULES
+======================
+
+Hard Rules:
+
+* Never say DONE without proof.
+* Never fake build, test, Lighthouse, security, or deploy results.
+* Never claim security is complete without checking env, auth, API routes/server actions, and headers.
+* Never expose secrets in output.
+* Never paste env values.
+* Never put service role keys in frontend.
+* Never use NEXT_PUBLIC_* unless the value is safe to expose in browser.
+* Never deploy production unless explicitly requested.
+* Never use "use client" unless interaction, state, or browser API requires it.
+* Never import heavy libraries for simple UI.
+* Never use unoptimized images.
+* Never create generic template-looking UI.
+* Never copy a reference website directly.
+* Never overwrite visual-design.md unless explicitly requested.
+* Never create DESIGN_SKILL.md.
+* Never stop at planning.
+* Do the full task.
+
+============================================================
+SECTION 6 — WORKFLOW
+====================
+
+Workflow:
+
+1. Inspect the project root.
+2. Locate or create /skills.
+3. Check whether /skills/visual-design.md exists.
+4. Browse and study the specified references.
+5. Extract reusable implementation rules.
+6. Create or update:
+
+   * /skills/performance.md
+   * /skills/security.md
+   * /skills/vercel-deploy.md
+   * /skills/final-proof.md
+   * /skills/SKILLS_INDEX.md
+7. Review all new files for:
+
+   * overlap
+   * contradiction
+   * missing proof requirements
+   * vague rules
+   * filename correctness
+8. Do not run production deployment.
+9. Produce final proof.
+
+============================================================
+SECTION 7 — FINAL RESPONSE
+==========================
+
+Final Response must include:
+
+* Files created or updated
+* Whether /skills/visual-design.md was found
+* Source URLs or source groups studied
+* Key rules added
+* Any sources that could not be accessed
+* Any assumptions made
+* Remaining risks
+* Final status
+
+Final status must be one of:
+
+* DONE
+* PARTIAL
+* FAILED
+* BLOCKED
+* NEEDS_USER_ACTION
+
+Do not claim DONE unless all required files were created/updated and reviewed.

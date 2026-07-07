@@ -1,0 +1,5 @@
+LOGO=https://web.facebook.com/photo.php?fbid=122104615347113602&set=pb.61583408078229.-2207520000&type=3
+Tone1=https://web.facebook.com/photo.php?fbid=122117266827113602&set=pb.61583408078229.-2207520000&type=3
+Tone2=https://scontent.fbkk33-2.fna.fbcdn.net/v/t39.30808-6/682395932_122130716151113602_8384481157362255896_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1920&ctp=s1920x1920&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFN0jlwrlzFA7Ju4wcbADMzi8d0szIED16Lx3SzMgQPXkDJd58Xyuq7uYHY05U69Z2ynD3sdbDw3tUB6EnrMT8O&_nc_ohc=eHE9a6xFDpsQ7kNvwHILc3R&_nc_oc=Adp1aPPCqWxUPoYbOxoe0XCAMsxoeSuSKIhNyH93dwb40p-ywtLXJYhH_tK1n0pRLuc&_nc_zt=23&_nc_ht=scontent.fbkk33-2.fna&_nc_gid=LzFq28nPE1T0uSW6gisg3Q&_nc_ss=7b2a8&oh=00_AQAm1u19HkfdBN596T9N4Sub_drPIN1Ue5vCk1BZmt66iw&oe=6A528C8F
+Tone3=https://web.facebook.com/photo.php?fbid=122130715965113602&set=pb.61583408078229.-2207520000&type=3
+Hero="D:\01 Main Work\Boots\Agentic AI\mission-control\captain-maid\public\images\heroes\captain-maid-hero.png"
