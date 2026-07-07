@@ -6,7 +6,9 @@
     "author": "Captain Maid Thailand",
     "language": "en",
     "charset": "UTF-8",
-    "viewport": "width=device-width, initial-scale=1"
+    "viewport": "width=device-width, initial-scale=1",
+    "title": "Captain Maid - Premium Natural Cleaning Products",
+    "description": "Premium cleaning products made from natural ingredients. Clean better, live better."
   },
   "header": {
     "logo": "Captain Maid",
@@ -298,7 +300,11 @@
         "author": "Paññā",
         "date": "July 5, 2026",
         "category": "Tips",
-        "tags": ["bathroom", "natural", "budget"],
+        "tags": [
+          "bathroom",
+          "natural",
+          "budget"
+        ],
         "content": "The bathroom is important for family hygiene...",
         "image": "bathroom-cleaning.jpg"
       },
@@ -308,7 +314,11 @@
         "author": "Witthaya",
         "date": "July 3, 2026",
         "category": "Environment",
-        "tags": ["savings", "environment", "tips"],
+        "tags": [
+          "savings",
+          "environment",
+          "tips"
+        ],
         "content": "In today's world, saving resources is important...",
         "image": "save-water.jpg"
       },
@@ -318,7 +328,11 @@
         "author": "Dr. Suchat",
         "date": "July 1, 2026",
         "category": "Health",
-        "tags": ["children", "skin", "safe"],
+        "tags": [
+          "children",
+          "skin",
+          "safe"
+        ],
         "content": "Children's skin is delicate and needs special care...",
         "image": "gentle-cleaning.jpg"
       }
