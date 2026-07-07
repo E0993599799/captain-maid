@@ -10,10 +10,10 @@ export default function Navigation() {
   const t = useTranslations();
 
   const navLinks = [
-    { href: '/#products', label: t('nav.products') || 'Products' },
-    { href: '/blog', label: t('nav.blog') || 'Blog' },
-    { href: '/#about', label: t('nav.about') || 'About' },
-    { href: '/#contact', label: t('nav.contact') || 'Contact' },
+    { href: '/#products', label: t('navigation.main.shop') || 'Products' },
+    { href: '/blog', label: t('navigation.main.blog') || 'Blog' },
+    { href: '/#about', label: t('navigation.main.aboutUs') || 'About' },
+    { href: '/#contact', label: t('navigation.main.contact') || 'Contact' },
   ];
 
   return (

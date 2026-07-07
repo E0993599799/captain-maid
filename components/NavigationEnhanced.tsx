@@ -37,11 +37,11 @@ export const NavigationEnhanced = () => {
   }, []);
 
   const menuItems = [
-    { id: 'shop', labelKey: 'nav.shop', href: '/products' },
-    { id: 'essentials', labelKey: 'nav.essentials', href: '/products' },
-    { id: 'best-sellers', labelKey: 'nav.bestSellers', href: '/products' },
-    { id: 'about', labelKey: 'nav.about', href: '/about' },
-    { id: 'blog', labelKey: 'nav.blog', href: '/blog' },
+    { id: 'shop', labelKey: 'navigation.main.shop', href: '/products' },
+    { id: 'essentials', labelKey: 'navigation.main.essentials', href: '/products' },
+    { id: 'best-sellers', labelKey: 'navigation.main.bestSellers', href: '/products' },
+    { id: 'about', labelKey: 'navigation.main.aboutUs', href: '/about' },
+    { id: 'blog', labelKey: 'navigation.main.blog', href: '/blog' },
   ];
 
   return (
@@ -54,18 +54,18 @@ export const NavigationEnhanced = () => {
               href="#help"
               className="hover:text-captain-primary transition-colors duration-180"
             >
-              {t('nav.help') || 'Help'}
+              {t('navigation.main.help') || 'Help'}
             </a>
             <div className="h-4 w-px bg-white/30"></div>
             <a
               href="#contact"
               className="hover:text-captain-primary transition-colors duration-180"
             >
-              {t('nav.contact') || 'Contact'}
+              {t('navigation.main.contact') || 'Contact'}
             </a>
             <div className="h-4 w-px bg-white/30"></div>
             <span className="text-white/90">
-              {t('nav.freeDelivery') || 'FREE Delivery on all orders!'}
+              {t('navigation.banner.freeDelivery') || 'FREE Delivery on all orders!'}
             </span>
           </div>
         </div>
