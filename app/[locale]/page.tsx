@@ -20,18 +20,18 @@ export default function Home() {
   const FEATURES = [
     {
       icon: Leaf,
-      title: 'Natural Ingredients',
-      description: 'Eco-friendly formula with plant-based components',
+      titleKey: 'features.items.natural.title',
+      descriptionKey: 'features.items.natural.description',
     },
     {
       icon: Sparkles,
-      title: 'Powerful Cleaning',
-      description: 'Advanced encapsulation technology for deep clean',
+      titleKey: 'features.items.powerful.title',
+      descriptionKey: 'features.items.powerful.description',
     },
     {
       icon: Heart,
-      title: 'Family Safe',
-      description: 'Non-toxic and dermatologist tested',
+      titleKey: 'features.items.safe.title',
+      descriptionKey: 'features.items.safe.description',
     },
   ];
 
@@ -48,11 +48,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-[#001360] mb-4">
-              Why Choose Captain Maid?
+            <h2 className="text-4xl md:text-5xl font-bold text-captain-text mb-4">
+              {t('features.sectionTitle')}
             </h2>
-            <p className="text-lg text-[#506090]">
-              Premium cleaning products trusted by families across Thailand
+            <p className="text-lg text-captain-muted">
+              {t('features.sectionSubtitle')}
             </p>
           </motion.div>
 
@@ -68,12 +68,12 @@ export default function Home() {
                   className="text-center"
                 >
                   <div className="flex justify-center mb-4">
-                    <Icon className="w-16 h-16 text-[#00A3E0]" />
+                    <Icon className="w-16 h-16 text-captain-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#001360] mb-2">
-                    {feature.title}
+                  <h3 className="text-xl font-bold text-captain-text mb-2">
+                    {t(feature.titleKey)}
                   </h3>
-                  <p className="text-[#506090]">{feature.description}</p>
+                  <p className="text-captain-muted">{t(feature.descriptionKey)}</p>
                 </motion.div>
               );
             })}
@@ -89,11 +89,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-[#001360] mb-4">
-              Our Products
+            <h2 className="text-4xl md:text-5xl font-bold text-captain-text mb-4">
+              {t('products.sectionTitle')}
             </h2>
-            <p className="text-lg text-[#506090]">
-              Specially formulated cleaning solutions for every room
+            <p className="text-lg text-captain-muted">
+              {t('products.sectionSubtitle')}
             </p>
           </motion.div>
 
@@ -113,9 +113,9 @@ export default function Home() {
           <div className="flex justify-center mt-12">
             <Link
               href="/products"
-              className="inline-flex items-center justify-center px-8 py-3 font-semibold rounded-lg bg-[#00A3E0] text-white hover:bg-[#0080A3] transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 font-semibold rounded-lg bg-captain-primary text-white hover:bg-captain-dark transition-colors"
             >
-              {t('products.viewAll') || 'View All Products'}
+              {t('products.viewAll')}
             </Link>
           </div>
         </div>
