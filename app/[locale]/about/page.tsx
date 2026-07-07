@@ -1,6 +1,5 @@
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { Footer } from '@/components/Footer';
-
 export const dynamic = 'force-dynamic';
 
 export default function AboutPage() {
