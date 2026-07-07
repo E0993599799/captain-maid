@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import '@/styles/globals.css';
+import '@/app/globals.css';
 import { i18n } from '@/i18n.config';
 
 type Props = {
