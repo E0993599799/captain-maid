@@ -6,6 +6,7 @@ import { Menu, X, ShoppingCart, Search, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
 import { LanguageToggle } from './LanguageToggle';
+import { ThemeToggle } from './ThemeToggle';
 
 /**
  * Enhanced Navigation component with top utility bar and main navigation
@@ -118,6 +119,11 @@ export const NavigationEnhanced = () => {
 
             {/* Right Actions */}
             <div className="flex items-center gap-3">
+              {/* Theme Toggle */}
+              <div className="hidden md:block">
+                <ThemeToggle />
+              </div>
+
               {/* Language Toggle */}
               <div className="hidden md:block">
                 <LanguageToggle />

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import '@/app/globals.css';
 import { site } from '@/data/site';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.baseUrl),
@@ -35,9 +36,11 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="th">
-      <body className="bg-white text-captain-text antialiased">
-        {children}
+    <html lang="th" suppressHydrationWarning>
+      <body className="bg-captain-white text-captain-text antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
