@@ -31,11 +31,11 @@ type ProductCardProps = {
 export function ProductCard(props: ProductCardProps) {
   const pathname = usePathname();
   const product = props.product;
-  const name = product?.productName ?? props.name ?? '[รอข้อมูล]';
-  const description = product?.shortDescription ?? props.description ?? '[รอข้อมูล]';
-  const category = product?.category ?? props.category ?? '[รอข้อมูล]';
-  const image = product?.images?.[0]?.src ?? props.image ?? '/images/heroes/captain-maid-hero.png';
-  const imageAlt = product?.images?.[0]?.alt ?? name;
+  const name = product ? product.productName.en : (props.name ?? '[รอข้อมูล]');
+  const description = product ? product.shortDescription.en : (props.description ?? '[รอข้อมูล]');
+  const category = product ? product.category.en : (props.category ?? '[รอข้อมูล]');
+  const image = product?.images?.[0] ?? props.image ?? '/images/heroes/captain-maid-hero.png';
+  const imageAlt = name;
   const slugOrId = product?.slug ?? props.slug ?? props.id ?? '#';
   const localePrefix = pathname.split('/')[1];
   const isLocaleRoute = localePrefix === 'th' || localePrefix === 'en';

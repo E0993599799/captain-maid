@@ -3,11 +3,12 @@ import { ProductCard } from './ProductCard';
 
 interface ProductGridProps {
   products: Product[];
+  emptyMessage?: string;
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({ products, emptyMessage }: ProductGridProps) {
   if (!products || products.length === 0) {
-    return <p>No products found.</p>;
+    return <p className="py-10 text-center text-captain-muted">{emptyMessage || 'No products found.'}</p>;
   }
 
   return (

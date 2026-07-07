@@ -338,3 +338,32 @@ export const getRelatedProducts = (currentSlug: string): Product[] => {
     (p) => p.slug !== currentSlug && p.category.en === currentProduct.category.en
   );
 };
+
+// Compatibility and helper functions
+export const featuredProducts = products.filter(p => p.isFeatured);
+
+export const getProductCategories = () => {
+  const categories = products.map(p => p.category);
+  // Unique by en name
+  return Array.from(new Map(categories.map(c => [c.en, c])).values());
+};
+
+export const getProductScents = () => {
+  const scents = products.map(p => p.scent);
+  return Array.from(new Map(scents.map(s => [s.en, s])).values());
+};
+
+export const getCustomerNeedFilters = () => {
+  // Extract all unique needs from products
+  const allNeeds = products.flatMap(p => p.filters.need);
+  const uniqueNeeds = Array.from(new Set(allNeeds));
+  
+  // Map internal keys to labels (this would ideally be in i18n, but providing structure here)
+  return uniqueNeeds.map(need => ({
+    id: need,
+    label: {
+      en: need.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+      th: need // Placeholder for Thai
+    }
+  }));
+};

@@ -4,7 +4,7 @@ import '@/app/globals.css';
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.siteUrl),
+  metadataBase: new URL(site.baseUrl),
   title: {
     default: site.seo.title,
     template: `%s | ${site.brandName}`,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
     title: site.seo.title,
     description: site.seo.description,
-    url: site.siteUrl,
+    url: site.baseUrl,
     siteName: site.brandName,
   },
 };

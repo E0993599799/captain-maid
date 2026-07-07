@@ -413,3 +413,7 @@ export function getAllBlogPosts(): BlogPost[] {
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return allBlogPosts.find((p) => p.slug === slug);
 }
+
+// Aliases for compatibility
+export const blogPosts = allBlogPosts;
+export const getBlogPost = getBlogPostBySlug;

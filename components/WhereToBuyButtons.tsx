@@ -5,31 +5,39 @@ import { trackEvent } from '@/lib/analytics';
 import { Button } from './ui/button';
 import Image from 'next/image';
 
+interface Channel {
+  name: string;
+  url: string;
+  logo: string;
+  status?: string;
+}
+
 interface WhereToBuyButtonsProps {
-  product: Product;
+  product?: Product;
+  links?: Channel[];
   className?: string;
 }
 
-export function WhereToBuyButtons({ product, className }: WhereToBuyButtonsProps) {
-  const channels = [
-    { name: 'HomePro', url: product.homeproUrl, logo: '/images/retailers/HomePro_Logo.svg', eventName: 'click_homepro' },
-    { name: 'Shopee', url: product.shopeeUrl, logo: '/images/retailers/Shopee.svg', eventName: 'click_shopee' },
-    { name: 'Lazada', url: product.lazadaUrl, logo: '/images/retailers/Lazada_(2019).svg', eventName: 'click_lazada' },
-    { name: 'TikTok', url: product.tiktokUrl, logo: '/images/retailers/TikTok_logo.svg', eventName: 'click_tiktok' },
-    { name: 'LINE', url: product.lineUrl, logo: '/images/retailers/LINE_Shopping.svg', eventName: 'click_line' },
-  ] as const;
+export function WhereToBuyButtons({ product, links, className }: WhereToBuyButtonsProps) {
+  const channels = links || [
+    { name: 'HomePro', url: product?.homeproUrl || '', logo: '/images/retailers/HomePro_Logo.svg', eventName: 'click_homepro' },
+    { name: 'Shopee', url: product?.shopeeUrl || '', logo: '/images/retailers/Shopee.svg', eventName: 'click_shopee' },
+    { name: 'Lazada', url: product?.lazadaUrl || '', logo: '/images/retailers/Lazada_(2019).svg', eventName: 'click_lazada' },
+    { name: 'TikTok', url: product?.tiktokUrl || '', logo: '/images/retailers/TikTok_logo.svg', eventName: 'click_tiktok' },
+    { name: 'LINE', url: product?.lineUrl || '', logo: '/images/retailers/LINE_Shopping.svg', eventName: 'click_line' },
+  ];
 
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-      {channels.map((channel) => {
-        const isAvailable = channel.url && !channel.url.startsWith('[รอข้อมูล]');
+      {channels.map((channel: any) => {
+        const isAvailable = channel.url && !channel.url.startsWith('[รอข้อมูล]') && channel.status !== 'coming-soon';
         return (
           <Button
             key={channel.name}
             variant="outline"
             asChild={isAvailable}
             disabled={!isAvailable}
-            onClick={() => isAvailable && trackEvent(channel.eventName, { product_slug: product.slug })}
+            onClick={() => isAvailable && product && trackEvent(channel.eventName || 'click_channel', { product_slug: product.slug })}
             className="flex items-center gap-2"
           >
             {isAvailable ? (

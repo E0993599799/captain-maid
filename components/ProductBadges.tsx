@@ -8,7 +8,7 @@ export type ProductBadgeType =
   | 'Anti-Bac 99.9%';
 
 interface ProductBadgesProps {
-  badges: ProductBadgeType[];
+  badges: string[];
   className?: string;
 }
 

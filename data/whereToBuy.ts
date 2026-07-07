@@ -37,3 +37,5 @@ export const whereToBuyChannels: WhereToBuyChannel[] = [
     status: 'coming-soon',
   },
 ];
+
+export const whereToBuy = whereToBuyChannels;

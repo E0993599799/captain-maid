@@ -1,4 +1,4 @@
-const { blogPosts: sourceBlogPosts, getBlogPost: getSourceBlogPost } = require('../data/blogPosts') as any;
+import { blogPosts as sourceBlogPosts, BlogPost as SourceBlogPost } from '../data/blogPosts';
 
 export type BlogPost = {
   id: string;
@@ -14,14 +14,14 @@ export type BlogPost = {
   content?: string;
 };
 
-export const blogPosts: BlogPost[] = sourceBlogPosts.map((post) => ({
+export const blogPosts: BlogPost[] = sourceBlogPosts.map((post: SourceBlogPost) => ({
   id: post.slug,
   slug: post.slug,
   title: post.title,
-  category: { th: post.category, en: post.category },
-  date: post.publishedAt,
+  category: post.category,
+  date: post.date,
   excerpt: post.excerpt,
-  image: post.coverImage.src,
+  image: post.image,
   readTime: post.readTime,
   seoTitle: post.seoTitle,
   seoDescription: post.seoDescription,
@@ -33,9 +33,9 @@ export function getAllBlogPosts(): BlogPost[] {
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug) ?? undefined;
+  return blogPosts.find((post) => post.slug === slug);
 }
 
 export function getBlogPost(slug: string): BlogPost | undefined {
-  return getBlogPostBySlug(slug) ?? (getSourceBlogPost(slug) as BlogPost | undefined);
+  return getBlogPostBySlug(slug);
 }

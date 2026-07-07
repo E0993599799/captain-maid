@@ -1,18 +1,27 @@
-import { getAllBlogPosts } from '@/data/blogPosts';
+import { BlogPost } from '@/data/blogPosts';
 import { Link } from '@/lib/navigation';
 import Image from 'next/image';
 
-export function BlogPreview() {
-  const latestPosts = getAllBlogPosts().slice(0, 3);
+interface BlogPreviewProps {
+  posts?: BlogPost[];
+  title?: string;
+  subtitle?: string;
+}
+
+export function BlogPreview({ posts, title, subtitle }: BlogPreviewProps) {
+  const displayPosts = posts || [];
 
   return (
     <section className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-text-primary mb-12">
-          เคล็ดลับและบทความ
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-text-primary mb-2">
+          {title || 'เคล็ดลับและบทความ'}
         </h2>
+        {subtitle && (
+          <p className="text-center text-text-secondary mb-12">{subtitle}</p>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {latestPosts.map((post) => (
+          {displayPosts.map((post) => (
             <Link href={`/blog/${post.slug}`} key={post.slug} className="group">
               <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col">
                 <div className="relative h-48">

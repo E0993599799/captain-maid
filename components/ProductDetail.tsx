@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useLocale, useTranslations } from 'next-intl';
-import { Star, Check, AlertTriangle } from 'lucide-react';
+import { useLocale } from 'next-intl';
+import { Check, AlertTriangle } from 'lucide-react';
 
 import { Product, getRelatedProducts } from '@/data/products';
 import { ProductBadges } from './ProductBadges';
@@ -17,7 +17,6 @@ interface ProductDetailProps {
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
-  const t = useTranslations();
   const locale = useLocale();
   const lang = locale as 'th' | 'en';
 

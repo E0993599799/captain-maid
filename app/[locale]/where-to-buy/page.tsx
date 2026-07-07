@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function WhereToBuyPage() {
   return (
     <main className="mx-auto min-h-screen max-w-5xl space-y-8 px-4 py-6 md:px-6 md:py-10">
-      <SEOJsonLd type="website" />
+      <SEOJsonLd type="organization" />
       <section className="space-y-4 rounded-3xl border border-captain-border bg-white p-6 shadow-sm">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-captain-primary">Where to buy</p>
         <h1 className="text-3xl font-bold text-captain-text md:text-4xl">ช่องทางซื้อ Captain Maid</h1>
