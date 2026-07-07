@@ -49,7 +49,8 @@
     "description": "สะอาดได้ดีกว่า อยู่อย่างสุขสวัสดิ์ ด้วยเทคโนโลยีการทำความสะอาดที่ปลอดภัยสำหรับครอบครัว",
     "ctaPrimary": "ซื้อเลย",
     "ctaSecondary": "เรียนรู้เพิ่มเติม",
-    "heroImageAlt": "ผลิตภัณฑ์ทำความสะอาด Captain Maid"
+    "heroImageAlt": "ผลิตภัณฑ์ทำความสะอาด Captain Maid",
+    "subtitle": "ผลิตภัณฑ์ทำความสะอาดพรีเมียมที่ทำจากส่วนผสมธรรมชาติ"
   },
   "features": {
     "sectionTitle": "ทำไมต้องเลือก Captain Maid",
@@ -199,7 +200,12 @@
           "origin": "เทพแบบ Thailand"
         }
       }
-    }
+    },
+    "title": "สินค้าแนะนำ",
+    "subtitle": "ค้นพบสินค้าทำความสะอาดพรีเมียมไลน์ที่สมบูรณ์",
+    "inStock": "มีสินค้า",
+    "outOfStock": "สินค้าหมด",
+    "moreDetail": "ดูรายละเอียด"
   },
   "productCategories": {
     "allProducts": "สินค้าทั้งหมด",
@@ -336,7 +342,9 @@
         "content": "ผิวของเด็กเป็นที่ที่ละเอียดอ่อนและต้องการการดูแลเฉพาะ...",
         "image": "gentle-cleaning.jpg"
       }
-    }
+    },
+    "title": "บล็อก Captain Maid",
+    "subtitle": "เคล็ดลับและข้อมูลเชิงลึกเกี่ยวกับการทำความสะอาด"
   },
   "faq": {
     "sectionTitle": "คำถามที่พบบ่อย",
@@ -386,56 +394,27 @@
     ]
   },
   "footer": {
-    "company": {
-      "heading": "บริษัท",
-      "about": "เกี่ยวกับ Captain Maid",
-      "careers": "งาน",
-      "press": "สื่อมวลชน",
-      "blog": "บล็อก",
-      "sustainability": "ความยั่งยืน"
-    },
-    "support": {
-      "heading": "การสนับสนุนและกฎหมาย",
-      "contact": "ติดต่อเรา",
-      "faq": "คำถามที่พบบ่อย",
-      "shipping": "ข้อมูลการจัดส่ง",
-      "returns": "การคืนสินค้าและเงินคืน",
-      "privacy": "นโยบายความเป็นส่วนตัว",
-      "terms": "เงื่อนไขการใช้บริการ",
-      "cookies": "นโยบายคุกกี้"
-    },
-    "products": {
-      "heading": "สินค้า",
-      "all": "สินค้าทั้งหมด",
-      "floorCleaners": "น้ำยาทำความสะอาดพื้น",
-      "kitchenCleaners": "น้ำยาทำความสะอาดห้องครัว",
-      "bathroomCleaners": "น้ำยาทำความสะอาดห้องน้ำ",
-      "glassCleaners": "น้ำยาทำความสะอาดกระจก",
-      "laundry": "น้ำยาซักผ้า"
-    },
-    "newsletter": {
-      "heading": "อัพเดตข้อมูล",
-      "description": "ได้รับข้อเสนอพิเศษและเคล็ดลับการทำความสะอาดส่งมายังกล่องจดหมายของคุณ",
-      "placeholder": "ใส่อีเมลของคุณ",
-      "subscribe": "สมัครสมาชิก",
-      "unsubscribe": "ยกเลิกการสมัครสมาชิก"
-    },
-    "social": {
-      "heading": "ติดตามเรา",
-      "facebook": "Facebook",
-      "instagram": "Instagram",
-      "twitter": "Twitter",
-      "youtube": "YouTube",
-      "tiktok": "TikTok"
-    },
-    "contact": {
-      "phone": "โทรศัพท์: 1800-CAPTAIN",
-      "email": "อีเมล: support@captainmaid.co.th",
-      "address": "ที่อยู่: 123 ถนน สวนลุมพิณี กรุงเทพมหานคร 10330"
-    },
-    "copyright": "© 2026 Captain Maid Thailand. สงวนลิขสิทธิ์ทั้งหมด",
-    "legal": "ข้อกำหนดด้านกฎหมาย",
-    "accessibility": "ความสามารถในการเข้าถึง"
+    "brand": "Captain Maid",
+    "company": "บริษัท",
+    "about": "เกี่ยวกับ Captain Maid",
+    "blog": "บล็อก",
+    "support": "การสนับสนุนและกฎหมาย",
+    "contact": "ติดต่อเรา",
+    "faq": "คำถามที่พบบ่อย",
+    "shipping": "ข้อมูลการจัดส่ง",
+    "returns": "การคืนสินค้าและเงินคืน",
+    "privacy": "นโยบายความเป็นส่วนตัว",
+    "terms": "เงื่อนไขการใช้บริการ",
+    "products": "สินค้า",
+    "floorCleaner": "น้ำยาทำความสะอาดพื้น",
+    "kitchenCleaner": "น้ำยาทำความสะอาดห้องครัว",
+    "bathroomCleaner": "น้ำยาทำความสะอาดห้องน้ำ",
+    "glassCleanser": "น้ำยาทำความสะอาดกระจก",
+    "newsletter": "ได้รับข้อเสนอพิเศษและเคล็ดลับการทำความสะอาดส่งมายังกล่องจดหมายของคุณ",
+    "stayUpdated": "อัพเดตข้อมูล",
+    "enterEmail": "ใส่อีเมลของคุณ",
+    "subscribe": "สมัครสมาชิก",
+    "copyright": "© 2026 Captain Maid Thailand. สงวนลิขสิทธิ์ทั้งหมด"
   },
   "buttons": {
     "addToCart": "เพิ่มลงในตะกร้า",
@@ -573,5 +552,26 @@
     "searchProducts": "ค้นหาสินค้า",
     "noSearchResults": "ไม่พบผลลัพธ์สำหรับ: {query}",
     "suggestions": "คำแนะนำการค้นหา"
+  },
+  "nav": {
+    "products": "ร้านค้า",
+    "about": "เกี่ยวกับเรา",
+    "blog": "บล็อก",
+    "contact": "ติดต่อเรา",
+    "help": "ช่วยเหลือ",
+    "freeDelivery": "ส่งฟรี สำหรับคำสั่งซื้อทั้งหมด!"
+  },
+  "productDetail": {
+    "backToProducts": "กลับไปหน้าสินค้า",
+    "specifications": "ข้อมูลจำเพาะ",
+    "properties": "คุณสมบัติ",
+    "usage": "วิธีใช้",
+    "directions": "วิธีใช้งาน",
+    "precautions": "ข้อควรระวัง",
+    "size": "ขนาด",
+    "weight": "น้ำหนัก",
+    "height": "ความสูง",
+    "width": "ความกว้าง",
+    "depth": "ความลึก"
   }
 }

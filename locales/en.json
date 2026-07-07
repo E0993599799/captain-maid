@@ -49,7 +49,8 @@
     "description": "Clean better, live better with safe family-friendly cleaning technology",
     "ctaPrimary": "Shop Now",
     "ctaSecondary": "Learn More",
-    "heroImageAlt": "Captain Maid Cleaning Products"
+    "heroImageAlt": "Captain Maid Cleaning Products",
+    "subtitle": "Premium cleaning products made from natural ingredients"
   },
   "features": {
     "sectionTitle": "Why Choose Captain Maid",
@@ -199,7 +200,12 @@
           "origin": "Made in Thailand"
         }
       }
-    }
+    },
+    "title": "Featured Products",
+    "subtitle": "Discover our complete line of premium cleaning products",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "moreDetail": "More Details"
   },
   "productCategories": {
     "allProducts": "All Products",
@@ -336,7 +342,9 @@
         "content": "Children's skin is delicate and needs special care...",
         "image": "gentle-cleaning.jpg"
       }
-    }
+    },
+    "title": "Captain Maid Blog",
+    "subtitle": "Tips and insights about cleaning"
   },
   "faq": {
     "sectionTitle": "Frequently Asked Questions",
@@ -386,56 +394,27 @@
     ]
   },
   "footer": {
-    "company": {
-      "heading": "Company",
-      "about": "About Captain Maid",
-      "careers": "Careers",
-      "press": "Press",
-      "blog": "Blog",
-      "sustainability": "Sustainability"
-    },
-    "support": {
-      "heading": "Support & Legal",
-      "contact": "Contact Us",
-      "faq": "FAQ",
-      "shipping": "Shipping Info",
-      "returns": "Returns & Refunds",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service",
-      "cookies": "Cookie Policy"
-    },
-    "products": {
-      "heading": "Products",
-      "all": "All Products",
-      "floorCleaners": "Floor Cleaners",
-      "kitchenCleaners": "Kitchen Cleaners",
-      "bathroomCleaners": "Bathroom Cleaners",
-      "glassCleaners": "Glass Cleaners",
-      "laundry": "Laundry Detergent"
-    },
-    "newsletter": {
-      "heading": "Stay Updated",
-      "description": "Get exclusive offers and cleaning tips delivered to your inbox",
-      "placeholder": "Enter your email",
-      "subscribe": "Subscribe",
-      "unsubscribe": "Unsubscribe"
-    },
-    "social": {
-      "heading": "Follow Us",
-      "facebook": "Facebook",
-      "instagram": "Instagram",
-      "twitter": "Twitter",
-      "youtube": "YouTube",
-      "tiktok": "TikTok"
-    },
-    "contact": {
-      "phone": "Phone: 1800-CAPTAIN",
-      "email": "Email: support@captainmaid.co.th",
-      "address": "Address: 123 Suan Lumpini Road, Bangkok 10330"
-    },
-    "copyright": "© 2026 Captain Maid Thailand. All rights reserved.",
-    "legal": "Legal Terms",
-    "accessibility": "Accessibility"
+    "brand": "Captain Maid",
+    "company": "Company",
+    "about": "About Captain Maid",
+    "blog": "Blog",
+    "support": "Support & Legal",
+    "contact": "Contact Us",
+    "faq": "FAQ",
+    "shipping": "Shipping Info",
+    "returns": "Returns & Refunds",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "products": "Products",
+    "floorCleaner": "Floor Cleaners",
+    "kitchenCleaner": "Kitchen Cleaners",
+    "bathroomCleaner": "Bathroom Cleaners",
+    "glassCleanser": "Glass Cleaners",
+    "newsletter": "Get exclusive offers and cleaning tips delivered to your inbox",
+    "stayUpdated": "Stay Updated",
+    "enterEmail": "Enter your email",
+    "subscribe": "Subscribe",
+    "copyright": "© 2026 Captain Maid Thailand. All rights reserved."
   },
   "buttons": {
     "addToCart": "Add to Cart",
@@ -573,5 +552,26 @@
     "searchProducts": "Search Products",
     "noSearchResults": "No results found for: {query}",
     "suggestions": "Search Suggestions"
+  },
+  "nav": {
+    "products": "Shop",
+    "about": "About Us",
+    "blog": "Blog",
+    "contact": "Contact Us",
+    "help": "Help",
+    "freeDelivery": "Free Delivery on all orders!"
+  },
+  "productDetail": {
+    "backToProducts": "Back to Products",
+    "specifications": "Specifications",
+    "properties": "Properties",
+    "usage": "How to Use",
+    "directions": "Directions",
+    "precautions": "Precautions",
+    "size": "Size",
+    "weight": "Weight",
+    "height": "Height",
+    "width": "Width",
+    "depth": "Depth"
   }
 }
