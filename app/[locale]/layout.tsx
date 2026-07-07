@@ -6,14 +6,15 @@ import { i18n } from '@/i18n.config';
 
 type Props = {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 };
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: Omit<Props, 'children'>): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
@@ -29,10 +30,11 @@ export function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }));
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: Props) {
+  const { locale } = await params;
   unstable_setRequestLocale(locale);
 
   return (
