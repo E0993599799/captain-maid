@@ -1,54 +1,44 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import '@/styles/globals.css';
 import { i18n } from '@/i18n.config';
-import '../globals.css';
 
-export const viewport = { width: 'device-width', initialScale: 1 };
-
-export const metadata: Metadata = {
-  title: 'Captain Maid - Premium Home Cleaning Products',
-  description: 'Quality home cleaning products made from natural ingredients.',
-  openGraph: {
-    title: 'Captain Maid',
-    description: 'Premium cleaning products made with nature-derived ingredients',
-    type: 'website',
-    url: 'https://captain-maid.vercel.app',
-    images: [{ url: '/images/logos/captain-maid-logo.jpg' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Captain Maid',
-    description: 'Premium home cleaning products',
-  },
-};
-
-type LocaleLayoutProps = {
+type Props = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: {
+    locale: string;
+  };
 };
 
-export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const { locale } = await params;
+export async function generateMetadata({
+  params: { locale },
+}: Omit<Props, 'children'>): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'metadata' });
 
-  if (!i18n.locales.includes(locale as any)) {
-    notFound();
-  }
+  return {
+    title: t('title') || 'Captain Maid - Premium Home Cleaning Products',
+    description:
+      t('description') ||
+      'Professional-grade cleaning products. Eco-friendly, family-safe, dermatologist tested.',
+    metadataBase: new URL('https://captain-maid.vercel.app'),
+  };
+}
 
-  const messages = await getMessages();
+export function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+  children,
+  params: { locale },
+}: Props) {
+  unstable_setRequestLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/images/logos/captain-maid-icon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+    <html lang={locale}>
+      <body className="bg-white dark:bg-slate-950">
+        {children}
       </body>
     </html>
   );

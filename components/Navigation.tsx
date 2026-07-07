@@ -3,60 +3,73 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations();
+
+  const navLinks = [
+    { href: '/#products', label: t('nav.products') || 'Products' },
+    { href: '/blog', label: t('nav.blog') || 'Blog' },
+    { href: '/#about', label: t('nav.about') || 'About' },
+    { href: '/#contact', label: t('nav.contact') || 'Contact' },
+  ];
 
   return (
-    <nav style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '1.5rem 2rem',
-      background: 'rgba(0, 0, 0, 0.1)',
-      backdropFilter: 'blur(10px)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100,
-      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-    }}>
-      <Link href="/" style={{
-        fontSize: '1.5rem',
-        fontWeight: 'bold',
-        color: 'white',
-        textDecoration: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-      }}>
-        🧹 Captain Maid
-      </Link>
+    <nav className="sticky top-0 z-50 bg-black/10 backdrop-blur-xl border-b border-white/10">
+      <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4 sm:py-6 max-w-7xl mx-auto">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl sm:text-2xl font-bold text-white hover:text-captain-primary transition-colors"
+          aria-label="Captain Maid Home"
+        >
+          🧹 <span className="hidden sm:inline">Captain Maid</span>
+        </Link>
 
-      {/* Desktop Menu */}
-      <div style={{
-        display: 'flex',
-        gap: '2rem',
-        color: 'white',
-      }}>
-        <a href="/#products" style={{ cursor: 'pointer', opacity: 0.9, transition: 'opacity 0.3s' }}>Products</a>
-        <a href="/blog" style={{ cursor: 'pointer', opacity: 0.9, transition: 'opacity 0.3s' }}>Blog</a>
-        <a href="/#about" style={{ cursor: 'pointer', opacity: 0.9, transition: 'opacity 0.3s' }}>About</a>
-        <a href="#contact" style={{ cursor: 'pointer', opacity: 0.9, transition: 'opacity 0.3s' }}>Contact</a>
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex gap-6 lg:gap-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-white hover:text-captain-primary transition-colors duration-300 font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          display: 'none',
-          background: 'none',
-          border: 'none',
-          color: 'white',
-          cursor: 'pointer',
-        }}
-      >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+      {/* Mobile Navigation Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-black/20 border-t border-white/10">
+          <div className="flex flex-col gap-1 px-4 py-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
