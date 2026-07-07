@@ -291,60 +291,8 @@
     }
   },
   "blog": {
-    "sectionTitle": "Captain Maid Blog",
-    "sectionSubtitle": "Tips and insights about cleaning",
-    "readMore": "Read More",
-    "category": "Category",
-    "tags": "Tags",
-    "postedBy": "Posted by",
-    "on": "on",
-    "relatedPosts": "Related Posts",
-    "posts": {
-      "post1": {
-        "title": "5 Ways to Clean Your Bathroom with Natural Ingredients",
-        "excerpt": "Learn how to clean your bathroom naturally and safely with natural ingredients",
-        "author": "Paññā",
-        "date": "July 5, 2026",
-        "category": "Tips",
-        "tags": [
-          "bathroom",
-          "natural",
-          "budget"
-        ],
-        "content": "The bathroom is important for family hygiene...",
-        "image": "bathroom-cleaning.jpg"
-      },
-      "post2": {
-        "title": "Money and Energy Saving Cleaning Tips",
-        "excerpt": "Discover cleaning methods that save both money and the environment",
-        "author": "Witthaya",
-        "date": "July 3, 2026",
-        "category": "Environment",
-        "tags": [
-          "savings",
-          "environment",
-          "tips"
-        ],
-        "content": "In today's world, saving resources is important...",
-        "image": "save-water.jpg"
-      },
-      "post3": {
-        "title": "Gentle Cleaning Formulas for Sensitive Skin",
-        "excerpt": "Safe and gentle cleaning methods for children",
-        "author": "Dr. Suchat",
-        "date": "July 1, 2026",
-        "category": "Health",
-        "tags": [
-          "children",
-          "skin",
-          "safe"
-        ],
-        "content": "Children's skin is delicate and needs special care...",
-        "image": "gentle-cleaning.jpg"
-      }
-    },
-    "title": "Captain Maid Blog",
-    "subtitle": "Tips and insights about cleaning"
+    "title": "Blog",
+    "subtitle": "Cleaning tips, home care guides, and Captain Maid product knowledge"
   },
   "faq": {
     "sectionTitle": "Frequently Asked Questions",
@@ -562,20 +510,18 @@
     "freeDelivery": "Free Delivery on all orders!"
   },
   "productDetail": {
-        "backToProducts": "Back to Products",
-        "specifications": "Specifications",
-        "properties": "Properties",
-        "usage": "How to Use",
-        "directions": "Directions",
-        "precautions": "Precautions",
-        "size": "Size",
-        "weight": "Weight",
-        "height": "Height",
-        "width": "Width",
-        "depth": "Depth"
-    },
-    "blog": {
-      "title": "Blog",
-      "subtitle": "Cleaning tips, home care guides, and Captain Maid product knowledge"
-    }
-  }
+    "backToProducts": "Back to Products",
+    "specifications": "Specifications",
+    "properties": "Properties",
+    "usage": "How to Use",
+    "directions": "Directions",
+    "precautions": "Precautions",
+    "size": "Size",
+    "weight": "Weight",
+    "height": "Height",
+    "width": "Width",
+    "depth": "Depth"
+  },
+  "description": "Premium cleaning products made from natural ingredients.",
+  "title": "Captain Maid - Premium Home Cleaning Products"
+}
