@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 import '@/app/globals.css';
 import { i18n } from '@/i18n.config';
 
@@ -32,11 +33,14 @@ export default async function LocaleLayout({
   params,
 }: Props) {
   const { locale } = await params;
+  const messages = (await import(`../../locales/${locale}.json`)).default;
 
   return (
     <html lang={locale}>
       <body className="bg-white dark:bg-slate-950">
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );
