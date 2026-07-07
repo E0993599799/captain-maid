@@ -7,6 +7,7 @@ import { Link } from '@/lib/navigation';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { HeroEnhanced } from '@/components/HeroEnhanced';
 import { ProductCard } from '@/components/ProductCard';
+import { BlogNewsSection } from '@/components/BlogNewsSection';
 import { FAQ } from '@/components/FAQ';
 import { ShopCTA } from '@/components/ShopCta';
 import { Footer } from '@/components/Footer';
@@ -121,6 +122,7 @@ export default function Home() {
         </div>
       </section>
 
+      <BlogNewsSection />
       <FAQ />
       <ShopCTA />
       <Footer />
