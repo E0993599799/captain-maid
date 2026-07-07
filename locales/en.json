@@ -562,16 +562,20 @@
     "freeDelivery": "Free Delivery on all orders!"
   },
   "productDetail": {
-    "backToProducts": "Back to Products",
-    "specifications": "Specifications",
-    "properties": "Properties",
-    "usage": "How to Use",
-    "directions": "Directions",
-    "precautions": "Precautions",
-    "size": "Size",
-    "weight": "Weight",
-    "height": "Height",
-    "width": "Width",
-    "depth": "Depth"
+        "backToProducts": "Back to Products",
+        "specifications": "Specifications",
+        "properties": "Properties",
+        "usage": "How to Use",
+        "directions": "Directions",
+        "precautions": "Precautions",
+        "size": "Size",
+        "weight": "Weight",
+        "height": "Height",
+        "width": "Width",
+        "depth": "Depth"
+    },
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Cleaning tips, home care guides, and Captain Maid product knowledge"
+    }
   }
-}
