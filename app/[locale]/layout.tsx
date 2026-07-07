@@ -1,11 +1,10 @@
-import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
-import '@/app/globals.css';
 import { i18n } from '@/i18n.config';
+import type { ReactNode } from 'react';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   params: Promise<{
     locale: string;
   }>;
@@ -13,14 +12,13 @@ type Props = {
 
 export async function generateMetadata({
   params,
-}: Omit<Props, 'children'>): Promise<Metadata> {
+}: Omit<Props, 'children'>) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
     title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://captain-maid.vercel.app'),
   };
 }
 
@@ -36,12 +34,8 @@ export default async function LocaleLayout({
   const messages = (await import(`../../locales/${locale}.json`)).default;
 
   return (
-    <html lang={locale}>
-      <body className="bg-white dark:bg-slate-950">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+    </NextIntlClientProvider>
   );
 }
