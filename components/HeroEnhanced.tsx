@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from './Button';
 
 /**
@@ -12,6 +13,8 @@ import { Button } from './Button';
  * Mobile: character on top, content below
  */
 export const HeroEnhanced = () => {
+  const t = useTranslations();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -33,25 +36,25 @@ export const HeroEnhanced = () => {
   };
 
   const features = [
-    'Eliminates 99.9% of germs',
-    'Nature-derived ingredients',
-    'Safe for kids & pets',
-    'Eco-friendly formula',
+    { titleKey: 'features.items.natural.title', descKey: 'features.items.natural.description' },
+    { titleKey: 'features.items.powerful.title', descKey: 'features.items.powerful.description' },
+    { titleKey: 'features.items.safe.title', descKey: 'features.items.safe.description' },
+    { titleKey: 'features.items.sustainable.title', descKey: 'features.items.sustainable.description' },
   ];
 
   return (
-    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#f0f8ff] via-white to-[#e8f4ff] min-h-screen flex items-center">
+    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-captain-soft via-white to-captain-light min-h-screen flex items-center">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ y: [0, 30, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-20 right-20 w-40 h-40 bg-[#90d0f0]/30 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-40 h-40 bg-captain-accent/30 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ y: [0, -30, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute bottom-20 left-20 w-40 h-40 bg-[#b0d0f0]/30 rounded-full blur-3xl"
+          className="absolute bottom-20 left-20 w-40 h-40 bg-captain-light/30 rounded-full blur-3xl"
         />
       </div>
 
@@ -98,20 +101,17 @@ export const HeroEnhanced = () => {
             {/* Main Headline */}
             <motion.h1
               variants={itemVariants}
-              className="font-display text-h1 md:text-[54px] font-bold text-[#001360] leading-tight"
+              className="font-display text-h1 md:text-[54px] font-bold text-captain-text leading-tight"
             >
-              Made for Easy{' '}
-              <span className="text-[#02a6e3]">
-                Home Cleaning
-              </span>
+              {t('hero.mainHeading')}
             </motion.h1>
 
             {/* Subheading */}
             <motion.p
               variants={itemVariants}
-              className="font-sans text-body md:text-h4 text-[#506090]"
+              className="font-sans text-body md:text-h4 text-captain-muted"
             >
-              Better Living, Taken Care of by Captain Maid. Premium cleaning products made from nature-derived ingredients.
+              {t('hero.subHeading')}
             </motion.p>
 
             {/* Features Grid */}
@@ -124,10 +124,13 @@ export const HeroEnhanced = () => {
                   key={idx}
                   className="flex items-center gap-3 text-left p-3 rounded-lg bg-white/70 backdrop-blur-sm hover:bg-white/80 transition-colors"
                 >
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-[#02a6e3] flex items-center justify-center flex-shrink-0">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-captain-primary flex items-center justify-center flex-shrink-0">
                     <Check size={16} className="text-white" />
                   </div>
-                  <span className="text-[#001360] font-medium text-sm">{feature}</span>
+                  <div className="flex flex-col">
+                    <span className="text-captain-text font-medium text-sm">{t(feature.titleKey)}</span>
+                    <span className="text-captain-muted text-xs">{t(feature.descKey)}</span>
+                  </div>
                 </div>
               ))}
             </motion.div>
@@ -142,22 +145,22 @@ export const HeroEnhanced = () => {
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
-                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br from-[#90d0f0] to-[#02a6e3] flex items-center justify-center text-white font-semibold text-sm"
+                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br from-captain-accent to-captain-primary flex items-center justify-center text-white font-semibold text-sm"
                     >
                       {i + 1}
                     </div>
                   ))}
                 </div>
-                <div className="text-sm text-[#506090]">
-                  <span className="font-semibold text-[#001360]">2,500+</span> Happy Customers
+                <div className="text-sm text-captain-muted">
+                  <span className="font-semibold text-captain-text">2,500+</span> {t('common.happyCustomers') || 'Happy Customers'}
                 </div>
               </div>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-[#02a6e3] text-lg">★</span>
+                  <span key={i} className="text-captain-primary text-lg">★</span>
                 ))}
-                <span className="ml-2 text-sm text-[#506090]">
-                  4.9/5 from 500+ reviews
+                <span className="ml-2 text-sm text-captain-muted">
+                  4.9/5 {t('common.fromReviews') || 'from'} 500+ {t('common.reviews') || 'reviews'}
                 </span>
               </div>
             </motion.div>
@@ -168,10 +171,10 @@ export const HeroEnhanced = () => {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Button size="lg" variant="primary">
-                Shop Now
+                {t('hero.ctaPrimary')}
               </Button>
               <Button size="lg" variant="secondary">
-                Learn More
+                {t('hero.ctaSecondary')}
               </Button>
             </motion.div>
           </motion.div>
@@ -181,9 +184,9 @@ export const HeroEnhanced = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-[#506090]"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-captain-muted"
         >
-          <span className="text-sm font-medium">Scroll to explore</span>
+          <span className="text-sm font-medium">{t('common.scrollToExplore') || 'Scroll to explore'}</span>
           <ChevronDown size={20} />
         </motion.div>
       </div>
