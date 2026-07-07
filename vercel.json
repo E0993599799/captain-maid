@@ -3,6 +3,5 @@
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "installCommand": "npm install"
+  "trailingSlash": false
 }
