@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useLocale } from 'next-intl';
 import { FaqItem } from '@/data/faqs';
 import { Button } from './ui/button';
 
@@ -15,8 +14,7 @@ type FAQAccordionProps = {
 export function FAQAccordion({ items, title = 'FAQ', subtitle, showCategories = false }: FAQAccordionProps) {
   const [openQuestion, setOpenQuestion] = useState(items[0]?.question.th ?? '');
   const [activeCategory, setActiveCategory] = useState<'all' | FaqItem['category']>('all');
-  const locale = useLocale();
-  const lang = locale as 'th' | 'en';
+  const lang: 'th' | 'en' = 'th';
 
   const categories = useMemo(() => {
     if (!showCategories) return [];

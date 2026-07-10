@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -63,12 +62,10 @@ export const HeroEnhanced = () => {
         {/* Mobile: Character on top */}
         <div className="md:hidden mb-8 w-full flex justify-center">
           <div className="relative w-full max-w-sm h-80">
-            <Image
+            <img
               src="/images/heroes/captain-maid-hero.png"
               alt="Captain Maid Hero Character"
-              fill
-              className="object-contain object-bottom"
-              priority
+              className="h-full w-full object-contain object-bottom"
             />
           </div>
         </div>
@@ -81,12 +78,10 @@ export const HeroEnhanced = () => {
             className="hidden md:flex relative h-full min-h-[500px] md:min-h-[600px] items-end justify-center"
           >
             <div className="relative w-full h-full max-w-md">
-              <Image
+              <img
                 src="/images/heroes/captain-maid-hero.png"
                 alt="Captain Maid Hero Character"
-                fill
-                className="object-contain object-bottom"
-                priority
+                className="h-full w-full object-contain object-bottom"
               />
             </div>
           </motion.div>

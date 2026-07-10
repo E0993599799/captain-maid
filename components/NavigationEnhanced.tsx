@@ -1,12 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { Menu, X, ShoppingCart, Search, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
-import { LanguageToggle } from './LanguageToggle';
-import { ThemeToggle } from './ThemeToggle';
 
 /**
  * Enhanced Navigation component with top utility bar and main navigation
@@ -39,11 +36,26 @@ export const NavigationEnhanced = () => {
 
   const menuItems = [
     { id: 'shop', labelKey: 'navigation.main.shop', href: '/products' },
-    { id: 'essentials', labelKey: 'navigation.main.essentials', href: '/products' },
+    { id: 'products', labelKey: 'navigation.main.essentials', href: '/products' },
     { id: 'best-sellers', labelKey: 'navigation.main.bestSellers', href: '/products' },
     { id: 'about', labelKey: 'navigation.main.aboutUs', href: '/about' },
     { id: 'blog', labelKey: 'navigation.main.blog', href: '/blog' },
   ];
+
+  const productLinks = [
+    { label: 'Floor Cleaner', href: '/products?category=floor' },
+    { label: 'Bathroom Cleaner', href: '/products?category=bathroom' },
+    { label: 'Kitchen Cleaner', href: '/products?category=kitchen' },
+    { label: 'Glass Cleaner', href: '/products?category=glass' },
+    { label: 'View All', href: '/products' },
+  ];
+
+  const supportLinks = [
+    { label: 'Support', href: '/contact' },
+    { label: 'About us', href: '/about' },
+    { label: 'Blog', href: '/blog' },
+  ];
+
 
   return (
     <>
@@ -92,11 +104,10 @@ export const NavigationEnhanced = () => {
             {/* Center: Logo and Brand */}
             <Link href="/" className="flex-shrink-0 flex items-center gap-3 group">
               <div className="relative h-10 w-10 md:h-12 md:w-12">
-                <Image
+                <img
                   src="/images/logos/captain-maid-logo.webp"
                   alt="Captain Maid"
-                  fill
-                  className="object-contain rounded-lg"
+                  className="h-full w-full object-contain rounded-lg"
                 />
               </div>
               <span className="hidden md:inline font-heading text-xl md:text-2xl font-bold text-captain-text group-hover:text-captain-primary transition-colors duration-180">
@@ -106,7 +117,23 @@ export const NavigationEnhanced = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
-              {menuItems.map((item) => (
+              <div className="relative group">
+                <button className="text-sm font-medium text-captain-text hover:text-captain-dark transition-colors duration-180">
+                  {t('navigation.main.shop') || 'Products'}
+                </button>
+                <div className="absolute left-0 top-full mt-3 hidden min-w-64 rounded-2xl border border-captain-border bg-captain-white p-3 shadow-brand group-hover:block">
+                  {productLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="block rounded-xl px-4 py-3 text-sm font-medium text-captain-text hover:bg-captain-soft"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              {menuItems.filter((item) => item.id !== 'shop').map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}
@@ -115,20 +142,26 @@ export const NavigationEnhanced = () => {
                   {t(item.labelKey)}
                 </Link>
               ))}
+              <div className="relative group">
+                <button className="text-sm font-medium text-captain-text hover:text-captain-dark transition-colors duration-180">
+                  Support
+                </button>
+                <div className="absolute right-0 top-full mt-3 hidden min-w-48 rounded-2xl border border-captain-border bg-captain-white p-3 shadow-brand group-hover:block">
+                  {supportLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="block rounded-xl px-4 py-3 text-sm font-medium text-captain-text hover:bg-captain-soft"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right Actions */}
             <div className="flex items-center gap-3">
-              {/* Theme Toggle */}
-              <div className="hidden md:block">
-                <ThemeToggle />
-              </div>
-
-              {/* Language Toggle */}
-              <div className="hidden md:block">
-                <LanguageToggle />
-              </div>
-
               {/* Heart / Wishlist */}
               <button className="hidden md:flex p-2 rounded-[16px] hover:bg-captain-soft transition-colors duration-180">
                 <Heart size={20} className="text-captain-text" />
@@ -160,20 +193,42 @@ export const NavigationEnhanced = () => {
 
           {/* Mobile Menu */}
           {isOpen && (
-            <div className="md:hidden border-t border-captain-border">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                {menuItems.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={item.href}
-                    className="block px-3 py-2 rounded-[16px] text-sm font-medium text-captain-text hover:bg-captain-soft transition-colors duration-180"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {t(item.labelKey)}
-                  </Link>
-                ))}
-              </div>
+          <div className="md:hidden border-t border-captain-border">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {menuItems.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  className="block px-3 py-2 rounded-[16px] text-sm font-medium text-captain-text hover:bg-captain-soft transition-colors duration-180"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.id === 'shop' ? 'Products' : t(item.labelKey)}
+                </Link>
+              ))}
+              <div className="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-[0.2em] text-captain-muted">Products</div>
+              {productLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block px-3 py-2 rounded-[16px] text-sm font-medium text-captain-text hover:bg-captain-soft transition-colors duration-180"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-[0.2em] text-captain-muted">Support</div>
+              {supportLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block px-3 py-2 rounded-[16px] text-sm font-medium text-captain-text hover:bg-captain-soft transition-colors duration-180"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
+          </div>
           )}
         </div>
       </nav>

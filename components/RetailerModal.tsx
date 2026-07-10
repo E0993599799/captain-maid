@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { X } from 'lucide-react';
 
 interface RetailerModalProps {
@@ -66,12 +65,10 @@ export const RetailerModal = ({ isOpen, onClose, productName }: RetailerModalPro
               className={`flex items-center gap-4 rounded-xl border-2 p-4 transition-all duration-200 hover:scale-[1.02] hover:shadow-md active:scale-[0.98] ${retailer.bgClass}`}
             >
               <div className="relative flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-2 shadow-sm">
-                <Image
+                <img
                   src={retailer.logo}
                   alt={retailer.name}
-                  width={48}
-                  height={48}
-                  className="object-contain"
+                  className="h-12 w-12 object-contain"
                 />
               </div>
               <div className="min-w-0 flex-1">

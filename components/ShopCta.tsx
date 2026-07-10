@@ -9,23 +9,23 @@ export const ShopCTA = () => {
   const benefits = [
     {
       icon: Truck,
-      title: 'Free Shipping',
-      description: 'On orders over $50',
+      title: 'ส่งไว',
+      description: 'สั่งซื้อผ่านช่องทางหลักได้ทันที',
     },
     {
       icon: Lock,
-      title: 'Secure Checkout',
-      description: '100% safe transactions',
+      title: 'จ่ายปลอดภัย',
+      description: 'รองรับช่องทางชำระเงินมาตรฐาน',
     },
     {
       icon: Gift,
-      title: 'Money-Back Guarantee',
-      description: '30-day satisfaction guarantee',
+      title: 'มีโปรฯ',
+      description: 'ดีลพิเศษและเซ็ตแนะนำ',
     },
     {
       icon: ShoppingCart,
-      title: 'Easy Returns',
-      description: 'Hassle-free return process',
+      title: 'สั่งง่าย',
+      description: 'พาไปหน้าสินค้าและจุดซื้อ',
     },
   ];
 
@@ -49,8 +49,8 @@ export const ShopCTA = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#02a6e3] via-[#0090c8] to-[#1070b0]">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#02a6e3] via-[#0090c8] to-[#1070b0] md:py-24">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import { Button } from './Button';
@@ -171,11 +170,10 @@ export const ProductShowcase = () => {
                   >
                     {/* Scene background with blur */}
                     <div className="absolute inset-0">
-                      <Image
+                      <img
                         src={currentTab.scene}
                         alt={currentTab.label}
-                        fill
-                        className="object-cover blur-md opacity-40"
+                        className="h-full w-full object-cover blur-md opacity-40"
                       />
                     </div>
 
@@ -186,11 +184,10 @@ export const ProductShowcase = () => {
                         transition={{ duration: 4, repeat: Infinity }}
                         className="relative w-48 h-64"
                       >
-                        <Image
+                        <img
                           src="/images/heroes/captain-maid-hero.png"
                           alt={currentTab.label}
-                          fill
-                          className="object-contain drop-shadow-2xl"
+                          className="h-full w-full object-contain drop-shadow-2xl"
                         />
                       </motion.div>
                     </div>

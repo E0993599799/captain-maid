@@ -1,19 +1,25 @@
 'use client';
 
-import { Product } from '@/data/products';
 import { trackEvent } from '@/lib/analytics';
 import { Button } from './ui/button';
-import Image from 'next/image';
 
 interface Channel {
   name: string;
   url: string;
   logo: string;
   status?: string;
+  eventName?: string;
 }
 
 interface WhereToBuyButtonsProps {
-  product?: Product;
+  product?: {
+    homeproUrl?: string;
+    shopeeUrl?: string;
+    lazadaUrl?: string;
+    tiktokUrl?: string;
+    lineUrl?: string;
+    slug: string;
+  };
   links?: Channel[];
   className?: string;
 }
@@ -29,25 +35,28 @@ export function WhereToBuyButtons({ product, links, className }: WhereToBuyButto
 
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-      {channels.map((channel: any) => {
+      {channels.map((channel: Channel) => {
         const isAvailable = channel.url && !channel.url.startsWith('[รอข้อมูล]') && channel.status !== 'coming-soon';
+        const eventName = channel.eventName && ['click_line','click_call','click_email','click_homepro','click_shopee','click_lazada','click_tiktok','view_product','view_blog','filter_product','click_product_card','click_blog_card'].includes(channel.eventName)
+          ? channel.eventName
+          : 'click_channel';
         return (
           <Button
             key={channel.name}
             variant="outline"
-            asChild={isAvailable}
+            asChild={Boolean(isAvailable)}
             disabled={!isAvailable}
-            onClick={() => isAvailable && product && trackEvent(channel.eventName || 'click_channel', { product_slug: product.slug })}
+            onClick={() => isAvailable && trackEvent(eventName as any, { channel: channel.name })}
             className="flex items-center gap-2"
           >
             {isAvailable ? (
               <a href={channel.url} target="_blank" rel="noopener noreferrer">
-                <Image src={channel.logo} alt={channel.name} width={24} height={24} className="h-6 w-auto" />
+                <img src={channel.logo} alt={channel.name} className="h-6 w-auto" />
                 <span>ซื้อที่ {channel.name}</span>
               </a>
             ) : (
               <>
-                <Image src={channel.logo} alt={channel.name} width={24} height={24} className="h-6 w-auto opacity-50" />
+                <img src={channel.logo} alt={channel.name} className="h-6 w-auto opacity-50" />
                 <span className="opacity-50">รออัปเดต</span>
               </>
             )}

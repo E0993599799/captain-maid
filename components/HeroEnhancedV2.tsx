@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
 import { Button } from './Button';
@@ -19,7 +18,6 @@ export const HeroEnhancedV2 = () => {
     setIsLoaded(true);
   }, []);
 
-  // Stagger animation for text content
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -44,49 +42,43 @@ export const HeroEnhancedV2 = () => {
     '99.9% ขจัดเชื้อแบคทีเรีย',
     'กลิ่นสดชื่น',
     'ปลอดภัยทุกพื้นผิว',
-    'ปลอดภัยสำหรับสัตว์ลูกเลี้ยง',
+    'ปลอดภัยสำหรับสัตว์เลี้ยง',
   ];
 
   return (
-    <section className="relative min-h-screen py-16 md:py-24 overflow-hidden px-4 sm:px-6 lg:px-8 hero-gradient flex items-center">
-      {/* Animated background glow circles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section className="relative min-h-screen overflow-hidden px-4 py-16 sm:px-6 lg:px-8 md:py-24 hero-gradient flex items-center">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {isLoaded && (
           <>
             <motion.div
               animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
               transition={{ duration: 12, repeat: Infinity }}
-              className="absolute top-10 right-10 w-64 h-64 bg-cm-fresh-green/15 rounded-full blur-3xl"
+              className="absolute top-10 right-10 h-64 w-64 rounded-full bg-cm-fresh-green/15 blur-3xl"
             />
             <motion.div
               animate={{ x: [0, -30, 0], y: [0, -40, 0] }}
               transition={{ duration: 14, repeat: Infinity }}
-              className="absolute bottom-20 left-5 w-72 h-72 bg-cm-primary-blue/10 rounded-full blur-3xl"
+              className="absolute bottom-20 left-5 h-72 w-72 rounded-full bg-cm-primary-blue/10 blur-3xl"
             />
           </>
         )}
       </div>
 
-      {/* Content Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
-        {/* Mobile: Product on top */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="md:hidden mb-8 w-full flex flex-col items-center"
+          className="mb-8 flex w-full flex-col items-center md:hidden"
         >
-          <div className="relative w-full max-w-xs h-96">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden bg-cm-sky-light/30 backdrop-blur-sm border border-cm-border-soft">
-              <Image
+          <div className="relative h-96 w-full max-w-xs">
+            <div className="relative h-full w-full overflow-hidden rounded-3xl border border-cm-border-soft bg-cm-sky-light/30 backdrop-blur-sm">
+              <img
                 src="/images/heroes/captain-maid-hero.png"
                 alt="Captain Maid Product"
-                fill
-                className="object-contain object-center p-4 animate-float"
-                priority
+                className="h-full w-full animate-float object-contain object-center p-4"
               />
             </div>
-            {/* Floating sparkles */}
             <div className="absolute -top-4 -right-4 text-cm-sparkle">
               <Sparkle size={32} delay={100} />
             </div>
@@ -96,44 +88,36 @@ export const HeroEnhancedV2 = () => {
           </div>
         </motion.div>
 
-        {/* Desktop & Mobile Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-          {/* LEFT: Content */}
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            animate={isLoaded ? "visible" : "hidden"}
+            animate={isLoaded ? 'visible' : 'hidden'}
             className="flex flex-col gap-8 py-8 md:py-0"
           >
-            {/* Main Headline */}
             <motion.h1
               variants={itemVariants}
-              className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-cm-navy leading-tight"
+              className="font-heading text-4xl font-bold leading-tight text-cm-navy md:text-5xl lg:text-6xl"
             >
               บ้านสะอาด
               <br />
               <span className="text-cm-primary-blue">สดชื่น พร้อมดูแล</span>
             </motion.h1>
 
-            {/* Subheading */}
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-cm-text-secondary leading-relaxed max-w-lg"
+              className="max-w-lg text-lg leading-relaxed text-cm-text-secondary md:text-xl"
             >
               Captain Maid ช่วยขจัดคราบสกปรกและดูแลพื้นผิวในบ้าน ให้ทุกวันของคุณสะอาด มั่นใจ และน่าอยู่มากขึ้น
             </motion.p>
 
-            {/* Proof Badges */}
-            <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-4"
-            >
-              {proofBadges.map((badge, idx) => (
+            <motion.div variants={itemVariants} className="grid grid-cols-1 gap-3 py-4 sm:grid-cols-2">
+              {proofBadges.map((badge) => (
                 <div
-                  key={idx}
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-white/50 backdrop-blur-sm border border-cm-border-soft hover:bg-white/70 transition-colors duration-200"
+                  key={badge}
+                  className="flex items-center gap-3 rounded-2xl border border-cm-border-soft bg-white/50 p-3 backdrop-blur-sm transition-colors duration-200 hover:bg-white/70"
                 >
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-cm-fresh-green flex items-center justify-center">
+                  <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-cm-fresh-green">
                     <Check size={16} className="text-white" />
                   </div>
                   <span className="text-sm font-medium text-cm-text-primary">{badge}</span>
@@ -141,17 +125,13 @@ export const HeroEnhancedV2 = () => {
               ))}
             </motion.div>
 
-            {/* Social Proof & Rating */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col gap-4 pt-4"
-            >
+            <motion.div variants={itemVariants} className="flex flex-col gap-4 pt-4">
               <div className="flex items-center gap-3">
-                <div className="flex -space-x-3">
+                <div className="-space-x-3 flex">
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
-                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br from-cm-primary-blue to-cm-fresh-green flex items-center justify-center text-white font-semibold text-xs"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-cm-primary-blue to-cm-fresh-green text-xs font-semibold text-white"
                     >
                       {String.fromCharCode(65 + i)}
                     </div>
@@ -163,21 +143,15 @@ export const HeroEnhancedV2 = () => {
               </div>
               <div className="flex items-center gap-2">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-cm-primary-blue text-xl">
+                  <span key={i} className="text-xl text-cm-primary-blue">
                     ★
                   </span>
                 ))}
-                <span className="ml-2 text-sm text-cm-text-secondary">
-                  4.9/5 จาก 500+ รีวิว
-                </span>
+                <span className="ml-2 text-sm text-cm-text-secondary">4.9/5 จาก 500+ รีวิว</span>
               </div>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 pt-4"
-            >
+            <motion.div variants={itemVariants} className="flex flex-col gap-4 pt-4 sm:flex-row">
               <Button size="lg" variant="primary" className="cta-gradient">
                 Shop Now
               </Button>
@@ -187,29 +161,22 @@ export const HeroEnhancedV2 = () => {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: Product Visual (hidden on mobile) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden md:flex relative h-full min-h-[600px] items-center justify-center"
+            className="relative hidden min-h-[600px] items-center justify-center md:flex"
           >
-            <div className="relative w-full h-full max-w-sm">
-              {/* Glow background */}
+            <div className="relative h-full w-full max-w-sm">
               <div className="absolute inset-0 product-glow rounded-full" />
-
-              {/* Product container */}
-              <div className="relative w-full h-full rounded-3xl overflow-hidden bg-cm-sky-light/40 backdrop-blur-sm border border-cm-border-soft flex items-center justify-center p-8">
-                <Image
+              <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-3xl border border-cm-border-soft bg-cm-sky-light/40 p-8 backdrop-blur-sm">
+                <img
                   src="/images/heroes/captain-maid-hero.png"
                   alt="Captain Maid Product"
-                  fill
-                  className="object-contain p-8 animate-float"
-                  priority
+                  className="h-full w-full animate-float object-contain p-8"
                 />
               </div>
 
-              {/* Floating sparkles */}
               <motion.div
                 animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
@@ -237,11 +204,10 @@ export const HeroEnhancedV2 = () => {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-cm-text-secondary"
+          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-cm-text-secondary lg:flex"
         >
           <span className="text-sm font-medium">Scroll to explore</span>
           <ChevronDown size={20} />

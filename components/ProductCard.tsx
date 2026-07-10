@@ -47,6 +47,8 @@ export function ProductCard(props: ProductCardProps) {
   const priceText = product?.priceText ?? (typeof props.priceThb === 'number' ? `฿${props.priceThb}` : typeof props.price === 'number' ? `฿${props.price}` : '[รอข้อมูล]');
   const status = product?.status ?? (props.inStock === false ? 'สินค้าหมด' : 'พร้อมวางขาย');
   const badgeLabels = product ? [product.filters.scent, ...product.filters.need.slice(0, 2)] : [props.badge].filter(Boolean) as string[];
+  const productProperties = product ? [product.shortDescription.en, product.seoDescription.en].filter(Boolean) : [];
+
 
   return (
     <article className={`overflow-hidden rounded-3xl border border-captain-border bg-captain-white shadow-brand transition hover:-translate-y-1 hover:shadow-brand-hover ${props.className ?? ''}`}>
@@ -68,6 +70,13 @@ export function ProductCard(props: ProductCardProps) {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-captain-dark">Captain Maid</p>
           <h3 className="mt-1 text-lg font-bold text-captain-text">{name}</h3>
           <p className="mt-2 text-sm leading-6 text-captain-muted">{description}</p>
+          {productProperties.length ? (
+            <ul className="mt-3 space-y-2 text-xs leading-5 text-captain-muted">
+              {productProperties.slice(0, 3).map((item: string) => (
+                <li key={item} className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-captain-primary" />{item}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
         {badgeLabels.length ? <ProductBadges badges={badgeLabels} /> : null}
         <div className="flex items-center justify-between gap-3">
