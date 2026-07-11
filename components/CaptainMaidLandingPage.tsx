@@ -416,7 +416,7 @@ export function CaptainMaidLandingPage() {
       range: {
         desktop: { x: 16, y: 7, w: 78, h: 36 },
         tablet: { x: 13, y: 7, w: 78, h: 38 },
-        mobile: { x: 7, y: 5, w: 86, h: 40 }
+        mobile: { x: 7, y: 5, w: 86, h: 28 }
       },
       lifestyle: {
         desktop: { x: 6, y: 10, w: 43, h: 43 },
