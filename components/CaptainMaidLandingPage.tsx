@@ -23,11 +23,32 @@ import { useLocale } from 'next-intl';
 import { site } from '@/data/site';
 
 import logoMark from './assets/logo-captainmaid.png';
-import heroScene from './assets/01_Brand Hero03.png';
-import rangeScene from './assets/02_Product Range03.png';
-import familyScene from './assets/03_Family and Pet Safety05.png';
-import techScene from './assets/04_Natural Cleaning Technology01.png';
-import trustScene from './assets/05_Trust_and_Call_to_Action03.png';
+
+// Slide 1: Brand Hero - Responsive Images
+import slide1Mobile from './assets/landing/01_Brand-Hero_Mobile.png';
+import slide1Tablet from './assets/landing/01_Brand-Hero_Tablet.png';
+import slide1Desktop from './assets/landing/01_Brand-Hero_Desktop.png';
+
+// Slide 2: Product Range - Responsive Images
+import slide2Mobile from './assets/landing/02_Product-Range_Mobile.png';
+import slide2Tablet from './assets/landing/02_Product-Range_Tablet.png';
+import slide2Desktop from './assets/landing/02_Product-Range_Desktop.png';
+
+// Slide 3: Family and Pet Safety - Responsive Images
+import slide3Mobile from './assets/landing/03_Family-and-Pet-Safety_Mobile.png';
+import slide3Tablet from './assets/landing/03_Family-and-Pet-Safety_Tablet.png';
+import slide3Desktop from './assets/landing/03_Family-and-Pet-Safety_Desktop.png';
+
+// Slide 4: Natural Cleaning Technology - Responsive Images
+import slide4Mobile from './assets/landing/04_Natural-Cleaning-Technology_Mobile.png';
+import slide4Tablet from './assets/landing/04_Natural-Cleaning-Technology_Tablet.png';
+import slide4Desktop from './assets/landing/04_Natural-Cleaning-Technology_Desktop.png';
+
+// Slide 5: Trust and Call to Action - Responsive Images
+import slide5Mobile from './assets/landing/05_Trust-and-Call-to-Action_Mobile.png';
+import slide5Tablet from './assets/landing/05_Trust-and-Call-to-Action_Tablet.png';
+import slide5Desktop from './assets/landing/05_Trust-and-Call-to-Action_Desktop.png';
+
 import greenBottle from './assets/green-bottle.jpg';
 import pinkBottle from './assets/pink-bottle.jpg';
 import purpleBottle from './assets/purple-bottle.jpg';
@@ -364,14 +385,48 @@ export function CaptainMaidLandingPage() {
   const shouldReduceMotion = useReducedMotion() ?? false;
   const [activeSlide, setActiveSlide] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    setViewportWidth(typeof window !== 'undefined' ? window.innerWidth : 0);
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const getResponsiveImage = (mobile: any, tablet: any, desktop: any) => {
+    if (viewportWidth < 1100) return mobile;      // Mobile: < 1100px (1080×1920)
+    if (viewportWidth < 1700) return tablet;      // Tablet: 1100px - 1699px (1600×1200)
+    return desktop;                                // Desktop: >= 1700px (1920×1080)
+  };
 
   const slides = useMemo(
     () => [
-      { key: 'intro', tone: 'from-[#0A56C2] via-[#2F7FE8] to-[#EAF4FF]' },
-      { key: 'range', tone: 'from-white via-[#F7FBFF] to-[#DCEEFF]' },
-      { key: 'lifestyle', tone: 'from-[#FFF9F0] via-[#FFFDF8] to-[#EDF7FF]' },
-      { key: 'technology', tone: 'from-[#001F4D] via-[#0A56C2] to-[#DCEEFF]' },
-      { key: 'trust', tone: 'from-[#EAF4FF] via-white to-[#F6FBFF]' },
+      {
+        key: 'intro',
+        tone: 'from-[#0A56C2] via-[#2F7FE8] to-[#EAF4FF]',
+        image: { mobile: slide1Mobile, tablet: slide1Tablet, desktop: slide1Desktop }
+      },
+      {
+        key: 'range',
+        tone: 'from-white via-[#F7FBFF] to-[#DCEEFF]',
+        image: { mobile: slide2Mobile, tablet: slide2Tablet, desktop: slide2Desktop }
+      },
+      {
+        key: 'lifestyle',
+        tone: 'from-[#FFF9F0] via-[#FFFDF8] to-[#EDF7FF]',
+        image: { mobile: slide3Mobile, tablet: slide3Tablet, desktop: slide3Desktop }
+      },
+      {
+        key: 'technology',
+        tone: 'from-[#001F4D] via-[#0A56C2] to-[#DCEEFF]',
+        image: { mobile: slide4Mobile, tablet: slide4Tablet, desktop: slide4Desktop }
+      },
+      {
+        key: 'trust',
+        tone: 'from-[#EAF4FF] via-white to-[#F6FBFF]',
+        image: { mobile: slide5Mobile, tablet: slide5Tablet, desktop: slide5Desktop }
+      },
     ],
     [],
   );
@@ -567,7 +622,7 @@ export function CaptainMaidLandingPage() {
                   <figure className="relative overflow-hidden rounded-[32px] border border-white/40 bg-white/20 shadow-[0_20px_60px_rgba(3,32,86,0.18)] backdrop-blur-xl">
                     <div className="absolute inset-0 bg-gradient-to-l from-[#0A56C2]/70 via-[#0A56C2]/20 to-transparent" />
                     <Image
-                      src={heroScene}
+                      src={getResponsiveImage(slide1Mobile, slide1Tablet, slide1Desktop)}
                       alt="Captain Maid mascot in a bright modern living room"
                       fill
                       priority={activeSlide === 0}
@@ -611,7 +666,7 @@ export function CaptainMaidLandingPage() {
 
                   <figure className="relative overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-white shadow-[0_20px_50px_rgba(10,86,194,0.10)]">
                     <Image
-                      src={rangeScene}
+                      src={getResponsiveImage(slide2Mobile, slide2Tablet, slide2Desktop)}
                       alt="Captain Maid products arranged in a premium shelf presentation"
                       fill
                       priority={activeSlide === 1}
@@ -653,7 +708,7 @@ export function CaptainMaidLandingPage() {
 
                   <figure className="relative overflow-hidden rounded-[32px] border border-[#F1E8D7] bg-white shadow-[0_20px_50px_rgba(109,78,24,0.10)]">
                     <Image
-                      src={familyScene}
+                      src={getResponsiveImage(slide3Mobile, slide3Tablet, slide3Desktop)}
                       alt="Mother, child, pets, and robot vacuum in a bright family living room"
                       fill
                       priority={activeSlide === 2}
@@ -700,7 +755,7 @@ export function CaptainMaidLandingPage() {
 
                   <figure className="relative overflow-hidden rounded-[32px] border border-white/20 bg-[#052B73] shadow-[0_20px_50px_rgba(1,16,50,0.20)]">
                     <Image
-                      src={techScene}
+                      src={getResponsiveImage(slide4Mobile, slide4Tablet, slide4Desktop)}
                       alt="Blue scientific visual with water, molecules, leaf, and glass sphere"
                       fill
                       priority={activeSlide === 3}
@@ -758,7 +813,7 @@ export function CaptainMaidLandingPage() {
 
                   <figure className="relative overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-white shadow-[0_20px_50px_rgba(10,86,194,0.08)]">
                     <Image
-                      src={trustScene}
+                      src={getResponsiveImage(slide5Mobile, slide5Tablet, slide5Desktop)}
                       alt="Luxury home with Captain Maid mascot and trust-led composition"
                       fill
                       priority={activeSlide === 4}
@@ -892,7 +947,7 @@ export function CaptainMaidLandingPage() {
 
             <figure className="relative overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
               <Image
-                src={trustScene}
+                src={getResponsiveImage(slide5Mobile, slide5Tablet, slide5Desktop)}
                 alt="Captain Maid mascot and premium home exterior"
                 fill
                 placeholder="blur"

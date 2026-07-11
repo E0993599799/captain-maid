@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { site } from '@/data/site';
 import { CaptainMaidLandingPage } from '@/components/CaptainMaidLandingPage';
-import heroScene from '@/components/assets/01_Brand Hero03.png';
+import heroScene from '@/components/assets/landing/01_Brand-Hero_Desktop.png';
 
 type PageProps = {
   params: Promise<{
