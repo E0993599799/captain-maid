@@ -517,6 +517,30 @@ export function CaptainMaidLandingPage() {
           </nav>
 
           <div className="flex items-center gap-3">
+            {/* Language Toggle */}
+            <div className="flex items-center gap-1 rounded-full bg-[#F0F7FF] p-1">
+              <Link
+                href="/th"
+                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                  locale === 'th'
+                    ? 'bg-cm-primary-blue text-white shadow-md'
+                    : 'text-[#073E91] hover:bg-white'
+                }`}
+              >
+                ไทย
+              </Link>
+              <Link
+                href="/en"
+                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                  locale === 'en'
+                    ? 'bg-cm-primary-blue text-white shadow-md'
+                    : 'text-[#073E91] hover:bg-white'
+                }`}
+              >
+                English
+              </Link>
+            </div>
+
             <Link href={`/${locale}/products`} className="rounded-full bg-cm-primary-blue px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-cm-primary-blue/15 hover:bg-cm-navy active:scale-95 transition-all">
               {locale === 'th' ? 'ซื้อเลย' : c.header.ctaButton}
             </Link>
