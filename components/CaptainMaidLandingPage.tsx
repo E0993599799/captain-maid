@@ -411,7 +411,7 @@ export function CaptainMaidLandingPage() {
       intro: {
         desktop: { x: 4, y: 18, w: 44, h: 66 },
         tablet: { x: 5, y: 16, w: 43, h: 68 },
-        mobile: { x: 7, y: 57, w: 58, h: 34 }
+        mobile: { x: 7, y: 50, w: 58, h: 40 }
       },
       range: {
         desktop: { x: 16, y: 7, w: 78, h: 36 },
@@ -597,11 +597,11 @@ export function CaptainMaidLandingPage() {
                     </h2>
 
                     {/* Five minimal outline category icons row */}
-                    <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 w-full">
+                    <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 md:gap-3 w-full max-w-xs sm:max-w-2xl mx-auto">
                       {c.slides.slide2.categories.map((cat, idx) => {
                         const Icon = cat.icon;
                         return (
-                          <div key={idx} className="flex flex-col items-center gap-1 p-1 bg-white/90 border border-cm-border-soft rounded-2xl shadow-sm min-w-[50px] sm:min-w-[90px] backdrop-blur-md">
+                          <div key={idx} className="flex flex-col items-center gap-1 p-1 bg-white/90 border border-cm-border-soft rounded-2xl shadow-sm min-w-[44px] sm:min-w-[50px] md:min-w-[90px] backdrop-blur-md">
                             <div className="flex h-6 w-6 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-cm-sky-light text-cm-primary-blue border border-cm-border-soft">
                               <Icon size={device === 'mobile' ? 12 : 18} />
                             </div>
@@ -908,7 +908,7 @@ export function CaptainMaidLandingPage() {
 
       {/* Footer Section */}
       <footer className="border-t border-[#D7E7FB] bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 md:gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8 lg:gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} className="h-11 w-11 rounded-2xl object-contain" />
