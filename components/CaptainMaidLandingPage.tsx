@@ -837,7 +837,7 @@ export function CaptainMaidLandingPage() {
               </div>
             </div>
 
-            <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
+            <figure className="relative w-full h-[240px] sm:h-[300px] md:h-[380px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
               <Image
                 src={getResponsiveImage(slide5Mobile, slide5Tablet, slide5Desktop)}
                 alt="Captain Maid mascot and premium home exterior"
@@ -849,7 +849,7 @@ export function CaptainMaidLandingPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent" />
               <div className="absolute bottom-4 right-4 flex gap-3">
                 {[greenBottle, pinkBottle, purpleBottle].map((image, index) => (
-                  <div key={index} className="w-18 overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-2 shadow-[0_12px_30px_rgba(0,0,0,0.10)] sm:w-20">
+                  <div key={index} className="w-14 sm:w-16 md:w-18 lg:w-20 xl:w-24 overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-2 shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
                     <Image src={image} alt="Captain Maid package" width={88} height={120} placeholder="blur" className="h-auto w-full object-contain" />
                   </div>
                 ))}
@@ -893,12 +893,12 @@ export function CaptainMaidLandingPage() {
               <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">{c.cta.title}</h2>
               <p className="max-w-2xl text-lg leading-8 text-white/90">{c.cta.subtitle}</p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Link href={`/${locale}/products`} className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-[#0A56C2] shadow-[0_16px_32px_rgba(255,255,255,0.16)] transition hover:-translate-y-0.5">
+            <div className="flex flex-col gap-3 sm:flex-row md:gap-4 lg:justify-end">
+              <Link href={`/${locale}/products`} className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm sm:text-base font-semibold text-[#0A56C2] shadow-[0_16px_32px_rgba(255,255,255,0.16)] transition hover:-translate-y-0.5 flex-1 sm:flex-none">
                 {c.cta.primary}
                 <ArrowRight size={16} />
               </Link>
-              <Link href={`/${locale}/contact`} className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20">
+              <Link href={`/${locale}/contact`} className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition hover:bg-white/20 flex-1 sm:flex-none">
                 {c.cta.secondary}
               </Link>
             </div>
