@@ -411,7 +411,7 @@ export function CaptainMaidLandingPage() {
       intro: {
         desktop: { x: 4, y: 18, w: 44, h: 66 },
         tablet: { x: 5, y: 16, w: 43, h: 68 },
-        mobile: { x: 7, y: 50, w: 58, h: 40 }
+        mobile: { x: 7, y: 35, w: 58, h: 55 }
       },
       range: {
         desktop: { x: 16, y: 7, w: 78, h: 36 },
@@ -551,7 +551,7 @@ export function CaptainMaidLandingPage() {
           </div>
 
           {/* HTML Overlay with precise Text Safe Areas */}
-          <div className="absolute z-10 select-none overflow-hidden" style={safeAreaStyle}>
+          <div className="absolute z-10 select-none overflow-visible" style={safeAreaStyle}>
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={`${current.key}-${device}`}
@@ -575,7 +575,7 @@ export function CaptainMaidLandingPage() {
                       />
                     </div>
 
-                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] [text-shadow:-2px_-2px_0_rgba(255,255,255,0.6),2px_-2px_0_rgba(255,255,255,0.6),-2px_2px_0_rgba(255,255,255,0.6),2px_2px_0_rgba(255,255,255,0.6)]">
+                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-snug whitespace-pre-line drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] [text-shadow:1px_1px_2px_rgba(0,0,0,0.5)]">
                       {c.slides.slide1.headline}
                     </h1>
 
