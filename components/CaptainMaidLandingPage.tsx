@@ -184,24 +184,24 @@ const COPY: Record<LocaleKey, Copy> = {
     },
     faq: {
       badge: 'FAQ',
-      title: 'Frequently asked questions',
-      subtitle: 'Short answers that support the premium landing page without inventing claims beyond the supplied product set.',
+      title: 'Common Questions About Captain Maid',
+      subtitle: 'Find answers to questions about our cleaning products and safety.',
       items: [
         {
-          q: 'Which products are shown on the homepage?',
-          a: 'The landing page highlights the main Captain Maid range from the supplied assets, including floor, bathroom, glass, multi-purpose, laundry, and concentrated cleaner presentations.',
+          q: 'Are Captain Maid products safe for children and pets?',
+          a: 'Yes, Captain Maid products are formulated with child and pet safety in mind. Our natural-derived ingredients make them safe for families with kids and pets. Always follow usage instructions on the package.',
         },
         {
-          q: 'Are the product images from the provided folder only?',
-          a: 'Yes. All product, mascot, logo, and package visuals on this page are imported from components/assets only.',
+          q: 'Are Captain Maid products eco-friendly?',
+          a: 'Captain Maid is committed to environmental responsibility. Our products are made with natural-derived ingredients and eco-conscious manufacturing practices to reduce environmental impact.',
         },
         {
-          q: 'Is the floor cleaner compatible with robot vacuum cleaning?',
-          a: 'The supplied product data positions the floor cleaner range as robot-friendly, and the page reflects that brand story.',
+          q: 'Can I use Captain Maid floor cleaner with robot vacuum cleaners?',
+          a: 'Yes, Captain Maid floor cleaner is formulated to be compatible with robot vacuum cleaners. Our floor care products are designed to work safely with automated cleaning systems.',
         },
         {
-          q: 'Does the page work on mobile and desktop?',
-          a: 'Yes. The hero carousel uses split layouts on large screens and stacked layouts on smaller screens so the mascot and products are not cropped.',
+          q: 'Where are Captain Maid products manufactured?',
+          a: 'Captain Maid is proudly made in Thailand. All our products are manufactured under strict quality control standards to ensure the highest level of safety and effectiveness.',
         },
       ],
     },
@@ -212,7 +212,7 @@ const COPY: Record<LocaleKey, Copy> = {
       secondary: 'Contact Us',
     },
     footer: {
-      description: 'Premium household cleaning products with a bright, modern identity and a clean, trustworthy presentation.',
+      description: 'Premium household cleaning products with a bright, modern identity and a trustworthy, clean presentation.',
       copyright: 'Captain Maid. All rights reserved.',
     },
   },
@@ -279,24 +279,24 @@ const COPY: Record<LocaleKey, Copy> = {
     },
     faq: {
       badge: 'คำถามที่พบบ่อย',
-      title: 'คำถามที่พบบ่อย',
-      subtitle: 'คำตอบสั้น ๆ ที่ช่วยให้หน้าแลนดิ้งดูครบโดยไม่แต่งเติมข้อมูลเกินจากชุดสินค้าที่มีอยู่จริง',
+      title: 'คำถามที่พบบ่อยเกี่ยวกับ Captain Maid',
+      subtitle: 'ค้นหาคำตอบเกี่ยวกับสินค้าทำความสะอาดและความปลอดภัยของเรา',
       items: [
         {
-          q: 'หน้าแรกแสดงสินค้าอะไรบ้าง?',
-          a: 'หน้าแลนดิ้งไฮไลต์ไลน์หลักของ Captain Maid จาก assets ที่ให้มา ได้แก่ floor, bathroom, glass, multi-purpose, laundry และ concentrated cleaner',
+          q: 'สินค้า Captain Maid ปลอดภัยสำหรับเด็กและสัตว์เลี้ยงไหม?',
+          a: 'ใช่ สินค้า Captain Maid ผลิตมาโดยคำนึงถึงความปลอดภัยของเด็กและสัตว์เลี้ยง ส่วนผสมที่มาจากธรรมชาติทำให้ปลอดภัยสำหรับครอบครัว โปรดปฏิบัติตามคำแนะนำบนแพ็กเกจเสมอ',
         },
         {
-          q: 'ใช้ภาพจากโฟลเดอร์ที่กำหนดเท่านั้นหรือไม่?',
-          a: 'ใช่ ภาพทุกชิ้นของหน้าเว็บนี้มาจาก components/assets เท่านั้น ทั้งสินค้า มาสคอต โลโก้ และแพ็กเกจ',
+          q: 'สินค้า Captain Maid เป็นมิตรต่อสิ่งแวดล้อมหรือไม่?',
+          a: 'Captain Maid มุ่งมั่นในความรับผิดชอบต่อสิ่งแวดล้อม สินค้าของเราผลิตจากส่วนผสมที่มาจากธรรมชาติและกระบวนการผลิตที่สำนึกสิ่งแวดล้อม',
         },
         {
-          q: 'สูตรถูพื้นรองรับ robot vacuum หรือไม่?',
-          a: 'ข้อมูลสินค้าที่ให้มาวางตำแหน่งสูตรถูพื้นไว้ให้เป็นมิตรกับ robot vacuum และหน้าเว็บนี้สะท้อนเรื่องนั้น',
+          q: 'ใช้สูตรถูพื้น Captain Maid กับเครื่องดูดฝุ่นหุ่นยนต์ได้ไหม?',
+          a: 'ได้ สูตรถูพื้น Captain Maid ออกแบบมาให้เข้ากันได้กับเครื่องดูดฝุ่นหุ่นยนต์ สินค้าดูแลพื้นของเราออกแบบเพื่อทำงานอย่างปลอดภัยกับระบบทำความสะอาดอัตโนมัติ',
         },
         {
-          q: 'รองรับมือถือและเดสก์ท็อปไหม?',
-          a: 'รองรับ โดย hero carousel ใช้ split layout บนจอใหญ่ และ stacked layout บนจอเล็กเพื่อไม่ให้มาสคอตหรือสินค้าโดนครอป',
+          q: 'สินค้า Captain Maid ผลิตที่ไหน?',
+          a: 'Captain Maid ผลิตในประเทศไทยอย่างภูมิใจ สินค้าทั้งหมดผลิตภายใต้มาตรฐานควบคุมคุณภาพที่เข้มงวดเพื่อรับประกันความปลอดภัยและประสิทธิผลสูงสุด',
         },
       ],
     },
