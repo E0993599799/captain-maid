@@ -320,6 +320,7 @@ export function CaptainMaidLandingPage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [paused, setPaused] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(0);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     setViewportWidth(typeof window !== 'undefined' ? window.innerWidth : 0);
@@ -501,18 +502,136 @@ export function CaptainMaidLandingPage() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-2 md:flex" aria-label="Primary">
-            <a href="#solutions" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'โซลูชัน' : c.header.solutions}
-            </a>
-            <a href="#products" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'สินค้า' : c.header.products}
-            </a>
-            <a href="#trust" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'ความน่าเชื่อถือ' : c.header.trust}
-            </a>
-            <a href="#faq" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'คำถาม' : c.header.faq}
+          <nav className="hidden items-center gap-0 md:flex" aria-label="Primary">
+            {/* Products Dropdown */}
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setOpenDropdown('products')}
+                onMouseLeave={() => setOpenDropdown(null)}
+                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
+              >
+                {locale === 'th' ? 'สินค้า' : c.header.products}
+                <span className="text-xs">▼</span>
+              </button>
+              {openDropdown === 'products' && (
+                <div
+                  onMouseEnter={() => setOpenDropdown('products')}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
+                >
+                  <a href={`/${locale}/products`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ทั้งหมด' : '- All Products'}
+                  </a>
+                  <a href={`/${locale}/products?category=floor`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ผลิตภัณฑ์ถูพื้น' : '- Floor Cleaner'}
+                  </a>
+                  <a href={`/${locale}/products?category=bathroom`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ผลิตภัณฑ์ห้องน้ำ' : '- Bathroom Cleaner'}
+                  </a>
+                  <a href={`/${locale}/products?category=kitchen`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ผลิตภัณฑ์ครัว' : '- Kitchen Cleaner'}
+                  </a>
+                  <a href={`/${locale}/products?category=glass`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ผลิตภัณฑ์กระจก' : '- Glass Cleaner'}
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Solutions Dropdown */}
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setOpenDropdown('solutions')}
+                onMouseLeave={() => setOpenDropdown(null)}
+                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
+              >
+                {locale === 'th' ? 'โซลูชัน' : 'Solutions'}
+                <span className="text-xs">▼</span>
+              </button>
+              {openDropdown === 'solutions' && (
+                <div
+                  onMouseEnter={() => setOpenDropdown('solutions')}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
+                >
+                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ห้องครัว' : '- Kitchen'}
+                  </a>
+                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ห้องน้ำ' : '- Bathroom'}
+                  </a>
+                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- พื้น' : '- Floor'}
+                  </a>
+                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ซักผ้า' : '- Laundry'}
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Support Dropdown */}
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setOpenDropdown('support')}
+                onMouseLeave={() => setOpenDropdown(null)}
+                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
+              >
+                {locale === 'th' ? 'ความช่วยเหลือ' : 'Support'}
+                <span className="text-xs">▼</span>
+              </button>
+              {openDropdown === 'support' && (
+                <div
+                  onMouseEnter={() => setOpenDropdown('support')}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
+                >
+                  <a href={`/${locale}/contact`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ติดต่อเรา' : '- Contact Us'}
+                  </a>
+                  <a href="#faq" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- คำถามที่พบบ่อย' : '- FAQ'}
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- วิธีใช้' : '- How to Use'}
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* About Dropdown */}
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setOpenDropdown('about')}
+                onMouseLeave={() => setOpenDropdown(null)}
+                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
+              >
+                {locale === 'th' ? 'เกี่ยวกับ' : 'About'}
+                <span className="text-xs">▼</span>
+              </button>
+              {openDropdown === 'about' && (
+                <div
+                  onMouseEnter={() => setOpenDropdown('about')}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
+                >
+                  <a href="#trust" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- เกี่ยวกับแบรนด์' : '- About Brand'}
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- ที่มาของคุณภาพ' : '- Our Quality'}
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
+                    {locale === 'th' ? '- สิ่งแวดล้อม' : '- Sustainability'}
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Blog Link */}
+            <a href="#" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1">
+              {locale === 'th' ? 'บทความ' : 'Blog'}
+              <span className="text-xs">▼</span>
             </a>
           </nav>
 
