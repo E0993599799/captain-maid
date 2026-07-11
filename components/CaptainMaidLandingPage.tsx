@@ -23,6 +23,7 @@ import { useLocale } from 'next-intl';
 import { site } from '@/data/site';
 
 import logoMark from './assets/logo-captainmaid.png';
+import heroBackground from './assets/hero-background.webp';
 
 // Slide 1: Brand Hero - Responsive Images
 import slide1Mobile from './assets/landing/01_Brand-Hero_Mobile.png';
@@ -79,6 +80,7 @@ type Copy = {
     };
     slide4: {
       headline: string;
+      supporting: string;
       bullets: string[];
     };
     slide5: {
@@ -148,6 +150,7 @@ const COPY: Record<LocaleKey, Copy> = {
       },
       slide4: {
         headline: 'Advanced Cleaning\nwith Natural Power',
+        supporting: 'From tackling heavy stains to solving clogged drains, Captain Maid is ready to care for your home.',
         bullets: ['Natural-Derived Ingredients', 'Deep Clean Technology', 'Surface Protection'],
       },
       slide5: {
@@ -531,16 +534,16 @@ export function CaptainMaidLandingPage() {
           {/* Lazy Loaded Dynamic Images */}
           <div className="absolute inset-0 z-0">
             <Image
-              src={getResponsiveImage(current.image.mobile, current.image.tablet, current.image.desktop)}
+              src={current.key === 'intro' ? heroBackground : getResponsiveImage(current.image.mobile, current.image.tablet, current.image.desktop)}
               alt="Captain Maid premium presentation slide"
               fill
               priority={activeSlide === 0}
               className="object-cover object-center"
               sizes="100vw"
             />
-            {/* Optional soft overlays for text readability */}
-            {current.key === 'intro' && device !== 'mobile' && (
-              <div className="absolute inset-0 bg-gradient-to-r from-[#073E91]/40 via-transparent to-transparent z-1" />
+            {/* Overlays for text contrast */}
+            {current.key === 'intro' && (
+              <div className="absolute inset-0 bg-gradient-to-b from-[#000]/30 via-[#000]/20 to-[#000]/40 z-1" />
             )}
             {current.key === 'technology' && (
               <div className="absolute inset-0 bg-[#043E91]/15 z-1" />
@@ -560,22 +563,27 @@ export function CaptainMaidLandingPage() {
               >
                 {/* SLIDE 1 — BRAND HERO */}
                 {current.key === 'intro' && (
-                  <div className="flex flex-col items-start justify-center gap-2 sm:gap-4 h-full">
-                    {/* Secondary logo area inside safe area on mobile / upper-left on desktop */}
-                    <div className="flex items-center gap-2 mb-1 bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/10">
-                      <Image src={logoMark} alt="Captain Maid logo" width={22} height={22} className="h-5 w-5 rounded-md object-contain bg-white" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FFD84D]">Captain Maid</span>
+                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-6 lg:gap-8 h-full">
+                    {/* Large prominent logo */}
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <Image
+                        src={logoMark}
+                        alt="Captain Maid logo"
+                        width={80}
+                        height={80}
+                        className="h-16 sm:h-20 lg:h-24 w-16 sm:w-20 lg:w-24 rounded-3xl object-contain bg-white shadow-[0_8px_24px_rgba(0,0,0,0.3)]"
+                      />
                     </div>
 
-                    <h1 className="text-lg sm:text-2xl lg:text-[44px] font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_2px_10px_rgba(0,0,0,0.15)]">
+                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_3px_12px_rgba(0,0,0,0.4)]">
                       {c.slides.slide1.headline}
                     </h1>
 
-                    <p className="text-[10px] sm:text-sm lg:text-base text-white/95 leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_2px_8px_rgba(0,0,0,0.12)]">
+                    <p className="text-sm sm:text-base lg:text-lg text-white/98 leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_3px_10px_rgba(0,0,0,0.3)]">
                       {c.slides.slide1.supporting}
                     </p>
 
-                    <Link href="/about" className="rounded-full bg-white px-5 py-2.5 sm:px-7 sm:py-3 text-[10px] sm:text-sm font-bold text-[#073E91] transition-all hover:bg-white/90 active:scale-95 shadow-lg shadow-black/5 mt-1 sm:mt-2">
+                    <Link href="/about" className="rounded-full bg-white px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base font-bold text-[#073E91] transition-all hover:bg-white/95 active:scale-95 shadow-lg shadow-black/20 mt-2 sm:mt-4">
                       {c.slides.slide1.cta}
                     </Link>
                   </div>
@@ -583,9 +591,9 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 2 — PRODUCT RANGE */}
                 {current.key === 'range' && (
-                  <div className="flex flex-col items-center justify-center gap-2 sm:gap-4 text-center h-full max-w-4xl mx-auto">
-                    <h2 className="text-sm sm:text-xl lg:text-[34px] font-extrabold font-heading text-[#073E91] leading-tight whitespace-pre-line">
-                      {c.slides.slide2.headline}
+                  <div className="flex flex-col items-center justify-start gap-4 sm:gap-6 text-center h-full max-w-4xl mx-auto pt-8 sm:pt-12 lg:pt-16">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] [text-shadow:0_0_30px_rgba(255,255,255,0.4),0_0_60px_rgba(255,255,255,0.2)]">
+                      ผลิตภัณฑ์ทำความสะอาดที่ออกแบบมาสำหรับทุกห้องในบ้าน
                     </h2>
 
                     {/* Five minimal outline category icons row */}
@@ -609,16 +617,16 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 3 — LIFESTYLE / FAMILY AND PET SAFETY */}
                 {current.key === 'lifestyle' && (
-                  <div className="flex flex-col items-start justify-center gap-2 sm:gap-4 h-full">
-                    <h2 className="text-sm sm:text-xl lg:text-[34px] font-extrabold font-heading text-[#073E91] leading-tight whitespace-pre-line">
+                  <div className="flex flex-col items-start justify-center gap-3 sm:gap-5 lg:gap-6 h-full">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] [text-shadow:0_0_30px_rgba(255,255,255,0.4),0_0_60px_rgba(255,255,255,0.2)]">
                       {c.slides.slide3.headline}
                     </h2>
 
-                    <ul className="space-y-1.5 sm:space-y-2 mt-1 sm:mt-2">
+                    <ul className="space-y-2 sm:space-y-3 mt-2 sm:mt-3">
                       {c.slides.slide3.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-center gap-1.5 sm:gap-2.5 text-[10px] sm:text-sm font-bold text-[#243B56]">
-                          <span className="flex h-3.5 w-3.5 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-cm-sky-light text-[#1762B5]">
-                            <CheckCircle2 size={device === 'mobile' ? 9 : 14} />
+                        <li key={idx} className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base lg:text-lg font-bold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+                          <span className="flex h-4 w-4 sm:h-6 sm:w-6 lg:h-7 lg:w-7 items-center justify-center rounded-full bg-white/90 text-[#1762B5] flex-shrink-0">
+                            <CheckCircle2 size={device === 'mobile' ? 14 : 20} />
                           </span>
                           <span>{bullet}</span>
                         </li>
@@ -629,16 +637,20 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 4 — NATURAL CLEANING TECHNOLOGY */}
                 {current.key === 'technology' && (
-                  <div className="flex flex-col items-start justify-center gap-2 sm:gap-4 h-full">
-                    <h2 className="text-sm sm:text-xl lg:text-[34px] font-extrabold font-heading text-white leading-tight whitespace-pre-line">
+                  <div className="flex flex-col items-start justify-center gap-3 sm:gap-5 lg:gap-6 h-full">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
                       {c.slides.slide4.headline}
                     </h2>
 
-                    <ul className="space-y-1.5 sm:space-y-2 mt-1 sm:mt-2">
+                    <p className="text-sm sm:text-base lg:text-lg text-white/95 leading-relaxed font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">
+                      {c.slides.slide4.supporting}
+                    </p>
+
+                    <ul className="space-y-2.5 sm:space-y-4 lg:space-y-5 mt-1 sm:mt-2">
                       {c.slides.slide4.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-center gap-1.5 sm:gap-2.5 text-[10px] sm:text-sm font-bold text-white/95">
-                          <span className="flex h-3.5 w-3.5 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-white/10 border border-white/20 text-[#8ED6FF]">
-                            <Leaf size={device === 'mobile' ? 9 : 12} />
+                        <li key={idx} className="flex items-center gap-2.5 sm:gap-3.5 lg:gap-4 text-sm sm:text-base lg:text-lg font-bold text-white/98 drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+                          <span className="flex h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white/15 border border-white/30 text-[#8ED6FF] flex-shrink-0">
+                            <Leaf size={device === 'mobile' ? 16 : 22} />
                           </span>
                           <span>{bullet}</span>
                         </li>
@@ -649,22 +661,22 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 5 — TRUST / CALL TO ACTION */}
                 {current.key === 'trust' && (
-                  <div className="flex flex-col items-start justify-center gap-2 sm:gap-4 h-full w-full">
-                    <h2 className="text-sm sm:text-xl lg:text-[34px] font-extrabold font-heading text-[#073E91] leading-tight whitespace-pre-line">
+                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-6 h-full w-full">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] [text-shadow:0_0_30px_rgba(255,255,255,0.4),0_0_60px_rgba(255,255,255,0.2)]">
                       {c.slides.slide5.headline}
                     </h2>
 
                     {/* Trust points arranged horizontally on desktop/tablet & vertically on mobile */}
-                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-1.5' : 'grid-cols-4 gap-2.5'} w-full mt-1`}>
+                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-2' : 'grid-cols-4 gap-3'} w-full mt-2`}>
                       {c.slides.slide5.badges.map((badge, idx) => (
-                        <div key={idx} className={`flex ${device === 'mobile' ? 'flex-row items-center justify-start gap-2.5 px-3' : 'flex-col items-center justify-center'} p-1.5 bg-white/95 border border-cm-border-soft rounded-2xl shadow-sm backdrop-blur-md`}>
-                          <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#EAF4FF] text-[#1764BA] shrink-0">
-                            {badge.key === 'flag' && <span className="text-[10px] sm:text-xs">🇹🇭</span>}
-                            {badge.key === 'tested' && <ShieldCheck size={device === 'mobile' ? 14 : 18} className="text-[#1764BA]" />}
-                            {badge.key === 'eco' && <Leaf size={device === 'mobile' ? 14 : 18} className="text-[#70B52C]" />}
-                            {badge.key === 'trusted' && <Star size={device === 'mobile' ? 14 : 18} className="text-[#FFD84D] fill-[#FFD84D]" />}
+                        <div key={idx} className={`flex ${device === 'mobile' ? 'flex-row items-center justify-start gap-3 px-4 py-3' : 'flex-col items-center justify-center gap-2.5 p-3'} bg-white/98 border-2 border-white rounded-3xl shadow-md backdrop-blur-md`}>
+                          <div className="flex h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-[#EAF4FF] text-[#1764BA] shrink-0">
+                            {badge.key === 'flag' && <span className="text-xs sm:text-sm lg:text-base">🇹🇭</span>}
+                            {badge.key === 'tested' && <ShieldCheck size={device === 'mobile' ? 18 : 24} className="text-[#1764BA]" />}
+                            {badge.key === 'eco' && <Leaf size={device === 'mobile' ? 18 : 24} className="text-[#70B52C]" />}
+                            {badge.key === 'trusted' && <Star size={device === 'mobile' ? 18 : 24} className="text-[#FFD84D] fill-[#FFD84D]" />}
                           </div>
-                          <span className="text-[8px] sm:text-[10px] font-bold text-[#243B56] text-center leading-tight">
+                          <span className="text-xs sm:text-sm lg:text-base font-bold text-[#073E91] text-center leading-tight">
                             {badge.label}
                           </span>
                         </div>
@@ -672,11 +684,11 @@ export function CaptainMaidLandingPage() {
                     </div>
 
                     {/* Stacked CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-1.5 mt-1 sm:mt-2 w-full sm:w-auto">
-                      <Link href="/products" className="rounded-full bg-[#0753AC] px-5 py-2 sm:px-7 sm:py-3 text-[10px] sm:text-xs font-bold text-white transition-all text-center hover:bg-cm-navy active:scale-95 shadow-md shadow-[#0753AC]/25">
+                    <div className="flex flex-col sm:flex-row gap-2.5 mt-3 sm:mt-4 w-full sm:w-auto">
+                      <Link href="/products" className="rounded-full bg-[#0753AC] px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-white transition-all text-center hover:bg-cm-navy active:scale-95 shadow-md shadow-[#0753AC]/25">
                         {c.slides.slide5.ctaPrimary}
                       </Link>
-                      <Link href="/contact" className="rounded-full bg-white border border-[#BED8F2] px-5 py-2 sm:px-7 sm:py-3 text-[10px] sm:text-xs font-bold text-[#0A4C9D] transition-all text-center hover:bg-cm-sky-light active:scale-95">
+                      <Link href="/contact" className="rounded-full bg-white border-2 border-white px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-[#0A4C9D] transition-all text-center hover:bg-white/95 active:scale-95 shadow-md">
                         {c.slides.slide5.ctaSecondary}
                       </Link>
                     </div>
