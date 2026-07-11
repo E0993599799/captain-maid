@@ -13,9 +13,6 @@ export const metadata: Metadata = {
   },
   description: site.seo.description,
   keywords: [...site.seo.keywords],
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     type: 'website',
     title: site.seo.title,
