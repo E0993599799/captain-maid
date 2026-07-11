@@ -156,6 +156,8 @@ export const products: Product[] = [
     },
     keywords: ['floor cleaner', 'floral', 'captain maid', 'น้ำยาถูพื้น', 'ฟลอรัล'],
     isFeatured: true,
+    rating: 4.8,
+    reviewCount: 287,
     status: 'active',
     filters: {
       category: 'floor-care',
