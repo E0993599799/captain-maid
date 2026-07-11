@@ -535,7 +535,7 @@ export function CaptainMaidLandingPage() {
           {/* Lazy Loaded Dynamic Images */}
           <div className="absolute inset-0 z-0">
             <Image
-              src={current.key === 'intro' ? heroBackground : getResponsiveImage(current.image.mobile, current.image.tablet, current.image.desktop)}
+              src={getResponsiveImage(current.image.mobile, current.image.tablet, current.image.desktop)}
               alt="Captain Maid premium presentation slide"
               fill
               priority={activeSlide === 0}
@@ -576,11 +576,11 @@ export function CaptainMaidLandingPage() {
                       />
                     </div>
 
-                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_3px_12px_rgba(0,0,0,0.4)]">
+                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] [text-shadow:-2px_-2px_0_rgba(255,255,255,0.6),2px_-2px_0_rgba(255,255,255,0.6),-2px_2px_0_rgba(255,255,255,0.6),2px_2px_0_rgba(255,255,255,0.6)]">
                       {c.slides.slide1.headline}
                     </h1>
 
-                    <p className="text-sm sm:text-base lg:text-lg text-white/98 leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_3px_10px_rgba(0,0,0,0.3)]">
+                    <p className="text-sm sm:text-base lg:text-lg text-white/98 leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_0_6px_rgba(255,255,255,0.7)] [text-shadow:-1px_-1px_0_rgba(255,255,255,0.5),1px_-1px_0_rgba(255,255,255,0.5),-1px_1px_0_rgba(255,255,255,0.5),1px_1px_0_rgba(255,255,255,0.5)]">
                       {c.slides.slide1.supporting}
                     </p>
 
@@ -593,7 +593,7 @@ export function CaptainMaidLandingPage() {
                 {/* SLIDE 2 — PRODUCT RANGE */}
                 {current.key === 'range' && (
                   <div className="flex flex-col items-center justify-start gap-4 sm:gap-6 text-center h-full max-w-4xl mx-auto pt-8 sm:pt-12 lg:pt-16">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] [text-shadow:0_0_30px_rgba(255,255,255,0.4),0_0_60px_rgba(255,255,255,0.2)]">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-[#073E91] leading-tight whitespace-normal sm:whitespace-pre-line drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] [text-shadow:-2px_-2px_0_rgba(255,255,255,0.8),2px_-2px_0_rgba(255,255,255,0.8),-2px_2px_0_rgba(255,255,255,0.8),2px_2px_0_rgba(255,255,255,0.8)]">
                       ผลิตภัณฑ์ทำความสะอาดที่ออกแบบมาสำหรับทุกห้องในบ้าน
                     </h2>
 
@@ -619,7 +619,7 @@ export function CaptainMaidLandingPage() {
                 {/* SLIDE 3 — LIFESTYLE / FAMILY AND PET SAFETY */}
                 {current.key === 'lifestyle' && (
                   <div className="flex flex-col items-start justify-center gap-3 sm:gap-5 lg:gap-6 h-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] [text-shadow:0_0_30px_rgba(255,255,255,0.4),0_0_60px_rgba(255,255,255,0.2)]">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-[#073E91] leading-tight whitespace-pre-line drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] [text-shadow:-2px_-2px_0_rgba(255,255,255,0.8),2px_-2px_0_rgba(255,255,255,0.8),-2px_2px_0_rgba(255,255,255,0.8),2px_2px_0_rgba(255,255,255,0.8)]">
                       {c.slides.slide3.headline}
                     </h2>
 
