@@ -241,15 +241,15 @@ const COPY: Record<LocaleKey, Copy> = {
     slides: {
       intro: {
         badge: 'แนะนำแบรนด์',
-        title: 'Made for Easy Home Cleaning',
-        subtitle: 'Better Living, Taken Care of by Captain Maid.',
+        title: 'ทำให้การทำความสะอาดบ้านง่ายขึ้น',
+        subtitle: 'ชีวิตที่ดีขึ้น ดูแลโดย Captain Maid',
         ctaPrimary: 'ซื้อเลย',
         ctaSecondary: 'ดูเพิ่มเติม',
         points: ['พรีเมียม', 'สว่างและเป็นมิตร', 'เล่าเรื่องด้วยมาสคอต'],
       },
       range: {
         badge: 'ไลน์สินค้า',
-        title: 'Complete Cleaning Solutions for Every Corner of Your Home',
+        title: 'วิธีทำความสะอาดอย่างสมบูรณ์สำหรับทุกมุมของบ้านคุณ',
         subtitle: 'จัดวางกลุ่มผลิตภัณฑ์หลักของ Captain Maid แบบพรีเมียมและอ่านง่ายในครั้งเดียว',
         categories: [
           { label: 'ครัว', icon: ChefHat },
@@ -267,15 +267,15 @@ const COPY: Record<LocaleKey, Copy> = {
       },
       technology: {
         badge: 'เทคโนโลยี',
-        title: 'Advanced Cleaning with Natural Power',
+        title: 'การทำความสะอาดขั้นสูงด้วยพลังธรรมชาติ',
         subtitle: 'ภาพเชิงวิทยาศาสตร์ที่ดูพรีเมียมด้วยน้ำ ฟอง และโทนธรรมชาติ สื่อเรื่องการทำความสะอาดสมัยใหม่',
         points: ['ส่วนผสมธรรมชาติ', 'พลังทำความสะอาดลึก', 'ช่วยปกป้องพื้นผิว'],
       },
       trust: {
         badge: 'ความเชื่อใจ',
-        title: 'Trusted Quality You Can Count On',
+        title: 'คุณภาพที่เชื่อถือได้ที่คุณสามารถไว้ใจได้',
         subtitle: 'แพ็กเกจจิงพรีเมียม การจัดวางที่สม่ำเสมอ และระบบแบรนด์ที่สร้างความมั่นใจได้ตั้งแต่เห็นครั้งแรกจนถึงการซื้อซ้ำ',
-        badges: ['Made in Thailand', 'Quality Tested', 'Eco Friendly', 'Trusted Brand'],
+        badges: ['ผลิตในประเทศไทย', 'ทดสอบคุณภาพ', 'เป็นมิตรต่อสิ่งแวดล้อม', 'แบรนด์ที่เชื่อถือได้'],
         ctaPrimary: 'ซื้อเลย',
         ctaSecondary: 'เป็นตัวแทน',
       },
@@ -299,7 +299,7 @@ const COPY: Record<LocaleKey, Copy> = {
     },
     faq: {
       badge: 'คำถามที่พบบ่อย',
-      title: 'Frequently asked questions',
+      title: 'คำถามที่พบบ่อย',
       subtitle: 'คำตอบสั้น ๆ ที่ช่วยให้หน้าแลนดิ้งดูครบโดยไม่แต่งเติมข้อมูลเกินจากชุดสินค้าที่มีอยู่จริง',
       items: [
         {
