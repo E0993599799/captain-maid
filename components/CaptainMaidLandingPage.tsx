@@ -23,7 +23,6 @@ import { useLocale } from 'next-intl';
 import { site } from '@/data/site';
 
 import logoMark from './assets/logo-captainmaid.png';
-import heroBackground from './assets/hero-background.webp';
 
 // Slide 1: Brand Hero - Responsive Images
 import slide1Mobile from './assets/landing/01_Brand-Hero_Mobile.png';
