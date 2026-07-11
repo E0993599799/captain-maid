@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap');
-
 :root {
   /* Captain Maid Core Colors */
   --cm-primary: #0066CC;
@@ -35,9 +33,9 @@
   --cm-warning: #ECC94B;
   --cm-info: #3182CE;
 
-  /* Typography */
-  --font-heading: "Poppins", "Noto Sans Thai", sans-serif;
-  --font-body: "Montserrat", "Noto Sans Thai", sans-serif;
+  /* Typography - Loaded via next/font/google in root layout */
+  --font-heading: var(--font-poppins), var(--font-noto-thai), sans-serif;
+  --font-body: var(--font-montserrat), var(--font-noto-thai), sans-serif;
   --font-accent: "Monotype Corsiva", cursive;
 
   /* Spacing */

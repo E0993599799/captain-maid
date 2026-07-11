@@ -44,8 +44,8 @@ const config: Config = {
 
       // Typography — Captain Maid Essentials
       fontFamily: {
-        'heading': ['Poppins', 'Noto Sans Thai', 'sans-serif'],
-        'body': ['Montserrat', 'Noto Sans Thai', 'sans-serif'],
+        'heading': ['var(--font-heading)', 'sans-serif'],
+        'body': ['var(--font-body)', 'sans-serif'],
         'accent': ['"Monotype Corsiva"', 'cursive'],
       },
 

@@ -619,7 +619,7 @@ export function CaptainMaidLandingPage() {
                     </div>
                   </div>
 
-                  <figure className="relative overflow-hidden rounded-[32px] border border-white/40 bg-white/20 shadow-[0_20px_60px_rgba(3,32,86,0.18)] backdrop-blur-xl">
+                  <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/40 bg-white/20 shadow-[0_20px_60px_rgba(3,32,86,0.18)] backdrop-blur-xl">
                     <div className="absolute inset-0 bg-gradient-to-l from-[#0A56C2]/70 via-[#0A56C2]/20 to-transparent" />
                     <Image
                       src={getResponsiveImage(slide1Mobile, slide1Tablet, slide1Desktop)}
@@ -664,7 +664,7 @@ export function CaptainMaidLandingPage() {
                     </div>
                   </div>
 
-                  <figure className="relative overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-white shadow-[0_20px_50px_rgba(10,86,194,0.10)]">
+                  <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-white shadow-[0_20px_50px_rgba(10,86,194,0.10)]">
                     <Image
                       src={getResponsiveImage(slide2Mobile, slide2Tablet, slide2Desktop)}
                       alt="Captain Maid products arranged in a premium shelf presentation"
@@ -706,7 +706,7 @@ export function CaptainMaidLandingPage() {
                     </div>
                   </div>
 
-                  <figure className="relative overflow-hidden rounded-[32px] border border-[#F1E8D7] bg-white shadow-[0_20px_50px_rgba(109,78,24,0.10)]">
+                  <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-[#F1E8D7] bg-white shadow-[0_20px_50px_rgba(109,78,24,0.10)]">
                     <Image
                       src={getResponsiveImage(slide3Mobile, slide3Tablet, slide3Desktop)}
                       alt="Mother, child, pets, and robot vacuum in a bright family living room"
@@ -753,7 +753,7 @@ export function CaptainMaidLandingPage() {
                     </div>
                   </div>
 
-                  <figure className="relative overflow-hidden rounded-[32px] border border-white/20 bg-[#052B73] shadow-[0_20px_50px_rgba(1,16,50,0.20)]">
+                  <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/20 bg-[#052B73] shadow-[0_20px_50px_rgba(1,16,50,0.20)]">
                     <Image
                       src={getResponsiveImage(slide4Mobile, slide4Tablet, slide4Desktop)}
                       alt="Blue scientific visual with water, molecules, leaf, and glass sphere"
@@ -811,7 +811,7 @@ export function CaptainMaidLandingPage() {
                     </div>
                   </div>
 
-                  <figure className="relative overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-white shadow-[0_20px_50px_rgba(10,86,194,0.08)]">
+                  <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-white shadow-[0_20px_50px_rgba(10,86,194,0.08)]">
                     <Image
                       src={getResponsiveImage(slide5Mobile, slide5Tablet, slide5Desktop)}
                       alt="Luxury home with Captain Maid mascot and trust-led composition"
@@ -945,7 +945,7 @@ export function CaptainMaidLandingPage() {
               </div>
             </div>
 
-            <figure className="relative overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
+            <figure className="relative w-full h-[320px] sm:h-[420px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
               <Image
                 src={getResponsiveImage(slide5Mobile, slide5Tablet, slide5Desktop)}
                 alt="Captain Maid mascot and premium home exterior"

@@ -54,7 +54,7 @@ export function ProductCard(props: ProductCardProps) {
 
 
   return (
-    <article className={`overflow-hidden rounded-3xl border border-captain-border bg-captain-white shadow-brand transition hover:-translate-y-1 hover:shadow-brand-hover ${props.className ?? ''}`}>
+    <article className={`overflow-hidden rounded-[32px] border border-cm-border-soft bg-white shadow-[0_16px_40px_rgba(10,86,194,0.06)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_50px_rgba(10,86,194,0.12)] ${props.className ?? ''}`}>
       <Link
         href={href}
         onClick={() => trackEvent('click_product_card', { slug: slugOrId, product_name: name })}
@@ -100,7 +100,7 @@ export function ProductCard(props: ProductCardProps) {
           <Link
             href={href}
             onClick={() => trackEvent('click_product_card', { slug: slugOrId, product_name: name, cta: 'view_detail' })}
-            className="rounded-full bg-captain-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-captain-dark"
+            className="rounded-full bg-cm-primary-blue px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-cm-navy active:scale-95 shadow-md shadow-cm-primary-blue/10 hover:shadow-lg"
           >
             ดูรายละเอียด
           </Link>
