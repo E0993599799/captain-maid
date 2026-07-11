@@ -42,18 +42,18 @@ export const HeroEnhanced = () => {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-captain-soft via-captain-white to-captain-light min-h-screen flex items-center">
+    <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0066CC] via-[#0080FF] to-[#00AAFF] min-h-screen flex items-center">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{ y: [0, 30, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-20 right-20 w-40 h-40 bg-captain-accent/30 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-40 h-40 bg-white/20 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ y: [0, -30, 0] }}
           transition={{ duration: 10, repeat: Infinity }}
-          className="absolute bottom-20 left-20 w-40 h-40 bg-captain-light/30 rounded-full blur-3xl"
+          className="absolute bottom-20 left-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"
         />
       </div>
 
@@ -96,7 +96,7 @@ export const HeroEnhanced = () => {
             {/* Main Headline */}
             <motion.h1
               variants={itemVariants}
-              className="font-display text-h1 md:text-[54px] font-bold text-captain-text leading-tight"
+              className="font-display text-h1 md:text-[54px] font-bold text-white leading-tight"
             >
               {t('hero.mainHeading')}
             </motion.h1>
@@ -104,7 +104,7 @@ export const HeroEnhanced = () => {
             {/* Subheading */}
             <motion.p
               variants={itemVariants}
-              className="font-sans text-body md:text-h4 text-captain-muted"
+              className="font-sans text-body md:text-h4 text-white/90"
             >
               {t('hero.subHeading')}
             </motion.p>
@@ -117,14 +117,14 @@ export const HeroEnhanced = () => {
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-3 text-left p-3 rounded-lg bg-captain-soft/50 backdrop-blur-sm hover:bg-captain-soft/80 transition-colors border border-captain-border/30"
+                  className="flex items-center gap-3 text-left p-3 rounded-lg bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors border border-white/30"
                 >
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-captain-primary flex items-center justify-center flex-shrink-0">
-                    <Check size={16} className="text-white" />
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+                    <Check size={16} className="text-[#0066CC]" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-captain-text font-medium text-sm">{t(feature.titleKey)}</span>
-                    <span className="text-captain-muted text-xs">{t(feature.descKey)}</span>
+                    <span className="text-white font-medium text-sm">{t(feature.titleKey)}</span>
+                    <span className="text-white/80 text-xs">{t(feature.descKey)}</span>
                   </div>
                 </div>
               ))}
@@ -140,21 +140,21 @@ export const HeroEnhanced = () => {
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
-                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br from-captain-accent to-captain-primary flex items-center justify-center text-white font-semibold text-sm"
+                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br from-[#FFD700] to-[#FFA500] flex items-center justify-center text-white font-semibold text-sm"
                     >
                       {i + 1}
                     </div>
                   ))}
                 </div>
-                <div className="text-sm text-captain-muted">
-                  <span className="font-semibold text-captain-text">2,500+</span> {t('common.happyCustomers') || 'Happy Customers'}
+                <div className="text-sm text-white/90">
+                  <span className="font-semibold text-white">2,500+</span> {t('common.happyCustomers') || 'Happy Customers'}
                 </div>
               </div>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-captain-primary text-lg">★</span>
+                  <span key={i} className="text-yellow-300 text-lg">★</span>
                 ))}
-                <span className="ml-2 text-sm text-captain-muted">
+                <span className="ml-2 text-sm text-white/90">
                   4.9/5 {t('common.fromReviews') || 'from'} 500+ {t('common.reviews') || 'reviews'}
                 </span>
               </div>
@@ -179,7 +179,7 @@ export const HeroEnhanced = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-captain-muted"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-white/80"
         >
           <span className="text-sm font-medium">{t('common.scrollToExplore') || 'Scroll to explore'}</span>
           <ChevronDown size={20} />

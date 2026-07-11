@@ -15,6 +15,8 @@ export interface Product {
   images: string[];
   videos: string[];
   priceText: string;
+  rating?: number;
+  reviewCount?: number;
   homeproUrl?: string;
   shopeeUrl?: string;
   lazadaUrl?: string;
@@ -90,6 +92,8 @@ export const products: Product[] = [
     keywords: ['floor cleaner', 'tea tree', 'captain maid', 'น้ำยาถูพื้น', 'ทีทรี'],
     isFeatured: true,
     status: 'active',
+    rating: 4.9,
+    reviewCount: 324,
     filters: {
       category: 'floor-care',
       scent: 'tea-tree',

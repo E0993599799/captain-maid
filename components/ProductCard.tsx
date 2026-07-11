@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Star } from 'lucide-react';
 import type { Product } from '@/data/products';
 import { trackEvent } from '@/lib/analytics';
 import { ProductBadges } from './ProductBadges';
@@ -48,6 +49,8 @@ export function ProductCard(props: ProductCardProps) {
   const status = product?.status ?? (props.inStock === false ? 'สินค้าหมด' : 'พร้อมวางขาย');
   const badgeLabels = product ? [product.filters.scent, ...product.filters.need.slice(0, 2)] : [props.badge].filter(Boolean) as string[];
   const productProperties = product ? [product.shortDescription.en, product.seoDescription.en].filter(Boolean) : [];
+  const rating = product?.rating ?? 4.8;
+  const reviewCount = product?.reviewCount ?? 0;
 
 
   return (
@@ -77,6 +80,19 @@ export function ProductCard(props: ProductCardProps) {
               ))}
             </ul>
           ) : null}
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                size={16}
+                className={i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
+              />
+            ))}
+          </div>
+          <span className="text-sm font-semibold text-captain-text">{rating}</span>
+          {reviewCount > 0 && <span className="text-xs text-captain-muted">({reviewCount})</span>}
         </div>
         {badgeLabels.length ? <ProductBadges badges={badgeLabels} /> : null}
         <div className="flex items-center justify-between gap-3">
