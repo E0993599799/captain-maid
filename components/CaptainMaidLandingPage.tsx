@@ -666,8 +666,8 @@ export function CaptainMaidLandingPage() {
                       {c.slides.slide5.headline}
                     </h2>
 
-                    {/* Trust points arranged horizontally on desktop/tablet & vertically on mobile */}
-                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-2' : 'grid-cols-4 gap-3'} w-full mt-2`}>
+                    {/* Trust points: 1 col mobile, 2 col tablet, 4 col desktop */}
+                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-2' : device === 'tablet' ? 'grid-cols-2 gap-2.5' : 'grid-cols-4 gap-3'} w-full mt-2`}>
                       {c.slides.slide5.badges.map((badge, idx) => (
                         <div key={idx} className={`flex ${device === 'mobile' ? 'flex-row items-center justify-start gap-3 px-4 py-3' : 'flex-col items-center justify-center gap-2.5 p-3'} bg-white/98 border-2 border-white rounded-3xl shadow-md backdrop-blur-md`}>
                           <div className="flex h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-[#EAF4FF] text-[#1764BA] shrink-0">
@@ -747,7 +747,7 @@ export function CaptainMaidLandingPage() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {c.solutions.cards.map((card) => {
             const Icon = card.icon;
             return (
@@ -781,8 +781,8 @@ export function CaptainMaidLandingPage() {
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
             {productCards.map((product) => (
               <article key={product.title} className="overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-gradient-to-br from-[#F8FBFF] to-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
-                <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,rgba(10,86,194,0.1),transparent_52%)] px-8 py-10">
-                  <Image src={product.image} alt={`${product.title} Captain Maid package`} width={420} height={420} placeholder="blur" className="h-auto w-[220px] object-contain drop-shadow-[0_20px_40px_rgba(10,86,194,0.16)]" />
+                <div className="relative flex min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[380px] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,rgba(10,86,194,0.1),transparent_52%)] px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10">
+                  <Image src={product.image} alt={`${product.title} Captain Maid package`} width={420} height={420} placeholder="blur" className="h-auto w-[160px] sm:w-[180px] md:w-[220px] lg:w-[240px] object-contain drop-shadow-[0_20px_40px_rgba(10,86,194,0.16)]" />
                 </div>
                 <div className="space-y-3 p-6">
                   <h3 className="text-2xl font-semibold text-slate-900">{product.title}</h3>
@@ -874,7 +874,7 @@ export function CaptainMaidLandingPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-2">
             {c.faq.items.map((item) => (
               <article key={item.q} className="rounded-[28px] border border-[#D7E7FB] bg-[#F8FBFF] p-6 shadow-[0_16px_30px_rgba(10,86,194,0.06)]">
                 <h3 className="text-lg font-semibold text-slate-900">{item.q}</h3>
