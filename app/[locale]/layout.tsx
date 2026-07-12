@@ -1,9 +1,8 @@
 import { Montserrat, Poppins, Noto_Sans_Thai } from 'next/font/google';
 import { getTranslations } from 'next-intl/server';
-import { NextIntlClientProvider } from 'next-intl';
 import { i18n } from '@/i18n.config';
 import type { ReactNode } from 'react';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import { ClientWrapper } from '@/app/ClientWrapper';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -55,13 +54,11 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const messages = (await import(`../../locales/${locale}.json`)).default;
 
+  const fontClasses = `${poppins.variable} ${montserrat.variable} ${notoSansThai.variable}`;
+
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem suppressHydrationWarning>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        <div className={`${poppins.variable} ${montserrat.variable} ${notoSansThai.variable}`}>
-          {children}
-        </div>
-      </NextIntlClientProvider>
-    </ThemeProvider>
+    <ClientWrapper locale={locale} messages={messages} fonts={fontClasses}>
+      {children}
+    </ClientWrapper>
   );
 }
