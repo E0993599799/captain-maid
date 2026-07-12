@@ -33,10 +33,10 @@
   --cm-warning: #ECC94B;
   --cm-info: #3182CE;
 
-  /* Typography - Loaded via next/font/google in root layout */
-  --font-heading: var(--font-poppins), var(--font-noto-thai), sans-serif;
-  --font-body: var(--font-montserrat), var(--font-noto-thai), sans-serif;
-  --font-accent: "Monotype Corsiva", cursive;
+  /* Typography - Loaded via next/font/google in root layout (marcuz-skills/26) */
+  --font-heading: var(--font-poppins), var(--font-prompt), sans-serif;
+  --font-body: var(--font-inter), var(--font-prompt), sans-serif;
+  --font-accent: var(--font-poppins), sans-serif;
 
   /* Spacing */
   --space-1: 4px;
@@ -94,8 +94,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+body, [class*="--font-"] {
   font-family: var(--font-body);
+}
+
+body {
   background-color: var(--bg-base);
   color: var(--cm-text);
   transition: background-color 0.3s, color 0.3s;
@@ -380,3 +383,26 @@ p {
     font-size: clamp(18px, 5vw, 28px);
   }
 }
+
+/* Thai Web Typography Optimization (marcuz-skills/26) */
+:lang(th) {
+  line-height: 1.7;
+}
+
+:lang(th) body {
+  line-height: 1.7;
+  letter-spacing: 0em !important;
+}
+
+:lang(th) h1, :lang(th) h2, :lang(th) h3, :lang(th) h4, :lang(th) h5, :lang(th) h6 {
+  line-height: 1.4;
+  letter-spacing: 0em !important;
+}
+
+.thai-text {
+  line-height: 1.7;
+  letter-spacing: 0em !important;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+

@@ -459,13 +459,41 @@ export function CaptainMaidLandingPage() {
           {solutionsCards.map((card, index) => {
             const IconKey = solutionsIconKeys[index % solutionsIconKeys.length];
             const Icon = iconMap[IconKey];
+            
+            // Determine Bento grid sizing span dynamically (marcuz-skills/11/12)
+            let colSpanClass = 'lg:col-span-2';
+            if (index === 0 || index === 3) {
+              colSpanClass = 'lg:col-span-3';
+            } else if (index === 4) {
+              colSpanClass = 'lg:col-span-5 flex flex-col md:flex-row md:items-center md:gap-8';
+            }
+
             return (
-              <article key={index} className="rounded-[28px] border border-[#D7E7FB] bg-white p-5 shadow-[0_18px_40px_rgba(10,86,194,0.08)] transition hover:-translate-y-1.5 hover:shadow-[0_24px_50px_rgba(10,86,194,0.12)]">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A56C2] text-white shadow-[0_14px_28px_rgba(10,86,194,0.18)]">
-                  <Icon size={22} />
+              <article 
+                key={index} 
+                className={`rounded-[28px] border border-[#D7E7FB] bg-white p-6 sm:p-8 shadow-[0_18px_40px_rgba(10,86,194,0.06)] transition hover:-translate-y-1.5 hover:shadow-[0_24px_50px_rgba(10,86,194,0.10)] group overflow-hidden relative ${colSpanClass}`}
+              >
+                {/* Visual Glow background on Hover (marcuz-skills/12) */}
+                <div className="absolute -right-16 -top-16 w-32 h-32 bg-[#0A56C2]/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
+                
+                <div className={`${index === 4 ? 'shrink-0' : ''}`}>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A56C2] text-white shadow-[0_14px_28px_rgba(10,86,194,0.15)] group-hover:scale-105 transition-transform duration-300">
+                    <Icon size={22} />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold text-slate-900 group-hover:text-cm-primary-blue transition-colors">
+                    {card.title}
+                  </h3>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-slate-900">{card.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{card.description}</p>
+                <div className={`mt-2 ${index === 4 ? 'md:mt-0 flex-1' : ''}`}>
+                  <p className="text-sm leading-relaxed text-slate-600">
+                    {card.description}
+                  </p>
+                  
+                  {/* Subtle link cue to make it feel premium */}
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-cm-primary-blue mt-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 cursor-pointer">
+                    {locale === 'th' ? 'เรียนรู้เพิ่มเติม' : 'Learn more'} →
+                  </span>
+                </div>
               </article>
             );
           })}

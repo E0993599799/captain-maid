@@ -1,8 +1,9 @@
-import { Montserrat, Poppins, Noto_Sans_Thai } from 'next/font/google';
+import { Inter, Poppins, Prompt } from 'next/font/google';
 import { getTranslations } from 'next-intl/server';
 import { i18n } from '@/i18n.config';
 import type { ReactNode } from 'react';
 import { ClientWrapper } from '@/app/ClientWrapper';
+import { notFound } from 'next/navigation';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -11,17 +12,17 @@ const poppins = Poppins({
   display: 'swap',
 });
 
-const montserrat = Montserrat({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-montserrat',
+  variable: '--font-inter',
   display: 'swap',
 });
 
-const notoSansThai = Noto_Sans_Thai({
+const prompt = Prompt({
   subsets: ['thai'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-noto-thai',
+  variable: '--font-prompt',
   display: 'swap',
 });
 
@@ -52,9 +53,14 @@ export default async function LocaleLayout({
   params,
 }: Props) {
   const { locale } = await params;
+
+  if (!i18n.locales.includes(locale as any)) {
+    notFound();
+  }
+
   const messages = (await import(`../../locales/${locale}.json`)).default;
 
-  const fontClasses = `${poppins.variable} ${montserrat.variable} ${notoSansThai.variable}`;
+  const fontClasses = `${poppins.variable} ${inter.variable} ${prompt.variable}`;
 
   return (
     <ClientWrapper locale={locale} messages={messages} fonts={fontClasses}>
