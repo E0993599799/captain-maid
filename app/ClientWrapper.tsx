@@ -18,7 +18,7 @@ export function ClientWrapper({
   fonts,
 }: ClientWrapperProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem suppressHydrationWarning>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <NextIntlClientProvider locale={locale} messages={messages}>
         <div className={fonts}>{children}</div>
       </NextIntlClientProvider>

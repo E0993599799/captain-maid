@@ -1,7 +1,7 @@
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { Footer } from '@/components/Footer';
 import { ProductCard } from '@/components/ProductCard';
-import { products } from '@/lib/products';
+import { products } from '@/data/products';
 
 export default function ProductsPage() {
   return (
@@ -13,13 +13,7 @@ export default function ProductsPage() {
           {products.map((product) => (
             <ProductCard
               key={product.id}
-              id={product.id}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              priceThb={product.priceThb}
-              image={product.image}
-              category={product.category}
+              product={product}
             />
           ))}
         </div>

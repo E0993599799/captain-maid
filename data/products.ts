@@ -1,10 +1,15 @@
 export interface Product {
   id: string;
   slug: string;
+  sku?: string;
   productName: { th: string; en: string };
   category: { th: string; en: string };
   scent: { th: string; en: string };
   size: string;
+  weight?: string;           // Added
+  height?: string;           // Added
+  width?: string;            // Added
+  depth?: string;            // Added
   shortDescription: { th: string; en: string };
   fullDescription: { th: string; en: string };
   benefits: { th: string; en: string }[];
@@ -15,8 +20,14 @@ export interface Product {
   images: string[];
   videos: string[];
   priceText: string;
+  price?: number;
+  priceThb?: number;
+  originalPrice?: number;
+  originalPriceThb?: number;
   rating?: number;
   reviewCount?: number;
+  sold?: number;
+  inStock?: boolean;
   homeproUrl?: string;
   shopeeUrl?: string;
   lazadaUrl?: string;
@@ -38,6 +49,7 @@ export const products: Product[] = [
   {
     id: '1313716',
     slug: 'floor-tea-tree-flash',
+    sku: '1313716',
     productName: {
       th: 'น้ำยาทำความสะอาดพื้น กลิ่นทีทรี แฟลช',
       en: 'Floor Cleaner - Tea Tree Flash Scent',
@@ -45,6 +57,10 @@ export const products: Product[] = [
     category: { th: 'ผลิตภัณฑ์ทำความสะอาดพื้น', en: 'Floor Cleaner' },
     scent: { th: 'ทีทรี แฟลช', en: 'Tea Tree Flash' },
     size: '900ML',
+    weight: '0.95 kg',
+    height: '28.8 cm',
+    width: '12.5 cm',
+    depth: '5.75 cm',
     shortDescription: {
       th: 'ปลุกพลังความสดชื่นด้วยสูตรประสิทธิภาพสูง ขจัดฝุ่นและคราบฝังแน่น',
       en: 'Awaken freshness with a high-performance formula that eliminates dust and tough stains.',
@@ -60,25 +76,33 @@ export const products: Product[] = [
       { th: 'แห้งไว ไม่ทิ้งคราบเหนียว', en: 'Dries fast, leaves no sticky residue' },
     ],
     howToUse: [
-        { th: 'สำหรับพื้นทั่วไป: ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำเปล่า 5 ลิตร ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่วบริเวณโดยไม่ต้องเช็ดน้ำซ้ำ', en: 'For general cleaning: Mix 1 cap (50 ml) with 5 liters of water. Use a cloth or mop to wipe the area. No rinsing needed.'},
-        { th: 'สำหรับคราบฝังลึก: ผสมผลิตภัณฑ์ 3 ฝา (150 มล.) ลงในน้ำเปล่า ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่ว หรือส่วนที่ต้องการทำความสะอาด', en: 'For deep stains: Mix 3 caps (150 ml) with water. Apply with a cloth or mop directly onto the stain.' },
+      { th: 'สำหรับพื้นทั่วไป: ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำเปล่า 5 ลิตร ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่วบริเวณโดยไม่ต้องเช็ดน้ำซ้ำ', en: 'For general cleaning: Mix 1 cap (50 ml) with 5 liters of water. Use a cloth or mop to wipe the area. No rinsing needed.'},
+      { th: 'สำหรับคราบฝังลึก: ผสมผลิตภัณฑ์ 3 ฝา (150 มล.) ลงในน้ำเปล่า ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่ว หรือส่วนที่ต้องการทำความสะอาด', en: 'For deep stains: Mix 3 caps (150 ml) with water. Apply with a cloth or mop directly onto the stain.' },
     ],
     suitableFor: [
-        { th: 'พื้นหินอ่อน', en: 'Marble' },
-        { th: 'พื้นปาร์เก้', en: 'Parquet' },
-        { th: 'พื้นหินแกรนิต', en: 'Granite' },
-        { th: 'พื้นไม้', en: 'Wood' },
-        { th: 'พื้นเซรามิค', en: 'Ceramic' },
-        { th: 'พื้นกระเบื้องเคลือบ และกระเบื้องยาง', en: 'Glazed tile and rubber tile' },
+      { th: 'พื้นหินอ่อน', en: 'Marble' },
+      { th: 'พื้นปาร์เก้', en: 'Parquet' },
+      { th: 'พื้นหินแกรนิต', en: 'Granite' },
+      { th: 'พื้นไม้', en: 'Wood' },
+      { th: 'พื้นเซรามิค', en: 'Ceramic' },
+      { th: 'พื้นกระเบื้องเคลือบ และกระเบื้องยาง', en: 'Glazed tile and rubber tile' },
     ],
     cautions: [
-        { th: 'ห้ามรับประทาน และเก็บให้พ้นจากมือเด็กและสัตว์เลี้ยง', en: 'Do not ingest. Keep out of reach of children and pets.' },
-        { th: 'ระวังอย่าให้เข้าตาหรือถูกผิวหนัง ขณะใช้ควรสวมถุงมือยาง', en: 'Avoid contact with eyes and skin. Wear rubber gloves during use.' },
+      { th: 'ห้ามรับประทาน และเก็บให้พ้นจากมือเด็กและสัตว์เลี้ยง', en: 'Do not ingest. Keep out of reach of children and pets.' },
+      { th: 'ระวังอย่าให้เข้าตาหรือถูกผิวหนัง ขณะใช้ควรสวมถุงมือยาง', en: 'Avoid contact with eyes and skin. Wear rubber gloves during use.' },
     ],
-    ingredients: '[รอข้อมูล]',
-    images: ['/images/products/tea-tree-flash.jpg'],
+    ingredients: 'Water, Natural plant extract, Surfactant',
+    images: ['/images/products/homepro_product_1313716.jpg'],
     videos: [],
     priceText: '฿76.63',
+    price: 76.63,
+    priceThb: 76.63,
+    originalPrice: 79,
+    originalPriceThb: 79,
+    rating: 5.0,
+    reviewCount: 1,
+    sold: 11,
+    inStock: true,
     homeproUrl: 'https://www.homepro.co.th/p/1313716',
     shopeeUrl: '[รอข้อมูล]',
     lazadaUrl: '[รอข้อมูล]',
@@ -92,8 +116,6 @@ export const products: Product[] = [
     keywords: ['floor cleaner', 'tea tree', 'captain maid', 'น้ำยาถูพื้น', 'ทีทรี'],
     isFeatured: true,
     status: 'active',
-    rating: 4.9,
-    reviewCount: 324,
     filters: {
       category: 'floor-care',
       scent: 'tea-tree',
@@ -103,6 +125,7 @@ export const products: Product[] = [
   {
     id: '1313735',
     slug: 'floor-floral-passionate',
+    sku: '1313735',
     productName: {
       th: 'น้ำยาทำความสะอาดพื้น กลิ่นฟลอรัล แพชชั่น',
       en: 'Floor Cleaner - Floral Passionate Scent',
@@ -110,6 +133,10 @@ export const products: Product[] = [
     category: { th: 'ผลิตภัณฑ์ทำความสะอาดพื้น', en: 'Floor Cleaner' },
     scent: { th: 'ฟลอรัล แพชชั่น', en: 'Floral Passionate' },
     size: '900ML',
+    weight: '0.95 kg',
+    height: '28.5 cm',
+    width: '12.5 cm',
+    depth: '5.75 cm',
     shortDescription: {
       th: 'สัมผัสความหอมละมุนจากทุ่งดอกไม้ พร้อมพลังทำความสะอาดล้ำลึก',
       en: 'Experience the gentle fragrance of a flower field with deep cleaning power.',
@@ -119,31 +146,39 @@ export const products: Product[] = [
       en: 'Turn your housework into a moment of relaxation with Captain Maid Floor Cleaner, Floral Passionate scent. Experience the gentle aroma of natural flower fields, combined with deep cleaning power that removes dust and stubborn stains in a single wipe. Its extra-gentle formula is designed to care for all surfaces and your skin, ensuring safety for children and pets. Perfectly compatible with robot vacuums, it dries quickly without leaving sticky residue, making every step comfortable.',
     },
     benefits: [
-        { th: 'สูตรอ่อนโยนพิเศษ ปลอดภัยต่อผิวสัมผัส', en: 'Extra gentle formula, safe for skin contact' },
-        { th: 'คัดสรรส่วนผสมที่เป็นมิตรต่อทุกคนในครอบครัว', en: 'Made with ingredients friendly for the whole family' },
-        { th: 'ออกแบบมาให้ทำงานร่วมกับหุ่นยนต์ทำความสะอาดได้', en: 'Designed to work with robotic cleaners' },
-        { th: 'แห้งไว ไม่ทิ้งคราบเหนียว', en: 'Dries fast, leaves no sticky residue' },
+      { th: 'สูตรอ่อนโยนพิเศษ ปลอดภัยต่อผิวสัมผัส', en: 'Extra gentle formula, safe for skin contact' },
+      { th: 'คัดสรรส่วนผสมที่เป็นมิตรต่อทุกคนในครอบครัว', en: 'Made with ingredients friendly for the whole family' },
+      { th: 'ออกแบบมาให้ทำงานร่วมกับหุ่นยนต์ทำความสะอาดได้', en: 'Designed to work with robotic cleaners' },
+      { th: 'แห้งไว ไม่ทิ้งคราบเหนียว', en: 'Dries fast, leaves no sticky residue' },
     ],
     howToUse: [
-        { th: 'สำหรับพื้นทั่วไป: ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำเปล่า 5 ลิตร ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่วบริเวณโดยไม่ต้องเช็ดน้ำซ้ำ', en: 'For general cleaning: Mix 1 cap (50 ml) with 5 liters of water. Use a cloth or mop to wipe the area. No rinsing needed.'},
-        { th: 'สำหรับคราบฝังลึก: ผสมผลิตภัณฑ์ 3 ฝา (150 มล.) ลงในน้ำเปล่า ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่ว หรือส่วนที่ต้องการทำความสะอาด', en: 'For deep stains: Mix 3 caps (150 ml) with water. Apply with a cloth or mop directly onto the stain.' },
+      { th: 'สำหรับพื้นทั่วไป: ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำเปล่า 5 ลิตร ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่วบริเวณโดยไม่ต้องเช็ดน้ำซ้ำ', en: 'For general cleaning: Mix 1 cap (50 ml) with 5 liters of water. Use a cloth or mop to wipe the area. No rinsing needed.'},
+      { th: 'สำหรับคราบฝังลึก: ผสมผลิตภัณฑ์ 3 ฝา (150 มล.) ลงในน้ำเปล่า ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่ว หรือส่วนที่ต้องการทำความสะอาด', en: 'For deep stains: Mix 3 caps (150 ml) with water. Apply with a cloth or mop directly onto the stain.' },
     ],
     suitableFor: [
-        { th: 'พื้นหินอ่อน', en: 'Marble' },
-        { th: 'พื้นปาร์เก้', en: 'Parquet' },
-        { th: 'พื้นหินแกรนิต', en: 'Granite' },
-        { th: 'พื้นไม้', en: 'Wood' },
-        { th: 'พื้นเซรามิค', en: 'Ceramic' },
-        { th: 'พื้นกระเบื้องเคลือบ และกระเบื้องยาง', en: 'Glazed tile and rubber tile' },
+      { th: 'พื้นหินอ่อน', en: 'Marble' },
+      { th: 'พื้นปาร์เก้', en: 'Parquet' },
+      { th: 'พื้นหินแกรนิต', en: 'Granite' },
+      { th: 'พื้นไม้', en: 'Wood' },
+      { th: 'พื้นเซรามิค', en: 'Ceramic' },
+      { th: 'พื้นกระเบื้องเคลือบ และกระเบื้องยาง', en: 'Glazed tile and rubber tile' },
     ],
     cautions: [
-        { th: 'ห้ามรับประทาน และเก็บให้พ้นจากมือเด็กและสัตว์เลี้ยง', en: 'Do not ingest. Keep out of reach of children and pets.' },
-        { th: 'ระวังอย่าให้เข้าตาหรือถูกผิวหนัง ขณะใช้ควรสวมถุงมือยาง', en: 'Avoid contact with eyes and skin. Wear rubber gloves during use.' },
+      { th: 'ห้ามรับประทาน และเก็บให้พ้นจากมือเด็กและสัตว์เลี้ยง', en: 'Do not ingest. Keep out of reach of children and pets.' },
+      { th: 'ระวังอย่าให้เข้าตาหรือถูกผิวหนัง ขณะใช้ควรสวมถุงมือยาง', en: 'Avoid contact with eyes and skin. Wear rubber gloves during use.' },
     ],
-    ingredients: '[รอข้อมูล]',
-    images: ['/images/products/floral-passionate.jpg'],
+    ingredients: 'Water, Natural plant extract, Surfactant',
+    images: ['/images/products/homepro_product_1313735.jpg'],
     videos: [],
     priceText: '฿76.63',
+    price: 76.63,
+    priceThb: 76.63,
+    originalPrice: 79,
+    originalPriceThb: 79,
+    rating: 4.8,
+    reviewCount: 6,
+    sold: 6,
+    inStock: true,
     homeproUrl: 'https://www.homepro.co.th/p/1313735',
     shopeeUrl: '[รอข้อมูล]',
     lazadaUrl: '[รอข้อมูล]',
@@ -156,8 +191,6 @@ export const products: Product[] = [
     },
     keywords: ['floor cleaner', 'floral', 'captain maid', 'น้ำยาถูพื้น', 'ฟลอรัล'],
     isFeatured: true,
-    rating: 4.8,
-    reviewCount: 287,
     status: 'active',
     filters: {
       category: 'floor-care',
@@ -168,6 +201,7 @@ export const products: Product[] = [
   {
     id: '1313729',
     slug: 'floor-lavender-kerry',
+    sku: '1313729',
     productName: {
       th: 'น้ำยาทำความสะอาดพื้น กลิ่นลาเวนเดอร์ แครี่',
       en: 'Floor Cleaner - Lavender Kerry Scent',
@@ -175,6 +209,10 @@ export const products: Product[] = [
     category: { th: 'ผลิตภัณฑ์ทำความสะอาดพื้น', en: 'Floor Cleaner' },
     scent: { th: 'ลาเวนเดอร์ แครี่', en: 'Lavender Kerry' },
     size: '900ML',
+    weight: '0.95 kg',
+    height: '28.8 cm',
+    width: '12.5 cm',
+    depth: '5.75 cm',
     shortDescription: {
       th: 'ดื่มด่ำกับบรรยากาศแห่งความผ่อนคลายเหมือนยกทุ่งลาเวนเดอร์มาไว้ที่บ้าน',
       en: 'Immerse yourself in a relaxing atmosphere, like a lavender field in your home.',
@@ -184,31 +222,39 @@ export const products: Product[] = [
       en: 'Indulge in a relaxing atmosphere that brings the lavender fields to your home with Captain Maid Floor Cleaner, Lavender Kerry scent. Feel the immaculately clean surfaces with every step thanks to its dust-fighting power. This special formula is designed for the safety of the entire family, including pets. It delivers shiny, quick-drying floors without any sticky residue, easily turning chaotic chores into a delightful experience.',
     },
     benefits: [
-        { th: 'สูตรอ่อนโยนพิเศษ ปลอดภัยต่อผิวสัมผัส', en: 'Extra gentle formula, safe for skin contact' },
-        { th: 'คัดสรรส่วนผสมที่เป็นมิตรต่อทุกคนในครอบครัว', en: 'Made with ingredients friendly for the whole family' },
-        { th: 'ออกแบบมาให้ทำงานร่วมกับหุ่นยนต์ทำความสะอาดได้', en: 'Designed to work with robotic cleaners' },
-        { th: 'แห้งไว ไม่ทิ้งคราบเหนียว', en: 'Dries fast, leaves no sticky residue' },
+      { th: 'สูตรอ่อนโยนพิเศษ ปลอดภัยต่อผิวสัมผัส', en: 'Extra gentle formula, safe for skin contact' },
+      { th: 'คัดสรรส่วนผสมที่เป็นมิตรต่อทุกคนในครอบครัว', en: 'Made with ingredients friendly for the whole family' },
+      { th: 'ออกแบบมาให้ทำงานร่วมกับหุ่นยนต์ทำความสะอาดได้', en: 'Designed to work with robotic cleaners' },
+      { th: 'แห้งไว ไม่ทิ้งคราบเหนียว', en: 'Dries fast, leaves no sticky residue' },
     ],
     howToUse: [
-        { th: 'สำหรับพื้นทั่วไป: ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำเปล่า 5 ลิตร ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่วบริเวณโดยไม่ต้องเช็ดน้ำซ้ำ', en: 'For general cleaning: Mix 1 cap (50 ml) with 5 liters of water. Use a cloth or mop to wipe the area. No rinsing needed.'},
-        { th: 'สำหรับคราบฝังลึก: ผสมผลิตภัณฑ์ 3 ฝา (150 มล.) ลงในน้ำเปล่า ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่ว หรือส่วนที่ต้องการทำความสะอาด', en: 'For deep stains: Mix 3 caps (150 ml) with water. Apply with a cloth or mop directly onto the stain.' },
+      { th: 'สำหรับพื้นทั่วไป: ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำเปล่า 5 ลิตร ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่วบริเวณโดยไม่ต้องเช็ดน้ำซ้ำ', en: 'For general cleaning: Mix 1 cap (50 ml) with 5 liters of water. Use a cloth or mop to wipe the area. No rinsing needed.'},
+      { th: 'สำหรับคราบฝังลึก: ผสมผลิตภัณฑ์ 3 ฝา (150 มล.) ลงในน้ำเปล่า ใช้ผ้าหรือจุ่มผ้าม็อบนำมาเช็ดให้ทั่ว หรือส่วนที่ต้องการทำความสะอาด', en: 'For deep stains: Mix 3 caps (150 ml) with water. Apply with a cloth or mop directly onto the stain.' },
     ],
     suitableFor: [
-        { th: 'พื้นหินอ่อน', en: 'Marble' },
-        { th: 'พื้นปาร์เก้', en: 'Parquet' },
-        { th: 'พื้นหินแกรนิต', en: 'Granite' },
-        { th: 'พื้นไม้', en: 'Wood' },
-        { th: 'พื้นเซรามิค', en: 'Ceramic' },
-        { th: 'พื้นกระเบื้องเคลือบ และกระเบื้องยาง', en: 'Glazed tile and rubber tile' },
+      { th: 'พื้นหินอ่อน', en: 'Marble' },
+      { th: 'พื้นปาร์เก้', en: 'Parquet' },
+      { th: 'พื้นหินแกรนิต', en: 'Granite' },
+      { th: 'พื้นไม้', en: 'Wood' },
+      { th: 'พื้นเซรามิค', en: 'Ceramic' },
+      { th: 'พื้นกระเบื้องเคลือบ และกระเบื้องยาง', en: 'Glazed tile and rubber tile' },
     ],
     cautions: [
-        { th: 'ห้ามรับประทาน และเก็บให้พ้นจากมือเด็กและสัตว์เลี้ยง', en: 'Do not ingest. Keep out of reach of children and pets.' },
-        { th: 'ระวังอย่าให้เข้าตาหรือถูกผิวหนัง ขณะใช้ควรสวมถุงมือยาง', en: 'Avoid contact with eyes and skin. Wear rubber gloves during use.' },
+      { th: 'ห้ามรับประทาน และเก็บให้พ้นจากมือเด็กและสัตว์เลี้ยง', en: 'Do not ingest. Keep out of reach of children and pets.' },
+      { th: 'ระวังอย่าให้เข้าตาหรือถูกผิวหนัง ขณะใช้ควรสวมถุงมือยาง', en: 'Avoid contact with eyes and skin. Wear rubber gloves during use.' },
     ],
-    ingredients: '[รอข้อมูล]',
-    images: ['/images/products/lavender-kerry.jpg'],
+    ingredients: 'Water, Natural plant extract, Surfactant',
+    images: ['/images/products/homepro_product_1313729.jpg'],
     videos: [],
     priceText: '฿76.63',
+    price: 76.63,
+    priceThb: 76.63,
+    originalPrice: 79,
+    originalPriceThb: 79,
+    rating: 4.8,
+    reviewCount: 12,
+    sold: 0,
+    inStock: true,
     homeproUrl: 'https://www.homepro.co.th/p/1313729',
     shopeeUrl: '[รอข้อมูล]',
     lazadaUrl: '[รอข้อมูล]',
@@ -231,15 +277,20 @@ export const products: Product[] = [
   {
     id: 'CM-BATH-001',
     slug: 'bathroom-clear-active',
+    sku: 'CM-BATH-001',
     productName: {
       th: 'สเปรย์ทำความสะอาดห้องน้ำ เคลียร์ แอคทีฟ',
       en: 'Bathroom Spray - Clear Active',
     },
     category: { th: 'ผลิตภัณฑ์ทำความสะอาดห้องน้ำ', en: 'Bathroom Cleaner' },
     scent: { th: 'เคลียร์ แอคทีฟ', en: 'Clear Active' },
-    size: '[รอข้อมูล]',
+    size: '500ML',
+    weight: '0.55 kg',
+    height: '24.0 cm',
+    width: '9.0 cm',
+    depth: '5.0 cm',
     shortDescription: {
-      th: 'ขจัดคราบสบู่และคราบน้ำในห้องน้ำได้อย่างหมดจด พร้อมฆ่าเชื้อแบคทีเรีย 99.9%',
+      th: 'ขจัดคราบสบู่และคราบน้ำในห้องน้ำได้อย่างหมดจด พร้อม ฆ่าเชื้อแบคทีเรีย 99.9%',
       en: 'Effectively removes soap scum and water stains in the bathroom, killing 99.9% of bacteria.',
     },
     fullDescription: {
@@ -252,13 +303,29 @@ export const products: Product[] = [
       { th: 'คืนความเงางามให้สุขภัณฑ์', en: 'Restores shine to sanitary ware' },
       { th: 'ส่วนผสมจากธรรมชาติ', en: 'Natural ingredients' },
     ],
-    howToUse: [{ th: '[รอข้อมูล]', en: '[Awaiting Info]'}],
-    suitableFor: [{ th: '[รอข้อมูล]', en: '[Awaiting Info]'}],
-    cautions: [{ th: '[รอข้อมูล]', en: '[Awaiting Info]'}],
-    ingredients: '[รอข้อมูล]',
+    howToUse: [
+      { th: 'ฉีดพ่นลงบนพื้นผิวที่ต้องการทำความสะอาด ปล่อยทิ้งไว้ 5-10 นาที แล้วล้างออกด้วยน้ำสะอาด', en: 'Spray onto the target surface, leave for 5-10 minutes, then rinse off thoroughly with water.'}
+    ],
+    suitableFor: [
+      { th: 'กระเบื้องห้องน้ำ', en: 'Bathroom Tiles' },
+      { th: 'ก๊อกน้ำโลหะและโครเมียม', en: 'Metal and Chrome Faucets' },
+      { th: 'อ่างล้างหน้าและสุขภัณฑ์', en: 'Sinks and Sanitary Ware' }
+    ],
+    cautions: [
+      { th: 'สวมถุงมือขณะใช้งาน หลีกเลี่ยงการสูดดมและสัมผัสดวงตา', en: 'Wear gloves during use. Avoid inhalation and contact with eyes.' }
+    ],
+    ingredients: 'Natural acids, Surfactants, Fragrance',
     images: ['/images/products/bathroom-clear-active.jpg'],
     videos: [],
-    priceText: '[รอข้อมูล]',
+    priceText: '฿129.00',
+    price: 129.00,
+    priceThb: 129.00,
+    originalPrice: 159.00,
+    originalPriceThb: 159.00,
+    rating: 4.7,
+    reviewCount: 5,
+    sold: 5,
+    inStock: true,
     homeproUrl: '[รอข้อมูล]',
     shopeeUrl: '[รอข้อมูล]',
     lazadaUrl: '[รอข้อมูล]',
@@ -281,13 +348,18 @@ export const products: Product[] = [
   {
     id: 'CM-KITCH-001',
     slug: 'kitchen-multi-purpose',
+    sku: 'CM-KITCH-001',
     productName: {
       th: 'สเปรย์ทำความสะอาดห้องครัว อเนกประสงค์',
       en: 'Kitchen Cleaner - Multi-Purpose',
     },
     category: { th: 'ผลิตภัณฑ์ทำความสะอาดห้องครัว', en: 'Kitchen Cleaner' },
     scent: { th: 'อเนกประสงค์', en: 'Multi-Purpose' },
-    size: '[รอข้อมูล]',
+    size: '500ML',
+    weight: '0.55 kg',
+    height: '24.0 cm',
+    width: '9.0 cm',
+    depth: '5.0 cm',
     shortDescription: {
       th: 'ขจัดคราบไขมันและคราบอาหารในครัวได้อย่างง่ายดาย ใช้ได้กับหลายพื้นผิว',
       en: 'Easily removes grease and food stains in the kitchen. Suitable for multiple surfaces.',
@@ -301,13 +373,29 @@ export const products: Product[] = [
       { th: 'สูตร Food Grade ปลอดภัย', en: 'Safe, food-grade formula' },
       { th: 'ใช้ได้กับหลากหลายพื้นผิวในครัว', en: 'Multi-surface safe for kitchen use' },
     ],
-    howToUse: [{ th: '[รอข้อมูล]', en: '[Awaiting Info]'}],
-    suitableFor: [{ th: '[รอข้อมูล]', en: '[Awaiting Info]'}],
-    cautions: [{ th: '[รอข้อมูล]', en: '[Awaiting Info]'}],
-    ingredients: '[รอข้อมูล]',
+    howToUse: [
+      { th: 'ฉีดพ่นลงบนคราบไขมันหรือคราบอาหาร เช็ดออกด้วยผ้าชุบน้ำหมาดหรือฟองน้ำ', en: 'Spray onto grease or food stains, then wipe clean with a damp cloth or sponge.'}
+    ],
+    suitableFor: [
+      { th: 'เตาแก๊สและเตาไฟฟ้า', en: 'Stovetops and Electric Hobs' },
+      { th: 'เคาน์เตอร์และผนังครัว', en: 'Kitchen Countertops and Backsplashes' },
+      { th: 'เครื่องดูดควันและเตาอบ', en: 'Cooker Hoods and Ovens' }
+    ],
+    cautions: [
+      { th: 'เก็บห่างจากแสงแดดและความร้อน ห้ามฉีดพ่นใกล้เปลวไฟ', en: 'Store away from heat and direct sunlight. Do not spray near open flames.' }
+    ],
+    ingredients: 'Food-grade Surfactants, Natural Degreasers, Water',
     images: ['/images/products/kitchen-multi-purpose.jpg'],
     videos: [],
-    priceText: '[รอข้อมูล]',
+    priceText: '฿129.00',
+    price: 129.00,
+    priceThb: 129.00,
+    originalPrice: 159.00,
+    originalPriceThb: 159.00,
+    rating: 4.8,
+    reviewCount: 8,
+    sold: 8,
+    inStock: true,
     homeproUrl: '[รอข้อมูล]',
     shopeeUrl: '[รอข้อมูล]',
     lazadaUrl: '[รอข้อมูล]',
@@ -345,31 +433,4 @@ export const getRelatedProducts = (currentSlug: string): Product[] => {
   );
 };
 
-// Compatibility and helper functions
 export const featuredProducts = products.filter(p => p.isFeatured);
-
-export const getProductCategories = () => {
-  const categories = products.map(p => p.category);
-  // Unique by en name
-  return Array.from(new Map(categories.map(c => [c.en, c])).values());
-};
-
-export const getProductScents = () => {
-  const scents = products.map(p => p.scent);
-  return Array.from(new Map(scents.map(s => [s.en, s])).values());
-};
-
-export const getCustomerNeedFilters = () => {
-  // Extract all unique needs from products
-  const allNeeds = products.flatMap(p => p.filters.need);
-  const uniqueNeeds = Array.from(new Set(allNeeds));
-  
-  // Map internal keys to labels (this would ideally be in i18n, but providing structure here)
-  return uniqueNeeds.map(need => ({
-    id: need,
-    label: {
-      en: need.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-      th: need // Placeholder for Thai
-    }
-  }));
-};

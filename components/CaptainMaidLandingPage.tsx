@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from '@/lib/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import {
-  ArrowRight,
   Bath,
   CheckCircle2,
   ChevronLeft,
@@ -19,8 +18,7 @@ import {
   Star,
   Users,
 } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { site } from '@/data/site';
+import { useTranslations, useLocale } from 'next-intl';
 
 import logoMark from './assets/captain-maid-logo.webp';
 
@@ -53,292 +51,22 @@ import greenBottle from './assets/green-bottle.jpg';
 import pinkBottle from './assets/pink-bottle.jpg';
 import purpleBottle from './assets/purple-bottle.jpg';
 
-type LocaleKey = 'en' | 'th';
-
-type Copy = {
-  header: {
-    solutions: string;
-    products: string;
-    trust: string;
-    faq: string;
-    ctaButton: string;
-  };
-  slides: {
-    slide1: {
-      headline: string;
-      supporting: string;
-      cta: string;
-    };
-    slide2: {
-      headline: string;
-      categories: { label: string; icon: typeof ChefHat }[];
-    };
-    slide3: {
-      headline: string;
-      bullets: string[];
-    };
-    slide4: {
-      headline: string;
-      supporting: string;
-      bullets: string[];
-    };
-    slide5: {
-      headline: string;
-      badges: { label: string; key: string }[];
-      ctaPrimary: string;
-      ctaSecondary: string;
-    };
-  };
-  solutions: {
-    badge: string;
-    title: string;
-    subtitle: string;
-    cards: { title: string; icon: typeof ChefHat; description: string }[];
-  };
-  products: {
-    badge: string;
-    title: string;
-    subtitle: string;
-  };
-  faq: {
-    badge: string;
-    title: string;
-    subtitle: string;
-    items: { q: string; a: string }[];
-  };
-  cta: {
-    title: string;
-    subtitle: string;
-    primary: string;
-    secondary: string;
-  };
-  footer: {
-    description: string;
-    copyright: string;
-  };
+const iconMap = {
+  ChefHat,
+  Bath,
+  Sparkles,
+  Shirt,
+  Package,
 };
 
-const COPY: Record<LocaleKey, Copy> = {
-  en: {
-    header: {
-      solutions: 'Solutions',
-      products: 'Products',
-      trust: 'Trust',
-      faq: 'FAQ',
-      ctaButton: 'Shop Now',
-    },
-    slides: {
-      slide1: {
-        headline: 'Made for Easy\nHome Cleaning',
-        supporting: 'Better Living, Taken Care of\nby Captain Maid.',
-        cta: 'Learn More',
-      },
-      slide2: {
-        headline: 'Complete Cleaning Solutions\nfor Every Corner of Your Home',
-        categories: [
-          { label: 'Kitchen', icon: ChefHat },
-          { label: 'Bathroom', icon: Bath },
-          { label: 'Floor', icon: Sparkles },
-          { label: 'Laundry', icon: Shirt },
-          { label: 'Multi-Purpose', icon: Package },
-        ],
-      },
-      slide3: {
-        headline: 'Safe for Your Family\nEveryday Comfort',
-        bullets: ['Safe for Kids', 'Safe for Pets', 'Gentle & Effective'],
-      },
-      slide4: {
-        headline: 'Advanced Cleaning\nwith Natural Power',
-        supporting: 'From tackling heavy stains to solving clogged drains, Captain Maid is ready to care for your home.',
-        bullets: ['Natural-Derived Ingredients', 'Deep Clean Technology', 'Surface Protection'],
-      },
-      slide5: {
-        headline: 'Trusted Quality\nYou Can Count On',
-        badges: [
-          { label: 'Made in Thailand', key: 'flag' },
-          { label: 'Quality Tested', key: 'tested' },
-          { label: 'Eco Friendly', key: 'eco' },
-          { label: 'Trusted Brand', key: 'trusted' },
-        ],
-        ctaPrimary: 'Shop Now',
-        ctaSecondary: 'Become Distributor',
-      },
-    },
-    solutions: {
-      badge: 'Solutions',
-      title: 'Complete Cleaning Solutions for Every Corner of Your Home',
-      subtitle: 'Built for the spaces and tasks that matter most: cooking, bathing, floors, laundry, and daily multi-purpose care.',
-      cards: [
-        { title: 'Kitchen', icon: ChefHat, description: 'For grease, wipe-downs, and fast daily refreshes.' },
-        { title: 'Bathroom', icon: Bath, description: 'For soap scum, shine, and calm spotless routines.' },
-        { title: 'Floor', icon: Sparkles, description: 'For smooth, quick-drying floor care across the home.' },
-        { title: 'Laundry', icon: Shirt, description: 'For fresh, clean fabric care with a premium feel.' },
-        { title: 'Multi-purpose', icon: Package, description: 'For surfaces that need one dependable solution.' },
-      ],
-    },
-    products: {
-      badge: 'Product spotlight',
-      title: 'Three hero packages from the Captain Maid range',
-      subtitle: 'These package images come directly from the supplied asset folder and are used as-is with no stock replacement.',
-    },
-    faq: {
-      badge: 'FAQ',
-      title: 'Common Questions About Captain Maid',
-      subtitle: 'Find answers to questions about our cleaning products and safety.',
-      items: [
-        {
-          q: 'Are Captain Maid products safe for children and pets?',
-          a: 'Yes, Captain Maid products are formulated with child and pet safety in mind. Our natural-derived ingredients make them safe for families with kids and pets. Always follow usage instructions on the package.',
-        },
-        {
-          q: 'Are Captain Maid products eco-friendly?',
-          a: 'Captain Maid is committed to environmental responsibility. Our products are made with natural-derived ingredients and eco-conscious manufacturing practices to reduce environmental impact.',
-        },
-        {
-          q: 'Can I use Captain Maid floor cleaner with robot vacuum cleaners?',
-          a: 'Yes, Captain Maid floor cleaner is formulated to be compatible with robot vacuum cleaners. Our floor care products are designed to work safely with automated cleaning systems.',
-        },
-        {
-          q: 'Where are Captain Maid products manufactured?',
-          a: 'Captain Maid is proudly made in Thailand. All our products are manufactured under strict quality control standards to ensure the highest level of safety and effectiveness.',
-        },
-      ],
-    },
-    cta: {
-      title: 'Bring premium cleaning into the everyday routine',
-      subtitle: 'A focused landing page designed to sell the brand clearly, beautifully, and with very little friction.',
-      primary: 'Shop Now',
-      secondary: 'Contact Us',
-    },
-    footer: {
-      description: 'Premium household cleaning products with a bright, modern identity and a trustworthy, clean presentation.',
-      copyright: 'Captain Maid. All rights reserved.',
-    },
-  },
-  th: {
-    header: {
-      solutions: 'โซลูชัน',
-      products: 'สินค้า',
-      trust: 'ความน่าเชื่อถือ',
-      faq: 'คำถาม',
-      ctaButton: 'ซื้อเลย',
-    },
-    slides: {
-      slide1: {
-        headline: 'ดูแลบ้านอย่างมืออาชีพ\nกับ Captain Maid',
-        supporting: 'ชีวิตที่ดีขึ้น ดูแลง่าย\nเชื่อใจ Captain Maid',
-        cta: 'เรียนรู้เพิ่มเติม',
-      },
-      slide2: {
-        headline: 'ผลิตภัณฑ์ Captain Maid\nแต่ละห้องในบ้าน',
-        categories: [
-          { label: 'ห้องครัว', icon: ChefHat },
-          { label: 'ห้องน้ำ', icon: Bath },
-          { label: 'พื้น', icon: Sparkles },
-          { label: 'ซักผ้า', icon: Shirt },
-          { label: 'อเนกประสงค์', icon: Package },
-        ],
-      },
-      slide3: {
-        headline: 'Captain Maid ปลอดภัย\nสำหรับครอบครัวทั้งวัน',
-        bullets: ['ปลอดภัยสำหรับเด็ก', 'เป็นมิตรต่อสัตว์เลี้ยง', 'อ่อนโยนแต่มีประสิทธิภาพ'],
-      },
-      slide4: {
-        headline: 'เทคโนโลยี Captain Maid\nพลังจากธรรมชาติ',
-        supporting: 'ตั้งแต่จัดการคราบหนัก ไปจนถึงแก้ปัญหาท่อระบายน้ำอุดตัน Captain Maid พร้อมช่วยดูแลบ้านของคุณ',
-        bullets: ['ส่วนผสมที่มีที่มาจากธรรมชาติ', 'เทคโนโลยีทำความสะอาดล้ำลึก', 'ช่วยดูแลและปกป้องพื้นผิว'],
-      },
-      slide5: {
-        headline: 'Captain Maid แบรนด์ที่\nคุณไว้วางใจได้',
-        badges: [
-          { label: 'ผลิตในประเทศไทย', key: 'flag' },
-          { label: 'ผ่านการทดสอบคุณภาพ', key: 'tested' },
-          { label: 'ใส่ใจสิ่งแวดล้อม', key: 'eco' },
-          { label: 'แบรนด์ที่ได้รับความไว้วางใจ', key: 'trusted' },
-        ],
-        ctaPrimary: 'ซื้อสินค้า',
-        ctaSecondary: 'ร่วมเป็นตัวแทนจำหน่าย',
-      },
-    },
-    solutions: {
-      badge: 'โซลูชัน',
-      title: 'ผลิตภัณฑ์ทำความสะอาดที่ออกแบบมาสำหรับทุกห้องในบ้าน',
-      subtitle: 'ออกแบบมาสำหรับพื้นที่และงานที่สำคัญที่สุด: ครัว ห้องน้ำ พื้น ซักผ้า และการดูแลอเนกประสงค์ในทุกวัน',
-      cards: [
-        { title: 'ครัว', icon: ChefHat, description: 'รับมือคราบมันและงานเช็ดทุกวันได้อย่างรวดเร็ว' },
-        { title: 'ห้องน้ำ', icon: Bath, description: 'ลดคราบสบู่ เพิ่มความเงางาม และคุมโทนสะอาด' },
-        { title: 'พื้น', icon: Sparkles, description: 'ดูแลพื้นให้แห้งไวและสวยเรียบในทุกมุมบ้าน' },
-        { title: 'ซักผ้า', icon: Shirt, description: 'ดูแลผ้าให้สะอาดสดใหม่ในภาพลักษณ์พรีเมียม' },
-        { title: 'อเนกประสงค์', icon: Package, description: 'โซลูชันเดียวสำหรับหลายพื้นผิวที่ต้องการความมั่นใจ' },
-      ],
-    },
-    products: {
-      badge: 'แนะนำสินค้า',
-      title: 'ผลิตภัณฑ์ฮีโร่จากไลน์ Captain Maid',
-      subtitle: 'เลือกสูตรที่เหมาะกับความต้องการของบ้านคุณ จากผลิตภัณฑ์ที่ได้รับการพิสูจน์ว่ามีประสิทธิภาพ',
-    },
-    faq: {
-      badge: 'คำถามที่พบบ่อย',
-      title: 'คำถามที่พบบ่อยเกี่ยวกับ Captain Maid',
-      subtitle: 'ค้นหาคำตอบเกี่ยวกับสินค้าทำความสะอาดและความปลอดภัยของเรา',
-      items: [
-        {
-          q: 'สินค้า Captain Maid ปลอดภัยสำหรับเด็กและสัตว์เลี้ยงไหม?',
-          a: 'ใช่ สินค้า Captain Maid ผลิตมาโดยคำนึงถึงความปลอดภัยของเด็กและสัตว์เลี้ยง ส่วนผสมที่มาจากธรรมชาติทำให้ปลอดภัยสำหรับครอบครัว โปรดปฏิบัติตามคำแนะนำบนแพ็กเกจเสมอ',
-        },
-        {
-          q: 'สินค้า Captain Maid เป็นมิตรต่อสิ่งแวดล้อมหรือไม่?',
-          a: 'Captain Maid มุ่งมั่นในความรับผิดชอบต่อสิ่งแวดล้อม สินค้าของเราผลิตจากส่วนผสมที่มาจากธรรมชาติและกระบวนการผลิตที่สำนึกสิ่งแวดล้อม',
-        },
-        {
-          q: 'ใช้สูตรถูพื้น Captain Maid กับเครื่องดูดฝุ่นหุ่นยนต์ได้ไหม?',
-          a: 'ได้ สูตรถูพื้น Captain Maid ออกแบบมาให้เข้ากันได้กับเครื่องดูดฝุ่นหุ่นยนต์ สินค้าดูแลพื้นของเราออกแบบเพื่อทำงานอย่างปลอดภัยกับระบบทำความสะอาดอัตโนมัติ',
-        },
-        {
-          q: 'สินค้า Captain Maid ผลิตที่ไหน?',
-          a: 'Captain Maid ผลิตในประเทศไทยอย่างภูมิใจ สินค้าทั้งหมดผลิตภายใต้มาตรฐานควบคุมคุณภาพที่เข้มงวดเพื่อรับประกันความปลอดภัยและประสิทธิผลสูงสุด',
-        },
-      ],
-    },
-    cta: {
-      title: 'เลือก Captain Maid ยกระดับการดูแลบ้าน',
-      subtitle: 'สินค้าจากแบรนด์ที่ไว้วางใจได้ สำหรับการทำความสะอาดที่มีประสิทธิภาพและปลอดภัย',
-      primary: 'ซื้อเลย',
-      secondary: 'ติดต่อเรา',
-    },
-    footer: {
-      description: 'ผลิตภัณฑ์ทำความสะอาดบ้านระดับพรีเมียม ภาพลักษณ์สว่าง ทันสมัย และดูน่าเชื่อถือ',
-      copyright: 'Captain Maid. สงวนลิขสิทธิ์',
-    },
-  },
-};
+type IconKey = keyof typeof iconMap;
 
 export function CaptainMaidLandingPage() {
-  const locale = useLocale() as LocaleKey;
-  const c = COPY[locale] ?? COPY.en;
+  const t = useTranslations('landingPage');
+  const locale = useLocale();
   const shouldReduceMotion = useReducedMotion() ?? false;
   const [activeSlide, setActiveSlide] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [viewportWidth, setViewportWidth] = useState(0);
-
-  useEffect(() => {
-    setViewportWidth(typeof window !== 'undefined' ? window.innerWidth : 0);
-    const handleResize = () => setViewportWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const device = useMemo<'mobile' | 'tablet' | 'desktop'>(() => {
-    if (viewportWidth < 768) return 'mobile';
-    if (viewportWidth < 1280) return 'tablet';
-    return 'desktop';
-  }, [viewportWidth]);
-
-  const getResponsiveImage = (mobile: any, tablet: any, desktop: any) => {
-    if (device === 'mobile') return mobile;
-    if (device === 'tablet') return tablet;
-    return desktop;
-  };
 
   const slides = useMemo(
     () => [
@@ -405,148 +133,46 @@ export function CaptainMaidLandingPage() {
 
   const current = slides[activeSlide];
 
-  // Specific absolute pixel-perfect text safe area styling mapped dynamically based on coordinates
-  const safeAreaStyle = useMemo(() => {
-    const coords: Record<string, Record<'mobile' | 'tablet' | 'desktop', { x: number; y: number; w: number; h: number }>> = {
-      intro: {
-        desktop: { x: 4, y: 18, w: 44, h: 66 },
-        tablet: { x: 5, y: 16, w: 43, h: 68 },
-        mobile: { x: 7, y: 35, w: 58, h: 55 }
-      },
-      range: {
-        desktop: { x: 16, y: 7, w: 78, h: 36 },
-        tablet: { x: 13, y: 7, w: 78, h: 38 },
-        mobile: { x: 7, y: 5, w: 86, h: 28 }
-      },
-      lifestyle: {
-        desktop: { x: 6, y: 10, w: 43, h: 43 },
-        tablet: { x: 6, y: 9, w: 44, h: 42 },
-        mobile: { x: 8, y: 5, w: 84, h: 34 }
-      },
-      technology: {
-        desktop: { x: 6, y: 10, w: 50, h: 43 },
-        tablet: { x: 7, y: 9, w: 53, h: 42 },
-        mobile: { x: 8, y: 5, w: 84, h: 31 }
-      },
-      trust: {
-        desktop: { x: 5, y: 10, w: 48, h: 76 },
-        tablet: { x: 5, y: 9, w: 49, h: 79 },
-        mobile: { x: 7, y: 5, w: 55, h: 67 }
-      }
-    };
+  // Retrieve raw lists for array mappings from localized JSON configuration safely
+  const categoriesList = useMemo(() => [
+    { label: locale === 'th' ? 'ครัว' : 'Kitchen', icon: ChefHat },
+    { label: locale === 'th' ? 'ห้องน้ำ' : 'Bathroom', icon: Bath },
+    { label: locale === 'th' ? 'พื้น' : 'Floor', icon: Sparkles },
+    { label: locale === 'th' ? 'ซักผ้า' : 'Laundry', icon: Shirt },
+    { label: locale === 'th' ? 'อเนกประสงค์' : 'Multi-Purpose', icon: Package },
+  ], [locale]);
 
-    const c = coords[current.key]?.[device] || coords.intro.desktop;
-    return {
-      left: `${c.x}%`,
-      top: `${c.y}%`,
-      width: `${c.w}%`,
-      height: `${c.h}%`
-    };
-  }, [current.key, device]);
+  const slide3Bullets = useMemo(() => t.raw('slides.slide3.bullets') as string[], [t]);
+  const slide4Bullets = useMemo(() => t.raw('slides.slide4.bullets') as string[], [t]);
+  const slide5Badges = useMemo(() => t.raw('slides.slide5.badges') as { label: string; key: string }[], [t]);
+  const solutionsCards = useMemo(() => t.raw('solutions.cards') as { title: string; description: string }[], [t]);
+  const faqItems = useMemo(() => t.raw('faq.items') as { q: string; a: string }[], [t]);
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Organization',
-        '@id': `${site.baseUrl}#organization`,
-        name: site.brandName,
-        url: `${site.baseUrl}/${locale}`,
-        logo: logoMark.src,
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.baseUrl}/${locale}` },
-          { '@type': 'ListItem', position: 2, name: 'Captain Maid', item: `${site.baseUrl}/${locale}` },
-        ],
-      },
-      {
-        '@type': 'Product',
-        name: 'Captain Maid Floor Cleaner - Tea Tree Flash',
-        brand: { '@type': 'Brand', name: site.brandName },
-        image: greenBottle.src,
-        description:
-          'Captain Maid floor cleaner package presented from the supplied asset library.',
-        offers: {
-          '@type': 'Offer',
-          priceCurrency: 'THB',
-          price: '76.63',
-          availability: 'https://schema.org/InStock',
-          url: `${site.baseUrl}/${locale}/products`,
-        },
-      },
-      {
-        '@type': 'FAQPage',
-        mainEntity: c.faq.items.map((item) => ({
-          '@type': 'Question',
-          name: item.q,
-          acceptedAnswer: { '@type': 'Answer', text: item.a },
-        })),
-      },
-    ],
-  };
+  const solutionsIconKeys: IconKey[] = ['ChefHat', 'Bath', 'Sparkles', 'Shirt', 'Package'];
 
   return (
-    <main className="bg-[#F5F9FF] text-slate-900 font-body antialiased">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-
-      {/* Modern Clean White Navigation Bar */}
-      <header className="sticky top-0 z-50 border-b border-cm-border-soft bg-white/90 backdrop-blur-md shadow-sm">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-          <Link href={`/${locale}`} className="flex items-center gap-3">
-            <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} priority className="h-11 w-11 object-contain" />
-            <div className="leading-none">
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-[#073E91]">Captain Maid</p>
+    <div className="min-h-screen bg-[#F4F8FF]">
+      {/* Dynamic Navigation */}
+      <nav className="sticky top-0 z-50 border-b border-cm-border-soft bg-white/80 backdrop-blur-md">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 sm:h-20 items-center justify-between">
+            <Link href="/" className="flex items-center gap-2">
+              <span className="text-xl sm:text-2xl font-black font-heading tracking-tight text-cm-navy">
+                Captain Maid
+              </span>
+            </Link>
+            <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-cm-text">
+              <a href="#solutions" className="transition hover:text-cm-primary-blue">{t('header.solutions')}</a>
+              <a href="#products" className="transition hover:text-cm-primary-blue">{t('header.products')}</a>
+              <a href="#trust" className="transition hover:text-cm-primary-blue">{t('header.trust')}</a>
+              <a href="#faq" className="transition hover:text-cm-primary-blue">{t('header.faq')}</a>
             </div>
-          </Link>
-
-          <nav className="hidden items-center gap-2 md:flex" aria-label="Primary">
-            <a href="#solutions" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'โซลูชัน' : c.header.solutions}
-            </a>
-            <a href="#products" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'สินค้า' : c.header.products}
-            </a>
-            <a href="#trust" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'ความน่าเชื่อถือ' : c.header.trust}
-            </a>
-            <a href="#faq" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
-              {locale === 'th' ? 'คำถาม' : c.header.faq}
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            {/* Language Toggle */}
-            <div className="flex items-center gap-1 rounded-full bg-[#F0F7FF] p-1">
-              <Link
-                href="/th"
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all ${
-                  locale === 'th'
-                    ? 'bg-cm-primary-blue text-white shadow-md'
-                    : 'text-[#073E91] hover:bg-white'
-                }`}
-              >
-                ไทย
-              </Link>
-              <Link
-                href="/en"
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all ${
-                  locale === 'en'
-                    ? 'bg-cm-primary-blue text-white shadow-md'
-                    : 'text-[#073E91] hover:bg-white'
-                }`}
-              >
-                English
-              </Link>
-            </div>
-
-            <Link href={`/${locale}/products`} className="rounded-full bg-cm-primary-blue px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-cm-primary-blue/15 hover:bg-cm-navy active:scale-95 transition-all">
-              {locale === 'th' ? 'ซื้อเลย' : c.header.ctaButton}
+            <Link href="/products" className="rounded-full bg-cm-primary-blue px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-cm-primary-blue/15 hover:bg-cm-navy active:scale-95 transition-all">
+              {t('header.ctaButton')}
             </Link>
           </div>
         </div>
-      </header>
+      </nav>
 
       {/* Five-Slide Responsive Hero Carousel Section */}
       <section id="hero" className="mx-auto w-full max-w-7xl px-4 pb-4 pt-6 sm:px-6 lg:px-8 lg:pt-8">
@@ -555,16 +181,42 @@ export function CaptainMaidLandingPage() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Lazy Loaded Dynamic Images */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={getResponsiveImage(current.image.mobile, current.image.tablet, current.image.desktop)}
-              alt="Captain Maid premium presentation slide"
-              fill
-              priority={activeSlide === 0}
-              className="object-cover object-center"
-              sizes="100vw"
-            />
+          {/* Native Art Direction: 3 separate containers for Mobile, Tablet, and Desktop */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            {/* Mobile View */}
+            <div className="block md:hidden absolute inset-0">
+              <Image
+                src={current.image.mobile}
+                alt="Captain Maid slide mobile"
+                fill
+                priority={activeSlide === 0}
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            </div>
+            {/* Tablet View */}
+            <div className="hidden md:block xl:hidden absolute inset-0">
+              <Image
+                src={current.image.tablet}
+                alt="Captain Maid slide tablet"
+                fill
+                priority={activeSlide === 0}
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            </div>
+            {/* Desktop View */}
+            <div className="hidden xl:block absolute inset-0">
+              <Image
+                src={current.image.desktop}
+                alt="Captain Maid slide desktop"
+                fill
+                priority={activeSlide === 0}
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            </div>
+
             {/* Overlays for text contrast */}
             {current.key === 'intro' && (
               <div className="absolute inset-0 bg-gradient-to-b from-[#000]/30 via-[#000]/20 to-[#000]/40 z-1" />
@@ -574,153 +226,185 @@ export function CaptainMaidLandingPage() {
             )}
           </div>
 
-          {/* HTML Overlay with precise Text Safe Areas */}
-          <div className="absolute z-10 select-none overflow-visible" style={safeAreaStyle}>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={`${current.key}-${device}`}
-                initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
-                animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -15 }}
-                transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, ease: 'easeOut' }}
-                className="w-full h-full flex flex-col justify-center text-left animate-fade-in"
-              >
-                {/* SLIDE 1 — BRAND HERO */}
-                {current.key === 'intro' && (
-                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-6 lg:gap-8 h-full">
-                    {/* Large prominent logo */}
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <Image
-                        src={logoMark}
-                        alt="Captain Maid logo"
-                        width={80}
-                        height={80}
-                        className="h-16 sm:h-18 lg:h-20 w-auto object-contain"
-                      />
-                    </div>
-
-                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
-                      {c.slides.slide1.headline}
-                    </h1>
-
-                    <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
-                      {c.slides.slide1.supporting}
-                    </p>
-
-                    <Link href="/about" className="rounded-full bg-[#0D4EA6] px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(13,78,166,0.24)] active:scale-95 shadow-[0_12px_24px_rgba(13,78,166,0.18)] mt-2 sm:mt-4">
-                      {c.slides.slide1.cta}
-                    </Link>
+          {/* HTML Overlay with precise Tailwind Responsive Safe Areas */}
+          {/* SLIDE 1 — BRAND HERO */}
+          {current.key === 'intro' && (
+            <div className="absolute z-10 select-none overflow-visible left-[7%] top-[35%] w-[58%] h-[55%] md:left-[5%] md:top-[16%] md:w-[43%] md:h-[68%] xl:left-[4%] xl:top-[18%] xl:w-[44%] xl:h-[66%] flex flex-col justify-center text-left">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${current.key}-intro`}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -15 }}
+                  transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, ease: 'easeOut' }}
+                  className="flex flex-col items-start justify-center gap-4 sm:gap-6 lg:gap-8 h-full"
+                >
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <Image
+                      src={logoMark}
+                      alt="Captain Maid logo"
+                      width={80}
+                      height={80}
+                      className="h-14 sm:h-16 lg:h-18 w-auto object-contain"
+                    />
                   </div>
-                )}
+                  <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
+                    {t('slides.slide1.headline')}
+                  </h1>
+                  <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
+                    {t('slides.slide1.supporting')}
+                  </p>
+                  <Link href="/about" className="rounded-full bg-[#0D4EA6] px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(13,78,166,0.24)] active:scale-95 shadow-[0_12px_24px_rgba(13,78,166,0.18)] mt-2 sm:mt-4">
+                    {t('slides.slide1.cta')}
+                  </Link>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
 
-                {/* SLIDE 2 — PRODUCT RANGE */}
-                {current.key === 'range' && (
-                  <div className="flex flex-col items-center justify-start gap-5 sm:gap-6 text-center h-full max-w-4xl mx-auto pt-2 sm:pt-4 lg:pt-8">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-normal sm:whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
-                      ผลิตภัณฑ์ทำความสะอาดที่ออกแบบมาสำหรับทุกห้องในบ้าน
-                    </h2>
-
-                    {/* Five minimal outline category icons row */}
-                    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full max-w-sm sm:max-w-2xl mx-auto">
-                      {c.slides.slide2.categories.map((cat, idx) => {
-                        const Icon = cat.icon;
-                        return (
-                          <div key={idx} className="flex flex-col items-center gap-2 p-2 bg-white/95 border border-[#D7E7FB] rounded-[22px] shadow-[0_12px_28px_rgba(10,86,194,0.10)] min-w-[54px] sm:min-w-[72px] md:min-w-[96px] backdrop-blur-sm">
-                            <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-white text-[#0D4EA6] border border-[#D7E7FB]">
-                              <Icon size={device === 'mobile' ? 14 : 18} strokeWidth={2} />
-                            </div>
-                            <span className="text-[10px] sm:text-[11px] font-bold text-[#173B68] whitespace-nowrap">
-                              {cat.label}
-                            </span>
+          {/* SLIDE 2 — PRODUCT RANGE */}
+          {current.key === 'range' && (
+            <div className="absolute z-10 select-none overflow-visible left-[7%] top-[5%] w-[86%] h-[28%] md:left-[13%] md:top-[7%] md:w-[78%] md:h-[38%] xl:left-[16%] xl:top-[7%] xl:w-[78%] xl:h-[36%] flex flex-col justify-center text-center">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${current.key}-range`}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -15 }}
+                  transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, ease: 'easeOut' }}
+                  className="flex flex-col items-center justify-start gap-4 sm:gap-6 text-center h-full max-w-4xl mx-auto pt-2 sm:pt-4"
+                >
+                  <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-normal sm:whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
+                    {t('slides.slide2.headline')}
+                  </h2>
+                  <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full max-w-sm sm:max-w-2xl mx-auto">
+                    {categoriesList.map((cat, idx) => {
+                      const Icon = cat.icon;
+                      return (
+                        <div key={idx} className="flex flex-col items-center gap-1.5 p-1.5 bg-white/95 border border-[#D7E7FB] rounded-[20px] shadow-[0_12px_28px_rgba(10,86,194,0.10)] min-w-[50px] sm:min-w-[68px] md:min-w-[90px] backdrop-blur-sm">
+                          <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-white text-[#0D4EA6] border border-[#D7E7FB]">
+                            <Icon size={18} strokeWidth={2} />
                           </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* SLIDE 3 — LIFESTYLE / FAMILY AND PET SAFETY */}
-                {current.key === 'lifestyle' && (
-                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-7 h-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
-                      {c.slides.slide3.headline}
-                    </h2>
-
-                    <ul className="space-y-3 sm:space-y-4 mt-2 sm:mt-3">
-                      {c.slides.slide3.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-center gap-3 sm:gap-4 text-sm sm:text-base lg:text-lg font-bold text-white leading-tight drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
-                          <span className="flex h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white text-[#0D4EA6] flex-shrink-0 shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
-                            <CheckCircle2 size={device === 'mobile' ? 16 : 22} strokeWidth={2.2} />
-                          </span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* SLIDE 4 — NATURAL CLEANING TECHNOLOGY */}
-                {current.key === 'technology' && (
-                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-7 h-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
-                      {c.slides.slide4.headline}
-                    </h2>
-
-                    <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed font-semibold drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
-                      {c.slides.slide4.supporting}
-                    </p>
-
-                    <ul className="space-y-3 sm:space-y-4 lg:space-y-5 mt-2 sm:mt-3">
-                      {c.slides.slide4.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-center gap-3 sm:gap-4 lg:gap-5 text-sm sm:text-base lg:text-lg font-bold text-white leading-tight drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
-                          <span className="flex h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white text-[#0D4EA6] flex-shrink-0 shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
-                            <Leaf size={device === 'mobile' ? 18 : 24} strokeWidth={2.2} />
-                          </span>
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* SLIDE 5 — TRUST / CALL TO ACTION */}
-                {current.key === 'trust' && (
-                  <div className="flex flex-col items-start justify-center gap-5 sm:gap-6 lg:gap-7 h-full w-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
-                      {c.slides.slide5.headline}
-                    </h2>
-
-                    {/* Trust points: 1 col mobile, 2 col tablet, 4 col desktop */}
-                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-2.5' : device === 'tablet' ? 'grid-cols-2 gap-3' : 'grid-cols-4 gap-4'} w-full mt-2 sm:mt-3`}>
-                      {c.slides.slide5.badges.map((badge, idx) => (
-                        <div key={idx} className={`flex ${device === 'mobile' ? 'flex-row items-center justify-start gap-3 px-4 py-3' : 'flex-col items-center justify-center gap-3 p-4'} bg-white/96 border border-[#D7E7FB] rounded-[24px] shadow-[0_14px_30px_rgba(10,86,194,0.12)] backdrop-blur-sm`}>
-                          <div className="flex h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-white text-[#0D4EA6] shrink-0 border border-[#D7E7FB] shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
-                            {badge.key === 'flag' && <span className="text-xs sm:text-sm lg:text-base">🇹🇭</span>}
-                            {badge.key === 'tested' && <ShieldCheck size={device === 'mobile' ? 18 : 24} className="text-[#1764BA]" />}
-                            {badge.key === 'eco' && <Leaf size={device === 'mobile' ? 18 : 24} className="text-[#70B52C]" />}
-                            {badge.key === 'trusted' && <Star size={device === 'mobile' ? 18 : 24} className="text-[#FFD84D] fill-[#FFD84D]" />}
-                          </div>
-                          <span className="text-xs sm:text-sm lg:text-base font-bold text-[#073E91] text-center leading-tight tracking-[-0.01em]">
-                            {badge.label}
+                          <span className="text-[9px] sm:text-[11px] font-bold text-[#173B68] whitespace-nowrap">
+                            {cat.label}
                           </span>
                         </div>
-                      ))}
-                    </div>
-
-                    {/* Stacked CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3 mt-4 sm:mt-5 w-full sm:w-auto">
-                      <Link href="/products" className="rounded-full bg-[#0D4EA6] px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-white transition-all text-center hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(13,78,166,0.22)] active:scale-95 shadow-[0_12px_24px_rgba(13,78,166,0.18)]">
-                        {c.slides.slide5.ctaPrimary}
-                      </Link>
-                      <Link href="/contact" className="rounded-full bg-white px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-[#0D4EA6] transition-all text-center border border-[#D7E7FB] hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(10,86,194,0.10)] active:scale-95 shadow-[0_10px_18px_rgba(10,86,194,0.08)]">
-                        {c.slides.slide5.ctaSecondary}
-                      </Link>
-                    </div>
+                      );
+                    })}
                   </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
+
+          {/* SLIDE 3 — LIFESTYLE / FAMILY AND PET SAFETY */}
+          {current.key === 'lifestyle' && (
+            <div className="absolute z-10 select-none overflow-visible left-[8%] top-[5%] w-[84%] h-[34%] md:left-[4%] md:top-[9%] md:w-[44%] md:h-[42%] xl:left-[6%] xl:top-[10%] xl:w-[43%] xl:h-[43%] flex flex-col justify-center text-left">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${current.key}-lifestyle`}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -15 }}
+                  transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, ease: 'easeOut' }}
+                  className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-7 h-full"
+                >
+                  <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
+                    {t('slides.slide3.headline')}
+                  </h2>
+                  <ul className="space-y-2 sm:space-y-3 mt-1 sm:mt-2">
+                    {slide3Bullets.map((bullet, idx) => (
+                      <li key={idx} className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base lg:text-lg font-bold text-white leading-tight drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
+                        <span className="flex h-5 w-5 sm:h-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white text-[#0D4EA6] flex-shrink-0 shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
+                          <CheckCircle2 size={16} strokeWidth={2.2} />
+                        </span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
+
+          {/* SLIDE 4 — NATURAL CLEANING TECHNOLOGY */}
+          {current.key === 'technology' && (
+            <div className="absolute z-10 select-none overflow-visible left-[8%] top-[5%] w-[84%] h-[31%] md:left-[7%] md:top-[9%] md:w-[53%] md:h-[42%] xl:left-[6%] xl:top-[10%] xl:w-[50%] xl:h-[43%] flex flex-col justify-center text-left">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${current.key}-tech`}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -15 }}
+                  transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, ease: 'easeOut' }}
+                  className="flex flex-col items-start justify-center gap-3 sm:gap-5 lg:gap-7 h-full"
+                >
+                  <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
+                    {t('slides.slide4.headline')}
+                  </h2>
+                  <p className="text-xs sm:text-base text-white leading-relaxed font-semibold drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
+                    {t('slides.slide4.supporting')}
+                  </p>
+                  <ul className="space-y-2 sm:space-y-3 mt-1 sm:mt-2">
+                    {slide4Bullets.map((bullet, idx) => (
+                      <li key={idx} className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base lg:text-lg font-bold text-white leading-tight drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
+                        <span className="flex h-5 w-5 sm:h-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white text-[#0D4EA6] flex-shrink-0 shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
+                          <Leaf size={16} strokeWidth={2.2} />
+                        </span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
+
+          {/* SLIDE 5 — TRUST / CALL TO ACTION */}
+          {current.key === 'trust' && (
+            <div className="absolute z-10 select-none overflow-visible left-[7%] top-[5%] w-[55%] h-[67%] md:left-[5%] md:top-[9%] md:w-[49%] md:h-[79%] xl:left-[5%] xl:top-[10%] xl:w-[48%] xl:h-[76%] flex flex-col justify-center text-left">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`${current.key}-trust`}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -15 }}
+                  transition={{ duration: shouldReduceMotion ? 0.01 : 0.45, ease: 'easeOut' }}
+                  className="flex flex-col items-start justify-center gap-4 sm:gap-5 w-full h-full"
+                >
+                  <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
+                    {t('slides.slide5.headline')}
+                  </h2>
+
+                  {/* Trust point badges */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
+                    {slide5Badges.map((badge, idx) => (
+                      <div key={idx} className="flex flex-row sm:flex-col items-center justify-start sm:justify-center gap-2 px-3 py-2 bg-white/95 border border-[#D7E7FB] rounded-[20px] shadow-[0_12px_24px_rgba(10,86,194,0.10)] backdrop-blur-sm">
+                        <div className="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-[#0D4EA6] shrink-0 border border-[#D7E7FB]">
+                          {badge.key === 'derm' && <ShieldCheck size={18} className="text-[#1764BA]" />}
+                          {badge.key === 'recyclable' && <Leaf size={18} className="text-[#70B52C]" />}
+                          {badge.key === 'family' && <Star size={18} className="text-[#FFD84D] fill-[#FFD84D]" />}
+                        </div>
+                        <span className="text-[10px] sm:text-xs font-bold text-[#073E91] text-left sm:text-center leading-tight">
+                          {badge.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Stacked CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+                    <Link href="/products" className="rounded-full bg-[#0D4EA6] px-5 py-2.5 text-xs sm:text-sm font-bold text-white transition-all text-center hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(13,78,166,0.22)] active:scale-95 shadow-[0_12px_24px_rgba(13,78,166,0.18)]">
+                      {t('slides.slide5.ctaPrimary')}
+                    </Link>
+                    <Link href="/contact" className="rounded-full bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-[#0D4EA6] transition-all text-center border border-[#D7E7FB] hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(10,86,194,0.10)] active:scale-95 shadow-[0_10px_18px_rgba(10,86,194,0.08)]">
+                      {t('slides.slide5.ctaSecondary')}
+                    </Link>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          )}
 
           {/* Interactive Navigation Elements */}
           <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5">
@@ -759,46 +443,47 @@ export function CaptainMaidLandingPage() {
 
       {/* Solutions Section */}
       <section id="solutions" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="max-w-3xl">
+        <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex items-center rounded-full bg-[#EAF4FF] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#0A56C2]">
-            {c.solutions.badge}
+            {t('solutions.badge')}
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[#083A75] sm:text-4xl lg:text-5xl">
-            {c.solutions.title}
+            {t('solutions.title')}
           </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-            {c.solutions.subtitle}
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            {t('solutions.subtitle')}
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {c.solutions.cards.map((card) => {
-            const Icon = card.icon;
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          {solutionsCards.map((card, index) => {
+            const IconKey = solutionsIconKeys[index % solutionsIconKeys.length];
+            const Icon = iconMap[IconKey];
             return (
-              <article key={card.title} className="rounded-[28px] border border-[#D7E7FB] bg-white p-5 shadow-[0_18px_40px_rgba(10,86,194,0.08)] transition hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(10,86,194,0.12)]">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A56C2] text-white shadow-[0_16px_30px_rgba(10,86,194,0.2)]">
+              <article key={index} className="rounded-[28px] border border-[#D7E7FB] bg-white p-5 shadow-[0_18px_40px_rgba(10,86,194,0.08)] transition hover:-translate-y-1.5 hover:shadow-[0_24px_50px_rgba(10,86,194,0.12)]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A56C2] text-white shadow-[0_14px_28px_rgba(10,86,194,0.18)]">
                   <Icon size={22} />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-slate-900">{card.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{card.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{card.description}</p>
               </article>
             );
           })}
         </div>
       </section>
 
-      {/* Products Section */}
+      {/* Products Spotlight Section */}
       <section id="products" className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <span className="inline-flex items-center rounded-full bg-[#EAF4FF] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#0A56C2]">
-              {c.products.badge}
+              {t('products.badge')}
             </span>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[#083A75] sm:text-4xl lg:text-5xl">
-              {c.products.title}
+              {t('products.title')}
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-              {c.products.subtitle}
+              {t('products.subtitle')}
             </p>
           </div>
 
@@ -824,136 +509,137 @@ export function CaptainMaidLandingPage() {
         </div>
       </section>
 
-      {/* Trust Section */}
+      {/* Trust and Quality Section */}
       <section id="trust" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="overflow-hidden rounded-[36px] border border-[#D7E7FB] bg-gradient-to-br from-[#EAF4FF] via-white to-[#F7FBFF] p-6 shadow-[0_22px_60px_rgba(10,86,194,0.09)] sm:p-8 lg:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div className="space-y-5">
-              <span className="inline-flex items-center rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#0A56C2] shadow-[0_12px_24px_rgba(10,86,194,0.06)]">
-                Trust
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="space-y-6">
+            <span className="inline-flex items-center rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#0A56C2] shadow-[0_12px_24px_rgba(10,86,194,0.06)]">
+              Trust
+            </span>
+            <h2 className="text-3xl font-semibold tracking-tight text-[#083A75] sm:text-4xl lg:text-5xl leading-tight">
+              {locale === 'th' ? 'มาตรฐานความปลอดภัยสูงสุด\nเพื่อบ้านที่น่าอยู่ของคุณ' : 'Highest Safety Standards\nfor Your Happy Home'}
+            </h2>
+            <p className="text-lg leading-relaxed text-slate-600">
+              {locale === 'th'
+                ? 'ผลิตภัณฑ์ของเราผ่านการวิจัยและทดสอบเพื่อให้แน่ใจในความปลอดภัยและประสิทธิภาพ ขจัดคราบและฆ่าเชื้อแบคทีเรียได้อย่างสมบูรณ์แบบ แต่อ่อนโยนต่อครอบครัวและสิ่งแวดล้อม'
+                : 'Our products are researched and tested to guarantee extreme safety and effectiveness. Eliminates stains and bacteria completely while remaining safe for families and pets.'}
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#C8DBF7] bg-white px-4 py-2 text-sm font-semibold text-[#0A305C] shadow-[0_12px_30px_rgba(10,86,194,0.08)]">
+                <Users size={16} className="text-[#0A56C2]" />
+                {locale === 'th' ? 'แบรนด์ที่ได้รับความไว้วางใจ' : 'Trusted Brand'}
               </span>
-              <h2 className="text-3xl font-semibold tracking-tight text-[#083A75] sm:text-4xl lg:text-5xl">
-                Trusted quality you can count on
-              </h2>
-              <p className="max-w-2xl text-lg leading-8 text-slate-600">
-                {locale === 'th'
-                  ? 'องค์ประกอบแบรนด์ที่สว่าง สะอาด และดูน่าเชื่อถือ เพื่อให้หน้าแรกส่งต่อความมั่นใจแบบพรีเมียมได้ทันที'
-                  : 'A bright, clean, trustworthy brand system that sends premium confidence from the very first screen.'}
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#C8DBF7] bg-white px-4 py-2 text-sm font-semibold text-[#0A305C] shadow-[0_12px_30px_rgba(10,86,194,0.08)]">
-                  <CheckCircle2 size={16} className="text-[#0A56C2]" />
-                  {locale === 'th' ? 'ผลิตในประเทศไทย' : 'Made in Thailand'}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#C8DBF7] bg-white px-4 py-2 text-sm font-semibold text-[#0A305C] shadow-[0_12px_30px_rgba(10,86,194,0.08)]">
-                  <ShieldCheck size={16} className="text-[#0A56C2]" />
-                  {locale === 'th' ? 'ผ่านการทดสอบคุณภาพ' : 'Quality Tested'}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#C8DBF7] bg-white px-4 py-2 text-sm font-semibold text-[#0A305C] shadow-[0_12px_30px_rgba(10,86,194,0.08)]">
-                  <Leaf size={16} className="text-[#0A56C2]" />
-                  {locale === 'th' ? 'ใส่ใจสิ่งแวดล้อม' : 'Eco Friendly'}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#C8DBF7] bg-white px-4 py-2 text-sm font-semibold text-[#0A305C] shadow-[0_12px_30px_rgba(10,86,194,0.08)]">
-                  <Users size={16} className="text-[#0A56C2]" />
-                  {locale === 'th' ? 'แบรนด์ที่ได้รับความไว้วางใจ' : 'Trusted Brand'}
-                </span>
-              </div>
             </div>
-
-            <figure className="relative w-full h-[240px] sm:h-[300px] md:h-[380px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
-              <Image
-                src={getResponsiveImage(slide5Mobile, slide5Tablet, slide5Desktop)}
-                alt="Captain Maid mascot and premium home exterior"
-                fill
-                placeholder="blur"
-                className="object-cover object-center"
-                sizes="(min-width: 1024px) 44vw, 100vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent" />
-              <div className="absolute bottom-4 right-4 flex gap-3">
-                {[greenBottle, pinkBottle, purpleBottle].map((image, index) => (
-                  <div key={index} className="w-14 sm:w-16 md:w-18 lg:w-20 xl:w-24 overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-2 shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
-                    <Image src={image} alt="Captain Maid package" width={88} height={120} placeholder="blur" className="h-auto w-full object-contain" />
-                  </div>
-                ))}
-              </div>
-            </figure>
           </div>
+
+          <figure className="relative w-full h-[240px] sm:h-[300px] md:h-[380px] lg:h-[480px] overflow-hidden rounded-[32px] border border-white/70 bg-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
+            {/* Responsive Art Direction for Mascot image */}
+            <div className="block sm:hidden absolute inset-0">
+              <Image
+                src={slide5Mobile}
+                alt="Captain Maid mascot mobile"
+                fill
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            </div>
+            <div className="hidden sm:block lg:hidden absolute inset-0">
+              <Image
+                src={slide5Tablet}
+                alt="Captain Maid mascot tablet"
+                fill
+                className="object-cover object-center"
+                sizes="100vw"
+              />
+            </div>
+            <div className="hidden lg:block absolute inset-0">
+              <Image
+                src={slide5Desktop}
+                alt="Captain Maid mascot desktop"
+                fill
+                className="object-cover object-center"
+                sizes="44vw"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent z-1" />
+            <div className="absolute bottom-4 right-4 flex gap-3 z-2">
+              {[greenBottle, pinkBottle, purpleBottle].map((image, index) => (
+                <div key={index} className="w-14 sm:w-16 md:w-18 lg:w-20 xl:w-24 overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-2 shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
+                  <Image src={image} alt="Captain Maid product pack" className="h-auto w-full object-contain" />
+                </div>
+              ))}
+            </div>
+          </figure>
         </div>
       </section>
 
       {/* FAQ Section */}
       <section id="faq" className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center rounded-full bg-[#EAF4FF] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#0A56C2]">
-              {c.faq.badge}
+              {t('faq.badge')}
             </span>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-[#083A75] sm:text-4xl lg:text-5xl">
-              {c.faq.title}
+              {t('faq.title')}
             </h2>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-              {c.faq.subtitle}
+            <p className="mt-4 text-lg leading-8 text-slate-600">
+              {t('faq.subtitle')}
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-            {c.faq.items.map((item) => (
-              <article key={item.q} className="rounded-[28px] border border-[#D7E7FB] bg-[#F8FBFF] p-6 shadow-[0_16px_30px_rgba(10,86,194,0.06)]">
-                <h3 className="text-lg font-semibold text-slate-900">{item.q}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{item.a}</p>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+            {faqItems.map((item, index) => (
+              <article key={index} className="rounded-3xl border border-[#D7E7FB] bg-[#F8FBFF] p-6 shadow-[0_14px_30px_rgba(10,86,194,0.05)]">
+                <h3 className="text-lg font-bold text-slate-900">{item.q}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.a}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Conversion Card Section */}
       <section id="contact" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="overflow-hidden rounded-[36px] bg-[#0A56C2] px-6 py-10 text-white shadow-[0_24px_60px_rgba(10,86,194,0.24)] sm:px-8 lg:px-10">
-          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">{c.cta.title}</h2>
-              <p className="max-w-2xl text-lg leading-8 text-white/90">{c.cta.subtitle}</p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row md:gap-4 lg:justify-end">
-              <Link href={`/${locale}/products`} className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm sm:text-base font-semibold text-[#0A56C2] shadow-[0_16px_32px_rgba(255,255,255,0.16)] transition hover:-translate-y-0.5 flex-1 sm:flex-none">
-                {c.cta.primary}
-                <ArrowRight size={16} />
+        <div className="relative overflow-hidden rounded-[40px] border border-white/60 bg-gradient-to-br from-[#063273] to-[#1258AF] px-6 py-16 text-center shadow-[0_24px_60px_rgba(10,86,194,0.12)] sm:px-12 md:py-20">
+          <div className="relative z-10 mx-auto max-w-3xl space-y-6">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl font-heading leading-tight">
+              {t('cta.title')}
+            </h2>
+            <p className="mx-auto max-w-xl text-sm sm:text-base leading-relaxed text-white/80">
+              {t('cta.subtitle')}
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4 w-full sm:w-auto">
+              <Link href="/products" className="rounded-full bg-white px-8 py-3.5 text-sm sm:text-base font-bold text-[#0D4EA6] transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(255,255,255,0.15)] active:scale-95">
+                {t('cta.primary')}
               </Link>
-              <Link href={`/${locale}/contact`} className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition hover:bg-white/20 flex-1 sm:flex-none">
-                {c.cta.secondary}
+              <Link href="/contact" className="rounded-full bg-transparent border border-white/40 px-8 py-3.5 text-sm sm:text-base font-bold text-white transition-all hover:bg-white/5 active:scale-95">
+                {t('cta.secondary')}
               </Link>
             </div>
           </div>
+          {/* Subtle backgrounds */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(10,86,194,0.15),transparent_60%)]" />
         </div>
       </section>
 
-      {/* Footer Section */}
-      <footer className="border-t border-[#D7E7FB] bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 md:gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8 lg:gap-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} className="h-11 w-11 object-contain" />
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0A56C2]">Captain Maid</p>
-                <p className="text-xs text-slate-500">Premium home care</p>
-              </div>
-            </div>
-            <p className="max-w-xl text-sm leading-7 text-slate-600">{c.footer.description}</p>
+      {/* Global Footer */}
+      <footer className="border-t border-cm-border-soft bg-white px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <span className="text-lg font-black text-cm-navy">Captain Maid</span>
+            <p className="text-xs text-slate-500 text-center md:text-left max-w-sm">
+              {t('footer.description')}
+            </p>
           </div>
-          <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
-            <a href="#solutions" className="rounded-2xl border border-[#D7E7FB] px-4 py-3 transition hover:bg-[#F8FBFF]">{locale === 'th' ? 'โซลูชัน' : c.header.solutions}</a>
-            <a href="#products" className="rounded-2xl border border-[#D7E7FB] px-4 py-3 transition hover:bg-[#F8FBFF]">{locale === 'th' ? 'สินค้า' : c.header.products}</a>
-            <a href="#trust" className="rounded-2xl border border-[#D7E7FB] px-4 py-3 transition hover:bg-[#F8FBFF]">{locale === 'th' ? 'ความน่าเชื่อถือ' : c.header.trust}</a>
-            <a href="#faq" className="rounded-2xl border border-[#D7E7FB] px-4 py-3 transition hover:bg-[#F8FBFF]">{locale === 'th' ? 'คำถาม' : c.header.faq}</a>
+          <div className="flex flex-col items-center md:items-end gap-3">
+            <span className="text-xs text-slate-500">
+              {t('footer.copyright')}
+            </span>
           </div>
-        </div>
-        <div className="border-t border-[#D7E7FB] px-4 py-4 text-center text-xs text-slate-500 sm:px-6 lg:px-8">
-          {c.footer.copyright}
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

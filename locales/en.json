@@ -548,5 +548,89 @@
     "passwordTooShort": "Password must be at least 6 characters",
     "signupSuccess": "Account created successfully!",
     "minCharacters": "Password must be at least 6 characters"
+  },
+  "landingPage": {
+    "header": {
+      "solutions": "Solutions",
+      "products": "Products",
+      "trust": "Trust",
+      "faq": "FAQ",
+      "ctaButton": "Shop Now"
+    },
+    "slides": {
+      "slide1": {
+        "headline": "Made for Easy\nHome Cleaning",
+        "supporting": "Better Living, Taken Care of\nby Captain Maid.",
+        "cta": "Learn More"
+      },
+      "slide2": {
+        "headline": "Complete Cleaning Solutions\nfor Every Corner of Your Home"
+      },
+      "slide3": {
+        "headline": "Safe for Your Family\nEveryday Comfort",
+        "bullets": ["Safe for Kids", "Safe for Pets", "Gentle & Effective"]
+      },
+      "slide4": {
+        "headline": "Science Met Nature\nAdvanced Active Coating",
+        "supporting": "Clean Less, Live More with Captain Maid's Active Protection.",
+        "bullets": ["99.9% Germ Elimination", "Natural Plant Extract", "Long-term Surface Coating"]
+      },
+      "slide5": {
+        "headline": "Every House Deserves\nPremium Standard Care",
+        "badges": [
+          {"label": "Dermatologist Tested", "key": "derm"},
+          {"label": "100% Recyclable Bottle", "key": "recyclable"},
+          {"label": "Safe for Children & Pets", "key": "family"}
+        ],
+        "ctaPrimary": "Shop Now on HomePro",
+        "ctaSecondary": "Become a Distributor"
+      }
+    },
+    "solutions": {
+      "badge": "Solutions",
+      "title": "Complete cleaning solutions for every corner of your home",
+      "subtitle": "Built for the spaces and tasks that matter most: cooking, bathing, floors, laundry, and daily multi-purpose care.",
+      "cards": [
+        { "title": "Kitchen", "description": "For grease, wipe-downs, and fast daily refreshes." },
+        { "title": "Bathroom", "description": "For soap scum, shine, and calm spotless routines." },
+        { "title": "Floor", "description": "For smooth, quick-drying floor care across the home." },
+        { "title": "Laundry", "description": "For fresh, clean fabric care with a premium feel." },
+        { "title": "Multi-Purpose", "description": "For surfaces that need one dependable solution." }
+      ]
+    },
+    "products": {
+      "badge": "Spotlight",
+      "title": "Three hero packages from the Captain Maid range",
+      "subtitle": "These package images come directly from the supplied asset folder and are used as-is with no stock replacement."
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Common questions about Captain Maid",
+      "subtitle": "Find answers to questions about our cleaning products and safety.",
+      "items": [
+        {
+          "q": "What makes Captain Maid products different?",
+          "a": "Captain Maid products are formulated with premium, natural ingredients combined with advanced active coating technology. This means they not only clean deeply but also coat your surfaces to prevent dust and stain build-up, reducing your cleaning frequency by up to 50% while remaining completely family and pet safe."
+        },
+        {
+          "q": "Are Captain Maid products safe for children and pets?",
+          "a": "Yes! All our products are non-toxic, gentle on skin (Dermatologist Tested), and free from harsh chemicals. They are specifically formulated to be safe for use in environments with active toddlers and playful pets."
+        },
+        {
+          "q": "Can I use Captain Maid floor cleaner in robot vacuums?",
+          "a": "Absolutely. Captain Maid Floor Cleaner features a low-foaming, non-corrosive, quick-drying formula that is fully compatible with all major robot vacuum models and automatic cleaning systems."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Choose Captain Maid, Elevate Your Home",
+      "subtitle": "A trusted brand for high-performance, natural, and family-safe cleaning.",
+      "primary": "Shop Now",
+      "secondary": "Contact Us"
+    },
+    "footer": {
+      "description": "Premium household cleaning products with a bright, modern identity and a trustworthy, clean presentation.",
+      "copyright": "Captain Maid. All rights reserved."
+    }
   }
 }

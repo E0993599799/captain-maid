@@ -9,7 +9,7 @@ import { Link } from '@/lib/navigation';
 import { Button } from '@/components/Button';
 import { NavigationEnhanced } from '@/components/NavigationEnhanced';
 import { Footer } from '@/components/Footer';
-import { CAPTAIN_MAID_PRODUCTS } from '@/lib/products';
+import { products } from '@/data/products';
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -24,22 +24,27 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   // Handle async params - get id from the promise
   const id = (params as any).id || '';
 
-  // Find product by ID
-  const product = CAPTAIN_MAID_PRODUCTS.find(p => p.id === id);
+  // Find product by ID or Slug
+  const product = products.find(p => p.id === id || p.slug === id);
 
   if (!product) {
     notFound();
   }
 
   // Select language-specific fields
-  const name = locale === 'th' ? product.nameThb : product.name;
-  const description = locale === 'th' ? product.descriptionThb : product.description;
-  const category = locale === 'th' ? product.categoryThb : product.category;
+  const name = locale === 'th' ? product.productName.th : product.productName.en;
+  const description = locale === 'th' ? product.fullDescription.th : product.fullDescription.en;
+  const category = locale === 'th' ? product.category.th : product.category.en;
 
-  const displayPrice = product.priceThb || product.price;
-  const displayOriginalPrice = product.originalPriceThb || product.originalPrice;
+  const displayPrice = product.priceThb || product.price || 0;
+  const displayOriginalPrice = product.originalPriceThb || product.originalPrice || 0;
   const currencySymbol = '฿';
   const discount = displayOriginalPrice ? Math.round(((displayOriginalPrice - displayPrice) / displayOriginalPrice) * 100) : 0;
+
+  const properties = product.benefits.map(b => locale === 'th' ? b.th : b.en);
+  const usage = locale === 'th' ? product.shortDescription.th : product.shortDescription.en;
+  const directions = product.howToUse.map(h => locale === 'th' ? h.th : h.en);
+  const precautions = product.cautions.map(c => locale === 'th' ? c.th : c.en);
 
   // Dynamic Schema.org JSON-LD for rich product search snippets
   const productSchema = {
@@ -47,7 +52,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     "@type": "Product",
     "name": name,
     "description": description,
-    "image": `https://captain-maid.vercel.app${product.image}`,
+    "image": `https://captain-maid.vercel.app${product.images[0]}`,
     "sku": product.sku || product.id,
     "mpn": product.sku || product.id,
     "brand": {
@@ -61,7 +66,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       "priceValidUntil": "2027-12-31",
       "itemCondition": "https://schema.org/NewCondition",
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "url": `https://captain-maid.vercel.app/${locale}/products/${product.id}`
+      "url": `https://captain-maid.vercel.app/${locale}/products/${product.slug || product.id}`
     },
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -116,7 +121,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             >
               <div className="relative w-full aspect-square max-w-[380px] md:max-w-none">
                 <Image
-                  src={product.image}
+                  src={product.images[0]}
                   alt={name}
                   fill
                   className="object-contain"
@@ -178,7 +183,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                 <span className="text-4xl font-bold text-captain-primary">
                   {currencySymbol}{Math.round(displayPrice)}
                 </span>
-                {displayOriginalPrice && (
+                {displayOriginalPrice > 0 && (
                   <span className="text-xl text-captain-muted line-through">
                     {currencySymbol}{Math.round(displayOriginalPrice)}
                   </span>
@@ -193,7 +198,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                 <span className={`text-sm font-semibold ${
                   product.inStock ? 'text-semantic-success' : 'text-semantic-error'
                 }`}>
-                  {product.inStock ? t('products.inStock') : t('products.outOfStock')}
+                  {product.inStock ? t('products.inStock') || 'In Stock' : t('products.outOfStock') || 'Out of Stock'}
                 </span>
               </div>
 
@@ -235,13 +240,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             className="space-y-12"
           >
             {/* Key Benefits */}
-            {product.properties && product.properties.length > 0 && (
+            {properties.length > 0 && (
               <div className="border-t border-captain-border/40 pt-12">
                 <h2 className="text-2xl md:text-3xl font-bold font-heading text-captain-text mb-6">
-                  {t('productDetail.properties')}
+                  {t('productDetail.properties') || 'Properties'}
                 </h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {product.properties.map((prop, idx) => (
+                  {properties.map((prop, idx) => (
                     <li key={idx} className="flex gap-3 text-captain-muted items-start bg-captain-soft/30 p-4 rounded-2xl border border-captain-border/10">
                       <span className="text-captain-primary font-bold">✓</span>
                       <span className="text-sm font-medium">{prop}</span>
@@ -252,25 +257,25 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             )}
 
             {/* Usage */}
-            {product.usage && (
+            {usage && (
               <div className="border-t border-captain-border/40 pt-12">
                 <h2 className="text-2xl md:text-3xl font-bold font-heading text-captain-text mb-4">
-                  {t('productDetail.usage')}
+                  {t('productDetail.usage') || 'Short Description'}
                 </h2>
                 <p className="text-base sm:text-lg text-captain-muted leading-relaxed max-w-3xl">
-                  {product.usage}
+                  {usage}
                 </p>
               </div>
             )}
 
             {/* Directions */}
-            {product.directions && product.directions.length > 0 && (
+            {directions.length > 0 && (
               <div className="border-t border-captain-border/40 pt-12">
                 <h2 className="text-2xl md:text-3xl font-bold font-heading text-captain-text mb-6">
-                  {t('productDetail.directions')}
+                  {t('productDetail.directions') || 'Directions'}
                 </h2>
                 <ul className="grid grid-cols-1 gap-4 max-w-4xl">
-                  {product.directions.map((dir, idx) => (
+                  {directions.map((dir, idx) => (
                     <li key={idx} className="flex gap-4 p-4 rounded-2xl bg-white border border-captain-border/30 shadow-[0_8px_20px_rgba(10,86,194,0.02)]">
                       <span className="font-bold text-captain-primary text-lg min-w-[24px] h-[24px] rounded-full bg-captain-soft flex items-center justify-center text-xs">{idx + 1}</span>
                       <span className="text-captain-muted text-sm sm:text-base leading-relaxed">{dir}</span>
@@ -281,13 +286,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             )}
 
             {/* Precautions */}
-            {product.precautions && product.precautions.length > 0 && (
+            {precautions.length > 0 && (
               <div className="border-t border-captain-border/40 pt-12">
                 <h2 className="text-2xl md:text-3xl font-bold font-heading text-captain-text mb-6">
-                  {t('productDetail.precautions')}
+                  {t('productDetail.precautions') || 'Precautions'}
                 </h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {product.precautions.map((precaution, idx) => (
+                  {precautions.map((precaution, idx) => (
                     <li key={idx} className="flex gap-3 text-captain-muted items-start bg-red-50/30 p-4 rounded-2xl border border-red-100/50">
                       <span className="text-red-600 font-bold">!</span>
                       <span className="text-sm font-medium">{precaution}</span>
@@ -300,38 +305,38 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             {/* Specifications */}
             <div className="border-t border-captain-border/40 pt-12">
               <h2 className="text-2xl md:text-3xl font-bold font-heading text-captain-text mb-6">
-                {t('productDetail.specifications')}
+                {t('productDetail.specifications') || 'Specifications'}
               </h2>
               <div className="overflow-x-auto max-w-2xl bg-white rounded-2xl border border-captain-border/40 shadow-[0_10px_30px_rgba(10,86,194,0.02)]">
                 <table className="w-full text-left text-captain-muted border-collapse text-sm">
                   <tbody>
                     {product.size && (
                       <tr className="border-b border-captain-border/30 hover:bg-captain-soft/10">
-                        <td className="py-4 px-5 font-semibold text-captain-text w-1/3">{t('productDetail.size')}</td>
+                        <td className="py-4 px-5 font-semibold text-captain-text w-1/3">{t('productDetail.size') || 'Size'}</td>
                         <td className="py-4 px-5">{product.size}</td>
                       </tr>
                     )}
                     {product.weight && (
                       <tr className="border-b border-captain-border/30 hover:bg-captain-soft/10">
-                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.weight')}</td>
+                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.weight') || 'Weight'}</td>
                         <td className="py-4 px-5">{product.weight}</td>
                       </tr>
                     )}
                     {product.height && (
                       <tr className="border-b border-captain-border/30 hover:bg-captain-soft/10">
-                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.height')}</td>
+                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.height') || 'Height'}</td>
                         <td className="py-4 px-5">{product.height}</td>
                       </tr>
                     )}
                     {product.width && (
                       <tr className="border-b border-captain-border/30 hover:bg-captain-soft/10">
-                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.width')}</td>
+                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.width') || 'Width'}</td>
                         <td className="py-4 px-5">{product.width}</td>
                       </tr>
                     )}
                     {product.depth && (
                       <tr className="hover:bg-captain-soft/10">
-                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.depth')}</td>
+                        <td className="py-4 px-5 font-semibold text-captain-text">{t('productDetail.depth') || 'Depth'}</td>
                         <td className="py-4 px-5">{product.depth}</td>
                       </tr>
                     )}
