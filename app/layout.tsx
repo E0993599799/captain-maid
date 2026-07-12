@@ -39,5 +39,11 @@ type RootLayoutProps = {
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  return children;
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased">
+        {children}
+      </body>
+    </html>
+  );
 }
