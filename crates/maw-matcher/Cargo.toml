@@ -1,0 +1,10 @@
+[package]
+name = "maw-matcher"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[lib]
+name = "maw_matcher"
+path = "src/lib.rs"
