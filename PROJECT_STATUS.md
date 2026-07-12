@@ -149,7 +149,6 @@ captain-maid/
 │   ├── NavigationEnhanced.tsx       (Luxi: styling)
 │   ├── ProductCard.tsx             (Luxi: enhance)
 │   ├── ProductDetail.tsx           (Luxi: create new)
-│   ├── BlogNewsSection.tsx
 │   ├── FAQ.tsx
 │   ├── ShopCta.tsx
 │   └── Footer.tsx

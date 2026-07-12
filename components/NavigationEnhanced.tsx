@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Menu, X, ShoppingCart, Search, Heart } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/lib/navigation';
+import logoMark from './assets/captain-maid-logo.webp';
 
 /**
  * Enhanced Navigation component with top utility bar and main navigation
@@ -104,10 +106,11 @@ export const NavigationEnhanced = () => {
             {/* Center: Logo and Brand */}
             <Link href="/" className="flex-shrink-0 flex items-center gap-3 group">
               <div className="relative h-10 w-10 md:h-12 md:w-12">
-                <img
-                  src="/images/logos/captain-maid-logo.webp"
+                <Image
+                  src={logoMark}
                   alt="Captain Maid"
-                  className="h-full w-full object-contain rounded-lg"
+                  className="h-full w-full object-contain"
+                  priority
                 />
               </div>
               <span className="hidden md:inline font-heading text-xl md:text-2xl font-bold text-captain-text group-hover:text-captain-primary transition-colors duration-180">

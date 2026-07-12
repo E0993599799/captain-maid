@@ -22,7 +22,7 @@ import {
 import { useLocale } from 'next-intl';
 import { site } from '@/data/site';
 
-import logoMark from './assets/logo-captainmaid.png';
+import logoMark from './assets/captain-maid-logo.webp';
 
 // Slide 1: Brand Hero - Responsive Images
 import slide1Mobile from './assets/landing/01_Brand-Hero_Mobile.png';
@@ -320,7 +320,6 @@ export function CaptainMaidLandingPage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [paused, setPaused] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(0);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     setViewportWidth(typeof window !== 'undefined' ? window.innerWidth : 0);
@@ -496,142 +495,24 @@ export function CaptainMaidLandingPage() {
       <header className="sticky top-0 z-50 border-b border-cm-border-soft bg-white/90 backdrop-blur-md shadow-sm">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
           <Link href={`/${locale}`} className="flex items-center gap-3">
-            <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} priority className="h-11 w-11 rounded-2xl object-contain shadow-[0_8px_20px_rgba(10,86,194,0.06)]" />
+            <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} priority className="h-11 w-11 object-contain" />
             <div className="leading-none">
               <p className="text-base font-bold uppercase tracking-[0.2em] text-[#073E91]">Captain Maid</p>
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-0 md:flex" aria-label="Primary">
-            {/* Products Dropdown */}
-            <div className="relative group">
-              <button
-                onMouseEnter={() => setOpenDropdown('products')}
-                onMouseLeave={() => setOpenDropdown(null)}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
-              >
-                {locale === 'th' ? 'สินค้า' : c.header.products}
-                <span className="text-xs">▼</span>
-              </button>
-              {openDropdown === 'products' && (
-                <div
-                  onMouseEnter={() => setOpenDropdown('products')}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
-                >
-                  <a href={`/${locale}/products`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ทั้งหมด' : '- All Products'}
-                  </a>
-                  <a href={`/${locale}/products?category=floor`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ผลิตภัณฑ์ถูพื้น' : '- Floor Cleaner'}
-                  </a>
-                  <a href={`/${locale}/products?category=bathroom`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ผลิตภัณฑ์ห้องน้ำ' : '- Bathroom Cleaner'}
-                  </a>
-                  <a href={`/${locale}/products?category=kitchen`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ผลิตภัณฑ์ครัว' : '- Kitchen Cleaner'}
-                  </a>
-                  <a href={`/${locale}/products?category=glass`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ผลิตภัณฑ์กระจก' : '- Glass Cleaner'}
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* Solutions Dropdown */}
-            <div className="relative group">
-              <button
-                onMouseEnter={() => setOpenDropdown('solutions')}
-                onMouseLeave={() => setOpenDropdown(null)}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
-              >
-                {locale === 'th' ? 'โซลูชัน' : 'Solutions'}
-                <span className="text-xs">▼</span>
-              </button>
-              {openDropdown === 'solutions' && (
-                <div
-                  onMouseEnter={() => setOpenDropdown('solutions')}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
-                >
-                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ห้องครัว' : '- Kitchen'}
-                  </a>
-                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ห้องน้ำ' : '- Bathroom'}
-                  </a>
-                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- พื้น' : '- Floor'}
-                  </a>
-                  <a href="#solutions" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ซักผ้า' : '- Laundry'}
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* Support Dropdown */}
-            <div className="relative group">
-              <button
-                onMouseEnter={() => setOpenDropdown('support')}
-                onMouseLeave={() => setOpenDropdown(null)}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
-              >
-                {locale === 'th' ? 'ความช่วยเหลือ' : 'Support'}
-                <span className="text-xs">▼</span>
-              </button>
-              {openDropdown === 'support' && (
-                <div
-                  onMouseEnter={() => setOpenDropdown('support')}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
-                >
-                  <a href={`/${locale}/contact`} className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ติดต่อเรา' : '- Contact Us'}
-                  </a>
-                  <a href="#faq" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- คำถามที่พบบ่อย' : '- FAQ'}
-                  </a>
-                  <a href="#" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- วิธีใช้' : '- How to Use'}
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* About Dropdown */}
-            <div className="relative group">
-              <button
-                onMouseEnter={() => setOpenDropdown('about')}
-                onMouseLeave={() => setOpenDropdown(null)}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1"
-              >
-                {locale === 'th' ? 'เกี่ยวกับ' : 'About'}
-                <span className="text-xs">▼</span>
-              </button>
-              {openDropdown === 'about' && (
-                <div
-                  onMouseEnter={() => setOpenDropdown('about')}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                  className="absolute top-full left-0 mt-0 bg-white border border-cm-border-soft rounded-lg shadow-lg py-2 min-w-[200px] z-50"
-                >
-                  <a href="#trust" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- เกี่ยวกับแบรนด์' : '- About Brand'}
-                  </a>
-                  <a href="#" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- ที่มาของคุณภาพ' : '- Our Quality'}
-                  </a>
-                  <a href="#" className="block px-4 py-2 text-sm hover:bg-[#EAF4FF] text-cm-text-secondary hover:text-[#073E91] transition">
-                    {locale === 'th' ? '- สิ่งแวดล้อม' : '- Sustainability'}
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* Blog Link */}
-            <a href="#" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91] flex items-center gap-1">
-              {locale === 'th' ? 'บทความ' : 'Blog'}
-              <span className="text-xs">▼</span>
+          <nav className="hidden items-center gap-2 md:flex" aria-label="Primary">
+            <a href="#solutions" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
+              {locale === 'th' ? 'โซลูชัน' : c.header.solutions}
+            </a>
+            <a href="#products" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
+              {locale === 'th' ? 'สินค้า' : c.header.products}
+            </a>
+            <a href="#trust" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
+              {locale === 'th' ? 'ความน่าเชื่อถือ' : c.header.trust}
+            </a>
+            <a href="#faq" className="rounded-full px-4 py-2 text-sm font-semibold text-cm-text-secondary transition hover:bg-[#EAF4FF] hover:text-[#073E91]">
+              {locale === 'th' ? 'คำถาม' : c.header.faq}
             </a>
           </nav>
 
@@ -714,19 +595,19 @@ export function CaptainMaidLandingPage() {
                         alt="Captain Maid logo"
                         width={80}
                         height={80}
-                        className="h-16 sm:h-20 lg:h-24 w-16 sm:w-20 lg:w-24 rounded-3xl object-contain bg-white shadow-[0_8px_24px_rgba(0,0,0,0.3)]"
+                        className="h-16 sm:h-18 lg:h-20 w-auto object-contain"
                       />
                     </div>
 
-                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-snug whitespace-pre-line drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] [text-shadow:1px_1px_2px_rgba(0,0,0,0.5)]">
+                    <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
                       {c.slides.slide1.headline}
                     </h1>
 
-                    <p className="text-sm sm:text-base lg:text-lg text-white/98 leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_0_6px_rgba(255,255,255,0.7)] [text-shadow:-1px_-1px_0_rgba(255,255,255,0.5),1px_-1px_0_rgba(255,255,255,0.5),-1px_1px_0_rgba(255,255,255,0.5),1px_1px_0_rgba(255,255,255,0.5)]">
+                    <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed font-semibold whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
                       {c.slides.slide1.supporting}
                     </p>
 
-                    <Link href="/about" className="rounded-full bg-white px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base font-bold text-[#073E91] transition-all hover:bg-white/95 active:scale-95 shadow-lg shadow-black/20 mt-2 sm:mt-4">
+                    <Link href="/about" className="rounded-full bg-[#0D4EA6] px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 lg:py-4 text-sm sm:text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(13,78,166,0.24)] active:scale-95 shadow-[0_12px_24px_rgba(13,78,166,0.18)] mt-2 sm:mt-4">
                       {c.slides.slide1.cta}
                     </Link>
                   </div>
@@ -734,21 +615,21 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 2 — PRODUCT RANGE */}
                 {current.key === 'range' && (
-                  <div className="flex flex-col items-center justify-start gap-4 sm:gap-6 text-center h-full max-w-4xl mx-auto pt-8 sm:pt-12 lg:pt-16">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-[#073E91] leading-tight whitespace-normal sm:whitespace-pre-line drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] [text-shadow:-2px_-2px_0_rgba(255,255,255,0.8),2px_-2px_0_rgba(255,255,255,0.8),-2px_2px_0_rgba(255,255,255,0.8),2px_2px_0_rgba(255,255,255,0.8)]">
+                  <div className="flex flex-col items-center justify-start gap-5 sm:gap-6 text-center h-full max-w-4xl mx-auto pt-2 sm:pt-4 lg:pt-8">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-normal sm:whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
                       ผลิตภัณฑ์ทำความสะอาดที่ออกแบบมาสำหรับทุกห้องในบ้าน
                     </h2>
 
                     {/* Five minimal outline category icons row */}
-                    <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 md:gap-3 w-full max-w-xs sm:max-w-2xl mx-auto">
+                    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full max-w-sm sm:max-w-2xl mx-auto">
                       {c.slides.slide2.categories.map((cat, idx) => {
                         const Icon = cat.icon;
                         return (
-                          <div key={idx} className="flex flex-col items-center gap-1 p-1 bg-white/90 border border-cm-border-soft rounded-2xl shadow-sm min-w-[44px] sm:min-w-[50px] md:min-w-[90px] backdrop-blur-md">
-                            <div className="flex h-6 w-6 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-cm-sky-light text-cm-primary-blue border border-cm-border-soft">
-                              <Icon size={device === 'mobile' ? 12 : 18} />
+                          <div key={idx} className="flex flex-col items-center gap-2 p-2 bg-white/95 border border-[#D7E7FB] rounded-[22px] shadow-[0_12px_28px_rgba(10,86,194,0.10)] min-w-[54px] sm:min-w-[72px] md:min-w-[96px] backdrop-blur-sm">
+                            <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-2xl bg-white text-[#0D4EA6] border border-[#D7E7FB]">
+                              <Icon size={device === 'mobile' ? 14 : 18} strokeWidth={2} />
                             </div>
-                            <span className="text-[8px] sm:text-[11px] font-bold text-[#173B68] whitespace-nowrap">
+                            <span className="text-[10px] sm:text-[11px] font-bold text-[#173B68] whitespace-nowrap">
                               {cat.label}
                             </span>
                           </div>
@@ -760,16 +641,16 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 3 — LIFESTYLE / FAMILY AND PET SAFETY */}
                 {current.key === 'lifestyle' && (
-                  <div className="flex flex-col items-start justify-center gap-3 sm:gap-5 lg:gap-6 h-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-[#073E91] leading-tight whitespace-pre-line drop-shadow-[0_0_8px_rgba(255,255,255,0.6)] [text-shadow:-2px_-2px_0_rgba(255,255,255,0.8),2px_-2px_0_rgba(255,255,255,0.8),-2px_2px_0_rgba(255,255,255,0.8),2px_2px_0_rgba(255,255,255,0.8)]">
+                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-7 h-full">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
                       {c.slides.slide3.headline}
                     </h2>
 
-                    <ul className="space-y-2 sm:space-y-3 mt-2 sm:mt-3">
+                    <ul className="space-y-3 sm:space-y-4 mt-2 sm:mt-3">
                       {c.slides.slide3.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base lg:text-lg font-bold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
-                          <span className="flex h-4 w-4 sm:h-6 sm:w-6 lg:h-7 lg:w-7 items-center justify-center rounded-full bg-white/90 text-[#1762B5] flex-shrink-0">
-                            <CheckCircle2 size={device === 'mobile' ? 14 : 20} />
+                        <li key={idx} className="flex items-center gap-3 sm:gap-4 text-sm sm:text-base lg:text-lg font-bold text-white leading-tight drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
+                          <span className="flex h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white text-[#0D4EA6] flex-shrink-0 shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
+                            <CheckCircle2 size={device === 'mobile' ? 16 : 22} strokeWidth={2.2} />
                           </span>
                           <span>{bullet}</span>
                         </li>
@@ -780,20 +661,20 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 4 — NATURAL CLEANING TECHNOLOGY */}
                 {current.key === 'technology' && (
-                  <div className="flex flex-col items-start justify-center gap-3 sm:gap-5 lg:gap-6 h-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-5 lg:gap-7 h-full">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
                       {c.slides.slide4.headline}
                     </h2>
 
-                    <p className="text-sm sm:text-base lg:text-lg text-white/95 leading-relaxed font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">
+                    <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed font-semibold drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
                       {c.slides.slide4.supporting}
                     </p>
 
-                    <ul className="space-y-2.5 sm:space-y-4 lg:space-y-5 mt-1 sm:mt-2">
+                    <ul className="space-y-3 sm:space-y-4 lg:space-y-5 mt-2 sm:mt-3">
                       {c.slides.slide4.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-center gap-2.5 sm:gap-3.5 lg:gap-4 text-sm sm:text-base lg:text-lg font-bold text-white/98 drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
-                          <span className="flex h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white/15 border border-white/30 text-[#8ED6FF] flex-shrink-0">
-                            <Leaf size={device === 'mobile' ? 16 : 22} />
+                        <li key={idx} className="flex items-center gap-3 sm:gap-4 lg:gap-5 text-sm sm:text-base lg:text-lg font-bold text-white leading-tight drop-shadow-[0_3px_8px_rgba(0,40,110,.22)]">
+                          <span className="flex h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8 items-center justify-center rounded-full bg-white text-[#0D4EA6] flex-shrink-0 shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
+                            <Leaf size={device === 'mobile' ? 18 : 24} strokeWidth={2.2} />
                           </span>
                           <span>{bullet}</span>
                         </li>
@@ -804,22 +685,22 @@ export function CaptainMaidLandingPage() {
 
                 {/* SLIDE 5 — TRUST / CALL TO ACTION */}
                 {current.key === 'trust' && (
-                  <div className="flex flex-col items-start justify-center gap-4 sm:gap-6 h-full w-full">
-                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-tight whitespace-pre-line drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] [text-shadow:0_0_30px_rgba(255,255,255,0.4),0_0_60px_rgba(255,255,255,0.2)]">
+                  <div className="flex flex-col items-start justify-center gap-5 sm:gap-6 lg:gap-7 h-full w-full">
+                    <h2 className="text-base sm:text-2xl lg:text-4xl font-extrabold font-heading text-white leading-[0.98] tracking-[-0.03em] whitespace-pre-line drop-shadow-[0_3px_8px_rgba(0,40,110,.22)] [-webkit-text-stroke:4px_#0D4EA6] [paint-order:stroke_fill]">
                       {c.slides.slide5.headline}
                     </h2>
 
                     {/* Trust points: 1 col mobile, 2 col tablet, 4 col desktop */}
-                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-2' : device === 'tablet' ? 'grid-cols-2 gap-2.5' : 'grid-cols-4 gap-3'} w-full mt-2`}>
+                    <div className={`grid ${device === 'mobile' ? 'grid-cols-1 gap-2.5' : device === 'tablet' ? 'grid-cols-2 gap-3' : 'grid-cols-4 gap-4'} w-full mt-2 sm:mt-3`}>
                       {c.slides.slide5.badges.map((badge, idx) => (
-                        <div key={idx} className={`flex ${device === 'mobile' ? 'flex-row items-center justify-start gap-3 px-4 py-3' : 'flex-col items-center justify-center gap-2.5 p-3'} bg-white/98 border-2 border-white rounded-3xl shadow-md backdrop-blur-md`}>
-                          <div className="flex h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-[#EAF4FF] text-[#1764BA] shrink-0">
+                        <div key={idx} className={`flex ${device === 'mobile' ? 'flex-row items-center justify-start gap-3 px-4 py-3' : 'flex-col items-center justify-center gap-3 p-4'} bg-white/96 border border-[#D7E7FB] rounded-[24px] shadow-[0_14px_30px_rgba(10,86,194,0.12)] backdrop-blur-sm`}>
+                          <div className="flex h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-white text-[#0D4EA6] shrink-0 border border-[#D7E7FB] shadow-[0_8px_18px_rgba(10,86,194,0.08)]">
                             {badge.key === 'flag' && <span className="text-xs sm:text-sm lg:text-base">🇹🇭</span>}
                             {badge.key === 'tested' && <ShieldCheck size={device === 'mobile' ? 18 : 24} className="text-[#1764BA]" />}
                             {badge.key === 'eco' && <Leaf size={device === 'mobile' ? 18 : 24} className="text-[#70B52C]" />}
                             {badge.key === 'trusted' && <Star size={device === 'mobile' ? 18 : 24} className="text-[#FFD84D] fill-[#FFD84D]" />}
                           </div>
-                          <span className="text-xs sm:text-sm lg:text-base font-bold text-[#073E91] text-center leading-tight">
+                          <span className="text-xs sm:text-sm lg:text-base font-bold text-[#073E91] text-center leading-tight tracking-[-0.01em]">
                             {badge.label}
                           </span>
                         </div>
@@ -827,11 +708,11 @@ export function CaptainMaidLandingPage() {
                     </div>
 
                     {/* Stacked CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-2.5 mt-3 sm:mt-4 w-full sm:w-auto">
-                      <Link href="/products" className="rounded-full bg-[#0753AC] px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-white transition-all text-center hover:bg-cm-navy active:scale-95 shadow-md shadow-[#0753AC]/25">
+                    <div className="flex flex-col sm:flex-row gap-3 mt-4 sm:mt-5 w-full sm:w-auto">
+                      <Link href="/products" className="rounded-full bg-[#0D4EA6] px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-white transition-all text-center hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(13,78,166,0.22)] active:scale-95 shadow-[0_12px_24px_rgba(13,78,166,0.18)]">
                         {c.slides.slide5.ctaPrimary}
                       </Link>
-                      <Link href="/contact" className="rounded-full bg-white border-2 border-white px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-[#0A4C9D] transition-all text-center hover:bg-white/95 active:scale-95 shadow-md">
+                      <Link href="/contact" className="rounded-full bg-white px-7 py-3 sm:px-9 sm:py-3.5 lg:px-10 text-sm sm:text-base font-bold text-[#0D4EA6] transition-all text-center border border-[#D7E7FB] hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(10,86,194,0.10)] active:scale-95 shadow-[0_10px_18px_rgba(10,86,194,0.08)]">
                         {c.slides.slide5.ctaSecondary}
                       </Link>
                     </div>
@@ -847,7 +728,7 @@ export function CaptainMaidLandingPage() {
               type="button"
               onClick={() => setActiveSlide((current) => (current - 1 + slides.length) % slides.length)}
               aria-label="Previous slide"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/40 bg-white/20 text-white backdrop-blur-md transition hover:bg-white/30 active:scale-90"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/15 text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/25 active:scale-90 shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
             >
               <ChevronLeft size={14} />
             </button>
@@ -855,14 +736,14 @@ export function CaptainMaidLandingPage() {
               type="button"
               onClick={() => setActiveSlide((current) => (current + 1) % slides.length)}
               aria-label="Next slide"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/40 bg-white/20 text-white backdrop-blur-md transition hover:bg-white/30 active:scale-90"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/15 text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/25 active:scale-90 shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
             >
               <ChevronRight size={14} />
             </button>
           </div>
 
           {/* Dots Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-white/10 border border-white/20 backdrop-blur-md px-3 py-1.5 rounded-full">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-white/12 border border-white/25 backdrop-blur-md px-3 py-1.5 rounded-full shadow-[0_8px_18px_rgba(0,0,0,0.08)]">
             {slides.map((slide, index) => (
               <button
                 key={slide.key}
@@ -1054,7 +935,7 @@ export function CaptainMaidLandingPage() {
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 md:gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8 lg:gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} className="h-11 w-11 rounded-2xl object-contain" />
+              <Image src={logoMark} alt="Captain Maid logo" width={44} height={44} className="h-11 w-11 object-contain" />
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#0A56C2]">Captain Maid</p>
                 <p className="text-xs text-slate-500">Premium home care</p>

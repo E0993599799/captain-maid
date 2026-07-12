@@ -63,6 +63,6 @@ export async function generateMetadata({ params }: Omit<PageProps, 'children'>):
   };
 }
 
-export default function HomePage() {
+export default function HomePageRoute() {
   return <CaptainMaidLandingPage />;
 }

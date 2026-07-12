@@ -54,7 +54,6 @@ Need 5 reusable homepage/banner slide templates:
 - `components/NavigationEnhanced.tsx`
 - `components/HeroEnhanced.tsx`
 - `components/ProductCard.tsx`
-- `components/BlogNewsSection.tsx`
 - `components/FAQAccordion.tsx`
 - `components/ShopCta.tsx`
 - `components/Footer.tsx`
