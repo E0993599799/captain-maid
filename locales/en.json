@@ -523,5 +523,30 @@
     "depth": "Depth"
   },
   "description": "Premium cleaning products made from natural ingredients.",
-  "title": "Captain Maid - Premium Home Cleaning Products"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back!",
+    "joinUs": "Join Our Community",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "yourName": "Your full name",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signingIn": "Signing In...",
+    "signingUp": "Creating Account...",
+    "signInGoogle": "Sign in with Google",
+    "or": "OR",
+    "noAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "forgotPassword": "Forgot your password?",
+    "byLoggingIn": "By logging in, you agree to our",
+    "bySigningUp": "By signing up, you agree to our",
+    "privacyPolicy": "Privacy Policy",
+    "passwordMismatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "signupSuccess": "Account created successfully!",
+    "minCharacters": "Password must be at least 6 characters"
+  }
 }
