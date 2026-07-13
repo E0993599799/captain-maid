@@ -33,10 +33,10 @@
   --cm-warning: #ECC94B;
   --cm-info: #3182CE;
 
-  /* Typography - Loaded via next/font/google in root layout (marcuz-skills/26) */
-  --font-heading: var(--font-poppins), var(--font-prompt), sans-serif;
-  --font-body: var(--font-inter), var(--font-prompt), sans-serif;
-  --font-accent: var(--font-poppins), sans-serif;
+  /* Typography - fallback system stacks (no remote font fetch at build time) */
+  --font-heading: Inter, Poppins, Prompt, system-ui, sans-serif;
+  --font-body: Inter, Prompt, system-ui, sans-serif;
+  --font-accent: Poppins, Inter, system-ui, sans-serif;
 
   /* Spacing */
   --space-1: 4px;

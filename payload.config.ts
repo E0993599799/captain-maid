@@ -4,10 +4,11 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { Users } from './collections/Users';
-import { Products } from './collections/Products';
-import { BlogPosts } from './collections/BlogPosts';
-import { Contacts } from './collections/Contacts';
+// Payload CMS collections removed — using Supabase instead
+// import { Users } from './collections/Users';
+// import { Products } from './collections/Products';
+// import { BlogPosts } from './collections/BlogPosts';
+// import { Contacts } from './collections/Contacts';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -17,10 +18,7 @@ export default buildConfig({
     user: 'users',
   },
   collections: [
-    Users,
-    Products,
-    BlogPosts,
-    Contacts,
+    // Collections moved to Supabase — see src/lib/supabase/schema.sql
   ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET || 'supersecretfallbacksecretthirtytwocarslong',

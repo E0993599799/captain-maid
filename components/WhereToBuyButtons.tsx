@@ -40,26 +40,32 @@ export function WhereToBuyButtons({ product, links, className }: WhereToBuyButto
         const eventName = channel.eventName && ['click_line','click_call','click_email','click_homepro','click_shopee','click_lazada','click_tiktok','view_product','view_blog','filter_product','click_product_card','click_blog_card'].includes(channel.eventName)
           ? channel.eventName
           : 'click_channel';
+
+        if (isAvailable) {
+          return (
+            <a
+              key={channel.name}
+              href={channel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent(eventName as any, { channel: channel.name })}
+              className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 py-2 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
+            >
+              <img src={channel.logo} alt={channel.name} className="h-6 w-auto" />
+              <span>ซื้อที่ {channel.name}</span>
+            </a>
+          );
+        }
+
         return (
           <Button
             key={channel.name}
             variant="outline"
-            asChild={Boolean(isAvailable)}
-            disabled={!isAvailable}
-            onClick={() => isAvailable && trackEvent(eventName as any, { channel: channel.name })}
+            disabled
             className="flex items-center gap-2"
           >
-            {isAvailable ? (
-              <a href={channel.url} target="_blank" rel="noopener noreferrer">
-                <img src={channel.logo} alt={channel.name} className="h-6 w-auto" />
-                <span>ซื้อที่ {channel.name}</span>
-              </a>
-            ) : (
-              <>
-                <img src={channel.logo} alt={channel.name} className="h-6 w-auto opacity-50" />
-                <span className="opacity-50">รออัปเดต</span>
-              </>
-            )}
+            <img src={channel.logo} alt={channel.name} className="h-6 w-auto opacity-50" />
+            <span className="opacity-50">รออัปเดต</span>
           </Button>
         );
       })}

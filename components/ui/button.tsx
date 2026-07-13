@@ -2,7 +2,7 @@ import React from 'react';
 import { colors } from '@/lib/colors';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'default' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   icon?: React.ReactNode;
@@ -20,7 +20,9 @@ export function Button({
 
   const variants = {
     primary: `bg-[${colors.primary.bright}] text-white hover:bg-[${colors.primary.mid}] hover:-translate-y-0.5 shadow-md hover:shadow-lg`,
+    default: `bg-[${colors.primary.bright}] text-white hover:bg-[${colors.primary.mid}] hover:-translate-y-0.5 shadow-md hover:shadow-lg`,
     secondary: `border-2 border-[${colors.primary.bright}] text-[${colors.primary.bright}] hover:bg-[${colors.primary.bright}] hover:text-white`,
+    outline: `border-2 border-[${colors.primary.bright}] text-[${colors.primary.bright}] hover:bg-[${colors.primary.bright}] hover:text-white`,
     ghost: `text-[${colors.secondary.bright}] hover:text-[${colors.primary.bright}]`,
   };
 

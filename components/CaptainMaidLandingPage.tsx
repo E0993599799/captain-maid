@@ -61,6 +61,17 @@ const iconMap = {
 
 type IconKey = keyof typeof iconMap;
 
+const getSlideAltText = (slideKey: string, breakpoint: string): string => {
+  const alts: Record<string, string> = {
+    intro: 'Captain Maid Brand Hero - Made for Easy Home Cleaning with Natural Power - shows mascot and headline',
+    range: 'Captain Maid Product Range - Multi-Purpose Cleaners for Kitchen, Bathroom, Floor, Laundry, and Multi-Purpose use',
+    lifestyle: 'Captain Maid Family and Pet Safety - Mother, child, and dog in clean, bright home environment with natural cleaning products',
+    technology: 'Captain Maid Natural Cleaning Technology - Water splash, molecular structure, and leaf representing eco-friendly scientific approach',
+    trust: 'Captain Maid Trust and Safety Badges - Certified quality tested, eco-friendly, trusted brand with mascot endorsement',
+  };
+  return `${alts[slideKey]} (${breakpoint} view)`;
+};
+
 export function CaptainMaidLandingPage() {
   const t = useTranslations('landingPage');
   const locale = useLocale();
@@ -187,7 +198,7 @@ export function CaptainMaidLandingPage() {
             <div className="block md:hidden absolute inset-0">
               <Image
                 src={current.image.mobile}
-                alt="Captain Maid slide mobile"
+                alt={getSlideAltText(current.key, 'mobile')}
                 fill
                 priority={activeSlide === 0}
                 className="object-cover object-center"
@@ -198,7 +209,7 @@ export function CaptainMaidLandingPage() {
             <div className="hidden md:block xl:hidden absolute inset-0">
               <Image
                 src={current.image.tablet}
-                alt="Captain Maid slide tablet"
+                alt={getSlideAltText(current.key, 'tablet')}
                 fill
                 priority={activeSlide === 0}
                 className="object-cover object-center"
@@ -209,7 +220,7 @@ export function CaptainMaidLandingPage() {
             <div className="hidden xl:block absolute inset-0">
               <Image
                 src={current.image.desktop}
-                alt="Captain Maid slide desktop"
+                alt={getSlideAltText(current.key, 'desktop')}
                 fill
                 priority={activeSlide === 0}
                 className="object-cover object-center"
@@ -519,7 +530,7 @@ export function CaptainMaidLandingPage() {
             {productCards.map((product) => (
               <article key={product.title} className="overflow-hidden rounded-[32px] border border-[#D7E7FB] bg-gradient-to-br from-[#F8FBFF] to-white shadow-[0_18px_40px_rgba(10,86,194,0.08)]">
                 <div className="relative flex min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[380px] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,rgba(10,86,194,0.1),transparent_52%)] px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10">
-                  <Image src={product.image} alt={`${product.title} Captain Maid package`} width={420} height={420} placeholder="blur" className="h-auto w-[160px] sm:w-[180px] md:w-[220px] lg:w-[240px] object-contain drop-shadow-[0_20px_40px_rgba(10,86,194,0.16)]" />
+                  <Image src={product.image} alt={`${product.title} Captain Maid package`} width={420} height={420} className="h-auto w-[160px] sm:w-[180px] md:w-[220px] lg:w-[240px] object-contain drop-shadow-[0_20px_40px_rgba(10,86,194,0.16)]" />
                 </div>
                 <div className="space-y-3 p-6">
                   <h3 className="text-2xl font-semibold text-slate-900">{product.title}</h3>
@@ -566,7 +577,7 @@ export function CaptainMaidLandingPage() {
             <div className="block sm:hidden absolute inset-0">
               <Image
                 src={slide5Mobile}
-                alt="Captain Maid mascot mobile"
+                alt="Captain Maid friendly mascot character in professional cleaning uniform - trusted brand ambassador"
                 fill
                 className="object-cover object-center"
                 sizes="100vw"
@@ -575,7 +586,7 @@ export function CaptainMaidLandingPage() {
             <div className="hidden sm:block lg:hidden absolute inset-0">
               <Image
                 src={slide5Tablet}
-                alt="Captain Maid mascot tablet"
+                alt="Captain Maid friendly mascot character in professional cleaning uniform - trusted brand ambassador"
                 fill
                 className="object-cover object-center"
                 sizes="100vw"
@@ -584,7 +595,7 @@ export function CaptainMaidLandingPage() {
             <div className="hidden lg:block absolute inset-0">
               <Image
                 src={slide5Desktop}
-                alt="Captain Maid mascot desktop"
+                alt="Captain Maid friendly mascot character in professional cleaning uniform - trusted brand ambassador"
                 fill
                 className="object-cover object-center"
                 sizes="44vw"
@@ -592,9 +603,13 @@ export function CaptainMaidLandingPage() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent z-1" />
             <div className="absolute bottom-4 right-4 flex gap-3 z-2">
-              {[greenBottle, pinkBottle, purpleBottle].map((image, index) => (
+              {[
+                { src: greenBottle, alt: 'Captain Maid Tea Tree Flash - green natural multi-purpose cleaner bottle' },
+                { src: pinkBottle, alt: 'Captain Maid Floral Passionate - pink fragrant daily cleaner bottle' },
+                { src: purpleBottle, alt: 'Captain Maid Lavender Kerry - purple premium calm cleaning bottle' },
+              ].map((item, index) => (
                 <div key={index} className="w-14 sm:w-16 md:w-18 lg:w-20 xl:w-24 overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-2 shadow-[0_12px_30px_rgba(0,0,0,0.10)]">
-                  <Image src={image} alt="Captain Maid product pack" className="h-auto w-full object-contain" />
+                  <Image src={item.src} alt={item.alt} className="h-auto w-full object-contain" />
                 </div>
               ))}
             </div>
