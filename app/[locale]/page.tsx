@@ -3,6 +3,8 @@ import { site } from '@/data/site';
 import { CaptainMaidLandingPage } from '@/components/CaptainMaidLandingPage';
 import heroScene from '@/components/assets/landing/01_Brand-Hero_Desktop.png';
 
+export const dynamic = 'force-dynamic';
+
 type PageProps = {
   params: Promise<{
     locale: string;
