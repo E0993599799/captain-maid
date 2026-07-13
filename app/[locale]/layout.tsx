@@ -4,6 +4,8 @@ import type { ReactNode } from 'react';
 import { ClientWrapper } from '@/app/ClientWrapper';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 type Props = {
   children: ReactNode;
   params: Promise<{
