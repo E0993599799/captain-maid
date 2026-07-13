@@ -19,7 +19,7 @@ export function ClientWrapper({
 }: ClientWrapperProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages} timeZone="Asia/Bangkok">
         <div className={fonts}>{children}</div>
       </NextIntlClientProvider>
     </ThemeProvider>

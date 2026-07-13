@@ -36,9 +36,9 @@ export function FAQAccordion({ items, title = 'FAQ', subtitle, showCategories = 
 
       {showCategories && (
         <div className="flex flex-wrap gap-2 border-b pb-4">
-          <Button variant={activeCategory === 'all' ? 'default' : 'outline'} onClick={() => setActiveCategory('all')}>All</Button>
+          <Button variant={activeCategory === 'all' ? 'primary' : 'ghost'} onClick={() => setActiveCategory('all')}>All</Button>
           {categories.map(cat => (
-            <Button key={cat} variant={activeCategory === cat ? 'default' : 'outline'} onClick={() => setActiveCategory(cat)}>
+            <Button key={cat} variant={activeCategory === cat ? 'primary' : 'ghost'} onClick={() => setActiveCategory(cat)}>
               {cat.replace(/-/g, ' ')}
             </Button>
           ))}

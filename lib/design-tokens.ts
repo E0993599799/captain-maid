@@ -58,10 +58,10 @@ export const CAPTAIN_TYPOGRAPHY = {
   // Font Families
   fontFamily: {
     /** Poppins - for headings and strong emphasis */
-    heading: '"Poppins", "Noto Sans Thai", sans-serif',
+    heading: '"Poppins", "IBM Plex Sans Thai", sans-serif',
     
     /** Montserrat - for body text and labels */
-    body: '"Montserrat", "Noto Sans Thai", sans-serif',
+    body: '"Montserrat", "IBM Plex Sans Thai", sans-serif',
     
     /** Monotype Corsiva - decorative accent only */
     accent: '"Monotype Corsiva", cursive',
