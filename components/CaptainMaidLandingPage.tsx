@@ -720,13 +720,13 @@ export function CaptainMaidLandingPage() {
             <div>
               <h3 className="font-bold text-white mb-4">{locale === 'th' ? 'สินค้า' : 'Products'}</h3>
               <ul className="space-y-2 text-sm text-white/80">
-                <li><a href="/products?category=floor" className="hover:text-white transition">Floor Cleaner</a></li>
-                <li><a href="/products?category=bathroom" className="hover:text-white transition">Bathroom Cleaner</a></li>
-                <li><a href="/products?category=kitchen" className="hover:text-white transition">Kitchen Cleaner</a></li>
-                <li><a href="/products?category=glass" className="hover:text-white transition">Glass Cleaner</a></li>
-                <li><a href="/products?category=disinfectant" className="hover:text-white transition">Multi-purpose Disinfectant</a></li>
-                <li><a href="/products?category=dishwasher" className="hover:text-white transition">Dishwasher</a></li>
-                <li><a href="/products" className="hover:text-white transition font-semibold text-white">View All</a></li>
+                <li><Link href="/products?category=floor" className="hover:text-white transition">Floor Cleaner</Link></li>
+                <li><Link href="/products?category=bathroom" className="hover:text-white transition">Bathroom Cleaner</Link></li>
+                <li><Link href="/products?category=kitchen" className="hover:text-white transition">Kitchen Cleaner</Link></li>
+                <li><Link href="/products?category=glass" className="hover:text-white transition">Glass Cleaner</Link></li>
+                <li><Link href="/products?category=disinfectant" className="hover:text-white transition">Multi-purpose Disinfectant</Link></li>
+                <li><Link href="/products?category=dishwasher" className="hover:text-white transition">Dishwasher</Link></li>
+                <li><Link href="/products" className="hover:text-white transition font-semibold text-white">View All</Link></li>
               </ul>
             </div>
 
@@ -747,10 +747,10 @@ export function CaptainMaidLandingPage() {
             <div>
               <h3 className="font-bold text-white mb-4">{locale === 'th' ? 'ช่วยเหลือ' : 'Support'}</h3>
               <ul className="space-y-2 text-sm text-white/80">
-                <li><a href="/about" className="hover:text-white transition">{locale === 'th' ? 'เกี่ยวกับเรา' : 'About Us'}</a></li>
-                <li><a href="/contact" className="hover:text-white transition">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a></li>
-                <li><a href="/blog" className="hover:text-white transition">{locale === 'th' ? 'บล็อก' : 'Blog'}</a></li>
-                <li><a href="/faq" className="hover:text-white transition">{locale === 'th' ? 'FAQ' : 'FAQ'}</a></li>
+                <li><Link href={`/${locale}/about`} className="hover:text-white transition">{locale === 'th' ? 'เกี่ยวกับเรา' : 'About Us'}</Link></li>
+                <li><Link href={`/${locale}/contact`} className="hover:text-white transition">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</Link></li>
+                <li><Link href={`/${locale}/blog`} className="hover:text-white transition">{locale === 'th' ? 'บล็อก' : 'Blog'}</Link></li>
+                <li><Link href={`/${locale}/faq`} className="hover:text-white transition">{locale === 'th' ? 'FAQ' : 'FAQ'}</Link></li>
                 <li className="pt-2 border-t border-white/20">
                   <a href="#" className="hover:text-white transition text-xs">{locale === 'th' ? 'นโยบายความเป็นส่วนตัว' : 'Privacy Policy'}</a>
                 </li>
