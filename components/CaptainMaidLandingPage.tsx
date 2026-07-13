@@ -701,18 +701,69 @@ export function CaptainMaidLandingPage() {
       </section>
 
       {/* Global Footer */}
-      <footer className="border-t border-cm-border-soft bg-white px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <span className="text-lg font-black text-cm-navy">Captain Maid</span>
-            <p className="text-xs text-slate-500 text-center md:text-left max-w-sm">
-              {t('footer.description')}
-            </p>
+      <footer className="border-t border-cm-border-soft bg-[#003C8F] text-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 md:grid-cols-4 mb-12">
+            {/* Column 1: Brand Info */}
+            <div className="flex flex-col gap-4">
+              <span className="text-lg font-black">Captain Maid</span>
+              <p className="text-sm text-white/80">
+                {locale === 'th' ? 'ผลิตภัณฑ์ทำความสะอาดบ้านที่ปลอดภัยและเป็นมิตรต่อสิ่งแวดล้อม' : 'Safe and eco-friendly home cleaning products for your family.'}
+              </p>
+              <div className="flex gap-3">
+                <a href="#" className="text-white/60 hover:text-white transition">📱</a>
+                <a href="#" className="text-white/60 hover:text-white transition">📧</a>
+              </div>
+            </div>
+
+            {/* Column 2: Products */}
+            <div>
+              <h3 className="font-bold text-white mb-4">{locale === 'th' ? 'สินค้า' : 'Products'}</h3>
+              <ul className="space-y-2 text-sm text-white/80">
+                <li><a href="/products?category=floor" className="hover:text-white transition">Floor Cleaner</a></li>
+                <li><a href="/products?category=bathroom" className="hover:text-white transition">Bathroom Cleaner</a></li>
+                <li><a href="/products?category=kitchen" className="hover:text-white transition">Kitchen Cleaner</a></li>
+                <li><a href="/products?category=glass" className="hover:text-white transition">Glass Cleaner</a></li>
+                <li><a href="/products?category=disinfectant" className="hover:text-white transition">Multi-purpose Disinfectant</a></li>
+                <li><a href="/products?category=dishwasher" className="hover:text-white transition">Dishwasher</a></li>
+                <li><a href="/products" className="hover:text-white transition font-semibold text-white">View All</a></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Solutions */}
+            <div>
+              <h3 className="font-bold text-white mb-4">{locale === 'th' ? 'วิธีแก้ปัญหา' : 'Solutions'}</h3>
+              <ul className="space-y-2 text-sm text-white/80">
+                <li><a href="#solutions" className="hover:text-white transition">Clogs & Drains</a></li>
+                <li><a href="#solutions" className="hover:text-white transition">Germs & Bacteria</a></li>
+                <li><a href="#solutions" className="hover:text-white transition">Grease & Buildup</a></li>
+                <li><a href="#solutions" className="hover:text-white transition">Hard Water Spots</a></li>
+                <li><a href="#solutions" className="hover:text-white transition">Limescale</a></li>
+                <li><a href="#solutions" className="hover:text-white transition">Odour & Freshness</a></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Support & Legal */}
+            <div>
+              <h3 className="font-bold text-white mb-4">{locale === 'th' ? 'ช่วยเหลือ' : 'Support'}</h3>
+              <ul className="space-y-2 text-sm text-white/80">
+                <li><a href="/about" className="hover:text-white transition">{locale === 'th' ? 'เกี่ยวกับเรา' : 'About Us'}</a></li>
+                <li><a href="/contact" className="hover:text-white transition">{locale === 'th' ? 'ติดต่อ' : 'Contact'}</a></li>
+                <li><a href="/blog" className="hover:text-white transition">{locale === 'th' ? 'บล็อก' : 'Blog'}</a></li>
+                <li><a href="/faq" className="hover:text-white transition">{locale === 'th' ? 'FAQ' : 'FAQ'}</a></li>
+                <li className="pt-2 border-t border-white/20">
+                  <a href="#" className="hover:text-white transition text-xs">{locale === 'th' ? 'นโยบายความเป็นส่วนตัว' : 'Privacy Policy'}</a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition text-xs">{locale === 'th' ? 'เงื่อนไขการใช้' : 'Terms of Service'}</a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="flex flex-col items-center md:items-end gap-3">
-            <span className="text-xs text-slate-500">
-              {t('footer.copyright')}
-            </span>
+
+          {/* Footer Bottom */}
+          <div className="border-t border-white/20 pt-8 text-center text-sm text-white/60">
+            <p>{t('footer.copyright')}</p>
           </div>
         </div>
       </footer>
