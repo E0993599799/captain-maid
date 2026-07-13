@@ -66,6 +66,8 @@ export const NavigationEnhanced = () => {
     { label: 'Bathroom Cleaner', href: '/products?category=bathroom' },
     { label: 'Kitchen Cleaner', href: '/products?category=kitchen' },
     { label: 'Glass Cleaner', href: '/products?category=glass' },
+    { label: 'Multi-purpose Disinfectant', href: '/products?category=disinfectant' },
+    { label: 'Dishwasher', href: '/products?category=dishwasher' },
     { label: 'View All', href: '/products' },
   ];
 

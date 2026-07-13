@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* Captain Maid Core Colors */
-  --cm-primary: #0066CC;
-  --cm-accent: #5B9FFF;
+  /* Captain Maid Core Colors - Bright Aqua Brand Identity */
+  --cm-primary: #02A6E3;
+  --cm-accent: #90D0F0;
   --cm-light: #E3F2FD;
   --cm-dark: #003D99;
-  --cm-text: #0A1E4D;
+  --cm-text: #001360;
   --cm-muted: #5B7FA6;
   --cm-white: #FFFFFF;
   --cm-border: #B3D9FF;

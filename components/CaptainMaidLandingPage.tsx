@@ -122,6 +122,11 @@ export function CaptainMaidLandingPage() {
     {
       image: greenBottle,
       title: 'Tea Tree Flash',
+      category: 'Floor Cleaner',
+      price: 299,
+      priceUSD: 8.99,
+      rating: 4.8,
+      reviewCount: 156,
       description: locale === 'th'
         ? 'ภาพแพ็กเกจสีเขียวสำหรับงานดูแลพื้นและความสดชื่นในบ้าน'
         : 'Green packaging for floor care and a fresh home-cleaning story.',
@@ -129,6 +134,11 @@ export function CaptainMaidLandingPage() {
     {
       image: pinkBottle,
       title: 'Floral Passionate',
+      category: 'Multi-Purpose',
+      price: 349,
+      priceUSD: 9.99,
+      rating: 4.9,
+      reviewCount: 243,
       description: locale === 'th'
         ? 'ภาพแพ็กเกจโทนชมพูสำหรับบรรยากาศหอมละมุนและสะอาดทุกวัน'
         : 'Pink packaging for a softer fragrance-led daily cleaning story.',
@@ -136,6 +146,11 @@ export function CaptainMaidLandingPage() {
     {
       image: purpleBottle,
       title: 'Lavender Kerry',
+      category: 'Bathroom Cleaner',
+      price: 399,
+      priceUSD: 11.99,
+      rating: 4.7,
+      reviewCount: 189,
       description: locale === 'th'
         ? 'ภาพแพ็กเกจโทนม่วงสำหรับความผ่อนคลายที่ยังคงความพรีเมียม'
         : 'Purple packaging for a calm, premium cleaning presence.',
@@ -533,13 +548,31 @@ export function CaptainMaidLandingPage() {
                   <Image src={product.image} alt={`${product.title} Captain Maid package`} width={420} height={420} className="h-auto w-[160px] sm:w-[180px] md:w-[220px] lg:w-[240px] object-contain drop-shadow-[0_20px_40px_rgba(10,86,194,0.16)]" />
                 </div>
                 <div className="space-y-3 p-6">
-                  <h3 className="text-2xl font-semibold text-slate-900">{product.title}</h3>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="inline-flex items-center rounded-full bg-[#EAF4FF] px-3 py-1 text-xs font-semibold text-[#0A56C2] mb-2">
+                        {product.category}
+                      </span>
+                      <h3 className="text-2xl font-semibold text-slate-900">{product.title}</h3>
+                    </div>
+                  </div>
                   <p className="text-sm leading-7 text-slate-600">{product.description}</p>
                   <div className="flex items-center gap-2 text-sm font-semibold text-[#0A56C2]">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#EAF4FF]">
-                      <Star size={16} className="fill-[#0A56C2] text-[#0A56C2]" />
-                    </span>
-                    Captain Maid premium package
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className={i < Math.floor(product.rating) ? "fill-[#0A56C2] text-[#0A56C2]" : "text-gray-300"} />
+                      ))}
+                    </div>
+                    <span className="text-xs">{product.rating} ({product.reviewCount})</span>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+                    <div>
+                      <p className="text-xs text-slate-500">{locale === 'th' ? 'ราคา' : 'Price'}</p>
+                      <p className="text-lg font-bold text-slate-900">฿{product.price} <span className="text-sm text-slate-600">(${product.priceUSD})</span></p>
+                    </div>
+                    <button className="rounded-full bg-[#0A56C2] px-4 py-2 text-xs font-semibold text-white hover:bg-[#003C8F] transition-colors">
+                      {locale === 'th' ? 'ซื้อเลย' : 'Buy Now'}
+                    </button>
                   </div>
                 </div>
               </article>
