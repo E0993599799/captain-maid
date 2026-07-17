@@ -21,6 +21,8 @@ const config: Config = {
           'neutral-light': '#9B8F87',
           success: '#2D7A3E',
           warning: '#D97706',
+          text: '#1F1D1A',
+          'text-light': '#7A6F69',
         },
       },
       fontFamily: {
