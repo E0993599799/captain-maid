@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { LanguageToggle } from './LanguageToggle'
 
 const footerLinks = {
   products: [
