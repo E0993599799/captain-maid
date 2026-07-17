@@ -10,12 +10,6 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
   },
 
-  // i18n
-  i18n: {
-    locales: ['th', 'en'],
-    defaultLocale: 'th',
-  },
-
   // Headers for performance & security
   async headers() {
     return [
@@ -41,28 +35,6 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin'
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ],
-      },
-      {
-        source: '/api/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, stale-while-revalidate=86400'
-          }
-        ]
-      },
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
           }
         ]
       }
@@ -73,24 +45,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
+        source: '/products',
+        destination: '/en/products',
+        permanent: false
+      }
     ]
-  },
-
-  // Rewrites
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/sitemap.xml',
-          destination: '/api/sitemap',
-        },
-      ],
-    }
-  },
+  }
 }
 
 module.exports = nextConfig
