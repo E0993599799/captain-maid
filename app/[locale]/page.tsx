@@ -33,24 +33,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const settingsResponse = await cmsClient.getSiteSettings(locale).catch(() => null);
   const settings = settingsResponse?.docs?.[0];
 
-// ISR: Revalidate homepage every 30 minutes
-export const revalidate = 1800;
-
-interface PageProps {
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-  params: Promise<{ locale: Locale }>;
-}
-
-/**
- * Generate metadata for SEO
- */
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale } = await params;
-
-  // Fetch site settings for company info
-  const settingsResponse = await cmsClient.getSiteSettings(locale).catch(() => null);
-  const settings = settingsResponse?.docs?.[0];
 
   const title =
     locale === "th"
@@ -138,7 +120,7 @@ export function generateStaticParams() {
 }
 
 export default async function HomePage({ params }: PageProps) {
-  const { locale } = await params;
+  const { locale } = params;
 
   // Validate locale
   if (!["th", "en"].includes(locale)) {
