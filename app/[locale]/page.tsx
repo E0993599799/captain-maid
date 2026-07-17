@@ -120,7 +120,7 @@ export function generateStaticParams() {
 }
 
 export default async function HomePage({ params }: PageProps) {
-  const { locale } = params;
+  const { locale } = await params;
 
   // Validate locale
   if (!["th", "en"].includes(locale)) {
