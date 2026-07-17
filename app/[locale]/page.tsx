@@ -1,21 +1,6 @@
 /**
  * Captain Maid Homepage
  * CMS-connected with ISR caching
- *
- * Sections:
- * - Header/Navigation
- * - Hero Slider
- * - Trust Benefits
- * - Category Grid
- * - Solutions by Room
- * - Solutions by Problem
- * - Best-Selling Products
- * - Quality Banner
- * - Why Captain Maid
- * - Testimonials
- * - Latest Articles
- * - Newsletter
- * - Footer
  */
 
 import { notFound } from "next/navigation";
@@ -35,14 +20,33 @@ import { Locale } from "@/types/cms";
 export const revalidate = 1800;
 
 interface PageProps {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }
 
 /**
  * Generate metadata for SEO
  */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale } = params;
+  const { locale } = await params;
+
+  // Fetch site settings for company info
+  const settingsResponse = await cmsClient.getSiteSettings(locale).catch(() => null);
+  const settings = settingsResponse?.docs?.[0];
+
+// ISR: Revalidate homepage every 30 minutes
+export const revalidate = 1800;
+
+interface PageProps {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+  params: Promise<{ locale: Locale }>;
+}
+
+/**
+ * Generate metadata for SEO
+ */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
 
   // Fetch site settings for company info
   const settingsResponse = await cmsClient.getSiteSettings(locale).catch(() => null);
@@ -134,7 +138,7 @@ export function generateStaticParams() {
 }
 
 export default async function HomePage({ params }: PageProps) {
-  const { locale } = params;
+  const { locale } = await params;
 
   // Validate locale
   if (!["th", "en"].includes(locale)) {
