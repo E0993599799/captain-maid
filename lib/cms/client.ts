@@ -240,12 +240,13 @@ class CMSClient {
   /**
    * Fetch categories
    */
-  async getCategories(_filters: { locale?: Locale } = {}, options: RequestOptions = {}) {
+  async getCategories(filters: { locale?: Locale } = {}, options: RequestOptions = {}) {
     return this.restGet(
       "product-categories",
       {
         where: {
           status: { equals: "published" },
+          ...(filters.locale && { locale: { equals: filters.locale } }),
         },
         sort: "name",
       },
