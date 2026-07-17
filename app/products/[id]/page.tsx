@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 
 interface ProductDetailProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 // Sample product data (in production, fetch from database/API)
@@ -103,7 +103,8 @@ const productDatabase: Record<
 }
 
 export async function generateMetadata({ params }: ProductDetailProps): Promise<Metadata> {
-  const product = productDatabase[params.slug]
+  const { slug } = await params
+  const product = productDatabase[slug]
   if (!product) {
     return { title: 'Product Not Found' }
   }
@@ -115,13 +116,14 @@ export async function generateMetadata({ params }: ProductDetailProps): Promise<
     openGraph: {
       title: product.name,
       description: product.benefits[0],
-      type: 'product',
+      type: 'website',
     },
   }
 }
 
-export default function ProductDetailPage({ params }: ProductDetailProps) {
-  const product = productDatabase[params.slug]
+export default async function ProductDetailPage({ params }: ProductDetailProps) {
+  const { slug } = await params
+  const product = productDatabase[slug]
 
   if (!product) {
     return (

@@ -10,7 +10,7 @@
  * - Timeout handling
  */
 
-import { CMSError, CMSException, GraphQLResponse, Locale } from "@/types/cms";
+import { CMSException, GraphQLResponse, Locale } from "@/types/cms";
 
 const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "http://localhost:3000";
 const SITE_SLUG = process.env.CMS_SITE_SLUG || "captain-maid";
@@ -65,13 +65,11 @@ class CMSClient {
     }
 
     // Add read token to headers
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      ...fetchOptions.headers,
-    };
+    const headers = new Headers(fetchOptions.headers);
+    headers.set("Content-Type", "application/json");
 
     if (this.readToken) {
-      headers.Authorization = `Bearer ${this.readToken}`;
+      headers.set("Authorization", `Bearer ${this.readToken}`);
     }
 
     let lastError: Error | null = null;
@@ -242,7 +240,7 @@ class CMSClient {
   /**
    * Fetch categories
    */
-  async getCategories(filters: { locale?: Locale } = {}, options: RequestOptions = {}) {
+  async getCategories(_filters: { locale?: Locale } = {}, options: RequestOptions = {}) {
     return this.restGet(
       "product-categories",
       {
@@ -260,7 +258,7 @@ class CMSClient {
    */
   async getSolutions(
     type: "room" | "problem",
-    filters: { locale?: Locale } = {},
+    _filters: { locale?: Locale } = {},
     options: RequestOptions = {}
   ) {
     return this.restGet(

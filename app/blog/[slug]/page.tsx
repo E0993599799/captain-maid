@@ -4,7 +4,7 @@ import { ChevronLeft } from 'lucide-react'
 import { TipCard } from '@/components/TipCard'
 
 interface BlogPostProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 // Sample blog posts (in production, fetch from database/CMS)
@@ -217,7 +217,8 @@ Set a recurring monthly reminder. You'll notice the difference in how fresh your
 }
 
 export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
-  const post = blogDatabase[params.slug]
+  const { slug } = await params
+  const post = blogDatabase[slug]
   if (!post) {
     return { title: 'Post Not Found' }
   }
@@ -262,8 +263,9 @@ const relatedArticles = [
   },
 ]
 
-export default function BlogPostPage({ params }: BlogPostProps) {
-  const post = blogDatabase[params.slug]
+export default async function BlogPostPage({ params }: BlogPostProps) {
+  const { slug } = await params
+  const post = blogDatabase[slug]
 
   if (!post) {
     return (
@@ -317,7 +319,9 @@ export default function BlogPostPage({ params }: BlogPostProps) {
                 .split('\n\n')
                 .map((paragraph) => {
                   if (paragraph.startsWith('#')) {
-                    const level = paragraph.match(/^#+/)[0].length
+                    const headingMatch = paragraph.match(/^#+/)
+                    if (!headingMatch) return `<p>${paragraph}</p>`
+                    const level = headingMatch[0].length
                     const text = paragraph.replace(/^#+\s/, '')
                     return `<h${level} class="font-serif font-bold text-captain-text mt-xl mb-md ${
                       level === 2 ? 'text-3xl' : level === 3 ? 'text-2xl' : 'text-xl'

@@ -8,7 +8,7 @@ interface LanguageToggleProps {
 }
 
 export function LanguageToggle({ isDark }: LanguageToggleProps) {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? '/th'
 
   const currentLocale = pathname.startsWith('/en') ? 'en' : 'th'
   const toggleLocale = currentLocale === 'th' ? 'en' : 'th'

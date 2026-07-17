@@ -10,11 +10,9 @@ import {
   adaptProducts,
   adaptSolutions,
   adaptArticles,
-  adaptSiteSettings,
   getLocalized,
-  getCacheOptions,
 } from "@/lib/cms/adapter";
-import { Locale } from "@/types/cms";
+import { CMSArticle, CMSProduct, CMSSolution, Locale, PaginatedResponse } from "@/types/cms";
 
 // ISR: Revalidate homepage every 30 minutes
 export const revalidate = 1800;
@@ -28,11 +26,6 @@ interface PageProps {
  */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-
-  // Fetch site settings for company info
-  const settingsResponse = await cmsClient.getSiteSettings(locale).catch(() => null);
-  const settings = settingsResponse?.docs?.[0];
-
 
   const title =
     locale === "th"
@@ -74,40 +67,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
  */
 async function getHomepageData(locale: Locale) {
   try {
-    // Fetch all homepage data in parallel
-    const [
-      productsResponse,
-      categoriesResponse,
-      roomSolutionsResponse,
-      problemSolutionsResponse,
-      articlesResponse,
-      settingsResponse,
-    ] = await Promise.allSettled([
-      cmsClient.getProducts({ limit: 12 }),
-      cmsClient.getCategories(),
-      cmsClient.getSolutions("room"),
-      cmsClient.getSolutions("problem"),
-      cmsClient.getArticles({ limit: 3 }),
-      cmsClient.getSiteSettings(locale),
-    ]);
+    const [productsResponse, roomSolutionsResponse, problemSolutionsResponse, articlesResponse] =
+      await Promise.allSettled([
+        cmsClient.getProducts({ limit: 12 }) as Promise<PaginatedResponse<CMSProduct>>,
+        cmsClient.getSolutions("room") as Promise<PaginatedResponse<CMSSolution>>,
+        cmsClient.getSolutions("problem") as Promise<PaginatedResponse<CMSSolution>>,
+        cmsClient.getArticles({ limit: 3 }) as Promise<PaginatedResponse<CMSArticle>>,
+      ]);
 
     return {
       products: productsResponse.status === "fulfilled" ? adaptProducts(productsResponse.value, locale) : null,
-      categories: categoriesResponse.status === "fulfilled" ? adaptArticles(categoriesResponse.value, locale) : null,
       roomSolutions: roomSolutionsResponse.status === "fulfilled" ? adaptSolutions(roomSolutionsResponse.value, locale) : null,
       problemSolutions: problemSolutionsResponse.status === "fulfilled" ? adaptSolutions(problemSolutionsResponse.value, locale) : null,
       articles: articlesResponse.status === "fulfilled" ? adaptArticles(articlesResponse.value, locale) : null,
-      settings: settingsResponse.status === "fulfilled" ? adaptSiteSettings(settingsResponse.value, locale) : null,
     };
   } catch (error) {
     console.error("Failed to fetch homepage data:", error);
     return {
       products: null,
-      categories: null,
       roomSolutions: null,
       problemSolutions: null,
       articles: null,
-      settings: null,
     };
   }
 }
@@ -396,19 +376,19 @@ export default async function HomePage({ params }: PageProps) {
               ? "ติดตามเคล็ดลับการทำความสะอาด และโปรโมชั่นพิเศษ"
               : "Get cleaning tips and special offers"}
           </p>
-          <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+          <div className="flex gap-2">
             <input
               type="email"
               placeholder={locale === "th" ? "อีเมลของคุณ" : "Your email"}
               className="flex-1 px-4 py-3 rounded text-gray-900"
             />
             <button
-              type="submit"
+              type="button"
               className="bg-white text-blue-600 px-6 py-3 rounded font-semibold hover:bg-gray-100 transition"
             >
               {locale === "th" ? "สมัครสมาชิก" : "Subscribe"}
             </button>
-          </form>
+          </div>
         </div>
       </section>
 
