@@ -1,0 +1,27 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Pre-commit hook: Validate schema changes before commit
+# Prevents committing invalid collection schemas
+
+echo "🔍 Validating Payload schema..."
+
+# 1. Check for TypeScript errors in collections
+npm run lint:collections 2>/dev/null || {
+  echo "❌ Schema validation failed: TypeScript errors in collections"
+  exit 1
+}
+
+# 2. Verify Payload config compiles
+npm run payload validate 2>/dev/null || {
+  echo "❌ Schema validation failed: payload.config.ts has errors"
+  exit 1
+}
+
+# 3. Type generation test
+npm run payload generate:types 2>/dev/null || {
+  echo "❌ Schema validation failed: Cannot generate Payload types"
+  exit 1
+}
+
+echo "✓ Schema validation passed"

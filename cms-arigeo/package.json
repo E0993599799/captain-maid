@@ -1,0 +1,36 @@
+{
+  "name": "cms-arigeo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "npm run validate:schema && next build --webpack",
+    "start": "next start",
+    "lint": "tsc -p tsconfig.typecheck.json --noEmit",
+    "lint:collections": "tsc -p tsconfig.typecheck.json --noEmit src/payload/collections/",
+    "payload": "payload",
+    "generate:importmap": "payload generate:importmap",
+    "generate:types": "payload generate:types",
+    "validate:schema": "npm run lint:collections && npm run generate:types",
+    "validate:migration": "./scripts/validate-migration.sh",
+    "validate:db": "npm run validate:migration staging",
+    "precommit": "npm run validate:schema"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.75.0",
+    "@payloadcms/next": "^3.75.0",
+    "@payloadcms/richtext-lexical": "^3.75.0",
+    "@payloadcms/storage-vercel-blob": "^3.75.0",
+    "graphql": "^16.11.0",
+    "next": "^16.2.6",
+    "payload": "^3.75.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sharp": "^0.34.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "typescript": "^5.9.2"
+  }
+}
