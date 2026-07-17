@@ -96,7 +96,6 @@ const config: Config = {
     },
   },
   plugins: [
-    // require('@tailwindcss/typography'), // TODO: Install when available
   ],
 }
 
