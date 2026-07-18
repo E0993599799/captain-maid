@@ -2,7 +2,9 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Search, User, ShoppingCart, Menu, X, ChevronDown } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { Menu, X, ChevronDown } from 'lucide-react'
+import { LanguageToggle } from './LanguageToggle'
 
 interface NavItem {
   label: string
@@ -56,10 +58,12 @@ const NAV: NavItem[] = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [openMenu, setOpenMenu] = React.useState<string | null>(null)
-  const [lang, setLang] = React.useState<'TH' | 'EN'>('TH')
   const [visible, setVisible] = React.useState(true)
   const [scrolled, setScrolled] = React.useState(false)
   const lastScrollY = React.useRef(0)
+  const pathname = usePathname() ?? '/th'
+  const locale = pathname.startsWith('/en') ? 'en' : 'th'
+  const localize = (href: string) => `/${locale}${href === '/' ? '' : href}`
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -75,6 +79,17 @@ export function Header() {
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false)
+        setOpenMenu(null)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   return (
@@ -99,7 +114,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+          <Link href={localize('/')} className="flex items-center gap-2.5 flex-shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/logo.png"
@@ -122,9 +137,10 @@ export function Header() {
                 className="relative"
                 onMouseEnter={() => item.items && setOpenMenu(item.label)}
                 onMouseLeave={() => setOpenMenu(null)}
+                onFocus={() => item.items && setOpenMenu(item.label)}
               >
                 <Link
-                  href={item.href}
+                  href={localize(item.href)}
                   className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-[#0079c1] py-2 ${
                     i === 0 ? 'text-[#0079c1]' : 'text-gray-600'
                   }`}
@@ -139,7 +155,7 @@ export function Header() {
                       {item.items.map((sub) => (
                         <Link
                           key={sub.label}
-                          href={sub.href}
+                          href={localize(sub.href)}
                           className="block px-4 py-2 text-sm text-gray-600 hover:text-[#0079c1] hover:bg-[#e6f3fa] transition-colors"
                           onClick={() => setOpenMenu(null)}
                         >
@@ -155,42 +171,20 @@ export function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="hidden sm:flex items-center gap-1 text-xs font-semibold">
-              <button
-                onClick={() => setLang('TH')}
-                className={`px-1.5 py-0.5 rounded ${lang === 'TH' ? 'text-[#0079c1]' : 'text-gray-300'}`}
-              >
-                TH
-              </button>
-              <span className="text-gray-200">|</span>
-              <button
-                onClick={() => setLang('EN')}
-                className={`px-1.5 py-0.5 rounded ${lang === 'EN' ? 'text-[#0079c1]' : 'text-gray-300'}`}
-              >
-                EN
-              </button>
+            <div className="hidden sm:block">
+              <LanguageToggle />
             </div>
-            <button aria-label="Search" className="hidden sm:flex items-center justify-center w-11 h-11 text-gray-500 hover:text-[#0079c1] transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
-            <button aria-label="Account" className="hidden sm:flex items-center justify-center w-11 h-11 text-gray-500 hover:text-[#0079c1] transition-colors">
-              <User className="w-5 h-5" />
-            </button>
-            <button aria-label="Cart" className="flex items-center justify-center w-11 h-11 relative text-gray-500 hover:text-[#0079c1] transition-colors">
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-2 -right-2 w-4 h-4 bg-[#0079c1] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                0
-              </span>
-            </button>
             <Link
-              href="/products"
+              href={localize('/products')}
               className="hidden sm:inline-flex items-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-5 py-2 text-sm font-semibold shadow-md transition-all"
             >
-              Shop Now
+              {locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}
             </Link>
             <button
               className="lg:hidden flex items-center justify-center w-11 h-11 text-gray-600"
-              aria-label="Menu"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="captain-maid-mobile-menu"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -201,13 +195,13 @@ export function Header() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 max-h-[80vh] overflow-y-auto">
+        <div id="captain-maid-mobile-menu" className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 max-h-[80vh] overflow-y-auto">
           <nav className="flex flex-col px-4 py-4 gap-1">
             {NAV.map((item, i) => (
               <div key={item.label}>
                 <div className="flex items-center justify-between">
                   <Link
-                    href={item.href}
+                    href={localize(item.href)}
                     className={`text-sm font-medium py-2 ${i === 0 ? 'text-[#0079c1]' : 'text-gray-600'}`}
                     onClick={() => setMobileOpen(false)}
                   >
@@ -230,7 +224,7 @@ export function Header() {
                     {item.items.map((sub) => (
                       <Link
                         key={sub.label}
-                        href={sub.href}
+                        href={localize(sub.href)}
                         className="text-sm text-gray-500 py-1.5 hover:text-[#0079c1]"
                         onClick={() => setMobileOpen(false)}
                       >
@@ -242,11 +236,11 @@ export function Header() {
               </div>
             ))}
             <Link
-              href="/products"
+              href={localize('/products')}
               className="bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full mt-3 py-2.5 text-center text-sm font-semibold"
               onClick={() => setMobileOpen(false)}
             >
-              Shop Now
+              {locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}
             </Link>
           </nav>
         </div>

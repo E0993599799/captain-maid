@@ -12,7 +12,8 @@ export function LanguageToggle({ isDark }: LanguageToggleProps) {
 
   const currentLocale = pathname.startsWith('/en') ? 'en' : 'th'
   const toggleLocale = currentLocale === 'th' ? 'en' : 'th'
-  const newPath = pathname.replace(/^\/\w{2}(?=\/|$)/, `/${toggleLocale}`) || `/${toggleLocale}`
+  const newPath = pathname.replace(/^\/\w{2}(?=\/|$)/, `/${toggleLocale}`)
+    || `/${toggleLocale}`
 
   return (
     <Link

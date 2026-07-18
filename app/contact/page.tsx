@@ -18,7 +18,7 @@ export default function ContactPage() {
         <div className="mb-2xl py-xl text-center">
           <h1 className="text-5xl font-serif font-bold mb-md text-captain-blue">Get in Touch</h1>
           <p className="text-xl text-captain-neutral max-prose mx-auto">
-            Have questions or feedback? We'd love to hear from you. Reach out using any method below.
+            Have questions or feedback? We&apos;d love to hear from you. Reach out using any method below.
           </p>
         </div>
 

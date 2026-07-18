@@ -16,25 +16,47 @@ const slides = [
 
 export default function HeroSlider() {
   const [current, setCurrent] = React.useState(0)
+  const [paused, setPaused] = React.useState(false)
+  const [reducedMotion, setReducedMotion] = React.useState(false)
 
   React.useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReducedMotion(mediaQuery.matches)
+    const handleMotionPreference = () => setReducedMotion(mediaQuery.matches)
+    mediaQuery.addEventListener('change', handleMotionPreference)
+    return () => mediaQuery.removeEventListener('change', handleMotionPreference)
+  }, [])
+
+  React.useEffect(() => {
+    if (paused || reducedMotion) return
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length)
     }, 4500)
     return () => clearInterval(timer)
-  }, [])
+  }, [paused, reducedMotion])
 
   const goPrev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
   const goNext = () => setCurrent((prev) => (prev + 1) % slides.length)
 
   return (
-    <section className="relative w-full h-[85vh] min-h-[540px] overflow-hidden">
+    <section
+      className="relative w-full h-[85vh] min-h-[540px] overflow-hidden"
+      aria-roledescription="carousel"
+      aria-label="Captain Maid highlights"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false)
+      }}
+    >
       {/* Slides */}
       {slides.map((src, i) => (
         <div
           key={src}
-          className="absolute inset-0 transition-opacity duration-700"
+          className={`absolute inset-0 ${reducedMotion ? '' : 'transition-opacity duration-700'}`}
           style={{ opacity: i === current ? 1 : 0 }}
+          aria-hidden={i !== current}
         >
           <Image
             src={src}
@@ -108,6 +130,7 @@ export default function HeroSlider() {
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === current}
             className="min-w-12 min-h-12 flex items-center justify-center transition-all duration-300"
           >
             <span className={`h-2 rounded-full transition-all duration-300 ${

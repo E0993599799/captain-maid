@@ -2,7 +2,9 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Star, ShoppingCart, SlidersHorizontal } from 'lucide-react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { Star, SlidersHorizontal } from 'lucide-react'
 import {
   PRODUCTS,
   CATEGORIES,
@@ -20,6 +22,7 @@ function categoryLabel(id: ProductCategory): string {
 
 export default function ProductsGrid({ initialCategory }: Props) {
   const [category, setCategory] = React.useState<ProductCategory | 'all'>(initialCategory)
+  const router = useRouter()
 
   const products: CaptainProduct[] =
     category === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.category === category)
@@ -43,7 +46,11 @@ export default function ProductsGrid({ initialCategory }: Props) {
           {CATEGORIES.map((c) => (
             <button
               key={c.id}
-              onClick={() => setCategory(c.id)}
+              onClick={() => {
+                setCategory(c.id)
+                router.replace(c.id === 'all' ? '/products' : `/products?category=${c.id}`, { scroll: false })
+              }}
+              aria-pressed={category === c.id}
               className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
                 category === c.id
                   ? 'bg-[#0079c1] text-white border-[#0079c1] shadow-md'
@@ -68,11 +75,12 @@ export default function ProductsGrid({ initialCategory }: Props) {
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#eef6fb]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={p.image}
                     alt={p.name.en}
+                    fill
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <span className="absolute top-3 left-3 bg-white/90 backdrop-blur text-[#0079c1] text-[10px] font-bold px-2.5 py-1 rounded-full border border-[#e6f3fa]">
                     {categoryLabel(p.category)}
@@ -106,7 +114,6 @@ export default function ProductsGrid({ initialCategory }: Props) {
                       ฿{p.price.toFixed(2)}
                     </span>
                     <span className="inline-flex items-center bg-[#e6f3fa] group-hover:bg-[#0079c1] text-[#0079c1] group-hover:text-white rounded-full px-4 py-2 text-xs font-semibold transition-colors">
-                      <ShoppingCart className="w-3.5 h-3.5 mr-1" />
                       ดูสินค้า
                     </span>
                   </div>

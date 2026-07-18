@@ -5,9 +5,6 @@ import Link from 'next/link'
 import {
   Star,
   ChevronLeft,
-  ShoppingCart,
-  Plus,
-  Minus,
   CheckCircle2,
   Sparkles,
   ShieldCheck,
@@ -35,7 +32,6 @@ const LABELS: Record<Lang, { benefits: string; suitable: string; freeFrom: strin
 
 export default function ProductDetail({ product }: { product: CaptainProduct }) {
   const [lang, setLang] = React.useState<Lang>('th')
-  const [qty, setQty] = React.useState(1)
   const t = LABELS[lang]
 
   const categoryLabel =
@@ -58,6 +54,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
           <div className="flex items-center gap-1 text-xs font-bold bg-[#f0f7fc] rounded-full p-1">
             <button
               onClick={() => setLang('th')}
+              aria-pressed={lang === 'th'}
               className={`px-4 py-1.5 rounded-full transition-colors ${
                 lang === 'th' ? 'bg-[#0079c1] text-white shadow' : 'text-gray-500'
               }`}
@@ -66,6 +63,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
             </button>
             <button
               onClick={() => setLang('en')}
+              aria-pressed={lang === 'en'}
               className={`px-4 py-1.5 rounded-full transition-colors ${
                 lang === 'en' ? 'bg-[#0079c1] text-white shadow' : 'text-gray-500'
               }`}
@@ -133,30 +131,12 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
               ))}
             </div>
 
-            {/* Add to cart */}
-            <div className="mt-8 flex items-center gap-3">
-              <div className="flex items-center border border-gray-200 rounded-full">
-                <button
-                  onClick={() => setQty(Math.max(1, qty - 1))}
-                  aria-label="Decrease quantity"
-                  className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-[#0079c1] transition-colors"
-                >
-                  <Minus className="w-4 h-4" />
-                </button>
-                <span className="w-8 text-center text-base font-semibold text-[#002d5f]">{qty}</span>
-                <button
-                  onClick={() => setQty(qty + 1)}
-                  aria-label="Increase quantity"
-                  className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-[#0079c1] transition-colors"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              </div>
-              <button className="flex-1 sm:flex-none inline-flex items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-all">
-                <ShoppingCart className="w-4 h-4 mr-2" />
-                {t.addToCart}
-              </button>
-            </div>
+            <Link
+              href={`/contact?product=${product.id}`}
+              className="mt-8 inline-flex w-full sm:w-auto items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-all"
+            >
+              {lang === 'th' ? 'สอบถามการสั่งซื้อ' : 'Ask about ordering'}
+            </Link>
           </div>
         </div>
 

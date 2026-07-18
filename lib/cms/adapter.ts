@@ -28,6 +28,8 @@ import {
   ResponsiveImage,
   Locale,
   LocalizedField,
+  CMSNavigationItem,
+  NavigationItem,
   CacheOptions,
   PaginatedResponse,
 } from "@/types/cms";
@@ -139,8 +141,8 @@ export function adaptProduct(
   return {
     ...cmsProduct,
     images: adaptImages(cmsProduct.images, locale),
-    suitableSurfaces: (cmsProduct.suitableSurfaces || []) as any,
-    suitableRooms: (cmsProduct.suitableRooms || []) as any,
+    suitableSurfaces: (cmsProduct.suitableSurfaces || []) as Product["suitableSurfaces"],
+    suitableRooms: (cmsProduct.suitableRooms || []) as Product["suitableRooms"],
   };
 }
 
@@ -293,7 +295,7 @@ export function adaptNavigation(
   locale: Locale = "th"
 ): Navigation {
   // Transform navigation items recursively
-  const transformItems = (items: any[]): any[] => {
+  const transformItems = (items: CMSNavigationItem[]): NavigationItem[] => {
     return items.map((item) => ({
       id: item.id,
       label: getLocalized(item.label, locale),

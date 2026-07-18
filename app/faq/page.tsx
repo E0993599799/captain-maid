@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'FAQ | Frequently Asked Questions | Captain Maid',
@@ -112,7 +113,10 @@ export default function FAQPage() {
         {/* Search (Placeholder) */}
         <div className="mb-2xl">
           <input
+            id="faq-search"
+            name="faq-search"
             type="text"
+            aria-label="Search frequently asked questions"
             placeholder="Search FAQs..."
             className="w-full px-lg py-md border border-captain-light rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue"
           />
@@ -142,16 +146,16 @@ export default function FAQPage() {
 
         {/* Still Have Questions */}
         <div className="bg-captain-light rounded-sm p-2xl text-center my-2xl">
-          <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">Can't find your answer?</h2>
+          <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">Can&apos;t find your answer?</h2>
           <p className="text-lg text-captain-neutral mb-lg">
-            We're here to help! Contact our support team and we'll get back to you within 24 hours.
+            We&apos;re here to help! Contact our support team and we&apos;ll get back to you within 24 hours.
           </p>
-          <a
+          <Link
             href="/contact"
             className="inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white transition-all"
           >
             Contact Support →
-          </a>
+          </Link>
         </div>
       </div>
 

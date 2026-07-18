@@ -29,7 +29,7 @@ const smallCards = [
   {
     title: 'กระจกใส ไร้รอยขีดข่วน',
     sub: 'ให้ความใสในทุกจุด สบายตาทุกครั้งที่มองผ่าน',
-    img: '/images/deep-glass.png',
+    img: '/images/deep-glass-1.png',
     href: '/products?category=glass',
   },
   {

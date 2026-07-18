@@ -12,7 +12,7 @@ export function BrandStory() {
           {/* Story Text */}
           <div className="max-w-2xl mx-auto space-y-lg text-lg leading-relaxed text-captain-neutral">
             <p>
-              We started because we believe a clean home shouldn't come at the cost of your family's
+              We started because we believe a clean home shouldn&apos;t come at the cost of your family&apos;s
               health or the environment. For over 20 years, Captain Maid has been trusted by Thai
               households.
             </p>
@@ -24,7 +24,7 @@ export function BrandStory() {
             </p>
 
             <p>
-              Whether you're a busy parent, a meticulous homekeeper, or someone who just wants their
+              Whether you&apos;re a busy parent, a meticulous homekeeper, or someone who just wants their
               home to feel fresh, Captain Maid is built for Thai families, by people who care about
               your home.
             </p>

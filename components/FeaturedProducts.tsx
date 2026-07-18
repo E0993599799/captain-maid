@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ProductCard } from './ProductCard'
 
 const featuredProducts = [
@@ -118,7 +119,7 @@ export function FeaturedProducts() {
                   </li>
                   <li className="flex gap-sm">
                     <span className="text-captain-blue font-bold">✓</span>
-                    <span>Gentle formula won't damage delicate fabrics</span>
+                    <span>Gentle formula won&apos;t damage delicate fabrics</span>
                   </li>
                   <li className="flex gap-sm">
                     <span className="text-captain-blue font-bold">✓</span>
@@ -136,12 +137,12 @@ export function FeaturedProducts() {
 
         {/* CTA */}
         <div className="text-center mt-2xl">
-          <a
+          <Link
             href="/products"
             className="btn-primary inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white"
           >
             View All Products →
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -123,7 +123,12 @@ class CMSClient {
    */
   private async parseError(response: Response): Promise<CMSException> {
     try {
-      const data = await response.json();
+      const data = (await response.json()) as {
+        message?: string;
+        error?: string;
+        code?: string;
+        [key: string]: unknown;
+      };
 
       const message = data.message || data.error || response.statusText;
       const code = data.code || `HTTP_${response.status}`;
@@ -143,7 +148,7 @@ class CMSClient {
    */
   async restGet<T>(
     collection: string,
-    params: Record<string, any> = {},
+    params: Record<string, unknown> = {},
     options: RequestOptions = {}
   ): Promise<T> {
     const url = new URL(`/api/${collection}`, this.baseUrl);
@@ -169,7 +174,7 @@ class CMSClient {
    */
   async query<T>(
     query: string,
-    variables?: Record<string, any>,
+    variables?: Record<string, unknown>,
     options: RequestOptions = {}
   ): Promise<T> {
     const endpoint = `${this.baseUrl}/api/graphql`;
@@ -259,7 +264,7 @@ class CMSClient {
    */
   async getSolutions(
     type: "room" | "problem",
-    _filters: { locale?: Locale } = {},
+    filters: { locale?: Locale } = {},
     options: RequestOptions = {}
   ) {
     return this.restGet(
@@ -268,6 +273,7 @@ class CMSClient {
         where: {
           type: { equals: type },
           status: { equals: "published" },
+          ...(filters.locale && { locale: { equals: filters.locale } }),
         },
         sort: "name",
       },
@@ -372,7 +378,7 @@ class CMSClient {
    */
   async submitForm(
     formType: string,
-    data: Record<string, any>,
+    data: Record<string, unknown>,
     options: RequestOptions = {}
   ) {
     return this.request(
