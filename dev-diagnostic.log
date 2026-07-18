@@ -1,0 +1,43 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "node-linker". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "package-import-method". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> captain-maid@2.0.0 dev
+> node node_modules/next/dist/bin/next dev
+
+ [33m[1m⚠[22m[39m Warning: Found multiple lockfiles. Selecting /mnt/d/01 Main Work/Boots/Agentic AI/pnpm-lock.yaml.
+   Consider removing the lockfiles at:
+   * /mnt/d/01 Main Work/Boots/Agentic AI/mission-control/pnpm-lock.yaml
+
+ [33m[1m⚠[22m[39m Port 3000 is in use by an unknown process, using available port 3003 instead.
+   [1m[38;2;173;127;168m▲ Next.js 15.4.11[39m[22m
+   - Local:        http://localhost:3003
+   - Network:      http://172.21.122.80:3003
+   - Environments: .env.local
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 39.8s
+ [37m[1m○[22m[39m Compiling /middleware ...
+ [32m[1m✓[22m[39m Compiled /middleware in 4.4s (134 modules)
+ [37m[1m○[22m[39m Compiling /[locale] ...
+ [32m[1m✓[22m[39m Compiled /[locale] in 36s (1586 modules)
+ HEAD /en [32m200[39m in 54609ms
+ [31m[1m⨯[22m[39m Error: Couldn't find next-intl config file. Please follow the instructions at https://next-intl-docs.vercel.app/docs/getting-started/app-router
+    at Module.generateMetadata (webpack-internal:///(rsc)/./app/%5Blocale%5D/layout.tsx:22:81) {
+  environmentName: [32m'Server'[39m,
+  digest: [32m'2999024786'[39m
+}
+ HEAD / [32m200[39m in 318ms
+ [31m[1m⨯[22m[39m Error: Couldn't find next-intl config file. Please follow the instructions at https://next-intl-docs.vercel.app/docs/getting-started/app-router
+    at Module.generateMetadata (webpack-internal:///(rsc)/./app/%5Blocale%5D/layout.tsx:22:81) {
+  environmentName: [32m'Server'[39m,
+  digest: [32m'2999024786'[39m
+}
+ [31m[1m⨯[22m[39m Error: Couldn't find next-intl config file. Please follow the instructions at https://next-intl-docs.vercel.app/docs/getting-started/app-router
+    at Module.generateMetadata (webpack-internal:///(rsc)/./app/%5Blocale%5D/layout.tsx:22:81) {
+  environmentName: [32m'Server'[39m,
+  digest: [32m'2999024786'[39m
+}
+ GET /en [32m200[39m in 918ms
+[?25h

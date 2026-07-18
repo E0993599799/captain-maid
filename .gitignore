@@ -1,0 +1,55 @@
+# dependencies & build output
+node_modules/
+.next/
+target/
+*.tsbuildinfo
+next-env.d.ts
+.backups*
+
+# secrets & data — NEVER commit
+.env*
+*.sqlite
+*.sqlite3
+*.db
+
+# archives & backups
+backup/
+*.backup
+*.bak
+*.7z
+capttt/
+capttt.7z
+"New folder"/
+New folder/
+pnpm-lock.yaml.backup
+pnpm-workspace.yaml.backup
+
+# logs & runtime
+tools/logs/
+tools/backups/
+proofs/*.log
+
+# agent runtimes & embedded repos (own git repos)
+.vercel/
+.claude/
+.agents/
+.codex/
+.gemini/
+arra-oracle-v3/
+arigeo-project/
+agis-oracle/
+Google-Maps-Scrapper/
+Multi-Agent-Workflow/
+khun-ram-oracle/
+luxi-oracle/
+
+# misc
+packages-microsoft-prod.deb
+typecheck-*.txt
+captain-maid/
+cms-arigeo/
+forge_app_builder/
+orry-serenity/
+pharmacy-expiry-system/
+smart-home-control/
+

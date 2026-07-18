@@ -1,20 +1,19 @@
 import type { Metadata, Viewport } from 'next'
-import { Poppins, Crimson_Text } from 'next/font/google'
+import { Poppins, Noto_Sans_Thai } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { ThemeProvider } from '@/components/ThemeProvider'
 
 const sans = Poppins({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-sans',
 })
 
-const serif = Crimson_Text({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-serif',
+const thai = Noto_Sans_Thai({
+  subsets: ['thai'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-thai',
 })
 
 export const metadata: Metadata = {
@@ -78,7 +77,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  colorScheme: 'light dark',
+  colorScheme: 'light',
 }
 
 export default function RootLayout({
@@ -89,31 +88,12 @@ export default function RootLayout({
   return (
     <html lang="th" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (localStorage.getItem('theme') === 'dark' ||
-                    (!localStorage.getItem('theme') &&
-                     window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.setAttribute('data-theme', 'dark')
-                  document.documentElement.classList.add('dark')
-                } else {
-                  document.documentElement.setAttribute('data-theme', 'light')
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
-        <meta name="theme-color" content="#003DA5" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#1F1D1A" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#0079c1" />
       </head>
-      <body className={`${sans.variable} ${serif.variable} font-sans`}>
-        <ThemeProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+      <body className={`${sans.variable} ${thai.variable} font-sans`}>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )

@@ -1,0 +1,21 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "node-linker". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "package-import-method". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> captain-maid@2.0.0 dev
+> node node_modules/next/dist/bin/next dev
+
+ [33m[1m⚠[22m[39m Warning: Found multiple lockfiles. Selecting /mnt/d/01 Main Work/Boots/Agentic AI/pnpm-lock.yaml.
+   Consider removing the lockfiles at:
+   * /mnt/d/01 Main Work/Boots/Agentic AI/mission-control/pnpm-lock.yaml
+
+ [33m[1m⚠[22m[39m Port 3000 is in use by an unknown process, using available port 3003 instead.
+   [1m[38;2;173;127;168m▲ Next.js 15.4.11[39m[22m
+   - Local:        http://localhost:3003
+   - Network:      http://172.21.122.80:3003
+   - Environments: .env.local
+
+ [32m[1m✓[22m[39m Starting...
+ [32m[1m✓[22m[39m Ready in 38.6s
+[?25h

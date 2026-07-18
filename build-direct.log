@@ -1,0 +1,51 @@
+ ⚠ Warning: Found multiple lockfiles. Selecting D:\01 Main Work\Boots\Agentic AI\pnpm-lock.yaml.
+   Consider removing the lockfiles at:
+   * D:\01 Main Work\Boots\Agentic AI\mission-control\captain-maid\pnpm-lock.yaml
+   * D:\01 Main Work\Boots\Agentic AI\mission-control\pnpm-lock.yaml
+
+   ▲ Next.js 15.4.11
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 12.0s
+   Linting and checking validity of types ...
+
+./components/Footer.tsx
+19:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+99:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/HeroEnhanced.tsx
+65:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+81:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/HeroEnhancedV2.tsx
+76:15  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+173:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/ProductShowcase.tsx
+173:23  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+187:25  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/RetailerModal.tsx
+68:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./components/WhereToBuyButtons.tsx
+54:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+59:17  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./components/ProductFilter.tsx:69:15
+Type error: Type '"default" | "outline"' is not assignable to type '"primary" | "secondary" | "ghost" | undefined'.
+  Type '"default"' is not assignable to type '"primary" | "secondary" | "ghost" | undefined'.
+
+[0m [90m 67 |[39m             [33m<[39m[33mButton[39m
+ [90m 68 |[39m               key[33m=[39m{option}
+[31m[1m>[22m[39m[90m 69 |[39m               variant[33m=[39m{isActive [33m?[39m [32m'default'[39m [33m:[39m [32m'outline'[39m}
+ [90m    |[39m               [31m[1m^[22m[39m
+ [90m 70 |[39m               size[33m=[39m[32m"sm"[39m
+ [90m 71 |[39m               onClick[33m=[39m{() [33m=>[39m handleFilterClick(type[33m,[39m option)}
+ [90m 72 |[39m             [33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

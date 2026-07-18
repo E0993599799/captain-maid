@@ -15,6 +15,7 @@ const config: Config = {
           'blue-light': '#0052CC',
           cream: '#F5F2ED',
           'cream-dark': '#1F1D1A',
+          light: '#FFFFFF',
           yellow: '#FFB81C',
           'yellow-hover': '#E6A500',
           neutral: '#7A6F69',
@@ -26,8 +27,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['"Georgia"', '"Garamond"', 'serif'],
+        serif: ['var(--font-sans)', 'var(--font-thai)', 'sans-serif'],
         sans: [
+          'var(--font-sans)',
+          'var(--font-thai)',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -36,16 +39,6 @@ const config: Config = {
           'sans-serif',
         ],
         mono: ['"Courier New"', 'monospace'],
-      },
-      fontSize: {
-        xs: ['0.75rem', { lineHeight: '1rem' }],
-        sm: ['0.875rem', { lineHeight: '1.25rem' }],
-        base: ['1rem', { lineHeight: '1.5rem' }],
-        lg: ['1.125rem', { lineHeight: '1.75rem' }],
-        xl: ['1.5rem', { lineHeight: '2rem' }],
-        '2xl': ['2rem', { lineHeight: '2.5rem' }],
-        '3xl': ['2.5rem', { lineHeight: '3rem' }],
-        '4xl': ['3.5rem', { lineHeight: '4rem' }],
       },
       spacing: {
         xs: '0.5rem',

@@ -1,0 +1,101 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "node-linker". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "package-import-method". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> captain-maid@2.0.0 build
+> node node_modules/next/dist/bin/next build
+
+ [33m[1m⚠[22m[39m Warning: Found multiple lockfiles. Selecting /mnt/d/01 Main Work/Boots/Agentic AI/pnpm-lock.yaml.
+   Consider removing the lockfiles at:
+   * /mnt/d/01 Main Work/Boots/Agentic AI/mission-control/pnpm-lock.yaml
+
+   [1m[38;2;173;127;168m▲ Next.js 15.4.11[39m[22m
+   - Environments: .env.local
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+ [32m[1m✓[22m[39m Compiled successfully in 105s
+ [37m[1m [22m[39m Linting and checking validity of types ...
+
+[36m./components/Footer.tsx[39m
+[33m19[39m:[33m15[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m99[39m:[33m13[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./components/HeroEnhanced.tsx[39m
+[33m65[39m:[33m13[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m81[39m:[33m15[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./components/HeroEnhancedV2.tsx[39m
+[33m76[39m:[33m15[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m173[39m:[33m17[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./components/ProductShowcase.tsx[39m
+[33m173[39m:[33m23[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m187[39m:[33m25[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./components/RetailerModal.tsx[39m
+[33m68[39m:[33m17[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./components/WhereToBuyButtons.tsx[39m
+[33m54[39m:[33m15[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+[33m67[39m:[33m13[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36minfo[39m  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+ [37m[1m [22m[39m Collecting page data ...
+ [37m[1m [22m[39m Generating static pages (0/43) ...
+ [37m[1m [22m[39m Generating static pages (10/43) 
+ [37m[1m [22m[39m Generating static pages (21/43) 
+ [37m[1m [22m[39m Generating static pages (32/43) 
+ [32m[1m✓[22m[39m Generating static pages (43/43)
+ [37m[1m [22m[39m Finalizing page optimization ...
+ [37m[1m [22m[39m Collecting build traces ...
+
+[4mRoute (app)[24m                                 [4mSize[24m  [4mFirst Load JS[24m  [4m[24m  [4m[24m
+┌ ○ /_not-found                            991 B         [37m[1m101 kB[22m[39m
+├ ● /[locale]                            12.1 kB         [37m[1m178 kB[22m[39m
+├   ├ /en
+├   └ /th
+├ ● /[locale]/about                      3.23 kB         [37m[1m168 kB[22m[39m
+├   ├ /en/about
+├   └ /th/about
+├ ● /[locale]/auth/login                 2.18 kB         [37m[1m182 kB[22m[39m
+├   ├ /en/auth/login
+├   └ /th/auth/login
+├ ● /[locale]/auth/signup                 1.8 kB         [37m[1m182 kB[22m[39m
+├   ├ /en/auth/signup
+├   └ /th/auth/signup
+├ ● /[locale]/blog                       17.4 kB         [37m[1m188 kB[22m[39m
+├   ├ /en/blog
+├   └ /th/blog
+├ ● /[locale]/blog/[slug]                1.38 kB         [37m[1m110 kB[22m[39m
+├   ├ /en/blog/sticky-floor-solution
+├   ├ /en/blog/bathroom-cleaning-tips
+├   ├ /en/blog/kitchen-cleaning-guide
+├   └ [+17 more paths]
+├ ● /[locale]/contact                    3.23 kB         [37m[1m168 kB[22m[39m
+├   ├ /en/contact
+├   └ /th/contact
+├ ● /[locale]/faq                        1.26 kB         [37m[1m101 kB[22m[39m
+├   ├ /en/faq
+├   └ /th/faq
+├ ● /[locale]/products                   5.31 kB         [37m[1m170 kB[22m[39m
+├   ├ /en/products
+├   └ /th/products
+├ ƒ /[locale]/products/[id]               5.9 kB         [37m[1m181 kB[22m[39m
+├ ● /[locale]/where-to-buy               4.15 kB         [37m[1m140 kB[22m[39m
+├   ├ /en/where-to-buy
+├   └ /th/where-to-buy
+├ ƒ /api/contact                           135 B        [37m[1m99.9 kB[22m[39m
+└ ƒ /auth/callback                         135 B        [37m[1m99.9 kB[22m[39m
++ First Load JS shared by all            [37m[1m99.8 kB[22m[39m
+  ├ chunks/4bd1b696-cf72ae8a39fa05aa.js  54.1 kB
+  ├ chunks/964-9e7fd12428968086.js       43.7 kB
+  └ other shared chunks (total)          1.93 kB
+
+
+ƒ Middleware                               [37m[1m45 kB[22m[39m
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses [36mgenerateStaticParams[39m)
+ƒ  (Dynamic)  server-rendered on demand
+
