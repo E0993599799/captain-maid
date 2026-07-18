@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Star,
   ChevronLeft,
@@ -46,7 +47,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
         <div className="flex items-center justify-between mb-8">
           <Link
             href="/products"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0079c1] hover:underline"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#0079c1] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-2 rounded"
           >
             <ChevronLeft className="w-4 h-4" />
             Products / {categoryLabel}
@@ -55,7 +56,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
             <button
               onClick={() => setLang('th')}
               aria-pressed={lang === 'th'}
-              className={`px-4 py-1.5 rounded-full transition-colors ${
+              className={`px-4 py-1.5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-2 ${
                 lang === 'th' ? 'bg-[#0079c1] text-white shadow' : 'text-gray-500'
               }`}
             >
@@ -64,7 +65,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
             <button
               onClick={() => setLang('en')}
               aria-pressed={lang === 'en'}
-              className={`px-4 py-1.5 rounded-full transition-colors ${
+              className={`px-4 py-1.5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-2 ${
                 lang === 'en' ? 'bg-[#0079c1] text-white shadow' : 'text-gray-500'
               }`}
             >
@@ -77,8 +78,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
           {/* Image */}
           <div>
             <div className="rounded-3xl overflow-hidden bg-[#eef6fb] aspect-square shadow-sm">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={product.image} alt={product.name[lang]} className="w-full h-full object-cover" />
+              <Image src={product.image} alt={product.name[lang]} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
             </div>
             {product.freeFrom && (
               <div className="mt-4 flex flex-wrap gap-2">
@@ -104,7 +104,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
               {product.name[lang]} {product.size}
             </h1>
 
-            <div className="flex items-center gap-1 mt-3">
+            {product.rating > 0 && product.reviews > 0 && <div className="flex items-center gap-1 mt-3">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
@@ -116,11 +116,13 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
               <span className="text-xs text-gray-400 ml-1">
                 {product.rating}.0 ({product.reviews} reviews)
               </span>
-            </div>
+            </div>}
 
-            <div className="mt-4 text-3xl font-extrabold text-[#0079c1]">
-              ฿{product.price.toFixed(2)}
-            </div>
+            {product.price > 0 ? (
+              <div className="mt-4 text-3xl font-extrabold text-[#0079c1]">฿{product.price.toFixed(2)}</div>
+            ) : (
+              <div className="mt-4 text-sm font-medium text-amber-700">Price pending approval</div>
+            )}
 
             {/* Intro paragraphs */}
             <div className="mt-6 space-y-4 text-sm sm:text-base text-gray-600 leading-relaxed">
@@ -133,7 +135,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
 
             <Link
               href={`/contact?product=${product.id}`}
-              className="mt-8 inline-flex w-full sm:w-auto items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-all"
+              className="mt-8 inline-flex w-full sm:w-auto items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
             >
               {lang === 'th' ? 'สอบถามการสั่งซื้อ' : 'Ask about ordering'}
             </Link>
@@ -188,13 +190,14 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
               <Link
                 key={p.id}
                 href={`/products/${p.id}`}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all overflow-hidden"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
               >
                 <div className="aspect-[4/3] overflow-hidden bg-[#eef6fb]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={p.image}
                     alt={p.name[lang]}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>

@@ -7,12 +7,12 @@ export default function BlogTestimonial() {
   const allPosts = getAllBlogPosts()
   const blogPosts = allPosts.slice(0, 3)
   return (
-    <section className="py-16 lg:py-20 bg-[#f9fbfd]">
+    <section className="bg-[#f9fbfd] py-16 sm:py-20 lg:py-24" aria-labelledby="community-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-6">
           {/* Testimonial */}
           <div className="lg:col-span-5">
-            <h2 className="text-xl font-extrabold text-[#002d5f] mb-5">
+            <h2 id="community-title" className="mb-5 text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">
               เสียงจาก
               <br className="hidden lg:block" /> ครอบครัวของเรา
             </h2>
@@ -22,7 +22,7 @@ export default function BlogTestimonial() {
                 <div className="flex items-center gap-3 mb-4">
                   <Image
                     src="/images/testimonial.png"
-                    alt="Customer"
+                    alt="Captain Maid customer"
                     width={56}
                     height={56}
                     className="rounded-full object-cover ring-2 ring-white shadow-md"
@@ -50,10 +50,10 @@ export default function BlogTestimonial() {
           {/* Blog posts */}
           <div className="lg:col-span-7">
             <div className="flex items-end justify-between mb-5">
-              <h2 className="text-xl font-extrabold text-[#002d5f]">บทความน่าอ่าน</h2>
+              <h2 className="text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">บทความน่าอ่าน</h2>
               <Link
                 href="/blog"
-                className="text-sm font-semibold text-[#0079c1] hover:underline inline-flex items-center gap-1"
+                className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-[#0079c1] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1]"
               >
                 View All <ArrowRight className="w-4 h-4" />
               </Link>
@@ -63,7 +63,7 @@ export default function BlogTestimonial() {
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
                 >
                   <div className="aspect-[4/3] overflow-hidden relative">
                     <Image

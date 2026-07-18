@@ -40,7 +40,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="relative w-full h-[85vh] min-h-[540px] overflow-hidden"
+      className="relative isolate w-full min-h-[600px] overflow-hidden sm:min-h-[640px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
       aria-roledescription="carousel"
       aria-label="Captain Maid highlights"
       onMouseEnter={() => setPaused(true)}
@@ -60,7 +60,7 @@ export default function HeroSlider() {
         >
           <Image
             src={src}
-            alt={`Captain Maid slide ${i + 1}`}
+            alt={i === current ? `Captain Maid slide ${i + 1}` : ''}
             fill
             className="w-full h-full object-cover"
             priority={i === 0}
@@ -74,35 +74,36 @@ export default function HeroSlider() {
       <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/40 to-transparent" />
 
       {/* Content */}
-      <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-        <div className="text-center lg:text-left max-w-xl">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-4 py-1.5 rounded-full mb-6 shadow-sm">
+      <div className="relative flex min-h-[600px] items-center px-4 py-24 sm:min-h-[640px] sm:px-6 lg:min-h-0 lg:h-full lg:px-8">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="max-w-xl text-center lg:text-left">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur">
             <Sparkles className="w-4 h-4 text-white" />
             <span className="text-xs font-semibold text-white">มืออาชีพด้านการทำความสะอาด</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+          <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
             สะอาดทุกมุม
-            <br />
-            <span className="text-[#4db8ff]">มั่นใจทุกวัน</span>
+            <span className="block text-[#4db8ff]">มั่นใจทุกวัน</span>
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-white/80 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+          <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-white/85 sm:text-lg lg:mx-0">
             ผลิตภัณฑ์ทำความสะอาดคุณภาพสูง เพื่อบ้านที่สะอาด ปลอดภัย และน่าอยู่สำหรับทุกคน
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
             <Link
               href="/products"
-              className="inline-flex items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-7 py-3 text-base font-semibold shadow-lg shadow-black/20 transition-all"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0079c1] px-7 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[#0066a8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
             >
               เลือกซื้อสินค้า
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
             <Link
-              href="/products"
-              className="inline-flex items-center justify-center bg-white/10 backdrop-blur border-2 border-white text-white hover:bg-white hover:text-[#002d5f] rounded-full px-7 py-3 text-base font-semibold transition-all"
+              href="/about"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white bg-white/10 px-7 py-3 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-[#002d5f] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
             >
               ค้นหาโซลูชัน
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
+          </div>
           </div>
         </div>
       </div>
@@ -111,27 +112,27 @@ export default function HeroSlider() {
       <button
         onClick={goPrev}
         aria-label="Previous slide"
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur hover:bg-white/40 text-white flex items-center justify-center transition-colors z-10"
+        className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70 sm:left-4 sm:h-12 sm:w-12"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={goNext}
         aria-label="Next slide"
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur hover:bg-white/40 text-white flex items-center justify-center transition-colors z-10"
+        className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70 sm:right-4 sm:h-12 sm:w-12"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+      <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-6 sm:gap-2" aria-label="Choose slide">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Go to slide ${i + 1}`}
             aria-current={i === current}
-            className="min-w-12 min-h-12 flex items-center justify-center transition-all duration-300"
+            className="flex min-h-11 min-w-11 items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <span className={`h-2 rounded-full transition-all duration-300 ${
               i === current ? 'w-8 bg-white' : 'w-2 bg-white/50'

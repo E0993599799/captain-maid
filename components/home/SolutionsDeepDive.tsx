@@ -42,10 +42,12 @@ const smallCards = [
 
 export default function SolutionsDeepDive() {
   return (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="solutions-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#002d5f]">Solutions</h2>
+        <div className="mb-8 max-w-2xl sm:mb-10">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Clean by room</p>
+          <h2 id="solutions-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">Solutions</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-500 sm:text-base">เลือกวิธีดูแลบ้านตามพื้นที่ที่คุณใช้งานจริง แล้วค้นหาผลิตภัณฑ์ที่เหมาะกับทุกวันของคุณ</p>
         </div>
 
         {/* Large cards */}
@@ -54,7 +56,7 @@ export default function SolutionsDeepDive() {
             <Link
               key={card.title}
               href={card.href}
-              className={`group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 ${card.span} aspect-[16/9]`}
+              className={`group relative aspect-[16/10] overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30 sm:aspect-[16/9] ${card.span}`}
             >
               <Image
                 src={card.img}
@@ -81,7 +83,7 @@ export default function SolutionsDeepDive() {
             <Link
               key={card.title}
               href={card.href}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[4/3]"
+              className="group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
             >
               <Image
                 src={card.img}

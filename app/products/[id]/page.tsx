@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { PRODUCTS, getProduct } from '@/lib/captain-products'
+import { PRODUCTS } from '@/lib/captain-products'
+import { getCaptainProduct } from '@/lib/cms/captain-products'
 import ProductDetail from '@/components/products/ProductDetail'
 
 interface PageProps {
@@ -13,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params
-  const product = getProduct(id)
+  const product = await getCaptainProduct(id)
   if (!product) return { title: 'Product not found | Captain Maid' }
   return {
     title: `${product.name.en} ${product.size} | Captain Maid`,
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params
-  const product = getProduct(id)
+  const product = await getCaptainProduct(id)
   if (!product) notFound()
 
   return <ProductDetail product={product} />

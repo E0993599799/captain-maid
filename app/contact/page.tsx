@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { CONTACT_INFO } from '@/lib/contact'
 
 export const metadata: Metadata = {
   title: 'Contact Us | Captain Maid',
@@ -29,12 +30,13 @@ export default function ContactPage() {
             <div className="text-5xl mb-md">📧</div>
             <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Email</h3>
             <p className="text-captain-neutral mb-md">For general inquiries and support</p>
-            <a
-              href="mailto:support@captain-maid.com"
-              className="text-captain-blue font-semibold hover:text-captain-blue-dark break-all"
-            >
-              support@captain-maid.com
-            </a>
+            {CONTACT_INFO.email ? (
+              <a href={`mailto:${CONTACT_INFO.email}`} className="text-captain-blue font-semibold hover:text-captain-blue-dark break-all">
+                {CONTACT_INFO.email}
+              </a>
+            ) : (
+              <p className="text-captain-blue font-semibold">กรุณาติดต่อผ่านแบบฟอร์มด้านล่าง</p>
+            )}
             <p className="text-sm text-captain-neutral mt-md">Response time: 24 hours</p>
           </div>
 
@@ -43,12 +45,13 @@ export default function ContactPage() {
             <div className="text-5xl mb-md">📱</div>
             <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Phone</h3>
             <p className="text-captain-neutral mb-md">Call our customer service team</p>
-            <a
-              href="tel:+66850000000"
-              className="text-captain-blue font-semibold hover:text-captain-blue-dark text-lg"
-            >
-              +66 (0) 85-000-0000
-            </a>
+            {CONTACT_INFO.phone ? (
+              <a href={`tel:${CONTACT_INFO.phone}`} className="text-captain-blue font-semibold hover:text-captain-blue-dark text-lg">
+                {CONTACT_INFO.phone}
+              </a>
+            ) : (
+              <p className="text-captain-blue font-semibold">ยังไม่เปิดเผยหมายเลขโทรศัพท์</p>
+            )}
             <p className="text-sm text-captain-neutral mt-md">Mon–Fri, 9am–6pm</p>
           </div>
 
@@ -57,7 +60,7 @@ export default function ContactPage() {
             <div className="text-5xl mb-md">🏢</div>
             <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Office</h3>
             <p className="text-captain-neutral mb-md">Visit our Bangkok headquarters</p>
-            <p className="text-captain-text font-semibold">123 Rama Road, Bangkok</p>
+            <p className="text-captain-text font-semibold">{CONTACT_INFO.address || 'ที่อยู่สำนักงานจะแจ้งให้ทราบอีกครั้ง'}</p>
             <p className="text-sm text-captain-neutral mt-md">By appointment</p>
           </div>
         </div>
@@ -183,20 +186,9 @@ export default function ContactPage() {
             '@type': 'Organization',
             name: 'Captain Maid',
             url: 'https://captain-maid.vercel.app',
-            email: 'support@captain-maid.com',
-            telephone: '+66-85-000-0000',
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: '123 Rama Road',
-              addressLocality: 'Bangkok',
-              addressCountry: 'TH',
-            },
-            contactPoint: {
-              '@type': 'ContactPoint',
-              telephone: '+66-85-000-0000',
-              contactType: 'Customer Service',
-              hoursAvailable: 'Mo,Tu,We,Th,Fr 09:00-18:00',
-            },
+            ...(CONTACT_INFO.email ? { email: CONTACT_INFO.email } : {}),
+            ...(CONTACT_INFO.phone ? { telephone: CONTACT_INFO.phone } : {}),
+            ...(CONTACT_INFO.address ? { address: CONTACT_INFO.address } : {}),
           }),
         }}
       />

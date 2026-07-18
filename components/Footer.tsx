@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Send } from 'lucide-react'
+import { CONTACT_INFO } from '@/lib/contact'
 
 const columns = [
   {
@@ -100,8 +101,14 @@ export function Footer() {
                 สะอาดทุกมุม มั่นใจทุกวัน
               </p>
               <div className="text-sm text-white/60 space-y-1.5">
-                <div>02-123-4567</div>
-                <div>hello@captainmaid.co.th</div>
+                {CONTACT_INFO.phone && <div>{CONTACT_INFO.phone}</div>}
+                {CONTACT_INFO.email && <div>{CONTACT_INFO.email}</div>}
+                {CONTACT_INFO.address && <div>{CONTACT_INFO.address}</div>}
+                {!CONTACT_INFO.phone && !CONTACT_INFO.email && !CONTACT_INFO.address && (
+                  <Link href="/contact" className="text-white/80 hover:text-[#4db8ff]">
+                    ติดต่อเราผ่านแบบฟอร์ม
+                  </Link>
+                )}
                 <div>@captainmaid</div>
               </div>
               {/* Social */}

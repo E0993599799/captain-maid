@@ -4,9 +4,9 @@ import { ArrowRight } from 'lucide-react'
 
 export default function TrustBanner() {
   return (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="trust-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden shadow-xl min-h-[380px] flex items-center">
+        <div className="relative flex min-h-[460px] items-center overflow-hidden rounded-3xl shadow-xl sm:min-h-[420px]">
           <Image
             src="/images/trust-banner.png"
             alt="Trust quality you can count on"
@@ -16,12 +16,12 @@ export default function TrustBanner() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#002d5f]/70 via-[#002d5f]/25 to-transparent" />
 
-          <div className="relative p-8 sm:p-12 max-w-lg">
-            <div className="bg-[#002d5f]/85 backdrop-blur rounded-3xl p-8 sm:p-10 text-white shadow-2xl">
-              <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight">
+          <div className="relative max-w-lg p-5 sm:p-12">
+            <div className="rounded-3xl bg-[#002d5f]/85 p-7 text-white shadow-2xl backdrop-blur sm:p-10">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8ed7ff]">Our promise</p>
+              <h2 id="trust-title" className="text-3xl font-extrabold leading-tight sm:text-4xl">
                 Trust quality
-                <br />
-                you can count on.
+                <span className="block">you can count on.</span>
               </h2>
               <p className="mt-4 text-white/75 text-sm sm:text-base leading-relaxed">
                 เราคัดสรรวัตถุดิบคุณภาพสูง พัฒนาด้วยนวัตกรรม

@@ -27,9 +27,10 @@ const stats = [
 
 export default function WhyCaptainMaid() {
   return (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="why-captain-maid-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-[#002d5f] mb-10">
+        <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Made for real homes</p>
+        <h2 id="why-captain-maid-title" className="mb-10 text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">
           ทำไมต้อง Captain Maid
         </h2>
 
@@ -66,7 +67,7 @@ export default function WhyCaptainMaid() {
 
           {/* Badge + stats */}
           <div className="lg:col-span-3 flex flex-col items-center gap-8">
-            <div className="w-44 h-44 rounded-full border-2 border-[#002d5f] flex flex-col items-center justify-center text-[#002d5f] relative">
+            <div className="relative flex h-44 w-44 flex-col items-center justify-center rounded-full border-2 border-[#002d5f] text-[#002d5f] sm:h-48 sm:w-48">
               <span className="absolute top-4 text-[8px] tracking-[0.25em] font-semibold uppercase">
                 Quality you can count on
               </span>

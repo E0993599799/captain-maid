@@ -12,7 +12,7 @@
 
 import { CMSException, GraphQLResponse, Locale } from "@/types/cms";
 
-const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "";
 const SITE_SLUG = process.env.CMS_SITE_SLUG || "captain-maid";
 const READ_TOKEN = process.env.CMS_READ_TOKEN || "";
 const PREVIEW_SECRET = process.env.CMS_PREVIEW_SECRET || "";
@@ -55,6 +55,10 @@ class CMSClient {
       draft = false,
       ...fetchOptions
     } = options;
+
+    if (!this.baseUrl) {
+      throw new CMSException("CMS_NOT_CONFIGURED", "CMS URL is not configured", 503);
+    }
 
     const url = new URL(endpoint, this.baseUrl);
 
@@ -154,14 +158,22 @@ class CMSClient {
     const url = new URL(`/api/${collection}`, this.baseUrl);
 
     // Add query parameters
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        url.searchParams.append(
-          key,
-          typeof value === "string" ? value : JSON.stringify(value)
-        );
+    const appendParam = (key: string, value: unknown) => {
+      if (value === undefined || value === null) return;
+      if (Array.isArray(value)) {
+        value.forEach((item) => appendParam(`${key}[]`, item));
+        return;
       }
-    });
+      if (typeof value === "object") {
+        Object.entries(value as Record<string, unknown>).forEach(([childKey, childValue]) => {
+          appendParam(`${key}[${childKey}]`, childValue);
+        });
+        return;
+      }
+      url.searchParams.append(key, String(value));
+    };
+
+    Object.entries(params).forEach(([key, value]) => appendParam(key, value));
 
     return this.request<T>(url.toString(), {
       method: "GET",
@@ -212,10 +224,10 @@ class CMSClient {
     return this.restGet(
       "products",
       {
-        where: {
-          site: { equals: this.siteSlug },
-          status: { equals: "published" },
-        },
+        where: { contentStatus: { equals: "approved" } },
+        locale: filters.locale || "th",
+        fallbackLocale: "en",
+        depth: 2,
         limit: filters.limit || 20,
         page: filters.page || 1,
         sort: "-createdAt",
@@ -227,15 +239,17 @@ class CMSClient {
   /**
    * Fetch single product by slug
    */
-  async getProduct(slug: string, options: RequestOptions = {}) {
+  async getProduct(slug: string, locale: Locale = "th", options: RequestOptions = {}) {
     return this.restGet(
       "products",
       {
         where: {
-          site: { equals: this.siteSlug },
           slug: { equals: slug },
-          status: { equals: "published" },
+          contentStatus: { equals: "approved" },
         },
+        locale,
+        fallbackLocale: "en",
+        depth: 2,
         limit: 1,
       },
       options
@@ -250,10 +264,10 @@ class CMSClient {
       "product-categories",
       {
         where: {
-          status: { equals: "published" },
-          ...(filters.locale && { locale: { equals: filters.locale } }),
+          segment: { equals: "household" },
         },
         sort: "name",
+        ...(filters.locale && { locale: filters.locale }),
       },
       options
     );
@@ -417,6 +431,7 @@ class CMSClient {
    * Check if CMS is available
    */
   async isHealthy(): Promise<boolean> {
+    if (!this.baseUrl) return false;
     try {
       await this.request<{ version?: string }>(`${this.baseUrl}/api/health`, {
         method: "GET",

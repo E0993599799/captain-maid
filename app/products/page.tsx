@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import ProductsGrid from '@/components/products/ProductsGrid'
 import type { ProductCategory } from '@/lib/captain-products'
+import { getCaptainProducts } from '@/lib/cms/captain-products'
 
 export const metadata: Metadata = {
   title: 'Products | Captain Maid',
@@ -22,11 +23,14 @@ interface PageProps {
   searchParams: Promise<{ category?: string }>
 }
 
+export const revalidate = 3600
+
 export default async function ProductsPage({ searchParams }: PageProps) {
   const { category } = await searchParams
   const initial = (VALID as string[]).includes(category ?? '')
     ? ((category as ProductCategory | 'all') ?? 'all')
     : 'all'
 
-  return <ProductsGrid initialCategory={initial} />
+  const products = await getCaptainProducts('th')
+  return <ProductsGrid initialCategory={initial} initialProducts={products} />
 }

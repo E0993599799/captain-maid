@@ -71,7 +71,7 @@ const FLOOR_BENEFITS: LocalizedList = {
 
 const FLOOR_SUITABLE: Localized = {
   en: 'General surfaces, marble floors, parquet floors, granite floors, wood floors, ceramic floors, terrazzo floors, glazed tile floors, and vinyl tile floors',
-  th: 'พื้นผิวทั่วไป พื้นหินอ่อน พื้นปาร์เก้ พื้นหินแกรนิต พื้นไม้ พื้นเซรามิค พื้นหินขัด พื้นกระเบื้องเคลือบ และพื้นกระเบื้องยาง',
+  th: 'พื้นผิวทั่วไป พื้นหินอ่อน พื้นปาร์เก้ พื้นหินแกรนิต พื้นไม้ พื้นเซรามิค พื้นหินขัด พื้นกระเบื้องเคลือบ พื้นกระเบื้องยาง',
 }
 
 const FLOOR_FREE_FROM = ['Phosphate', 'Paraben', 'Ammonia', 'Formaldehyde', 'SLS']
