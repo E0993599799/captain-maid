@@ -1,26 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Poppins, Noto_Sans_Thai } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-
-const sans = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-sans',
-})
-
-const thai = Noto_Sans_Thai({
-  subsets: ['thai'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-thai',
-})
 
 export const metadata: Metadata = {
   title: 'Captain Maid | Premium Household Cleaning Products',
   description: 'Trusted cleaning solutions for Thai families. Safe, effective, and kind to your home.',
   applicationName: 'Captain Maid',
-  metadataBase: new URL('https://captain-maid.vercel.app'),
+  ...(process.env.NEXT_PUBLIC_SITE_URL
+    ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) }
+    : {}),
   alternates: {
     canonical: '/',
     languages: {
@@ -31,7 +20,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://captain-maid.vercel.app',
     title: 'Captain Maid | Premium Household Cleaning Products',
     description: 'Trusted cleaning solutions for Thai families. Safe, effective, and kind to your home.',
     siteName: 'Captain Maid',
@@ -90,7 +78,7 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#0079c1" />
       </head>
-      <body className={`${sans.variable} ${thai.variable} font-sans`}>
+      <body className="font-sans">
         <Header />
         <main>{children}</main>
         <Footer />

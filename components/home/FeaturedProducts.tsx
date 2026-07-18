@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Star, Plus, Minus, ShoppingCart, ArrowRight } from 'lucide-react'
+import { Star, Plus, Minus, ArrowRight } from 'lucide-react'
 import { PRODUCTS, CaptainProduct, CATEGORIES } from '@/lib/captain-products'
 
 const featured: CaptainProduct[] = [
@@ -76,10 +76,12 @@ function ProductCard({ product }: { product: CaptainProduct }) {
               <Plus className="w-4 h-4" />
             </button>
           </div>
-          <button className="inline-flex items-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition-all">
-            <ShoppingCart className="w-3.5 h-3.5 mr-1" />
-            เพิ่มลงตะกร้า
-          </button>
+          <Link
+            href={`/products/${product.id}`}
+            className="inline-flex items-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition-all"
+          >
+            ดูรายละเอียด
+          </Link>
         </div>
       </div>
     </div>

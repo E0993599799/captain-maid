@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About Captain Maid | Our Story & Mission',
@@ -28,11 +29,11 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-serif font-bold mb-lg text-captain-text">Our Story</h2>
             <p className="text-lg text-captain-neutral leading-relaxed mb-md">
-              Captain Maid was founded on a simple belief: a clean home shouldn't come at the cost of your
-              family's health or the environment.
+              Captain Maid was founded on a simple belief: a clean home shouldn&apos;t come at the cost of your
+              family&apos;s health or the environment.
             </p>
             <p className="text-lg text-captain-neutral leading-relaxed mb-md">
-              For over 20 years, we've been crafting cleaning solutions specifically designed for Thai homes.
+              For over 20 years, we&apos;ve been crafting cleaning solutions specifically designed for Thai homes.
               We understand your climate, your lifestyle, and your needs.
             </p>
             <p className="text-lg text-captain-neutral leading-relaxed">
@@ -99,7 +100,7 @@ export default function AboutPage() {
         <div className="mb-2xl">
           <h2 className="text-3xl font-serif font-bold mb-lg text-captain-blue">Our Team</h2>
           <p className="text-lg text-captain-neutral mb-lg">
-            We're a dedicated team of chemists, cleaning experts, and Thai families who share a passion for
+            We&apos;re a dedicated team of chemists, cleaning experts, and Thai families who share a passion for
             safe, effective household solutions.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-lg">
@@ -134,14 +135,14 @@ export default function AboutPage() {
         <div className="text-center py-2xl border-t border-captain-light">
           <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">Get in Touch</h2>
           <p className="text-lg text-captain-neutral mb-lg">
-            Have questions? We'd love to hear from you.
+            Have questions? We&apos;d love to hear from you.
           </p>
-          <a
+          <Link
             href="/contact"
             className="inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white transition-all"
           >
             Contact Us →
-          </a>
+          </Link>
         </div>
       </div>
     </div>

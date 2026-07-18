@@ -239,7 +239,17 @@ export interface CMSNavigation {
   updatedAt: string;
 }
 
-export interface Navigation extends CMSNavigation {}
+export interface NavigationItem {
+  id: string;
+  label: string | null;
+  href: string;
+  children?: NavigationItem[];
+  external?: boolean;
+}
+
+export interface Navigation extends Omit<CMSNavigation, "items"> {
+  items: NavigationItem[];
+}
 
 // ============================================================================
 // SITE SETTINGS & GLOBALS
@@ -277,7 +287,7 @@ export interface SiteSettings extends Omit<CMSSiteSettings, "logo" | "favicon"> 
 export interface CMSPageBlock {
   id: string;
   type: string; // hero, text, gallery, cta, products, testimonials
-  data: Record<string, any>;
+  data: Record<string, unknown>;
 }
 
 export interface CMSPage {
@@ -328,7 +338,7 @@ export interface GraphQLResponse<T> {
   data?: T;
   errors?: Array<{
     message: string;
-    extensions?: Record<string, any>;
+    extensions?: Record<string, unknown>;
   }>;
 }
 
@@ -354,7 +364,7 @@ export interface CMSError {
   message: string;
   code: string;
   statusCode: number;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 export class CMSException extends Error {
@@ -362,7 +372,7 @@ export class CMSException extends Error {
     public code: string,
     message: string,
     public statusCode: number = 500,
-    public details?: Record<string, any>
+    public details?: Record<string, unknown>
   ) {
     super(message);
     this.name = "CMSException";

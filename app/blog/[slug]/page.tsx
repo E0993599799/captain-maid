@@ -36,7 +36,7 @@ You probably have everything you need to make effective, natural cleaning soluti
 
 ## 1. Lemon Juice
 
-Lemons are nature's degreaser. The citric acid cuts through grease and grime while leaving a fresh scent.
+    Lemons are nature&apos;s degreaser. The citric acid cuts through grease and grime while leaving a fresh scent.
 
 **Best for**: Kitchen counters, glass, degreasing
 **Dilution**: Mix juice of 1 lemon with 2 cups water
@@ -272,7 +272,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
       <div className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24 flex items-center justify-center">
         <div className="container-safe text-center">
           <h1 className="text-4xl font-serif font-bold mb-md text-captain-text">Post Not Found</h1>
-          <p className="text-lg text-captain-neutral mb-xl">Sorry, we couldn't find that article.</p>
+          <p className="text-lg text-captain-neutral mb-xl">Sorry, we couldn&apos;t find that article.</p>
           <Link href="/blog" className="btn-primary inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white">
             ← Back to Blog
           </Link>

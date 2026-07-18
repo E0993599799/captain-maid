@@ -4,12 +4,21 @@
 
 @layer base {
   :root {
-    --color-blue: #0079c1;
-    --color-blue-dark: #002d5f;
-    --color-blue-light: #4db8ff;
-    --color-blue-pale: #e6f3fa;
-    --color-cream: #ffffff;
-    --color-neutral: #9ca3af;
+    /* Direction A: trusted blue homecare system. */
+    --color-brand-blue: #0079c1;
+    --color-brand-blue-dark: #005b91;
+    --color-brand-blue-light: #4db8ff;
+    --color-brand-blue-pale: #e6f3fa;
+    --color-brand-yellow: #ffb81c;
+    --color-surface: #ffffff;
+    --color-surface-muted: #f5f9fc;
+    --color-text: #16324f;
+    --color-text-muted: #536779;
+    --color-border: #cbd8e2;
+    --color-success: #1f7a45;
+    --color-warning: #9a5b00;
+    --color-danger: #b42318;
+    --focus-ring: #005b91;
   }
 
   html {
@@ -18,8 +27,10 @@
   }
 
   body {
-    @apply bg-white text-gray-800 antialiased;
-    font-family: var(--font-sans), var(--font-thai), -apple-system, BlinkMacSystemFont,
+    @apply antialiased;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: Poppins, 'Noto Sans Thai', -apple-system, BlinkMacSystemFont,
       'Segoe UI', sans-serif;
   }
 
@@ -53,11 +64,11 @@
   }
 
   a {
-    @apply transition-all duration-200;
+    @apply transition-colors duration-200;
   }
 
   button {
-    @apply transition-all duration-200;
+    @apply transition-colors duration-200;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -76,11 +87,23 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-[#0079c1] text-white rounded-full font-semibold hover:bg-[#0066a8];
+    @apply inline-flex items-center gap-2 px-6 py-3 text-white rounded-full font-semibold;
+    background: var(--color-brand-blue);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-brand-blue-dark);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-transparent border border-[#0079c1] text-[#0079c1] rounded-full font-semibold hover:bg-[#0079c1] hover:text-white;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-transparent border rounded-full font-semibold;
+    border-color: var(--color-brand-blue);
+    color: var(--color-brand-blue-dark);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-brand-blue);
+    color: #fff;
   }
 
   .section-spacing {
@@ -113,12 +136,12 @@
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--color-blue);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 /* Selection color */
 ::selection {
-  background: var(--color-blue);
+  background: var(--color-brand-blue);
   color: #fff;
 }
