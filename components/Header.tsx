@@ -118,13 +118,14 @@ export function Header() {
   }
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 border-b font-sans transition-[background-color,border-color,box-shadow] duration-300 ease-smooth ${
-        scrolled
-          ? 'border-[#dbe5ec] bg-white/95 shadow-[0_8px_28px_rgba(0,45,95,0.08)] backdrop-blur-xl'
-          : 'border-white/50 bg-white/90 backdrop-blur-lg'
-      }`}
-    >
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b font-sans transition-[background-color,border-color,box-shadow] duration-300 ease-smooth ${
+          scrolled
+            ? 'border-[#dbe5ec] bg-white/95 shadow-[0_8px_28px_rgba(0,45,95,0.08)] backdrop-blur-xl'
+            : 'border-white/50 bg-white/90 backdrop-blur-lg'
+        }`}
+      >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div
           className={`flex items-center justify-between gap-4 transition-[height] duration-300 ease-smooth ${
@@ -262,11 +263,12 @@ export function Header() {
           </div>
         </div>
       </div>
+      </header>
 
       {mobileOpen && (
         <div
           id="captain-maid-mobile-menu"
-          className={`fixed inset-x-0 bottom-0 z-40 xl:hidden ${scrolled ? 'top-16' : 'top-[76px]'}`}
+          className={`fixed inset-x-0 bottom-0 z-[60] xl:hidden ${scrolled ? 'top-16' : 'top-[76px]'}`}
         >
           <button
             type="button"
@@ -340,7 +342,7 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   )
 }
 

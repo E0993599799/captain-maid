@@ -19,8 +19,9 @@ test('global typography prevents synthetic Thai bold and uses expanded hero outl
 
   assert.match(styles, /font-family: var\(--font-english\), var\(--font-thai\)/)
   assert.match(styles, /font-synthesis: none/)
-  assert.match(styles, /-webkit-text-stroke: 36px #ffffff/)
-  assert.match(styles, /-webkit-text-stroke: clamp\(12px, 1\.32vw, 24px\) #101849/)
+  assert.match(styles, /font-weight: 600/)
+  assert.match(styles, /-webkit-text-stroke: 25\.2px #ffffff/)
+  assert.match(styles, /-webkit-text-stroke: clamp\(8\.4px, 0\.924vw, 16\.8px\) #101849/)
   assert.match(styles, /letter-spacing: 0\.015em/)
   assert.match(styles, /letter-spacing: 0\.012em/)
 })
@@ -31,6 +32,18 @@ test('dark hero uses one white treatment for every heading line', () => {
   assert.doesNotMatch(hero, /text-\[#4db8ff\]/)
   assert.match(hero, /className="hero-title__line"/)
   assert.match(hero, /className="hero-media-overlay"/)
+})
+
+test('mobile hero preserves portrait artwork and its upper text-safe area', () => {
+  const hero = read('components/home/HeroSlider.tsx')
+  const styles = read('app/globals.css')
+
+  assert.match(hero, /className="hero-carousel /)
+  assert.match(hero, /className="hero-content-shell /)
+  assert.match(styles, /@media \(max-width: 767px\)/)
+  assert.match(styles, /height: max\(100svh, min\(177\.68vw, 900px\)\)/)
+  assert.match(styles, /align-items: flex-start/)
+  assert.match(styles, /transparent 42%/)
 })
 
 test('every catalogue product uses its matching product packshot', () => {
@@ -67,4 +80,6 @@ test('header switches to its mobile navigation before desktop actions crowd', ()
   assert.match(header, /hidden xl:flex/)
   assert.match(header, /xl:hidden/)
   assert.match(header, /document\.body\.style\.overflow = mobileOpen \? 'hidden' : ''/)
+  assert.match(header, /<>[\s\S]*<header[\s\S]*<\/header>[\s\S]*\{mobileOpen && \(/)
+  assert.match(header, /fixed inset-x-0 bottom-0 z-\[60\] xl:hidden/)
 })

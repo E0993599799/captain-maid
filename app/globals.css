@@ -176,12 +176,12 @@
    images) with a stroke + shadow combo tuned to stay readable over a photo. */
 .hero-title {
   font-family: var(--font-english), var(--font-thai), "Roboto", "Noto Sans Thai", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.1;
   letter-spacing: 0.015em;
 
   color: #0875b6;
-  -webkit-text-stroke: 36px #ffffff;
+  -webkit-text-stroke: 25.2px #ffffff;
   paint-order: stroke fill;
 
   text-shadow:
@@ -192,13 +192,13 @@
 .hero-title--dark-bg {
   font-family: var(--font-english), var(--font-thai), "Roboto", "Noto Sans Thai", sans-serif;
   font-size: clamp(2.7rem, 5.2vw, 4.65rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.08;
   letter-spacing: 0.012em;
 
   color: #ffffff;
   -webkit-text-fill-color: #ffffff;
-  -webkit-text-stroke: clamp(12px, 1.32vw, 24px) #101849;
+  -webkit-text-stroke: clamp(8.4px, 0.924vw, 16.8px) #101849;
   paint-order: stroke fill;
 
   text-shadow:
@@ -220,6 +220,49 @@
   inset: 0;
   background:
     linear-gradient(180deg, rgba(0, 45, 95, 0.34) 0%, rgba(0, 45, 95, 0.72) 46%, rgba(0, 31, 67, 0.9) 100%);
+}
+
+.hero-slide-image {
+  object-position: center top;
+}
+
+@media (max-width: 767px) {
+  .hero-carousel {
+    height: max(100svh, min(177.68vw, 900px));
+    min-height: 680px;
+  }
+
+  .hero-content-shell {
+    min-height: 100%;
+    align-items: flex-start;
+    padding-top: max(6.5rem, env(safe-area-inset-top));
+    padding-bottom: 3.75rem;
+  }
+
+  .hero-content-shell > div {
+    height: 42%;
+  }
+
+  .hero-title--dark-bg {
+    font-size: clamp(2.05rem, 9.5vw, 2.75rem);
+  }
+
+  .hero-media-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 45, 95, 0.46) 0%,
+      rgba(0, 45, 95, 0.24) 28%,
+      transparent 42%,
+      rgba(0, 31, 67, 0.08) 68%,
+      rgba(0, 31, 67, 0.34) 100%
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slide-image {
+    object-position: var(--hero-desktop-position, center top);
+  }
 }
 
 @media (min-width: 1024px) {
