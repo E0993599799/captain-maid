@@ -65,25 +65,16 @@ export default function WhyCaptainMaid() {
             </div>
           </div>
 
-          {/* Badge + stats */}
+          {/* Brand logo + stats */}
           <div className="lg:col-span-3 flex flex-col items-center gap-8">
-            <div className="relative flex h-44 w-44 flex-col items-center justify-center rounded-full border-2 border-[#002d5f] text-[#002d5f] sm:h-48 sm:w-48">
-              <Image
-                src="/images/logo.png"
-                alt="Captain Maid"
-                width={40}
-                height={40}
-                className="absolute top-5 h-8 w-8 object-contain"
-              />
-              <span className="text-2xl font-extrabold leading-tight text-center">
-                Captain
-                <br />
-                Maid
-              </span>
-              <span className="absolute bottom-5 text-[9px] tracking-widest font-semibold">
-                SINCE 2020
-              </span>
-            </div>
+            <Image
+              src="/images/logo.png"
+              alt="Captain Maid"
+              width={240}
+              height={328}
+              className="h-auto w-44 object-contain sm:w-52 lg:w-56"
+              sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 224px"
+            />
             <div className="grid grid-cols-3 lg:grid-cols-1 gap-6 text-center">
               {stats.map((s) => (
                 <div key={s.label}>
