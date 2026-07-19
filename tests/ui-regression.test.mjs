@@ -4,12 +4,23 @@ import test from 'node:test'
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
 
-test('root layout installs the Thai body and heading font variables', () => {
+test('root layout installs Roboto for English and regular Noto Sans Thai for Thai', () => {
   const layout = read('app/layout.tsx')
 
+  assert.match(layout, /Roboto/)
   assert.match(layout, /Noto_Sans_Thai/)
-  assert.match(layout, /Mitr/)
-  assert.match(layout, /className=\{`\$\{bodyFont\.variable\} \$\{headingFont\.variable\}`\}/)
+  assert.doesNotMatch(layout, /Mitr/)
+  assert.match(layout, /weight: \['400'\]/)
+  assert.match(layout, /className=\{`\$\{englishFont\.variable\} \$\{thaiFont\.variable\}`\}/)
+})
+
+test('global typography prevents synthetic Thai bold and doubles hero outlines', () => {
+  const styles = read('app/globals.css')
+
+  assert.match(styles, /font-family: var\(--font-english\), var\(--font-thai\)/)
+  assert.match(styles, /font-synthesis: none/)
+  assert.match(styles, /-webkit-text-stroke: 12px #ffffff/)
+  assert.match(styles, /-webkit-text-stroke: clamp\(4px, 0\.44vw, 8px\) #101849/)
 })
 
 test('dark hero uses one white treatment for every heading line', () => {

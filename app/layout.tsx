@@ -1,20 +1,20 @@
 import type { Metadata, Viewport } from 'next'
-import { Mitr, Noto_Sans_Thai } from 'next/font/google'
+import { Noto_Sans_Thai, Roboto } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
-const bodyFont = Noto_Sans_Thai({
-  subsets: ['thai', 'latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-body',
+const englishFont = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-english',
   display: 'swap',
 })
 
-const headingFont = Mitr({
+const thaiFont = Noto_Sans_Thai({
   subsets: ['thai', 'latin'],
-  weight: ['600', '700'],
-  variable: '--font-heading',
+  weight: ['400'],
+  variable: '--font-thai',
   display: 'swap',
 })
 
@@ -91,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="th"
-      className={`${bodyFont.variable} ${headingFont.variable}`}
+      className={`${englishFont.variable} ${thaiFont.variable}`}
       suppressHydrationWarning
     >
       <head>

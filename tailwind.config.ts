@@ -29,18 +29,20 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // `font-serif` is used site-wide as the heading font (no serif typeface
-        // is actually used anywhere) — repurposed here to point at the Mitr
-        // heading variable rather than adding a separate unused `heading` key.
-        serif: ['var(--font-heading)', 'Mitr', 'Noto Sans Thai', 'sans-serif'],
-        sans: [
-          'var(--font-body)',
-          '"Noto Sans Thai"',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          '"Segoe UI"',
+        // Roboto owns Latin glyphs; Thai naturally falls through to the
+        // regular-only Noto Sans Thai face loaded by the root layout.
+        serif: [
+          'var(--font-english)',
+          'var(--font-thai)',
           'Roboto',
-          '"Helvetica Neue"',
+          '"Noto Sans Thai"',
+          'sans-serif',
+        ],
+        sans: [
+          'var(--font-english)',
+          'var(--font-thai)',
+          'Roboto',
+          '"Noto Sans Thai"',
           'sans-serif',
         ],
         mono: ['"Courier New"', 'monospace'],
