@@ -40,11 +40,16 @@ test('mobile hero preserves portrait artwork and its upper text-safe area', () =
 
   assert.match(hero, /className="hero-carousel /)
   assert.match(hero, /className="hero-content-shell /)
+  assert.match(hero, /className={`hero-copy-block /)
+  assert.match(hero, /className="hero-description /)
+  assert.match(hero, /className="hero-actions /)
   assert.match(styles, /@media \(max-width: 767px\)/)
   assert.match(styles, /height: max\(115svh, min\(205vw, 1050px\)\)/)
   assert.match(styles, /align-items: flex-start/)
   assert.match(styles, /height: 30%/)
   assert.match(styles, /transparent 30%/)
+  assert.match(styles, /\.hero-actions \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/)
+  assert.match(styles, /font-size: clamp\(1\.8rem, 8\.2vw, 2\.35rem\)/)
 })
 
 test('every catalogue product uses its matching product packshot', () => {

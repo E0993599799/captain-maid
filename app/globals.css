@@ -244,7 +244,33 @@
   }
 
   .hero-title--dark-bg {
-    font-size: clamp(2.05rem, 9.5vw, 2.75rem);
+    font-size: clamp(1.8rem, 8.2vw, 2.35rem);
+    line-height: 1.04;
+  }
+
+  .hero-copy-block > div:first-child {
+    margin-bottom: 0.5rem;
+    padding-block: 0.4rem;
+  }
+
+  .hero-description {
+    margin-top: 0.5rem;
+    max-width: 23rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.625rem;
+  }
+
+  .hero-actions a {
+    min-height: 2.75rem;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.78rem;
   }
 
   .hero-media-overlay {

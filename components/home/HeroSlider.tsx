@@ -138,7 +138,7 @@ export default function HeroSlider() {
         <div className="mx-auto w-full max-w-[1440px]">
           <div
             key={active.id}
-            className={`max-w-[680px] text-center lg:text-left ${reducedMotion ? '' : 'animate-hero-copy-in'}`}
+            className={`hero-copy-block max-w-[680px] text-center lg:text-left ${reducedMotion ? '' : 'animate-hero-copy-in'}`}
           >
           <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur sm:mb-6">
             <Sparkles className="w-4 h-4 text-white" />
@@ -148,10 +148,10 @@ export default function HeroSlider() {
             {active.heading}
             <span className="hero-title__line">{active.headingAccent}</span>
           </h1>
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-white/85 sm:mt-5 sm:text-lg sm:leading-7 lg:mx-0">
+          <p className="hero-description mx-auto mt-3 max-w-lg text-sm leading-6 text-white/85 sm:mt-5 sm:text-lg sm:leading-7 lg:mx-0">
             {active.body}
           </p>
-          <div className="mt-4 flex flex-col justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3 lg:justify-start">
+          <div className="hero-actions mt-4 flex flex-col justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3 lg:justify-start">
             <Link
               href="/products"
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0079c1] px-7 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[#0066a8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
