@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import Reveal from '@/components/Reveal'
 
 const largeCards = [
   {
@@ -44,14 +45,14 @@ export default function SolutionsDeepDive() {
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="solutions-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 max-w-2xl sm:mb-10">
+        <Reveal className="mb-8 max-w-2xl sm:mb-10">
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Clean by room</p>
           <h2 id="solutions-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">Solutions</h2>
           <p className="mt-3 text-sm leading-6 text-slate-500 sm:text-base">เลือกวิธีดูแลบ้านตามพื้นที่ที่คุณใช้งานจริง แล้วค้นหาผลิตภัณฑ์ที่เหมาะกับทุกวันของคุณ</p>
-        </div>
+        </Reveal>
 
         {/* Large cards */}
-        <div className="grid lg:grid-cols-12 gap-4 mb-4">
+        <Reveal className="grid lg:grid-cols-12 gap-4 mb-4">
           {largeCards.map((card) => (
             <Link
               key={card.title}
@@ -75,10 +76,10 @@ export default function SolutionsDeepDive() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
 
         {/* Small cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Reveal delayMs={100} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {smallCards.map((card) => (
             <Link
               key={card.title}
@@ -102,7 +103,7 @@ export default function SolutionsDeepDive() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

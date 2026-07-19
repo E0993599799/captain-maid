@@ -81,7 +81,7 @@ const config: Config = {
         'header-slide-down': 'header-slide-down 0.35s cubic-bezier(0.22, 1, 0.36, 1)',
         'header-slide-up': 'header-slide-up 0.35s cubic-bezier(0.22, 1, 0.36, 1)',
         'fade-in': 'fade-in 0.3s ease-out',
-        'fade-in-up': 'fade-in-up 0.5s ease-out',
+        'fade-in-up': 'fade-in-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both',
       },
       maxWidth: {
         container: '1200px',

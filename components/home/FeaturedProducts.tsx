@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Star, ArrowRight } from 'lucide-react'
 import { PRODUCTS, CaptainProduct, CATEGORIES } from '@/lib/captain-products'
+import Reveal from '@/components/Reveal'
 
 const featured: CaptainProduct[] = [
   PRODUCTS.find((p) => p.id === 'floor-cleaner-lavender-kerry')!,
@@ -68,7 +69,7 @@ export default function FeaturedProducts() {
   return (
     <section className="bg-[#f9fbfd] py-16 sm:py-20 lg:py-24" aria-labelledby="featured-products-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+        <Reveal className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Everyday essentials</p>
             <h2 id="featured-products-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">สินค้ายอดนิยม</h2>
@@ -79,13 +80,13 @@ export default function FeaturedProducts() {
           >
             View All <ArrowRight className="w-4 h-4" />
           </Link>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <Reveal delayMs={100} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {featured.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

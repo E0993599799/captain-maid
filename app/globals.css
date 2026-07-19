@@ -26,6 +26,13 @@
     color-scheme: light;
   }
 
+  /* Breathing room below the fixed header (h-20, ~80px) for any in-page
+     anchor target (id-bearing heading/section) reached via scroll-into-view
+     or a hash link. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
   body {
     @apply antialiased;
     background: var(--color-surface);
