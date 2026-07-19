@@ -41,9 +41,10 @@ test('mobile hero preserves portrait artwork and its upper text-safe area', () =
   assert.match(hero, /className="hero-carousel /)
   assert.match(hero, /className="hero-content-shell /)
   assert.match(styles, /@media \(max-width: 767px\)/)
-  assert.match(styles, /height: max\(100svh, min\(177\.68vw, 900px\)\)/)
+  assert.match(styles, /height: max\(115svh, min\(205vw, 1050px\)\)/)
   assert.match(styles, /align-items: flex-start/)
-  assert.match(styles, /transparent 42%/)
+  assert.match(styles, /height: 30%/)
+  assert.match(styles, /transparent 30%/)
 })
 
 test('every catalogue product uses its matching product packshot', () => {

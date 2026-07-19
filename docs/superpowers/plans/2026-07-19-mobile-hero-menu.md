@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Mobile copy uses the upper 42% text-safe area.
+- Mobile copy uses the upper 30% text-safe area in an extra-tall 205vw / 115svh hero.
 - Mobile artwork remains portrait and visible below the copy.
 - Heading weight is 600 and outlines are reduced by exactly 30% from the current values.
 - The drawer must render above the hero and fill the viewport below the header.
@@ -68,4 +68,3 @@
 
 - [ ] Run `npm test`, `npm run type-check`, `npm run build`, and `git diff --check`.
 - [ ] Commit with `fix: correct mobile hero and menu layering` and update remote `main` without force.
-
