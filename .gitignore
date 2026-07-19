@@ -53,3 +53,8 @@ orry-serenity/
 pharmacy-expiry-system/
 smart-home-control/
 
+
+# Playwright/Lighthouse proof tooling artifacts (generated, not evidence)
+test-results/
+proofs/playwright-report/
+playwright-report/
