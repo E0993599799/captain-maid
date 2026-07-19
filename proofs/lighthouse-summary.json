@@ -1,0 +1,53 @@
+[
+  {
+    "label": "Home (/)",
+    "url": "http://localhost:3000/",
+    "scores": {
+      "performance": 43,
+      "accessibility": 95,
+      "bestPractices": 96,
+      "seo": 85
+    },
+    "metrics": {
+      "lcpMs": 34004.91135,
+      "clsScore": 0,
+      "tbtMs": 14682.500000000002,
+      "fcpMs": 1368.9409,
+      "speedIndexMs": 3808.6756027253673
+    }
+  },
+  {
+    "label": "FAQ (/faq)",
+    "url": "http://localhost:3000/faq",
+    "scores": {
+      "performance": 90,
+      "accessibility": 96,
+      "bestPractices": 96,
+      "seo": 85
+    },
+    "metrics": {
+      "lcpMs": 2609.4577,
+      "clsScore": 0,
+      "tbtMs": 315.5,
+      "fcpMs": 931.22885,
+      "speedIndexMs": 958.1021479956589
+    }
+  },
+  {
+    "label": "Product (/products/floor-cleaner-lavender-kerry)",
+    "url": "http://localhost:3000/products/floor-cleaner-lavender-kerry",
+    "scores": {
+      "performance": 58,
+      "accessibility": 96,
+      "bestPractices": 96,
+      "seo": 85
+    },
+    "metrics": {
+      "lcpMs": 11968.933399999998,
+      "clsScore": 0,
+      "tbtMs": 688,
+      "fcpMs": 954.9667,
+      "speedIndexMs": 1024.7739539540066
+    }
+  }
+]
