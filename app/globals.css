@@ -23,11 +23,13 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 84px;
     color-scheme: light;
   }
 
   body {
     @apply antialiased;
+    overflow-x: clip;
     background: var(--color-surface);
     color: var(--color-text);
     font-family: var(--font-body), 'Noto Sans Thai', -apple-system, BlinkMacSystemFont,
@@ -128,12 +130,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral);
+  background: var(--color-text-muted);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-blue);
+  background: var(--color-brand-blue);
 }
 
 /* Focus visible for accessibility */
@@ -161,7 +163,7 @@
 }
 
 .animate-hero-copy-in {
-  animation: hero-copy-in 0.6s ease-out 0.15s both;
+  animation: hero-copy-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -189,16 +191,93 @@
 
 .hero-title--dark-bg {
   font-family: var(--font-heading), "Mitr", "Noto Sans Thai", sans-serif;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.7rem, 5.2vw, 4.65rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
 
   color: #ffffff;
-  -webkit-text-stroke: 4px #101849;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-text-stroke: clamp(2px, 0.22vw, 4px) #101849;
   paint-order: stroke fill;
 
   text-shadow:
-    0 3px 0 rgba(0, 0, 0, 0.75),
-    0 5px 8px rgba(0, 0, 0, 0.35),
-    0 0 5px rgba(255, 255, 255, 0.25);
+    0 2px 0 rgba(4, 15, 54, 0.6),
+    0 5px 12px rgba(0, 0, 0, 0.26),
+    0 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.hero-title__line {
+  display: block;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+}
+
+/* A single full-width layer prevents the visible 50% seam created by two
+   half-width overlays. Mobile receives an even wash because copy is centered. */
+.hero-media-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 45, 95, 0.34) 0%, rgba(0, 45, 95, 0.72) 46%, rgba(0, 31, 67, 0.9) 100%);
+}
+
+@media (min-width: 1024px) {
+  .hero-media-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 45, 95, 0.86) 0%,
+        rgba(0, 45, 95, 0.76) 32%,
+        rgba(0, 45, 95, 0.42) 50%,
+        rgba(0, 45, 95, 0.1) 68%,
+        rgba(0, 45, 95, 0) 82%
+      ),
+      linear-gradient(0deg, rgba(0, 31, 67, 0.2) 0%, rgba(0, 31, 67, 0) 38%);
+  }
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes accordion-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-dropdown-in {
+  animation: dropdown-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-mobile-menu-in {
+  animation: mobile-menu-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-accordion-in {
+  animation: accordion-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

@@ -1,7 +1,22 @@
 import type { Metadata, Viewport } from 'next'
+import { Mitr, Noto_Sans_Thai } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+
+const bodyFont = Noto_Sans_Thai({
+  subsets: ['thai', 'latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-body',
+  display: 'swap',
+})
+
+const headingFont = Mitr({
+  subsets: ['thai', 'latin'],
+  weight: ['600', '700'],
+  variable: '--font-heading',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Captain Maid | Premium Household Cleaning Products',
@@ -74,7 +89,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="th" suppressHydrationWarning>
+    <html
+      lang="th"
+      className={`${bodyFont.variable} ${headingFont.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="theme-color" content="#0079c1" />
       </head>
