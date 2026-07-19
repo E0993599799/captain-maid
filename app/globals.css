@@ -30,7 +30,7 @@
     @apply antialiased;
     background: var(--color-surface);
     color: var(--color-text);
-    font-family: Poppins, 'Noto Sans Thai', -apple-system, BlinkMacSystemFont,
+    font-family: var(--font-body), 'Noto Sans Thai', -apple-system, BlinkMacSystemFont,
       'Segoe UI', sans-serif;
   }
 
@@ -38,9 +38,11 @@
   h2,
   h3,
   h4 {
-    @apply font-bold leading-tight;
+    font-family: var(--font-heading), 'Mitr', 'Noto Sans Thai', sans-serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     text-wrap: balance;
-    letter-spacing: -0.01em;
   }
 
   h1 {
@@ -144,4 +146,59 @@
 ::selection {
   background: var(--color-brand-blue);
   color: #fff;
+}
+
+/* Hero slide copy — fades/slides in slightly after the image transitions */
+@keyframes hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-copy-in {
+  animation: hero-copy-in 0.6s ease-out 0.15s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-copy-in {
+    animation: none;
+  }
+}
+
+/* Adaptive-contrast hero title treatment — real HTML text (not baked into
+   images) with a stroke + shadow combo tuned to stay readable over a photo. */
+.hero-title {
+  font-family: var(--font-heading), "Mitr", "Noto Sans Thai", sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+
+  color: #0875b6;
+  -webkit-text-stroke: 6px #ffffff;
+  paint-order: stroke fill;
+
+  text-shadow:
+    0 3px 0 rgba(0, 73, 125, 0.28),
+    0 5px 10px rgba(0, 0, 0, 0.12);
+}
+
+.hero-title--dark-bg {
+  font-family: var(--font-heading), "Mitr", "Noto Sans Thai", sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+
+  color: #ffffff;
+  -webkit-text-stroke: 4px #101849;
+  paint-order: stroke fill;
+
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.75),
+    0 5px 8px rgba(0, 0, 0, 0.35),
+    0 0 5px rgba(255, 255, 255, 0.25);
 }

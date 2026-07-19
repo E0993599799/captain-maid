@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, Search, User, ShoppingCart } from 'lucide-react'
 import { LanguageToggle } from './LanguageToggle'
 
 interface NavItem {
@@ -28,31 +28,24 @@ const NAV: NavItem[] = [
     ],
   },
   {
-    label: 'Cleaning Tips & Solutions',
+    label: 'Solutions',
     href: '/blog',
     items: [
-      { label: 'Clogs', href: '/blog' },
-      { label: 'Dirt & Grime', href: '/blog' },
-      { label: 'Germs & Bacteria', href: '/blog' },
-      { label: 'Grease', href: '/blog' },
-      { label: 'Whole House', href: '/blog' },
-      { label: 'Hard Water Spots', href: '/blog' },
-      { label: 'Limescale', href: '/blog' },
-      { label: 'Odour', href: '/blog' },
-      { label: 'Scuffs & Marks', href: '/blog' },
-      { label: 'Soap Scum', href: '/blog' },
+      { label: 'Clogs', href: '/blog?topic=clogs' },
+      { label: 'Dirt & Grime', href: '/blog?topic=dirt-grime' },
+      { label: 'Germs & Bacteria', href: '/blog?topic=germs-bacteria' },
+      { label: 'Grease', href: '/blog?topic=grease' },
+      { label: 'Whole House', href: '/blog?topic=whole-house' },
+      { label: 'Hard Water Spots', href: '/blog?topic=hard-water-spots' },
+      { label: 'Limescale', href: '/blog?topic=limescale' },
+      { label: 'Odour', href: '/blog?topic=odour' },
+      { label: 'Scuffs & Marks', href: '/blog?topic=scuffs-marks' },
+      { label: 'Soap Scum', href: '/blog?topic=soap-scum' },
     ],
   },
-  {
-    label: 'Support',
-    href: '/contact',
-    items: [
-      { label: 'FAQ', href: '/faq' },
-      { label: 'Contact Us', href: '/contact' },
-    ],
-  },
-  { label: 'About us', href: '/about' },
+  { label: 'About', href: '/about' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export function Header() {
@@ -63,7 +56,11 @@ export function Header() {
   const lastScrollY = React.useRef(0)
   const pathname = usePathname() ?? '/th'
   const locale = pathname.startsWith('/en') ? 'en' : 'th'
-  const localize = (href: string) => `/${locale}${href === '/' ? '' : href}`
+  // Only the homepage lives under app/[locale]/ — every other route (about,
+  // products, blog, contact, faq) is a single hardcoded-language page with no
+  // next-intl support yet, so prefixing them with /th or /en 404s. Only
+  // localize the home link until those routes are actually internationalized.
+  const localize = (href: string) => (href === '/' ? `/${locale}` : href)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -119,7 +116,7 @@ export function Header() {
             <img
               src="/images/logo.png"
               alt="Captain Maid"
-              className="w-12 h-12 object-contain drop-shadow-sm"
+              className="w-24 h-24 object-contain drop-shadow-sm"
             />
             <div className="leading-tight">
               <div className="font-bold text-[#002d5f] text-lg tracking-tight">Captain Maid</div>
@@ -170,10 +167,41 @@ export function Header() {
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-1 sm:gap-2">
             <div className="hidden sm:block">
               <LanguageToggle />
             </div>
+            <Link
+              href={localize('/products')}
+              aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'}
+              className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full text-gray-500 hover:text-[#0079c1] hover:bg-[#e6f3fa] transition-colors"
+            >
+              <Search className="w-5 h-5" />
+            </Link>
+            {/* Account & cart: no account/e-commerce backend exists yet — shown for visual
+                parity with the approved mockup, but intentionally not linked to avoid a
+                fake 404 destination. Wire these up once those features are built. */}
+            <button
+              type="button"
+              disabled
+              title={locale === 'th' ? 'บัญชีผู้ใช้ (เร็ว ๆ นี้)' : 'Account (coming soon)'}
+              aria-label={locale === 'th' ? 'บัญชีผู้ใช้ (เร็ว ๆ นี้)' : 'Account (coming soon)'}
+              className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full text-gray-300 cursor-not-allowed"
+            >
+              <User className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              disabled
+              title={locale === 'th' ? 'ตะกร้าสินค้า (เร็ว ๆ นี้)' : 'Cart (coming soon)'}
+              aria-label={locale === 'th' ? 'ตะกร้าสินค้า (เร็ว ๆ นี้)' : 'Cart (coming soon)'}
+              className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-full text-gray-300 cursor-not-allowed"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              <span className="absolute top-1.5 right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gray-300 px-1 text-[10px] font-semibold leading-none text-white">
+                0
+              </span>
+            </button>
             <Link
               href={localize('/products')}
               className="hidden sm:inline-flex items-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-5 py-2 text-sm font-semibold shadow-md transition-all"

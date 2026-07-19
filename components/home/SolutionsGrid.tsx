@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Droplets, Bath, CookingPot, AppWindow, SprayCan, UtensilsCrossed, LayoutGrid } from 'lucide-react'
+import { Droplets, Bath, CookingPot, AppWindow, SprayCan, UtensilsCrossed } from 'lucide-react'
 
 const cards = [
   {
@@ -93,17 +93,6 @@ export default function SolutionsGrid() {
               </div>
             </Link>
           ))}
-
-          {/* View All card */}
-          <Link
-            href="/products"
-            className="group relative rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10] hidden lg:flex flex-col items-center justify-center gap-3"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-[#e6f3fa] group-hover:bg-[#0079c1] flex items-center justify-center transition-colors duration-300">
-              <LayoutGrid className="w-6 h-6 text-[#0079c1] group-hover:text-white transition-colors duration-300" />
-            </div>
-            <span className="text-sm font-bold text-[#002d5f]">View All</span>
-          </Link>
         </div>
       </div>
     </section>

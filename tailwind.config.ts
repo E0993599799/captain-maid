@@ -29,10 +29,13 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['Poppins', 'Noto Sans Thai', 'sans-serif'],
+        // `font-serif` is used site-wide as the heading font (no serif typeface
+        // is actually used anywhere) — repurposed here to point at the Mitr
+        // heading variable rather than adding a separate unused `heading` key.
+        serif: ['var(--font-heading)', 'Mitr', 'Noto Sans Thai', 'sans-serif'],
         sans: [
-          'Poppins',
-          'Noto Sans Thai',
+          'var(--font-body)',
+          '"Noto Sans Thai"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',

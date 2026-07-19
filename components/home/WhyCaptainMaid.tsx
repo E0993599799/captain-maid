@@ -68,9 +68,13 @@ export default function WhyCaptainMaid() {
           {/* Badge + stats */}
           <div className="lg:col-span-3 flex flex-col items-center gap-8">
             <div className="relative flex h-44 w-44 flex-col items-center justify-center rounded-full border-2 border-[#002d5f] text-[#002d5f] sm:h-48 sm:w-48">
-              <span className="absolute top-4 text-[8px] tracking-[0.25em] font-semibold uppercase">
-                Quality you can count on
-              </span>
+              <Image
+                src="/images/logo.png"
+                alt="Captain Maid"
+                width={40}
+                height={40}
+                className="absolute top-5 h-8 w-8 object-contain"
+              />
               <span className="text-2xl font-extrabold leading-tight text-center">
                 Captain
                 <br />

@@ -14,7 +14,7 @@ export default function TrustBanner() {
             className="absolute inset-0 object-cover"
             sizes="(max-width: 640px) 100vw, 100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#002d5f]/70 via-[#002d5f]/25 to-transparent" />
+          <div className="absolute inset-0 lg:right-auto lg:w-[55%] bg-gradient-to-r from-[#002d5f]/70 via-[#002d5f]/40 to-transparent" />
 
           <div className="relative max-w-lg p-5 sm:p-12">
             <div className="rounded-3xl bg-[#002d5f]/85 p-7 text-white shadow-2xl backdrop-blur sm:p-10">

@@ -11,88 +11,82 @@ export const metadata: Metadata = {
   },
 }
 
+/**
+ * FAQ content policy: every answer here must trace back to real, approved
+ * copy (the product-requirement PPTX in lib/captain-products.ts) or a safe,
+ * generic instruction. Do not add shipping costs, return policy specifics,
+ * sustainability targets/certifications, or any other business fact that
+ * isn't sourced — mark it CONTENT REQUIRED instead of inventing a plausible
+ * answer. This applies doubly to safety-critical content (e.g. poison
+ * control contact): give safe generic guidance, never a fabricated phone
+ * number or hotline.
+ */
 const faqCategories = [
   {
-    category: 'Products',
+    category: 'การใช้งานผลิตภัณฑ์',
     questions: [
       {
-        q: 'What are your products made from?',
-        a: 'All Captain Maid products are formulated with plant-based surfactants, essential oils, and natural ingredients. We avoid harsh chemicals like bleach, ammonia, and phosphates.',
+        q: 'น้ำยาถูพื้นใช้อย่างไร?',
+        a: 'ผสมผลิตภัณฑ์ 1 ฝา (50 มล.) ลงในน้ำ 5 ลิตร ถูพื้นให้ทั่วแล้วปล่อยให้แห้ง ไม่ต้องล้างน้ำซ้ำ สำหรับคราบฝังลึก ผสม 1 ฝากับน้ำ 150 มล. แล้วเช็ดบริเวณที่ต้องการให้สะอาด',
       },
       {
-        q: 'Are your products eco-friendly?',
-        a: 'Yes! Our formulas are biodegradable and our packaging is made from recycled plastic. We\'re committed to sustainability without compromising cleaning power.',
+        q: 'สเปรย์ทำความสะอาดห้องน้ำ/ห้องครัวใช้อย่างไร?',
+        a: 'ปรับหัวฉีดไปที่โหมดสเปรย์ ฉีดลงบนบริเวณที่ต้องการ ทิ้งไว้ 10–15 นาทีสำหรับคราบฝังแน่น จากนั้นเช็ดหรือขัดออกแล้วล้าง/เช็ดด้วยผ้าสะอาด',
       },
       {
-        q: 'Do you test on animals?',
-        a: 'Absolutely not. We\'re a cruelty-free company. All our products are tested using alternative methods.',
+        q: 'น้ำยาเช็ดกระจกใช้อย่างไร?',
+        a: 'ฉีดให้ทั่วบริเวณที่ต้องการ แล้วเช็ดตามด้วยผ้าสะอาด ควรเปลี่ยนผ้าบ่อย ๆ หากพื้นผิวสกปรกมาก',
       },
       {
-        q: 'What scents do you offer?',
-        a: 'We currently offer Lemongrass, Lavender, and Unscented formulations. We\'re developing more options based on customer feedback.',
+        q: 'ใช้กับหุ่นยนต์ถูพื้นได้ไหม?',
+        a: 'ผลิตภัณฑ์ทำความสะอาดพื้นของกัปตันเมดใช้ได้กับหุ่นยนต์ถูพื้น',
       },
     ],
   },
   {
-    category: 'Usage & Safety',
+    category: 'ความปลอดภัย',
     questions: [
       {
-        q: 'Are your products safe for children?',
-        a: 'Our products are non-toxic and hypoallergenic. However, they should still be stored safely away from children. Always ensure surfaces are completely dry before children play on them.',
+        q: 'ปลอดภัยสำหรับเด็กและสัตว์เลี้ยงหรือไม่?',
+        a: 'ผลิตภัณฑ์ปลอดภัยต่อการใช้งานเมื่อปฏิบัติตามคำแนะนำบนฉลากอย่างถูกต้อง ผลิตภัณฑ์ทำความสะอาดพื้นระบุว่าใช้ได้ทุกวันและปลอดภัยสำหรับเด็กและสัตว์เลี้ยงเมื่อใช้ตามคำแนะนำ',
       },
       {
-        q: 'Can I use these products on all surfaces?',
-        a: 'Each product is designed for specific surfaces. Our Floor Cleaner works on tile, marble, wood, and concrete. Check product labels for specific surface recommendations.',
+        q: 'สูตร 5 FREE คืออะไร?',
+        a: 'ผลิตภัณฑ์ทำความสะอาดพื้นของกัปตันเมด ปลอดสาร 5 ชนิด ได้แก่ ฟอสเฟต พาราเบน แอมโมเนีย ฟอร์มาลดีไฮด์ และ SLS',
       },
       {
-        q: 'What should I do if my child ingests the product?',
-        a: 'Call Poison Control immediately (1300-222-800 in Thailand) or seek medical attention. Have the product label available when you call.',
+        q: 'ผสมผลิตภัณฑ์ทำความสะอาดหลายชนิดเข้าด้วยกันได้ไหม?',
+        a: 'CONTENT REQUIRED — คำแนะนำเรื่องการผสมผลิตภัณฑ์ยังไม่ได้รับการยืนยันจากทีมงาน โปรดปฏิบัติตามคำแนะนำบนฉลากผลิตภัณฑ์แต่ละชิ้นเป็นหลัก',
       },
       {
-        q: 'Can I mix different cleaners?',
-        a: 'No! Never mix cleaning products, especially bleach-based cleaners with other products as this can create toxic fumes. Use one product at a time.',
+        q: 'หากกลืนกินผลิตภัณฑ์โดยไม่ได้ตั้งใจ ควรทำอย่างไร?',
+        a: 'ควรติดต่อสถานพยาบาลหรือศูนย์พิษวิทยาใกล้บ้านทันที และนำฉลากผลิตภัณฑ์ติดตัวไปด้วยเพื่อให้ข้อมูลกับแพทย์ (CONTENT REQUIRED — เบอร์ติดต่อศูนย์พิษวิทยาที่ยืนยันแล้วจะเพิ่มในภายหลัง)',
       },
     ],
   },
   {
-    category: 'Shipping & Delivery',
+    category: 'การจัดส่งและการคืนสินค้า',
     questions: [
       {
-        q: 'How long does shipping take?',
-        a: 'Standard shipping typically takes 2-3 business days within Thailand. Express options available. You\'ll receive tracking information via email.',
+        q: 'ระยะเวลาจัดส่งใช้เวลานานเท่าไร?',
+        a: 'CONTENT REQUIRED — นโยบายและระยะเวลาจัดส่งยังไม่ได้รับการยืนยัน',
       },
       {
-        q: 'Do you ship internationally?',
-        a: 'Currently, we ship within Thailand. International shipping options are coming soon. Subscribe to our newsletter for updates.',
+        q: 'มีค่าจัดส่งหรือไม่?',
+        a: 'CONTENT REQUIRED — อัตราค่าจัดส่งยังไม่ได้รับการยืนยัน',
       },
       {
-        q: 'What\'s your return policy?',
-        a: 'We offer a 30-day money-back guarantee if you\'re not satisfied. Products must be unused and in original packaging.',
-      },
-      {
-        q: 'Are there shipping costs?',
-        a: 'Free shipping on orders over ฿500. Orders under ฿500 have a flat shipping fee of ฿49.',
+        q: 'นโยบายการคืนสินค้าเป็นอย่างไร?',
+        a: 'CONTENT REQUIRED — นโยบายการคืนสินค้ายังไม่ได้รับการยืนยัน',
       },
     ],
   },
   {
-    category: 'Sustainability',
+    category: 'ความยั่งยืน',
     questions: [
       {
-        q: 'How are your bottles recycled?',
-        a: 'Our plastic bottles are made from 50% recycled material. After use, simply rinse and place in your local recycling bin.',
-      },
-      {
-        q: 'Do you offer refills?',
-        a: 'Yes! We\'re developing a refill program. Sign up on our website to be notified when it launches.',
-      },
-      {
-        q: 'What are your environmental goals?',
-        a: 'By 2026, we aim to be 100% carbon neutral. We\'re working toward zero plastic waste in our operations.',
-      },
-      {
-        q: 'How can I reduce cleaning product waste?',
-        a: 'Use proper dilution (follow label instructions), store safely, and use only what you need. Proper usage = less waste.',
+        q: 'บรรจุภัณฑ์เป็นมิตรต่อสิ่งแวดล้อมหรือไม่?',
+        a: 'CONTENT REQUIRED — ข้อมูลสัดส่วนวัสดุรีไซเคิลและเป้าหมายด้านความยั่งยืนยังไม่ได้รับการยืนยันจากทีมงาน',
       },
     ],
   },
@@ -104,9 +98,9 @@ export default function FAQPage() {
       <div className="container-safe">
         {/* Page Header */}
         <div className="mb-2xl py-xl text-center">
-          <h1 className="text-5xl font-serif font-bold mb-md text-captain-blue">Frequently Asked Questions</h1>
+          <h1 className="text-5xl font-serif font-bold mb-md text-captain-blue">คำถามที่พบบ่อย</h1>
           <p className="text-xl text-captain-neutral max-prose mx-auto">
-            Answers to common questions about Captain Maid products, usage, and shipping.
+            คำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับผลิตภัณฑ์ กัปตันเมด การใช้งาน และการจัดส่ง
           </p>
         </div>
 
@@ -116,8 +110,8 @@ export default function FAQPage() {
             id="faq-search"
             name="faq-search"
             type="text"
-            aria-label="Search frequently asked questions"
-            placeholder="Search FAQs..."
+            aria-label="ค้นหาคำถามที่พบบ่อย"
+            placeholder="ค้นหาคำถามที่พบบ่อย..."
             className="w-full px-lg py-md border border-captain-light rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue"
           />
         </div>
@@ -146,15 +140,15 @@ export default function FAQPage() {
 
         {/* Still Have Questions */}
         <div className="bg-captain-light rounded-sm p-2xl text-center my-2xl">
-          <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">Can&apos;t find your answer?</h2>
+          <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">ไม่พบคำตอบที่คุณต้องการใช่ไหม?</h2>
           <p className="text-lg text-captain-neutral mb-lg">
-            We&apos;re here to help! Contact our support team and we&apos;ll get back to you within 24 hours.
+            เราพร้อมช่วยเหลือคุณ! ติดต่อทีมสนับสนุนของเรา แล้วเราจะติดต่อกลับภายใน 24 ชั่วโมง
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white transition-all"
           >
-            Contact Support →
+            ติดต่อฝ่ายสนับสนุน →
           </Link>
         </div>
       </div>

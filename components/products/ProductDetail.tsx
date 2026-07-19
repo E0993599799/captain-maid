@@ -77,8 +77,8 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
         <div className="grid lg:grid-cols-2 gap-10">
           {/* Image */}
           <div>
-            <div className="rounded-3xl overflow-hidden bg-[#eef6fb] aspect-square shadow-sm">
-              <Image src={product.image} alt={product.name[lang]} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
+            <div className="relative rounded-3xl overflow-hidden bg-[#eef6fb] aspect-square shadow-sm p-8 sm:p-10">
+              <Image src={product.image} alt={product.name[lang]} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-contain" priority />
             </div>
             {product.freeFrom && (
               <div className="mt-4 flex flex-wrap gap-2">
@@ -192,13 +192,13 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
                 href={`/products/${p.id}`}
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-[#eef6fb]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#eef6fb] p-4">
                   <Image
                     src={p.image}
                     alt={p.name[lang]}
                     fill
                     sizes="(max-width: 640px) 100vw, 33vw"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-4">

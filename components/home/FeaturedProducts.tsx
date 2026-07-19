@@ -17,12 +17,12 @@ function categoryLabel(p: CaptainProduct): string {
 function ProductCard({ product }: { product: CaptainProduct }) {
   return (
     <article className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <Link href={`/products/${product.id}`} className="block relative aspect-square overflow-hidden bg-[#f9fbfd]">
+      <Link href={`/products/${product.id}`} className="block relative aspect-square overflow-hidden bg-[#f9fbfd] p-4">
         <Image
           src={product.image}
           alt={product.name.en}
           fill
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
         <span className="absolute top-3 left-3 bg-[#e6f3fa] text-[#0079c1] text-[10px] font-bold px-2.5 py-1 rounded-full">
