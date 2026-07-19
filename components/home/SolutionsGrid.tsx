@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Droplets, Bath, CookingPot, AppWindow, SprayCan, UtensilsCrossed } from 'lucide-react'
+import Reveal from '@/components/Reveal'
 
 const cards = [
   {
@@ -45,13 +46,13 @@ export default function SolutionsGrid() {
   return (
     <section className="py-16 lg:py-20 bg-[#f9fbfd]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-left mb-10">
+        <Reveal className="text-left mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#002d5f]">
             โซลูชันครบทุกมุมของบ้าน
           </h2>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Reveal delayMs={100} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {cards.slice(0, 3).map((card) => (
             <Link
               key={card.title}
@@ -93,7 +94,7 @@ export default function SolutionsGrid() {
               </div>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

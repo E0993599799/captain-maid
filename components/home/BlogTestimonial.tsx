@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Quote, ArrowRight } from 'lucide-react'
 import { getAllBlogPosts } from '@/lib/blog'
+import Reveal from '@/components/Reveal'
 
 export default function BlogTestimonial() {
   const allPosts = getAllBlogPosts()
@@ -11,7 +12,7 @@ export default function BlogTestimonial() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-6">
           {/* Testimonial */}
-          <div className="lg:col-span-5">
+          <Reveal className="lg:col-span-5">
             <h2 id="community-title" className="mb-5 text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">
               เสียงจาก
               <br className="hidden lg:block" /> ครอบครัวของเรา
@@ -45,10 +46,10 @@ export default function BlogTestimonial() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Blog posts */}
-          <div className="lg:col-span-7">
+          <Reveal delayMs={100} className="lg:col-span-7">
             <div className="flex items-end justify-between mb-5">
               <h2 className="text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">บทความน่าอ่าน</h2>
               <Link
@@ -83,7 +84,7 @@ export default function BlogTestimonial() {
                 </Link>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
