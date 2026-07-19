@@ -89,7 +89,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 128,
     scent: { en: 'Lavender Kerry', th: 'ลาเวนเดอร์ เคอรี่' },
-    image: '/images/solution-floor.png',
+    image: '/images/products/floor-cleaner-lavender-kerry.png',
     badge: 'BEST SELLER',
     intro: {
       en: [
@@ -121,7 +121,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 96,
     scent: { en: 'Floral Passion', th: 'ฟลอรัล แพสชันเนท' },
-    image: '/images/deep-floor.png',
+    image: '/images/products/floor-cleaner-floral-passion.png',
     intro: {
       en: [
         'Captainmaid Floor Cleaner in Floral Passionate cleans your floors in a single pass, lifting dust, stains, and sticky residue without the need to mop over and over.',
@@ -152,7 +152,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 4,
     reviews: 87,
     scent: { en: 'Tea Tree Flash', th: 'ทีทรี แฟลช' },
-    image: '/images/hero-1.png',
+    image: '/images/products/floor-cleaner-tea-tree-flash.png',
     intro: {
       en: [
         'Captainmaid Floor Cleaner in Tea Tree Flash cleans your floors in a single pass, lifting dust, stains, and sticky residue without repeated mopping.',
@@ -183,7 +183,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 96,
     scent: { en: 'Fresh Air', th: 'เฟรชแอร์' },
-    image: '/images/solution-bathroom.png',
+    image: '/images/products/bathroom-cleaner-spray.png',
     badge: 'NEW',
     intro: {
       en: [
@@ -234,7 +234,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 87,
     scent: { en: 'Citrus Express', th: 'ซิตรัส เอ็กซ์เพรส' },
-    image: '/images/solution-kitchen.png',
+    image: '/images/products/kitchen-cleaner-spray.png',
     intro: {
       en: [
         'Captainmaid Kitchen Cleaner Spray in Citrus Express cuts through heavy kitchen grease, stubborn food stains, and burnt-on residue, and neutralises food odours at the source, all in one step.',
@@ -282,7 +282,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 112,
     scent: { en: 'Fruity Fresh', th: 'ฟรุตตี้ เฟรช' },
-    image: '/images/solution-glass.png',
+    image: '/images/products/glass-cleaner.png',
     intro: {
       en: [
         'Captainmaid Glass Cleaner in Fruity Fresh delivers streak-free clarity in a single wipe, clearing dust, grease, and fingerprints with no smears or distracting streaks.',

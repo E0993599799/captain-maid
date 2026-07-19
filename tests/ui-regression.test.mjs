@@ -31,6 +31,26 @@ test('dark hero uses one white treatment for every heading line', () => {
   assert.match(hero, /className="hero-media-overlay"/)
 })
 
+test('every catalogue product uses its matching product packshot', () => {
+  const catalogue = read('lib/captain-products.ts')
+  const productIds = [
+    'floor-cleaner-lavender-kerry',
+    'floor-cleaner-floral-passion',
+    'floor-cleaner-tea-tree-flash',
+    'bathroom-cleaner-spray',
+    'kitchen-cleaner-spray',
+    'glass-cleaner',
+  ]
+
+  for (const id of productIds) {
+    assert.match(
+      catalogue,
+      new RegExp(`id: '${id}'[\\s\\S]*?image: '/images/products/${id}\\.png'`),
+      `${id} must point to its matching packshot`,
+    )
+  }
+})
+
 test('header stays visible while scrolling and uses route-aware active state', () => {
   const header = read('components/Header.tsx')
 
