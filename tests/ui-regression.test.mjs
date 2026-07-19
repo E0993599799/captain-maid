@@ -14,13 +14,15 @@ test('root layout installs Roboto for English and regular Noto Sans Thai for Tha
   assert.match(layout, /className=\{`\$\{englishFont\.variable\} \$\{thaiFont\.variable\}`\}/)
 })
 
-test('global typography prevents synthetic Thai bold and doubles hero outlines', () => {
+test('global typography prevents synthetic Thai bold and uses expanded hero outlines', () => {
   const styles = read('app/globals.css')
 
   assert.match(styles, /font-family: var\(--font-english\), var\(--font-thai\)/)
   assert.match(styles, /font-synthesis: none/)
-  assert.match(styles, /-webkit-text-stroke: 12px #ffffff/)
-  assert.match(styles, /-webkit-text-stroke: clamp\(4px, 0\.44vw, 8px\) #101849/)
+  assert.match(styles, /-webkit-text-stroke: 36px #ffffff/)
+  assert.match(styles, /-webkit-text-stroke: clamp\(12px, 1\.32vw, 24px\) #101849/)
+  assert.match(styles, /letter-spacing: 0\.015em/)
+  assert.match(styles, /letter-spacing: 0\.012em/)
 })
 
 test('dark hero uses one white treatment for every heading line', () => {

@@ -178,10 +178,10 @@
   font-family: var(--font-english), var(--font-thai), "Roboto", "Noto Sans Thai", sans-serif;
   font-weight: 400;
   line-height: 1.1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.015em;
 
   color: #0875b6;
-  -webkit-text-stroke: 12px #ffffff;
+  -webkit-text-stroke: 36px #ffffff;
   paint-order: stroke fill;
 
   text-shadow:
@@ -194,11 +194,11 @@
   font-size: clamp(2.7rem, 5.2vw, 4.65rem);
   font-weight: 400;
   line-height: 1.08;
-  letter-spacing: -0.035em;
+  letter-spacing: 0.012em;
 
   color: #ffffff;
   -webkit-text-fill-color: #ffffff;
-  -webkit-text-stroke: clamp(4px, 0.44vw, 8px) #101849;
+  -webkit-text-stroke: clamp(12px, 1.32vw, 24px) #101849;
   paint-order: stroke fill;
 
   text-shadow:
