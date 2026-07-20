@@ -73,6 +73,24 @@ export default function HeroSlider() {
   const [current, setCurrent] = React.useState(0)
   const [paused, setPaused] = React.useState(false)
   const [reducedMotion, setReducedMotion] = React.useState(false)
+  // Every slide's <img> sat mounted in the DOM at all times (only opacity
+  // toggled), so loading="lazy" never actually deferred anything — the
+  // layout box is inside the hero's viewport bounds regardless of opacity.
+  // Only mount the current slide + the one it'll transition to next, and
+  // grow this set as the user/autoplay advances, instead of fetching all
+  // six full-resolution images up front.
+  const [mounted, setMounted] = React.useState<Set<number>>(() => new Set([0, 1 % slides.length]))
+
+  React.useEffect(() => {
+    setMounted((prev) => {
+      const next = (current + 1) % slides.length
+      if (prev.has(current) && prev.has(next)) return prev
+      const grown = new Set(prev)
+      grown.add(current)
+      grown.add(next)
+      return grown
+    })
+  }, [current])
 
   React.useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -114,6 +132,7 @@ export default function HeroSlider() {
           style={{ opacity: i === current ? 1 : 0 }}
           aria-hidden={i !== current}
         >
+          {mounted.has(i) && (
           <picture className="block h-full w-full">
             <source media="(max-width: 767px)" srcSet={slide.mobile} />
             <source media="(max-width: 1023px)" srcSet={slide.tablet} />
@@ -127,6 +146,7 @@ export default function HeroSlider() {
               loading={i === 0 ? 'eager' : 'lazy'}
             />
           </picture>
+          )}
         </div>
       ))}
 
@@ -139,6 +159,12 @@ export default function HeroSlider() {
           <div
             key={active.id}
             className={`hero-copy-block max-w-[680px] text-center lg:text-left ${reducedMotion ? '' : 'animate-hero-copy-in'}`}
+            onAnimationEnd={(event) => {
+              // Entrance animation leaves transform: translateY(0) sitting on the
+              // element (animation-fill-mode: both) — clear it so the text isn't
+              // parked in a permanent compositor layer between slide changes.
+              event.currentTarget.style.transform = 'none'
+            }}
           >
           <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur sm:mb-6">
             <Sparkles className="w-4 h-4 text-white" />

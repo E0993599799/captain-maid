@@ -54,7 +54,7 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
           <div className="inline-flex self-start rounded-full border border-[#d9eaf4] bg-white p-1 shadow-sm" aria-label="Choose language">
             {(['th', 'en'] as Lang[]).map((option) => (
               <button key={option} type="button" onClick={() => setLang(option)} aria-pressed={lang === option} className={`rounded-full px-3 py-1.5 text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-2 ${lang === option ? 'bg-[#0079c1] text-white' : 'text-gray-500 hover:text-[#0079c1]'}`}>
-                {option === 'th' ? 'ไทย' : 'EN'}
+                {option === 'th' ? 'TH' : 'EN'}
               </button>
             ))}
           </div>

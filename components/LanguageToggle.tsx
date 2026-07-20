@@ -9,23 +9,38 @@ interface LanguageToggleProps {
 
 export function LanguageToggle({ isDark }: LanguageToggleProps) {
   const pathname = usePathname() ?? '/th'
-
   const currentLocale = pathname.startsWith('/en') ? 'en' : 'th'
-  const toggleLocale = currentLocale === 'th' ? 'en' : 'th'
-  const newPath = pathname.replace(/^\/\w{2}(?=\/|$)/, `/${toggleLocale}`)
-    || `/${toggleLocale}`
+
+  const pathFor = (locale: 'th' | 'en') =>
+    pathname.replace(/^\/\w{2}(?=\/|$)/, `/${locale}`) || `/${locale}`
 
   return (
-    <Link
-      href={newPath}
-      className={`inline-flex min-h-11 items-center justify-center rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
-        isDark
-          ? 'text-white border-white/40 hover:bg-white/10'
-          : 'border-[#b8c6d1] bg-white/70 text-[#16324f] hover:border-[#0079c1] hover:bg-[#e6f3fa] hover:text-[#005b91]'
+    <div
+      role="group"
+      aria-label="Language"
+      className={`inline-flex items-center gap-0.5 rounded-full border p-0.5 ${
+        isDark ? 'border-white/40 bg-white/10' : 'border-[#b8c6d1] bg-white/70'
       }`}
-      aria-label={`Switch to ${toggleLocale === 'th' ? 'Thai' : 'English'}`}
     >
-      {currentLocale === 'th' ? '🇹🇭 ไทย' : '🇬🇧 English'}
-    </Link>
+      {(['th', 'en'] as const).map((locale) => {
+        const current = currentLocale === locale
+        return (
+          <Link
+            key={locale}
+            href={pathFor(locale)}
+            aria-current={current ? 'true' : undefined}
+            className={`inline-flex min-h-9 min-w-11 items-center justify-center rounded-full px-3 text-xs font-bold transition-colors ${
+              current
+                ? 'bg-[#0079c1] text-white'
+                : isDark
+                  ? 'text-white/75 hover:text-white'
+                  : 'text-[#16324f] hover:text-[#005b91]'
+            }`}
+          >
+            {locale.toUpperCase()}
+          </Link>
+        )
+      })}
+    </div>
   )
 }

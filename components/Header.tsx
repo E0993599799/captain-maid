@@ -54,6 +54,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [openMenu, setOpenMenu] = React.useState<string | null>(null)
   const [scrolled, setScrolled] = React.useState(false)
+  const [hidden, setHidden] = React.useState(false)
   const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname = usePathname() ?? '/th'
   const locale = pathname.startsWith('/en') ? 'en' : 'th'
@@ -65,12 +66,41 @@ export function Header() {
       ? pathWithoutLocale === '/'
       : pathWithoutLocale === href || pathWithoutLocale.startsWith(`${href}/`)
 
+  // Direction-aware header: hides on intentional downward scroll, reveals on
+  // upward scroll, ignores sub-8px trackpad micro-movements, stays visible
+  // near the top and while any menu is open. rAF-throttled so scroll only
+  // triggers one state check per frame, not one React update per event.
+  const lastScrollY = React.useRef(0)
+  const ticking = React.useRef(false)
   React.useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
-    handleScroll()
+    lastScrollY.current = window.scrollY
+    const menuOpen = mobileOpen || openMenu !== null
+
+    const evaluate = () => {
+      const y = window.scrollY
+      const delta = y - lastScrollY.current
+      setScrolled(y > 12)
+
+      if (menuOpen || y < 80) {
+        setHidden(false)
+      } else if (Math.abs(delta) > 8) {
+        setHidden(delta > 0)
+      }
+
+      lastScrollY.current = y
+      ticking.current = false
+    }
+
+    const handleScroll = () => {
+      if (ticking.current) return
+      ticking.current = true
+      requestAnimationFrame(evaluate)
+    }
+
+    evaluate()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [mobileOpen, openMenu])
 
   React.useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -120,10 +150,12 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b font-sans transition-[background-color,border-color,box-shadow] duration-300 ease-smooth ${
+        className={`fixed inset-x-0 top-0 z-50 border-b font-sans transition-[background-color,border-color,box-shadow,transform] duration-300 ease-smooth ${
+          hidden ? '-translate-y-full' : ''
+        } ${
           scrolled
-            ? 'border-[#dbe5ec] bg-white/95 shadow-[0_8px_28px_rgba(0,45,95,0.08)] backdrop-blur-xl'
-            : 'border-white/50 bg-white/90 backdrop-blur-lg'
+            ? 'border-[#dbe5ec] bg-white/95 shadow-[0_8px_28px_rgba(0,45,95,0.08)] backdrop-blur-md'
+            : 'border-white/50 bg-white/90 backdrop-blur-md'
         }`}
       >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
@@ -134,7 +166,7 @@ export function Header() {
         >
           <Link
             href={localize('/')}
-            className="flex min-w-0 flex-shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
+            className="flex min-w-0 flex-shrink-0 items-center gap-2.5 self-start rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
             aria-label="Captain Maid home"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -142,7 +174,7 @@ export function Header() {
               src="/images/logo.png"
               alt=""
               className={`object-contain drop-shadow-sm transition-[width,height] duration-300 ${
-                scrolled ? 'h-12 w-12' : 'h-14 w-14 sm:h-16 sm:w-16'
+                scrolled ? 'h-16 w-16' : 'h-20 w-20 sm:h-24 sm:w-24 lg:h-28 lg:w-28'
               }`}
             />
             <span className="hidden leading-tight md:block">
@@ -213,6 +245,9 @@ export function Header() {
                       className="animate-dropdown-in absolute left-0 top-full z-50 pt-2"
                       onMouseEnter={() => openDesktopMenu(item.label)}
                       onMouseLeave={scheduleDesktopMenuClose}
+                      onAnimationEnd={(event) => {
+                        event.currentTarget.style.transform = 'none'
+                      }}
                     >
                       <div className="min-w-[260px] overflow-hidden rounded-2xl border border-[#dce7ef] bg-white p-2 shadow-[0_20px_55px_rgba(0,45,95,0.16)]">
                         {item.items.map((sub) => (
@@ -276,7 +311,12 @@ export function Header() {
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="animate-mobile-menu-in absolute right-0 top-0 h-full w-full max-w-[420px] overflow-y-auto overscroll-contain border-l border-[#dce7ef] bg-white px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-5 shadow-2xl">
+          <div
+            className="animate-mobile-menu-in absolute right-0 top-0 h-full w-full max-w-[420px] overflow-y-auto overscroll-contain border-l border-[#dce7ef] bg-white px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-5 shadow-2xl"
+            onAnimationEnd={(event) => {
+              event.currentTarget.style.transform = 'none'
+            }}
+          >
             <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
               {NAV.map((item) => {
                 const active = item.label !== 'Solutions' && isPathActive(item.href)
@@ -311,7 +351,13 @@ export function Header() {
                       )}
                     </div>
                     {item.items && expanded && (
-                      <div id={`mobile-${menuId(item.label)}`} className="animate-accordion-in pb-2 pl-3">
+                      <div
+                        id={`mobile-${menuId(item.label)}`}
+                        className="animate-accordion-in pb-2 pl-3"
+                        onAnimationEnd={(event) => {
+                          event.currentTarget.style.transform = 'none'
+                        }}
+                      >
                         {item.items.map((sub) => (
                           <Link
                             key={sub.label}

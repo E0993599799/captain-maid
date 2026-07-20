@@ -6,14 +6,17 @@ import { Footer } from '@/components/Footer'
 
 const englishFont = Roboto({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  // Load every weight actually used across the site (font-medium through
+  // font-extrabold) so headings render their real weight instead of the
+  // browser's synthetic/faux-bold fallback for missing cuts.
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-english',
   display: 'swap',
 })
 
 const thaiFont = Noto_Sans_Thai({
   subsets: ['thai', 'latin'],
-  weight: ['400'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-thai',
   display: 'swap',
 })
