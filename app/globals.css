@@ -181,10 +181,36 @@
   letter-spacing: 0.015em;
 
   color: #0875b6;
-  -webkit-text-stroke: 25.2px #ffffff;
-  paint-order: stroke fill;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
+  /* Same 25.2px stroke width as before, but faked with 20 directional
+     text-shadows instead of -webkit-text-stroke. text-shadow rasterizes
+     through the browser's normal blur path (properly anti-aliased in
+     every engine, including Safari/WebKit) — -webkit-text-stroke does
+     not, and gets visibly jagged at this width. Size is unchanged. */
   text-shadow:
+    25.2px 0px 6px #ffffff,
+    23.97px 7.79px 6px #ffffff,
+    20.39px 14.81px 6px #ffffff,
+    14.81px 20.39px 6px #ffffff,
+    7.79px 23.97px 6px #ffffff,
+    0px 25.2px 6px #ffffff,
+    -7.79px 23.97px 6px #ffffff,
+    -14.81px 20.39px 6px #ffffff,
+    -20.39px 14.81px 6px #ffffff,
+    -23.97px 7.79px 6px #ffffff,
+    -25.2px 0px 6px #ffffff,
+    -23.97px -7.79px 6px #ffffff,
+    -20.39px -14.81px 6px #ffffff,
+    -14.81px -20.39px 6px #ffffff,
+    -7.79px -23.97px 6px #ffffff,
+    0px -25.2px 6px #ffffff,
+    7.79px -23.97px 6px #ffffff,
+    14.81px -20.39px 6px #ffffff,
+    20.39px -14.81px 6px #ffffff,
+    23.97px -7.79px 6px #ffffff,
     0 3px 0 rgba(0, 73, 125, 0.28),
     0 5px 10px rgba(0, 0, 0, 0.12);
 }
@@ -198,10 +224,30 @@
 
   color: #ffffff;
   -webkit-text-fill-color: #ffffff;
-  -webkit-text-stroke: clamp(8.4px, 0.924vw, 16.8px) #101849;
-  paint-order: stroke fill;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
+  /* Same clamp(8.4px, 0.924vw, 16.8px) stroke width as before, faked with
+     16 directional text-shadows scaled by --stroke-r so it stays responsive. */
+  --stroke-r: clamp(8.4px, 0.924vw, 16.8px);
   text-shadow:
+    calc(var(--stroke-r) * 1) calc(var(--stroke-r) * 0) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0.9239) calc(var(--stroke-r) * 0.3827) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0.7071) calc(var(--stroke-r) * 0.7071) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0.3827) calc(var(--stroke-r) * 0.9239) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0) calc(var(--stroke-r) * 1) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -0.3827) calc(var(--stroke-r) * 0.9239) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -0.7071) calc(var(--stroke-r) * 0.7071) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -0.9239) calc(var(--stroke-r) * 0.3827) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -1) calc(var(--stroke-r) * 0) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -0.9239) calc(var(--stroke-r) * -0.3827) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -0.7071) calc(var(--stroke-r) * -0.7071) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * -0.3827) calc(var(--stroke-r) * -0.9239) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0) calc(var(--stroke-r) * -1) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0.3827) calc(var(--stroke-r) * -0.9239) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0.7071) calc(var(--stroke-r) * -0.7071) calc(var(--stroke-r) * 0.28) #101849,
+    calc(var(--stroke-r) * 0.9239) calc(var(--stroke-r) * -0.3827) calc(var(--stroke-r) * 0.28) #101849,
     0 2px 0 rgba(4, 15, 54, 0.6),
     0 5px 12px rgba(0, 0, 0, 0.26),
     0 0 4px rgba(255, 255, 255, 0.18);

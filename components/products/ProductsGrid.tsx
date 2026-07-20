@@ -96,12 +96,12 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
                 href={`/products/${p.id}`}
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#eef6fb]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#eef6fb] p-4">
                   <Image
                     src={p.image}
                     alt={p.name[lang]}
                     fill
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <span className="absolute top-3 left-3 bg-white/90 backdrop-blur text-[#0079c1] text-[10px] font-bold px-2.5 py-1 rounded-full border border-[#e6f3fa]">
