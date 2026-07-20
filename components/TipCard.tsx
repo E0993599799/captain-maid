@@ -13,7 +13,7 @@ export function TipCard({ slug, emoji, category, title, excerpt, readTime }: Tip
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group flex flex-col h-full bg-captain-light rounded-sm overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer border border-captain-light hover:border-captain-blue"
+      className="group flex flex-col h-full bg-captain-light rounded-sm overflow-hidden hover:shadow-lg hover:scale-105 transition-[transform,box-shadow,border-color] duration-300 cursor-pointer border border-captain-light hover:border-captain-blue"
     >
       {/* Image Background */}
       <div className="h-48 bg-gradient-to-br from-captain-blue to-captain-yellow flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300">

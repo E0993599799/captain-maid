@@ -29,9 +29,9 @@ export default function TrustBanner() {
               </p>
               <Link
                 href="/about"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold border-b border-white/60 pb-0.5 hover:gap-3 transition-all"
+                className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold border-b border-white/60 pb-0.5"
               >
-                เกี่ยวกับเรา <ArrowRight className="w-4 h-4" />
+                เกี่ยวกับเรา <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>

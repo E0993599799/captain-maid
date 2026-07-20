@@ -16,7 +16,7 @@ function categoryLabel(p: CaptainProduct): string {
 
 function ProductCard({ product }: { product: CaptainProduct }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-xl">
       <Link href={`/products/${product.id}`} className="block relative aspect-square overflow-hidden bg-[#f9fbfd] p-4">
         <Image
           src={product.image}

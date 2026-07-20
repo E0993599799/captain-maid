@@ -159,11 +159,7 @@ export function Header() {
         }`}
       >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <div
-          className={`flex items-center justify-between gap-4 transition-[height] duration-300 ease-smooth ${
-            scrolled ? 'h-16' : 'h-[76px]'
-          }`}
-        >
+        <div className="flex h-[76px] items-center justify-between gap-4">
           <Link
             href={localize('/')}
             className="flex min-w-0 flex-shrink-0 items-center gap-2.5 self-start rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
@@ -173,8 +169,12 @@ export function Header() {
             <img
               src="/images/logo.png"
               alt=""
-              className={`object-contain drop-shadow-sm transition-[width,height] duration-300 ${
-                scrolled ? 'h-16 w-16' : 'h-20 w-20 sm:h-24 sm:w-24 lg:h-28 lg:w-28'
+              // Fixed layout box at all times (no width/height transition --
+              // that triggers reflow every frame). Only transform: scale
+              // changes on scroll, which is GPU-composited and doesn't
+              // affect layout.
+              className={`h-20 w-20 origin-top-left object-contain drop-shadow-sm transition-transform duration-300 ease-smooth sm:h-24 sm:w-24 lg:h-28 lg:w-28 ${
+                scrolled ? 'scale-[0.7]' : 'scale-100'
               }`}
             />
             <span className="hidden leading-tight md:block">

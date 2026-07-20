@@ -72,7 +72,7 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
               }}
               aria-pressed={category === c.id}
               aria-label={`${copy.filter}: ${c.label[lang]}`}
-              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
+              className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold border transition-[background-color,color,border-color,box-shadow] ${
                 category === c.id
                   ? 'bg-[#0079c1] text-white border-[#0079c1] shadow-md'
                   : 'bg-white text-gray-600 border-gray-200 hover:border-[#0079c1] hover:text-[#0079c1]'
@@ -94,7 +94,7 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
               <Link
                 key={p.id}
                 href={`/products/${p.id}`}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-[box-shadow] duration-300 overflow-hidden"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#eef6fb]">
                   <Image

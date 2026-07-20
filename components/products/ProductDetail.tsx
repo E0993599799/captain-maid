@@ -135,7 +135,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
 
             <Link
               href={`/contact?product=${product.id}`}
-              className="mt-8 inline-flex w-full sm:w-auto items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
+              className="mt-8 inline-flex w-full sm:w-auto items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-8 py-3 text-sm font-semibold shadow-lg transition-[background-color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
             >
               {lang === 'th' ? 'สอบถามการสั่งซื้อ' : 'Ask about ordering'}
             </Link>
@@ -190,7 +190,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
               <Link
                 key={p.id}
                 href={`/products/${p.id}`}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-[box-shadow] overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-4"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#eef6fb] p-4">
                   <Image

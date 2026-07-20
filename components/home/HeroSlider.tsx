@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 
 /** Hero slider — 6 ภาพสไลด์ (5 ตาม requirement + 1 เพิ่มเติม), แต่ละภาพมี crop แยกตามขนาดจอ */
@@ -11,20 +12,40 @@ const slides = [
     mobile: '/images/hero/01-brand-hero-mobile.png',
     tablet: '/images/hero/01-brand-hero-tablet.png',
     desktop: '/images/hero/01-brand-hero-desktop.png',
-    eyebrow: 'มืออาชีพด้านการทำความสะอาด',
-    heading: 'สะอาดทุกมุม',
-    headingAccent: 'มั่นใจทุกวัน',
-    body: 'ผลิตภัณฑ์ทำความสะอาดคุณภาพสูง เพื่อบ้านที่สะอาด ปลอดภัย และน่าอยู่สำหรับทุกคน',
+    copy: {
+      th: {
+        eyebrow: 'มืออาชีพด้านการทำความสะอาด',
+        heading: 'สะอาดทุกมุม',
+        headingAccent: 'มั่นใจทุกวัน',
+        body: 'ผลิตภัณฑ์ทำความสะอาดคุณภาพสูง เพื่อบ้านที่สะอาด ปลอดภัย และน่าอยู่สำหรับทุกคน',
+      },
+      en: {
+        eyebrow: 'Cleaning professionals',
+        heading: 'Clean every corner',
+        headingAccent: 'Confidence every day',
+        body: 'High-quality cleaning products for a clean, safe, and welcoming home for everyone.',
+      },
+    },
   },
   {
     id: 'product-range',
     mobile: '/images/hero/02-product-range-mobile.png',
     tablet: '/images/hero/02-product-range-tablet.png',
     desktop: '/images/hero/02-product-range-desktop.png',
-    eyebrow: 'ครบทุกพื้นที่ในบ้าน',
-    heading: 'ครบทุกความต้องการ',
-    headingAccent: 'ทำความสะอาด',
-    body: 'ผลิตภัณฑ์คุณภาพครอบคลุมพื้น ห้องน้ำ ห้องครัว กระจก และการฆ่าเชื้อ ในแบรนด์เดียว',
+    copy: {
+      th: {
+        eyebrow: 'ครบทุกพื้นที่ในบ้าน',
+        heading: 'ครบทุกความต้องการ',
+        headingAccent: 'ทำความสะอาด',
+        body: 'ผลิตภัณฑ์คุณภาพครอบคลุมพื้น ห้องน้ำ ห้องครัว กระจก และการฆ่าเชื้อ ในแบรนด์เดียว',
+      },
+      en: {
+        eyebrow: 'Every room, covered',
+        heading: 'Everything you need',
+        headingAccent: 'to clean',
+        body: 'Quality products for floors, bathrooms, kitchens, glass, and disinfecting — all in one brand.',
+      },
+    },
     desktopPosition: 'center 58%',
   },
   {
@@ -32,40 +53,80 @@ const slides = [
     mobile: '/images/hero/03-family-pet-safety-mobile.png',
     tablet: '/images/hero/03-family-pet-safety-tablet.png',
     desktop: '/images/hero/03-family-pet-safety-desktop.png',
-    eyebrow: 'ปลอดภัยสำหรับทุกคน',
-    heading: 'อ่อนโยนต่อเด็ก',
-    headingAccent: 'และสัตว์เลี้ยง',
-    body: 'สูตรอ่อนโยน ไว้ใจได้ทุกวัน แม้เป็นบ้านที่มีเด็กเล็กและสัตว์เลี้ยงที่คุณรัก',
+    copy: {
+      th: {
+        eyebrow: 'ปลอดภัยสำหรับทุกคน',
+        heading: 'อ่อนโยนต่อเด็ก',
+        headingAccent: 'และสัตว์เลี้ยง',
+        body: 'สูตรอ่อนโยน ไว้ใจได้ทุกวัน แม้เป็นบ้านที่มีเด็กเล็กและสัตว์เลี้ยงที่คุณรัก',
+      },
+      en: {
+        eyebrow: 'Safe for everyone',
+        heading: 'Gentle on kids',
+        headingAccent: 'and pets',
+        body: 'A gentle formula you can trust every day — even in homes with young children and pets you love.',
+      },
+    },
   },
   {
     id: 'natural-cleaning-tech',
     mobile: '/images/hero/04-natural-cleaning-tech-mobile.png',
     tablet: '/images/hero/04-natural-cleaning-tech-tablet.png',
     desktop: '/images/hero/04-natural-cleaning-tech-desktop.png',
-    eyebrow: 'เทคโนโลยีจากธรรมชาติ',
-    heading: 'สะอาดล้ำลึก',
-    headingAccent: 'ด้วยพลังจากธรรมชาติ',
-    body: 'สารทำความสะอาดจากพืช อ่อนโยนต่อพื้นผิวและมือ แต่ยังคงประสิทธิภาพเต็มที่',
+    copy: {
+      th: {
+        eyebrow: 'เทคโนโลยีจากธรรมชาติ',
+        heading: 'สะอาดล้ำลึก',
+        headingAccent: 'ด้วยพลังจากธรรมชาติ',
+        body: 'สารทำความสะอาดจากพืช อ่อนโยนต่อพื้นผิวและมือ แต่ยังคงประสิทธิภาพเต็มที่',
+      },
+      en: {
+        eyebrow: 'Nature-powered technology',
+        heading: 'Deep clean',
+        headingAccent: 'powered by nature',
+        body: 'Plant-based cleaning agents, gentle on surfaces and hands, without compromising on power.',
+      },
+    },
   },
   {
     id: 'trust-cta',
     mobile: '/images/hero/05-trust-cta-mobile.png',
     tablet: '/images/hero/05-trust-cta-tablet.png',
     desktop: '/images/hero/05-trust-cta-desktop.png',
-    eyebrow: 'ไว้วางใจโดยครอบครัวไทย',
-    heading: 'เลือกกัปตันเมด',
-    headingAccent: 'เพื่อบ้านที่คุณวางใจ',
-    body: 'คุณภาพที่พิสูจน์ได้ทุกขวด พร้อมดูแลบ้านของคุณให้สะอาดและปลอดภัยทุกวัน',
+    copy: {
+      th: {
+        eyebrow: 'ไว้วางใจโดยครอบครัวไทย',
+        heading: 'เลือกกัปตันเมด',
+        headingAccent: 'เพื่อบ้านที่คุณวางใจ',
+        body: 'คุณภาพที่พิสูจน์ได้ทุกขวด พร้อมดูแลบ้านของคุณให้สะอาดและปลอดภัยทุกวัน',
+      },
+      en: {
+        eyebrow: 'Trusted by Thai families',
+        heading: 'Choose Captain Maid',
+        headingAccent: 'for a home you can trust',
+        body: 'Proven quality in every bottle, keeping your home clean and safe every day.',
+      },
+    },
   },
   {
     id: 'object-hero',
     mobile: '/images/hero/06-object-hero-mobile.png',
     tablet: '/images/hero/06-object-hero-tablet.png',
     desktop: '/images/hero/06-object-hero-desktop.png',
-    eyebrow: 'ออกแบบมาเพื่อคุณ',
-    heading: 'ใช้งานง่าย',
-    headingAccent: 'เห็นผลจริงทุกวัน',
-    body: 'ดีไซน์ขวดถือสบายมือ เทง่าย ไม่หกเลอะเทอะ พร้อมใช้งานได้ทันทีในทุกจุดของบ้าน',
+    copy: {
+      th: {
+        eyebrow: 'ออกแบบมาเพื่อคุณ',
+        heading: 'ใช้งานง่าย',
+        headingAccent: 'เห็นผลจริงทุกวัน',
+        body: 'ดีไซน์ขวดถือสบายมือ เทง่าย ไม่หกเลอะเทอะ พร้อมใช้งานได้ทันทีในทุกจุดของบ้าน',
+      },
+      en: {
+        eyebrow: 'Designed for you',
+        heading: 'Easy to use',
+        headingAccent: 'real results every day',
+        body: 'A comfortable, easy-pour bottle design — no spills, ready to use anywhere in your home.',
+      },
+    },
   },
 ]
 
@@ -111,6 +172,9 @@ export default function HeroSlider() {
   const goPrev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
   const goNext = () => setCurrent((prev) => (prev + 1) % slides.length)
   const active = slides[current]
+  const pathname = usePathname() ?? '/th'
+  const locale = pathname.startsWith('/en') ? 'en' : 'th'
+  const copy = active.copy[locale]
 
   return (
     <section
@@ -139,7 +203,7 @@ export default function HeroSlider() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={slide.desktop}
-              alt={i === current ? `Captain Maid — ${slide.heading} ${slide.headingAccent}` : ''}
+              alt={i === current ? `Captain Maid — ${slide.copy[locale].heading} ${slide.copy[locale].headingAccent}` : ''}
               className="hero-slide-image h-full w-full object-cover"
               style={{ '--hero-desktop-position': slide.desktopPosition ?? 'center top' } as React.CSSProperties}
               fetchPriority={i === 0 ? 'high' : 'low'}
@@ -168,28 +232,28 @@ export default function HeroSlider() {
           >
           <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur sm:mb-6">
             <Sparkles className="w-4 h-4 text-white" />
-            <span className="text-xs font-semibold text-white">{active.eyebrow}</span>
+            <span className="text-xs font-semibold text-white">{copy.eyebrow}</span>
           </div>
           <h1 className="hero-title hero-title--dark-bg">
-            {active.heading}
-            <span className="hero-title__line">{active.headingAccent}</span>
+            {copy.heading}
+            <span className="hero-title__line">{copy.headingAccent}</span>
           </h1>
           <p className="hero-description mx-auto mt-3 max-w-lg text-sm leading-6 text-white/85 sm:mt-5 sm:text-lg sm:leading-7 lg:mx-0">
-            {active.body}
+            {copy.body}
           </p>
           <div className="hero-actions mt-4 flex flex-col justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3 lg:justify-start">
             <Link
               href="/products"
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0079c1] px-7 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[#0066a8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
             >
-              เลือกซื้อสินค้า
+              {locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
             <Link
               href="/about"
               className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white bg-white/10 px-7 py-3 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-[#002d5f] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
             >
-              ค้นหาโซลูชัน
+              {locale === 'th' ? 'ค้นหาโซลูชัน' : 'Find Solutions'}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>
@@ -221,10 +285,12 @@ export default function HeroSlider() {
             onClick={() => setCurrent(i)}
             aria-label={`Go to slide ${i + 1}`}
             aria-current={i === current}
-            className="flex min-h-11 min-w-11 items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="flex min-h-11 min-w-11 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <span className={`h-2 rounded-full transition-all duration-300 ${
-              i === current ? 'w-8 bg-white' : 'w-2 bg-white/50'
+            {/* Fixed width, scaled via transform instead of animating width
+                directly -- avoids a (contained but unnecessary) layout pass. */}
+            <span className={`h-2 w-8 origin-center rounded-full transition-[transform,background-color] duration-300 ${
+              i === current ? 'scale-x-100 bg-white' : 'scale-x-[0.25] bg-white/50'
             }`} />
           </button>
         ))}

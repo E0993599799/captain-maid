@@ -92,7 +92,7 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-6 py-3 sm:py-0 font-semibold shadow-md transition-all sm:flex-shrink-0 text-sm"
+              className="inline-flex items-center justify-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-6 py-3 sm:py-0 font-semibold shadow-md transition-[background-color] sm:flex-shrink-0 text-sm"
             >
               <Send className="w-4 h-4 mr-1.5" />
               สมัครรับข่าวสาร

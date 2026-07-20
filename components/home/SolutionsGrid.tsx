@@ -56,7 +56,7 @@ export default function SolutionsGrid() {
             <Link
               key={card.title}
               href={card.href}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10]"
+              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-[box-shadow] duration-300 aspect-[16/10]"
             >
               <Image
                 src={card.img}
@@ -77,7 +77,7 @@ export default function SolutionsGrid() {
             <Link
               key={card.title}
               href={card.href}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10]"
+              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-[box-shadow] duration-300 aspect-[16/10]"
             >
               <Image
                 src={card.img}
