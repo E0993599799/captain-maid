@@ -48,7 +48,7 @@ export default function SolutionsGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-left mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#002d5f]">
-            โซลูชันครบทุกมุมของบ้าน
+            สินค้าทำความสะอาด ครบทุกมุมของบ้าน
           </h2>
         </Reveal>
 

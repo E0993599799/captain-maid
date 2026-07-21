@@ -162,7 +162,7 @@ export default function HeroSlider() {
               href="/about"
               className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white bg-white/10 px-7 py-3 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-[#002d5f] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
             >
-              ค้นหาโซลูชัน
+              รู้จัก Captain Maid
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>
