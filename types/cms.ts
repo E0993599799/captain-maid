@@ -290,12 +290,35 @@ export interface CMSPageBlock {
   data: Record<string, unknown>;
 }
 
+export interface CmsSection {
+  id: string;
+  site: string;
+  pageSlug: string;
+  order: number;
+  active: boolean;
+  _status?: "draft" | "published";
+  content: CMSPageBlock[];
+}
+
+export interface CmsSectionResponse extends PaginatedResponse<CmsSection> {}
+
+export type ResolvedPageLayout = CMSPageBlock[];
+
+export interface ResolvedCmsPage {
+  id: string;
+  slug: string;
+  title?: LocalizedField;
+  seo?: SEO;
+  layout: ResolvedPageLayout;
+}
+
 export interface CMSPage {
   id: string;
   title: LocalizedField;
   slug: string;
   description: LocalizedField;
   blocks?: CMSPageBlock[];
+  layout?: CMSPageBlock[];
   status: "draft" | "published";
   seo?: SEO;
   createdAt: string;

@@ -11,6 +11,8 @@
 This adapter provides a type-safe interface between the Captain Maid frontend and Brand Content Platform backend CMS.
 
 ```
+
+For server-side reads, configure `CMS_URL` (or the existing `NEXT_PUBLIC_CMS_URL`) and `CMS_READ_TOKEN`. The token must remain server-only. If the CMS has no approved offer data, product prices and ratings are hidden rather than rendered as placeholders or zero values.
 Component
    ↓
 useProduct() hook / getProduct() function

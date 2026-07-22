@@ -58,3 +58,5 @@ smart-home-control/
 test-results/
 proofs/playwright-report/
 playwright-report/
+
+.vercel

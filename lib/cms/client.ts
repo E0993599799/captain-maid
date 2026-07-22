@@ -10,7 +10,7 @@
  * - Timeout handling
  */
 
-import { CMSException, GraphQLResponse, Locale } from "@/types/cms";
+import { CMSException, GraphQLResponse, Locale, CmsSectionResponse, CMSPage } from "../../types/cms";
 
 const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "";
 const SITE_SLUG = process.env.CMS_SITE_SLUG || "captain-maid";
@@ -412,19 +412,35 @@ class CMSClient {
   /**
    * Fetch page by slug
    */
-  async getPage(slug: string, options: RequestOptions = {}) {
+  async getPage(slug: string, locale: Locale = "th", options: RequestOptions = {}): Promise<{ docs?: CMSPage[] }> {
     return this.restGet(
       "pages",
       {
         where: {
           site: { equals: this.siteSlug },
           slug: { equals: slug },
-          status: { equals: "published" },
+          _status: { equals: "published" },
         },
+        locale,
+        depth: 2,
         limit: 1,
       },
       options
     );
+  }
+
+  async getSections(pageSlug: string, locale: Locale = "th", options: RequestOptions = {}) {
+    return this.restGet<CmsSectionResponse>("sections", {
+      where: {
+        site: { equals: this.siteSlug },
+        pageSlug: { equals: pageSlug },
+        active: { equals: true },
+        _status: { equals: "published" },
+      },
+      sort: "order",
+      depth: 2,
+      locale,
+    }, options);
   }
 
   /**
