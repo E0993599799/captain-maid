@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { ShieldCheck, FlaskConical, Leaf } from 'lucide-react'
-import Reveal from '@/components/Reveal'
 
 const benefits = [
   {
@@ -30,17 +29,15 @@ export default function WhyCaptainMaid() {
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="why-captain-maid-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Made for real homes</p>
-          <h2 id="why-captain-maid-title" className="mb-10 text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">
-            ทำไมต้อง Captain Maid
-          </h2>
-        </Reveal>
+        <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Made for real homes</p>
+        <h2 id="why-captain-maid-title" className="mb-10 text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">
+          ทำไมต้อง Captain Maid
+        </h2>
 
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Image */}
           <div className="lg:col-span-4">
-            <Reveal className="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] lg:aspect-[4/5] relative">
+            <div className="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] lg:aspect-[4/5] relative">
               <Image
                 src="/images/why-us.png"
                 alt="Captain Maid family care"
@@ -48,12 +45,12 @@ export default function WhyCaptainMaid() {
                 className="object-cover"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 33vw"
               />
-            </Reveal>
+            </div>
           </div>
 
           {/* Benefits */}
           <div className="lg:col-span-5">
-            <Reveal delayMs={100} className="space-y-6">
+            <div className="space-y-6">
               {benefits.map((b) => (
                 <div key={b.title} className="flex items-start gap-4 group">
                   <div className="w-12 h-12 rounded-xl bg-[#e6f3fa] shadow-sm flex items-center justify-center flex-shrink-0 group-hover:bg-[#0079c1] transition-colors duration-300">
@@ -65,28 +62,19 @@ export default function WhyCaptainMaid() {
                   </div>
                 </div>
               ))}
-            </Reveal>
+            </div>
           </div>
 
-          {/* Badge + stats */}
-          <Reveal delayMs={160} className="lg:col-span-3 flex flex-col items-center gap-8">
-            <div className="relative flex h-44 w-44 flex-col items-center justify-center rounded-full border-2 border-[#002d5f] text-[#002d5f] sm:h-48 sm:w-48">
-              <Image
-                src="/images/logo.png"
-                alt="Captain Maid"
-                width={40}
-                height={40}
-                className="absolute top-5 h-8 w-8 object-contain"
-              />
-              <span className="text-2xl font-extrabold leading-tight text-center">
-                Captain
-                <br />
-                Maid
-              </span>
-              <span className="absolute bottom-5 text-[9px] tracking-widest font-semibold">
-                SINCE 2020
-              </span>
-            </div>
+          {/* Brand logo + stats */}
+          <div className="lg:col-span-3 flex flex-col items-center gap-8">
+            <Image
+              src="/images/logo.png"
+              alt="Captain Maid"
+              width={240}
+              height={328}
+              className="h-auto w-44 object-contain sm:w-52 lg:w-56"
+              sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 224px"
+            />
             <div className="grid grid-cols-3 lg:grid-cols-1 gap-6 text-center">
               {stats.map((s) => (
                 <div key={s.label}>
@@ -95,7 +83,7 @@ export default function WhyCaptainMaid() {
                 </div>
               ))}
             </div>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

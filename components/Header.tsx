@@ -3,9 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import * as Dialog from '@radix-ui/react-dialog'
-import { Menu, X, ChevronDown, Search, User, ShoppingCart } from 'lucide-react'
+import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { LanguageToggle } from './LanguageToggle'
 
 interface NavItem {
@@ -50,276 +48,301 @@ const NAV: NavItem[] = [
   { label: 'Contact', href: '/contact' },
 ]
 
-/** Exact match for `/` (accounting for the locale-prefixed home route),
- *  exact-or-prefix match for everything else — so `/products/some-id`
- *  still lights up the `/products` nav item. */
-function isActive(pathname: string, href: string) {
-  if (href === '/') return pathname === '/' || pathname === '/th' || pathname === '/en'
-  return pathname === href || pathname.startsWith(`${href}/`)
-}
+const menuId = (label: string) => `desktop-menu-${label.toLowerCase().replace(/\s+/g, '-')}`
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [mobileOpenAccordion, setMobileOpenAccordion] = React.useState<string | null>(null)
+  const [openMenu, setOpenMenu] = React.useState<string | null>(null)
   const [scrolled, setScrolled] = React.useState(false)
-  const lastScrollY = React.useRef(0)
-  const ticking = React.useRef(false)
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname = usePathname() ?? '/th'
   const locale = pathname.startsWith('/en') ? 'en' : 'th'
-  // Only the homepage lives under app/[locale]/ — every other route (about,
-  // products, blog, contact, faq) is a single hardcoded-language page with no
-  // next-intl support yet, so prefixing them with /th or /en 404s. Only
-  // localize the home link until those routes are actually internationalized.
-  const localize = (href: string) => (href === '/' ? `/${locale}` : href)
+  const pathWithoutLocale = pathname.replace(/^\/(th|en)(?=\/|$)/, '') || '/'
 
-  // rAF-throttled scroll listener: only the `scrolled` (>10px) background/size
-  // toggle survives here. The old hide-on-scroll-down/show-on-scroll-up
-  // behavior has been removed entirely — the header always stays visible.
+  const localize = (href: string) => (href === '/' ? `/${locale}` : href)
+  const isPathActive = (href: string) =>
+    href === '/'
+      ? pathWithoutLocale === '/'
+      : pathWithoutLocale === href || pathWithoutLocale.startsWith(`${href}/`)
+
   React.useEffect(() => {
-    const handleScroll = () => {
-      lastScrollY.current = window.scrollY
-      if (ticking.current) return
-      ticking.current = true
-      requestAnimationFrame(() => {
-        setScrolled(lastScrollY.current > 10)
-        ticking.current = false
-      })
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 12)
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <div
-        className={`absolute inset-0 -z-10 transition-colors duration-300 ${
-          scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : ''
-        }`}
-        style={
-          scrolled
-            ? undefined
-            : {
-                background:
-                  'linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0) 100%)',
-              }
-        }
-      />
+  React.useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  React.useEffect(() => {
+    setMobileOpen(false)
+    setOpenMenu(null)
+  }, [pathname])
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false)
+        setOpenMenu(null)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  React.useEffect(
+    () => () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current)
+    },
+    [],
+  )
+
+  const openDesktopMenu = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setOpenMenu(label)
+  }
+
+  const scheduleDesktopMenuClose = () => {
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 140)
+  }
+
+  const focusFirstSubmenuItem = (label: string) => {
+    requestAnimationFrame(() => {
+      document.querySelector<HTMLAnchorElement>(`#${menuId(label)} a`)?.focus()
+    })
+  }
+
+  return (
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b font-sans transition-[background-color,border-color,box-shadow] duration-300 ease-smooth ${
+          scrolled
+            ? 'border-[#dbe5ec] bg-white/95 shadow-[0_8px_28px_rgba(0,45,95,0.08)] backdrop-blur-xl'
+            : 'border-white/50 bg-white/90 backdrop-blur-lg'
+        }`}
+      >
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div
-          className={`flex items-center justify-between transition-[height] duration-300 ease-out ${
-            scrolled ? 'h-16' : 'h-20'
+          className={`flex items-center justify-between gap-4 transition-[height] duration-300 ease-smooth ${
+            scrolled ? 'h-16' : 'h-[76px]'
           }`}
         >
-          {/* Logo */}
-          <Link href={localize('/')} className="flex items-center gap-2.5 flex-shrink-0">
+          <Link
+            href={localize('/')}
+            className="flex min-w-0 flex-shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
+            aria-label="Captain Maid home"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/logo.png"
-              alt="Captain Maid"
-              className={`object-contain drop-shadow-sm transition-[width,height] duration-300 ease-out ${
-                scrolled ? 'w-16 h-16' : 'w-24 h-24'
+              alt=""
+              className={`object-contain drop-shadow-sm transition-[width,height] duration-300 ${
+                scrolled ? 'h-12 w-12' : 'h-14 w-14 sm:h-16 sm:w-16'
               }`}
             />
-            <div className="leading-tight">
-              <div className="font-bold text-[#002d5f] text-lg tracking-tight">Captain Maid</div>
-              <div className="text-[10px] text-gray-400 font-medium tracking-widest uppercase">
+            <span className="hidden leading-tight md:block">
+              <span className="block whitespace-nowrap text-base font-bold tracking-[-0.02em] text-[#002d5f]">
+                Captain Maid
+              </span>
+              <span className="block text-[10px] font-medium tracking-[0.12em] text-[#667b8d]">
                 กัปตันเมด
-              </div>
-            </div>
+              </span>
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <NavigationMenu.Root className="hidden lg:flex relative" delayDuration={100} skipDelayDuration={300}>
-            <NavigationMenu.List className="flex items-center gap-6">
-              {NAV.map((item) => {
-                const active = isActive(pathname, item.href)
-                const activeClass = active ? 'text-[#0079c1]' : 'text-gray-600'
+          <nav className="hidden xl:flex flex-1 items-center justify-center gap-1" aria-label="Primary navigation">
+            {NAV.map((item) => {
+              const active = item.label !== 'Solutions' && isPathActive(item.href)
+              const expanded = openMenu === item.label
 
-                if (!item.items) {
-                  return (
-                    <NavigationMenu.Item key={item.label}>
-                      <NavigationMenu.Link asChild active={active}>
-                        <Link
-                          href={localize(item.href)}
-                          aria-current={active ? 'page' : undefined}
-                          className={`text-sm font-medium py-2 transition-colors hover:text-[#0079c1] ${activeClass}`}
-                        >
-                          {item.label}
-                        </Link>
-                      </NavigationMenu.Link>
-                    </NavigationMenu.Item>
-                  )
-                }
-
-                return (
-                  <NavigationMenu.Item key={item.label}>
-                    <NavigationMenu.Trigger
-                      className={`group flex items-center gap-1 text-sm font-medium py-2 transition-colors hover:text-[#0079c1] outline-none ${activeClass}`}
-                    >
-                      {item.label}
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => item.items && openDesktopMenu(item.label)}
+                  onMouseLeave={scheduleDesktopMenuClose}
+                  onFocus={() => item.items && openDesktopMenu(item.label)}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                      scheduleDesktopMenuClose()
+                    }
+                  }}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') setOpenMenu(null)
+                    if (event.key === 'ArrowDown' && item.items) {
+                      event.preventDefault()
+                      openDesktopMenu(item.label)
+                      focusFirstSubmenuItem(item.label)
+                    }
+                  }}
+                >
+                  <Link
+                    href={localize(item.href)}
+                    aria-current={active ? 'page' : undefined}
+                    aria-expanded={item.items ? expanded : undefined}
+                    aria-controls={item.items ? menuId(item.label) : undefined}
+                    className={`group relative flex min-h-11 items-center gap-1 rounded-lg px-3 text-[15px] font-semibold transition-colors ${
+                      active
+                        ? 'text-[#006cad]'
+                        : 'text-[#31495d] hover:bg-[#eaf5fb] hover:text-[#006cad]'
+                    }`}
+                  >
+                    {item.label}
+                    {item.items && (
                       <ChevronDown
-                        className="w-3.5 h-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                        aria-hidden
+                        aria-hidden="true"
+                        className={`h-4 w-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
                       />
-                    </NavigationMenu.Trigger>
-                    <NavigationMenu.Content className="w-full">
-                      {item.items.map((sub) => (
-                        <NavigationMenu.Link asChild key={sub.label}>
+                    )}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-3 bottom-1 h-0.5 origin-left rounded-full bg-[#0079c1] transition-transform duration-200 ${
+                        active || expanded ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                    />
+                  </Link>
+
+                  {item.items && expanded && (
+                    <div
+                      id={menuId(item.label)}
+                      className="animate-dropdown-in absolute left-0 top-full z-50 pt-2"
+                      onMouseEnter={() => openDesktopMenu(item.label)}
+                      onMouseLeave={scheduleDesktopMenuClose}
+                    >
+                      <div className="min-w-[260px] overflow-hidden rounded-2xl border border-[#dce7ef] bg-white p-2 shadow-[0_20px_55px_rgba(0,45,95,0.16)]">
+                        {item.items.map((sub) => (
                           <Link
+                            key={sub.label}
                             href={localize(sub.href)}
-                            className="block px-4 py-2 text-sm text-gray-600 hover:text-[#0079c1] hover:bg-[#e6f3fa] transition-colors whitespace-nowrap"
+                            className="block rounded-xl px-4 py-2.5 text-sm font-medium text-[#425a6d] transition-colors hover:bg-[#e6f3fa] hover:text-[#006cad] focus:bg-[#e6f3fa] focus:text-[#006cad]"
+                            onClick={() => setOpenMenu(null)}
                           >
                             {sub.label}
                           </Link>
-                        </NavigationMenu.Link>
-                      ))}
-                    </NavigationMenu.Content>
-                  </NavigationMenu.Item>
-                )
-              })}
-            </NavigationMenu.List>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </nav>
 
-            <div className="absolute left-0 top-full pt-1 flex justify-start">
-              <NavigationMenu.Viewport className="relative bg-white rounded-xl shadow-xl border border-gray-100 py-2 min-w-[230px] overflow-hidden transition-[width,height] duration-200" />
-            </div>
-          </NavigationMenu.Root>
-
-          {/* Right side */}
-          <div className="flex items-center gap-1 sm:gap-2">
-            <div className="hidden sm:block">
+          <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
+            <div className="hidden md:block">
               <LanguageToggle />
             </div>
             <Link
-              href={localize('/products')}
+              href="/products"
               aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'}
-              className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full text-gray-500 hover:text-[#0079c1] hover:bg-[#e6f3fa] transition-colors"
+              className="hidden h-11 w-11 items-center justify-center rounded-full text-[#40596d] transition-colors hover:bg-[#e6f3fa] hover:text-[#006cad] sm:flex"
             >
-              <Search className="w-5 h-5" />
+              <Search className="h-5 w-5" />
             </Link>
-            {/* Account & cart: no account/e-commerce backend exists yet — shown for visual
-                parity with the approved mockup, but intentionally not linked to avoid a
-                fake 404 destination. Wire these up once those features are built. */}
-            <button
-              type="button"
-              disabled
-              title={locale === 'th' ? 'บัญชีผู้ใช้ (เร็ว ๆ นี้)' : 'Account (coming soon)'}
-              aria-label={locale === 'th' ? 'บัญชีผู้ใช้ (เร็ว ๆ นี้)' : 'Account (coming soon)'}
-              className="hidden sm:flex items-center justify-center w-11 h-11 rounded-full text-gray-300 cursor-not-allowed"
-            >
-              <User className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              disabled
-              title={locale === 'th' ? 'ตะกร้าสินค้า (เร็ว ๆ นี้)' : 'Cart (coming soon)'}
-              aria-label={locale === 'th' ? 'ตะกร้าสินค้า (เร็ว ๆ นี้)' : 'Cart (coming soon)'}
-              className="relative hidden sm:flex items-center justify-center w-11 h-11 rounded-full text-gray-300 cursor-not-allowed"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gray-300 px-1 text-[10px] font-semibold leading-none text-white">
-                0
-              </span>
-            </button>
             <Link
-              href={localize('/products')}
-              className="hidden sm:inline-flex items-center bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full px-5 py-2 text-sm font-semibold shadow-md transition-all"
+              href="/products"
+              className="hidden min-h-11 items-center rounded-full bg-[#0079c1] px-5 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(0,121,193,0.24)] transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#0066a8] lg:inline-flex"
             >
               {locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}
             </Link>
-
-            {/* Mobile menu */}
-            <Dialog.Root open={mobileOpen} onOpenChange={setMobileOpen}>
-              <Dialog.Trigger asChild>
-                <button
-                  type="button"
-                  className="lg:hidden flex items-center justify-center w-11 h-11 text-gray-600"
-                  aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-                >
-                  {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </button>
-              </Dialog.Trigger>
-              <Dialog.Portal>
-                <Dialog.Overlay className="lg:hidden fixed inset-0 z-40 bg-black/20" />
-                <Dialog.Content
-                  aria-describedby={undefined}
-                  className={`lg:hidden fixed left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-100 overflow-y-auto pb-[env(safe-area-inset-bottom)] transition-[top] duration-300 ${
-                    scrolled ? 'top-16 max-h-[calc(100dvh-4rem)]' : 'top-20 max-h-[calc(100dvh-5rem)]'
-                  }`}
-                >
-                  <Dialog.Title className="sr-only">
-                    {locale === 'th' ? 'เมนูนำทาง' : 'Navigation menu'}
-                  </Dialog.Title>
-                  <nav className="flex flex-col px-4 py-4 gap-1">
-                    {NAV.map((item) => {
-                      const active = isActive(pathname, item.href)
-                      return (
-                        <div key={item.label}>
-                          <div className="flex items-center justify-between">
-                            <Dialog.Close asChild>
-                              <Link
-                                href={localize(item.href)}
-                                aria-current={active ? 'page' : undefined}
-                                className={`text-sm font-medium py-2 ${
-                                  active ? 'text-[#0079c1]' : 'text-gray-600'
-                                }`}
-                              >
-                                {item.label}
-                              </Link>
-                            </Dialog.Close>
-                            {item.items && (
-                              <button
-                                type="button"
-                                aria-label={`Toggle ${item.label}`}
-                                aria-expanded={mobileOpenAccordion === item.label}
-                                onClick={() =>
-                                  setMobileOpenAccordion(
-                                    mobileOpenAccordion === item.label ? null : item.label
-                                  )
-                                }
-                                className="p-2 text-gray-400"
-                              >
-                                <ChevronDown
-                                  className={`w-4 h-4 transition-transform ${
-                                    mobileOpenAccordion === item.label ? 'rotate-180' : ''
-                                  }`}
-                                />
-                              </button>
-                            )}
-                          </div>
-                          {item.items && mobileOpenAccordion === item.label && (
-                            <div className="pl-4 pb-2 flex flex-col gap-1">
-                              {item.items.map((sub) => (
-                                <Dialog.Close asChild key={sub.label}>
-                                  <Link
-                                    href={localize(sub.href)}
-                                    className="text-sm text-gray-500 py-1.5 hover:text-[#0079c1]"
-                                  >
-                                    {sub.label}
-                                  </Link>
-                                </Dialog.Close>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })}
-                    <Dialog.Close asChild>
-                      <Link
-                        href={localize('/products')}
-                        className="bg-[#0079c1] hover:bg-[#0066a8] text-white rounded-full mt-3 py-2.5 text-center text-sm font-semibold"
-                      >
-                        {locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}
-                      </Link>
-                    </Dialog.Close>
-                  </nav>
-                </Dialog.Content>
-              </Dialog.Portal>
-            </Dialog.Root>
+            <button
+              type="button"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-[#31495d] hover:bg-[#e6f3fa] hover:text-[#006cad] xl:hidden"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="captain-maid-mobile-menu"
+              onClick={() => setMobileOpen((value) => !value)}
+            >
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
       </div>
-    </header>
+      </header>
+
+      {mobileOpen && (
+        <div
+          id="captain-maid-mobile-menu"
+          className={`fixed inset-x-0 bottom-0 z-[60] xl:hidden ${scrolled ? 'top-16' : 'top-[76px]'}`}
+        >
+          <button
+            type="button"
+            className="absolute inset-0 h-full w-full bg-[#002d5f]/35 backdrop-blur-[2px]"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="animate-mobile-menu-in absolute right-0 top-0 h-full w-full max-w-[420px] overflow-y-auto overscroll-contain border-l border-[#dce7ef] bg-white px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-5 shadow-2xl">
+            <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
+              {NAV.map((item) => {
+                const active = item.label !== 'Solutions' && isPathActive(item.href)
+                const expanded = openMenu === item.label
+
+                return (
+                  <div key={item.label} className="border-b border-[#edf2f6] py-1">
+                    <div className="flex min-h-12 items-center gap-2">
+                      <Link
+                        href={localize(item.href)}
+                        aria-current={active ? 'page' : undefined}
+                        className={`flex min-h-11 flex-1 items-center rounded-lg px-3 text-[15px] font-semibold ${
+                          active ? 'bg-[#e6f3fa] text-[#006cad]' : 'text-[#31495d] hover:bg-[#f2f8fc]'
+                        }`}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                      {item.items && (
+                        <button
+                          type="button"
+                          aria-label={`${expanded ? 'Collapse' : 'Expand'} ${item.label}`}
+                          aria-expanded={expanded}
+                          aria-controls={`mobile-${menuId(item.label)}`}
+                          onClick={() => setOpenMenu(expanded ? null : item.label)}
+                          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg text-[#40596d] hover:bg-[#e6f3fa] hover:text-[#006cad]"
+                        >
+                          <ChevronDown
+                            className={`h-5 w-5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+                          />
+                        </button>
+                      )}
+                    </div>
+                    {item.items && expanded && (
+                      <div id={`mobile-${menuId(item.label)}`} className="animate-accordion-in pb-2 pl-3">
+                        {item.items.map((sub) => (
+                          <Link
+                            key={sub.label}
+                            href={localize(sub.href)}
+                            className="block min-h-11 rounded-lg px-4 py-2.5 text-sm font-medium text-[#536b7d] hover:bg-[#e6f3fa] hover:text-[#006cad]"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </nav>
+
+            <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#dce7ef] pt-5 md:hidden">
+              <LanguageToggle />
+              <Link
+                href="/products"
+                className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-[#0079c1] px-5 text-sm font-semibold text-white"
+                onClick={() => setMobileOpen(false)}
+              >
+                {locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

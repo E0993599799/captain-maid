@@ -18,10 +18,10 @@ export function LanguageToggle({ isDark }: LanguageToggleProps) {
   return (
     <Link
       href={newPath}
-      className={`px-md py-sm rounded-sm font-medium text-sm transition-all border ${
+      className={`inline-flex min-h-11 items-center justify-center rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
         isDark
           ? 'text-white border-white/40 hover:bg-white/10'
-          : 'text-captain-text border-captain-neutral hover:bg-captain-light'
+          : 'border-[#b8c6d1] bg-white/70 text-[#16324f] hover:border-[#0079c1] hover:bg-[#e6f3fa] hover:text-[#005b91]'
       }`}
       aria-label={`Switch to ${toggleLocale === 'th' ? 'Thai' : 'English'}`}
     >

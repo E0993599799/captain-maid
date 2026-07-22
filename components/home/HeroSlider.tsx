@@ -25,6 +25,7 @@ const slides = [
     heading: 'ครบทุกความต้องการ',
     headingAccent: 'ทำความสะอาด',
     body: 'ผลิตภัณฑ์คุณภาพครอบคลุมพื้น ห้องน้ำ ห้องครัว กระจก และการฆ่าเชื้อ ในแบรนด์เดียว',
+    desktopPosition: 'center 58%',
   },
   {
     id: 'family-pet-safety',
@@ -95,7 +96,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="relative isolate w-full min-h-[600px] overflow-hidden sm:min-h-[640px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
+      className="hero-carousel relative isolate w-full min-h-[600px] overflow-hidden sm:min-h-[640px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
       aria-roledescription="carousel"
       aria-label="Captain Maid highlights"
       onMouseEnter={() => setPaused(true)}
@@ -113,14 +114,15 @@ export default function HeroSlider() {
           style={{ opacity: i === current ? 1 : 0 }}
           aria-hidden={i !== current}
         >
-          <picture>
+          <picture className="block h-full w-full">
             <source media="(max-width: 767px)" srcSet={slide.mobile} />
             <source media="(max-width: 1023px)" srcSet={slide.tablet} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={slide.desktop}
               alt={i === current ? `Captain Maid — ${slide.heading} ${slide.headingAccent}` : ''}
-              className="h-full w-full object-cover object-top"
+              className="hero-slide-image h-full w-full object-cover"
+              style={{ '--hero-desktop-position': slide.desktopPosition ?? 'center top' } as React.CSSProperties}
               fetchPriority={i === 0 ? 'high' : 'low'}
               loading={i === 0 ? 'eager' : 'lazy'}
             />
@@ -128,29 +130,28 @@ export default function HeroSlider() {
         </div>
       ))}
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 lg:right-auto lg:w-1/2 bg-gradient-to-r from-[#002d5f]/70 via-[#002d5f]/35 to-transparent" />
-      <div className="absolute inset-0 lg:right-auto lg:w-1/2 bg-gradient-to-t from-[#002d5f]/40 to-transparent" />
+      {/* One continuous overlay avoids a hard seam while preserving the products. */}
+      <div className="hero-media-overlay" aria-hidden="true" />
 
       {/* Content — text block owned by the active slide, transitions with it */}
-      <div className="relative flex min-h-[600px] items-center px-4 py-24 sm:min-h-[640px] sm:px-6 lg:min-h-0 lg:h-full lg:px-8">
-        <div className="mx-auto w-full max-w-7xl">
+      <div className="hero-content-shell relative flex min-h-[600px] items-center px-5 pb-24 pt-28 sm:min-h-[640px] sm:px-8 lg:min-h-0 lg:h-full lg:px-16">
+        <div className="mx-auto w-full max-w-[1440px]">
           <div
             key={active.id}
-            className={`max-w-xl text-center lg:text-left ${reducedMotion ? '' : 'animate-hero-copy-in'}`}
+            className={`hero-copy-block max-w-[680px] text-center lg:text-left ${reducedMotion ? '' : 'animate-hero-copy-in'}`}
           >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur sm:mb-6">
             <Sparkles className="w-4 h-4 text-white" />
             <span className="text-xs font-semibold text-white">{active.eyebrow}</span>
           </div>
-          <h1 className="hero-title hero-title--dark-bg text-4xl sm:text-5xl lg:text-6xl">
+          <h1 className="hero-title hero-title--dark-bg">
             {active.heading}
-            <span className="block text-[#4db8ff]">{active.headingAccent}</span>
+            <span className="hero-title__line">{active.headingAccent}</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-white/85 sm:text-lg lg:mx-0">
+          <p className="hero-description mx-auto mt-3 max-w-lg text-sm leading-6 text-white/85 sm:mt-5 sm:text-lg sm:leading-7 lg:mx-0">
             {active.body}
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+          <div className="hero-actions mt-4 flex flex-col justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3 lg:justify-start">
             <Link
               href="/products"
               className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0079c1] px-7 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[#0066a8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"

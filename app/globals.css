@@ -23,6 +23,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 84px;
     color-scheme: light;
   }
 
@@ -35,17 +36,18 @@
 
   body {
     @apply antialiased;
+    overflow-x: clip;
     background: var(--color-surface);
     color: var(--color-text);
-    font-family: var(--font-body), 'Noto Sans Thai', -apple-system, BlinkMacSystemFont,
-      'Segoe UI', sans-serif;
+    font-family: var(--font-english), var(--font-thai), 'Roboto', 'Noto Sans Thai', sans-serif;
+    font-synthesis: none;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-heading), 'Mitr', 'Noto Sans Thai', sans-serif;
+    font-family: var(--font-english), var(--font-thai), 'Roboto', 'Noto Sans Thai', sans-serif;
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -135,12 +137,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-neutral);
+  background: var(--color-text-muted);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-blue);
+  background: var(--color-brand-blue);
 }
 
 /* Focus visible for accessibility */
@@ -168,7 +170,7 @@
 }
 
 .animate-hero-copy-in {
-  animation: hero-copy-in 0.6s ease-out 0.15s both;
+  animation: hero-copy-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -180,13 +182,13 @@
 /* Adaptive-contrast hero title treatment — real HTML text (not baked into
    images) with a stroke + shadow combo tuned to stay readable over a photo. */
 .hero-title {
-  font-family: var(--font-heading), "Mitr", "Noto Sans Thai", sans-serif;
-  font-weight: 800;
+  font-family: var(--font-english), var(--font-thai), "Roboto", "Noto Sans Thai", sans-serif;
+  font-weight: 600;
   line-height: 1.1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.015em;
 
   color: #0875b6;
-  -webkit-text-stroke: 6px #ffffff;
+  -webkit-text-stroke: 25.2px #ffffff;
   paint-order: stroke fill;
 
   text-shadow:
@@ -195,17 +197,163 @@
 }
 
 .hero-title--dark-bg {
-  font-family: var(--font-heading), "Mitr", "Noto Sans Thai", sans-serif;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-family: var(--font-english), var(--font-thai), "Roboto", "Noto Sans Thai", sans-serif;
+  font-size: clamp(2.7rem, 5.2vw, 4.65rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: 0.012em;
 
   color: #ffffff;
-  -webkit-text-stroke: 4px #101849;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-text-stroke: clamp(8.4px, 0.924vw, 16.8px) #101849;
   paint-order: stroke fill;
 
   text-shadow:
-    0 3px 0 rgba(0, 0, 0, 0.75),
-    0 5px 8px rgba(0, 0, 0, 0.35),
-    0 0 5px rgba(255, 255, 255, 0.25);
+    0 2px 0 rgba(4, 15, 54, 0.6),
+    0 5px 12px rgba(0, 0, 0, 0.26),
+    0 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.hero-title__line {
+  display: block;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+}
+
+/* A single full-width layer prevents the visible 50% seam created by two
+   half-width overlays. Mobile receives an even wash because copy is centered. */
+.hero-media-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 45, 95, 0.34) 0%, rgba(0, 45, 95, 0.72) 46%, rgba(0, 31, 67, 0.9) 100%);
+}
+
+.hero-slide-image {
+  object-position: center top;
+}
+
+@media (max-width: 767px) {
+  .hero-carousel {
+    height: max(115svh, min(205vw, 1050px));
+    min-height: 760px;
+  }
+
+  .hero-content-shell {
+    min-height: 100%;
+    align-items: flex-start;
+    padding-top: max(6.5rem, env(safe-area-inset-top));
+    padding-bottom: 3.75rem;
+  }
+
+  .hero-content-shell > div {
+    height: 30%;
+  }
+
+  .hero-title--dark-bg {
+    font-size: clamp(1.8rem, 8.2vw, 2.35rem);
+    line-height: 1.04;
+  }
+
+  .hero-copy-block > div:first-child {
+    margin-bottom: 0.5rem;
+    padding-block: 0.4rem;
+  }
+
+  .hero-description {
+    margin-top: 0.5rem;
+    max-width: 23rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.625rem;
+  }
+
+  .hero-actions a {
+    min-height: 2.75rem;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .hero-media-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 45, 95, 0.46) 0%,
+      rgba(0, 45, 95, 0.24) 22%,
+      transparent 30%,
+      rgba(0, 31, 67, 0.08) 68%,
+      rgba(0, 31, 67, 0.34) 100%
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slide-image {
+    object-position: var(--hero-desktop-position, center top);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-media-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 45, 95, 0.86) 0%,
+        rgba(0, 45, 95, 0.76) 32%,
+        rgba(0, 45, 95, 0.42) 50%,
+        rgba(0, 45, 95, 0.1) 68%,
+        rgba(0, 45, 95, 0) 82%
+      ),
+      linear-gradient(0deg, rgba(0, 31, 67, 0.2) 0%, rgba(0, 31, 67, 0) 38%);
+  }
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes accordion-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-dropdown-in {
+  animation: dropdown-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-mobile-menu-in {
+  animation: mobile-menu-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-accordion-in {
+  animation: accordion-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

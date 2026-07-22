@@ -1,7 +1,22 @@
 import type { Metadata, Viewport } from 'next'
+import { Noto_Sans_Thai, Roboto } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+
+const englishFont = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-english',
+  display: 'swap',
+})
+
+const thaiFont = Noto_Sans_Thai({
+  subsets: ['thai', 'latin'],
+  weight: ['400'],
+  variable: '--font-thai',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Captain Maid | Premium Household Cleaning Products',
@@ -74,7 +89,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="th" suppressHydrationWarning>
+    <html
+      lang="th"
+      className={`${englishFont.variable} ${thaiFont.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="theme-color" content="#0079c1" />
       </head>
