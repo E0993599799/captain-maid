@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 
-/** Hero slider — 6 ภาพสไลด์ (5 ตาม requirement + 1 เพิ่มเติม), แต่ละภาพมี crop แยกตามขนาดจอ */
+/** Hero slider — 4 ภาพสไลด์, แต่ละภาพมี crop แยกตามขนาดจอ */
 const slides = [
   {
     id: 'brand-hero',
@@ -46,26 +46,6 @@ const slides = [
     heading: 'สะอาดล้ำลึก',
     headingAccent: 'ด้วยพลังจากธรรมชาติ',
     body: 'สารทำความสะอาดจากพืช อ่อนโยนต่อพื้นผิวและมือ แต่ยังคงประสิทธิภาพเต็มที่',
-  },
-  {
-    id: 'trust-cta',
-    mobile: '/images/hero/05-trust-cta-mobile.png',
-    tablet: '/images/hero/05-trust-cta-tablet.png',
-    desktop: '/images/hero/05-trust-cta-desktop.png',
-    eyebrow: 'ไว้วางใจโดยครอบครัวไทย',
-    heading: 'เลือกกัปตันเมด',
-    headingAccent: 'เพื่อบ้านที่คุณวางใจ',
-    body: 'คุณภาพที่พิสูจน์ได้ทุกขวด พร้อมดูแลบ้านของคุณให้สะอาดและปลอดภัยทุกวัน',
-  },
-  {
-    id: 'object-hero',
-    mobile: '/images/hero/06-object-hero-mobile.png',
-    tablet: '/images/hero/06-object-hero-tablet.png',
-    desktop: '/images/hero/06-object-hero-desktop.png',
-    eyebrow: 'ออกแบบมาเพื่อคุณ',
-    heading: 'ใช้งานง่าย',
-    headingAccent: 'เห็นผลจริงทุกวัน',
-    body: 'ดีไซน์ขวดถือสบายมือ เทง่าย ไม่หกเลอะเทอะ พร้อมใช้งานได้ทันทีในทุกจุดของบ้าน',
   },
 ]
 
