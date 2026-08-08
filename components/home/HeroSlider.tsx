@@ -71,7 +71,6 @@ export default function HeroSlider() {
 
   const goPrev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
   const goNext = () => setCurrent((prev) => (prev + 1) % slides.length)
-  const active = slides[current]
 
   return (
     <section
