@@ -81,9 +81,8 @@ export default function HeroSlider() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={slide.desktop}
-              alt={i === current ? `Captain Maid — ${slide.heading} ${slide.headingAccent}` : ''}
+              alt=""
               className="hero-slide-image h-full w-full object-cover"
-              style={{ '--hero-desktop-position': slide.desktopPosition ?? 'center top' } as React.CSSProperties}
               fetchPriority={i === 0 ? 'high' : 'low'}
               loading={i === 0 ? 'eager' : 'lazy'}
             />
