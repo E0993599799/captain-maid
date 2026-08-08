@@ -1,8 +1,7 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
-import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 /** Hero slider — 4 ภาพสไลด์, แต่ละภาพมี crop แยกตามขนาดจอ */
 const slides = [
@@ -113,43 +112,6 @@ export default function HeroSlider() {
       {/* One continuous overlay avoids a hard seam while preserving the products. */}
       <div className="hero-media-overlay" aria-hidden="true" />
 
-      {/* Content — text block owned by the active slide, transitions with it */}
-      <div className="hero-content-shell relative flex min-h-[600px] items-center px-5 pb-24 pt-28 sm:min-h-[640px] sm:px-8 lg:min-h-0 lg:h-full lg:px-16">
-        <div className="mx-auto w-full max-w-[1440px]">
-          <div
-            key={active.id}
-            className={`hero-copy-block max-w-[680px] text-center lg:text-left ${reducedMotion ? '' : 'animate-hero-copy-in'}`}
-          >
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 shadow-sm backdrop-blur sm:mb-6">
-            <Sparkles className="w-4 h-4 text-white" />
-            <span className="text-xs font-semibold text-white">{active.eyebrow}</span>
-          </div>
-          <h1 className="hero-title hero-title--dark-bg">
-            {active.heading}
-            <span className="hero-title__line">{active.headingAccent}</span>
-          </h1>
-          <p className="hero-description mx-auto mt-3 max-w-lg text-sm leading-6 text-white/85 sm:mt-5 sm:text-lg sm:leading-7 lg:mx-0">
-            {active.body}
-          </p>
-          <div className="hero-actions mt-4 flex flex-col justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3 lg:justify-start">
-            <Link
-              href="/products"
-              className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0079c1] px-7 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 transition-colors hover:bg-[#0066a8] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
-            >
-              เลือกซื้อสินค้า
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white bg-white/10 px-7 py-3 text-base font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-[#002d5f] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70"
-            >
-              รู้จัก Captain Maid
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </div>
-          </div>
-        </div>
-      </div>
 
       {/* Arrows */}
       <button
