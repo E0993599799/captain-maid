@@ -1,11 +1,11 @@
-import { ShieldCheck, Award, Sparkles, HeartHandshake } from 'lucide-react'
+import { Shield, Star, Sparkles, Heart } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 
 const values = [
-  { icon: ShieldCheck, title: 'Family Safe', sub: 'ปลอดภัยสำหรับทุกคนในบ้าน' },
-  { icon: Award, title: 'Quality You Can Count On', sub: 'คุณภาพที่เชื่อถือได้ทุกหยด' },
+  { icon: Shield, title: 'Family Safe', sub: 'ปลอดภัยสำหรับทุกคนในบ้าน' },
+  { icon: Star, title: 'Quality You Can Count On', sub: 'คุณภาพที่เชื่อถือได้ทุกหยด' },
   { icon: Sparkles, title: 'Effective Cleaning', sub: 'สะอาดหมดจด เต็มพลังจริง' },
-  { icon: HeartHandshake, title: 'Trusted Care', sub: 'ดูแลบ้านด้วยความใส่ใจ' },
+  { icon: Heart, title: 'Trusted Care', sub: 'ดูแลบ้านด้วยความใส่ใจ' },
 ]
 
 export default function ValueProps() {

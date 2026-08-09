@@ -1,14 +1,14 @@
 import Image from 'next/image'
-import { ShieldCheck, FlaskConical, Leaf } from 'lucide-react'
+import { Shield, Beaker, Leaf } from 'lucide-react'
 
 const benefits = [
   {
-    icon: ShieldCheck,
+    icon: Shield,
     title: 'ปลอดภัย อ่อนโยน',
     sub: 'สูตรอ่อนโยน ปราศจากสารอันตราย ปลอดภัยสำหรับทุกคนในครอบครัว',
   },
   {
-    icon: FlaskConical,
+    icon: Beaker,
     title: 'ประสิทธิภาพที่พิสูจน์ได้',
     sub: 'ผลผ่านการทดสอบประสิทธิภาพในการทำความสะอาดและฆ่าเชื้ออย่างมีประสิทธิภาพ',
   },

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Droplets, Bath, CookingPot, AppWindow, SprayCan, UtensilsCrossed } from 'lucide-react'
+import { Droplet, Waves, Flame, Zap, Wind, Sparkles } from 'lucide-react'
 import Reveal from '@/components/Reveal'
 
 const cards = [
@@ -8,37 +8,37 @@ const cards = [
     title: 'Floor Cleaner',
     img: '/images/products-img/solution-floor.webp',
     href: '/products?category=floor',
-    icon: Droplets,
+    icon: Droplet,
   },
   {
     title: 'Bathroom Cleaner',
     img: '/images/products-img/solution-bathroom.jpg',
     href: '/products?category=bathroom',
-    icon: Bath,
+    icon: Waves,
   },
   {
     title: 'Kitchen Cleaner',
     img: '/images/products-img/solution-kitchen.jpg',
     href: '/products?category=kitchen',
-    icon: CookingPot,
+    icon: Flame,
   },
   {
     title: 'Glass Cleaner',
     img: '/images/products-img/solution-glass.jpg',
     href: '/products?category=glass',
-    icon: AppWindow,
+    icon: Zap,
   },
   {
     title: 'Multi-purpose Disinfectant',
     img: '/images/products-img/solution-disinfectant.jpg',
     href: '/products?category=disinfectant',
-    icon: SprayCan,
+    icon: Wind,
   },
   {
     title: 'Dishwasher',
     img: '/images/products-img/solution-dishwasher.jpg',
     href: '/products?category=dishwasher',
-    icon: UtensilsCrossed,
+    icon: Sparkles,
   },
 ]
 
