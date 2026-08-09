@@ -6,37 +6,37 @@ import Reveal from '@/components/Reveal'
 const cards = [
   {
     title: 'Floor Cleaner',
-    img: '/images/solution-floor.png',
+    img: '/images/products-img/solution-floor.webp',
     href: '/products?category=floor',
     icon: Droplets,
   },
   {
     title: 'Bathroom Cleaner',
-    img: '/images/solution-bathroom.png',
+    img: '/images/products-img/solution-bathroom.jpg',
     href: '/products?category=bathroom',
     icon: Bath,
   },
   {
     title: 'Kitchen Cleaner',
-    img: '/images/solution-kitchen.png',
+    img: '/images/products-img/solution-kitchen.jpg',
     href: '/products?category=kitchen',
     icon: CookingPot,
   },
   {
     title: 'Glass Cleaner',
-    img: '/images/solution-glass.png',
+    img: '/images/products-img/solution-glass.jpg',
     href: '/products?category=glass',
     icon: AppWindow,
   },
   {
     title: 'Multi-purpose Disinfectant',
-    img: '/images/solution-disinfectant.png',
+    img: '/images/products-img/solution-disinfectant.jpg',
     href: '/products?category=disinfectant',
     icon: SprayCan,
   },
   {
     title: 'Dishwasher',
-    img: '/images/solution-dishwasher.png',
+    img: '/images/products-img/solution-dishwasher.jpg',
     href: '/products?category=dishwasher',
     icon: UtensilsCrossed,
   },
