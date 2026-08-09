@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Leaf, Heart, CheckCircle2, Zap, Droplets, Recycle } from 'lucide-react'
 import { TipCard } from '@/components/TipCard'
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 const blogArticles = [
   {
     slug: 'natural-ingredients-homemade-cleaners',
-    emoji: '🪴',
+    icon: Leaf,
     category: 'Eco-Friendly',
     title: '5 Natural Ingredients for Homemade Cleaners',
     excerpt:
@@ -25,7 +26,7 @@ const blogArticles = [
   },
   {
     slug: 'keeping-home-safe-kids-pets',
-    emoji: '👨‍👩‍👧‍👦',
+    icon: Heart,
     category: 'Family Care',
     title: 'Keeping Your Home Safe for Kids & Pets',
     excerpt:
@@ -34,7 +35,7 @@ const blogArticles = [
   },
   {
     slug: 'monthly-deep-clean-checklist',
-    emoji: '🧼',
+    icon: CheckCircle2,
     category: 'Deep Clean',
     title: 'Monthly Deep Clean Checklist for Your Home',
     excerpt:
@@ -43,7 +44,7 @@ const blogArticles = [
   },
   {
     slug: 'thai-tile-floor-cleaning',
-    emoji: '🏠',
+    icon: Zap,
     category: 'Floor Care',
     title: 'How to Clean Thai Tile Floors in Hot, Humid Weather',
     excerpt: 'Special tips for maintaining tile floors in Southeast Asia\'s unique climate.',
@@ -51,7 +52,7 @@ const blogArticles = [
   },
   {
     slug: 'bathroom-mold-prevention',
-    emoji: '🚿',
+    icon: Droplets,
     category: 'Bathroom',
     title: 'Preventing Mold & Mildew in Thai Bathrooms',
     excerpt: 'Combat humidity-related bathroom problems with these proven prevention strategies.',
@@ -59,7 +60,7 @@ const blogArticles = [
   },
   {
     slug: 'sustainable-cleaning',
-    emoji: '♻️',
+    icon: Recycle,
     category: 'Sustainability',
     title: 'Sustainable Cleaning: Reduce Waste, Keep Your Home Clean',
     excerpt: 'Make environmentally conscious choices without sacrificing cleaning power.',
@@ -84,8 +85,11 @@ export default function BlogPage() {
         <div className="mb-2xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-xl bg-captain-light rounded-sm overflow-hidden">
             {/* Image */}
-            <div className="aspect-video bg-gradient-to-br from-captain-blue to-captain-yellow flex items-center justify-center text-8xl">
-              {blogArticles[0].emoji}
+            <div className="aspect-video bg-gradient-to-br from-captain-blue to-captain-yellow flex items-center justify-center">
+              {(() => {
+                const Icon = blogArticles[0].icon
+                return <Icon className="w-32 h-32 text-white" />
+              })()}
             </div>
 
             {/* Content */}

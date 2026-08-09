@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Check, Leaf, Beaker, Heart } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'About Captain Maid | Our Story & Mission',
@@ -104,12 +105,20 @@ export default function AboutPage() {
             safe, effective household solutions.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-lg">
-            {['👨‍🔬 Product Dev', '🏭 Manufacturing', '📦 Quality Control', '❤️ Customer Care'].map((role, i) => (
-              <div key={i} className="bg-captain-light rounded-sm p-lg text-center">
-                <p className="text-3xl mb-md">{role.split(' ')[0]}</p>
-                <p className="font-semibold text-captain-text">{role.split(' ').slice(1).join(' ')}</p>
-              </div>
-            ))}
+            {[
+              { icon: Beaker, label: 'Product Dev' },
+              { icon: Check, label: 'Manufacturing' },
+              { icon: Check, label: 'Quality Control' },
+              { icon: Heart, label: 'Customer Care' }
+            ].map((role, i) => {
+              const Icon = role.icon
+              return (
+                <div key={i} className="bg-captain-light rounded-sm p-lg text-center">
+                  <div className="flex justify-center mb-md"><Icon className="w-8 h-8 text-captain-blue" /></div>
+                  <p className="font-semibold text-captain-text">{role.label}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
 
@@ -118,16 +127,19 @@ export default function AboutPage() {
           <h2 className="text-3xl font-serif font-bold mb-lg text-captain-blue">Certifications & Standards</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-lg">
             {[
-              { icon: '✓', label: 'Thai Safety Standard' },
-              { icon: '🌍', label: 'Eco-Certified' },
-              { icon: '🏥', label: 'Dermatologist Tested' },
-              { icon: '💚', label: 'Family Safe' },
-            ].map((cert, i) => (
-              <div key={i} className="text-center">
-                <p className="text-4xl mb-md">{cert.icon}</p>
-                <p className="font-semibold text-captain-text text-sm">{cert.label}</p>
-              </div>
-            ))}
+              { icon: Check, label: 'Thai Safety Standard' },
+              { icon: Leaf, label: 'Eco-Certified' },
+              { icon: Beaker, label: 'Dermatologist Tested' },
+              { icon: Heart, label: 'Family Safe' },
+            ].map((cert, i) => {
+              const Icon = cert.icon
+              return (
+                <div key={i} className="text-center">
+                  <div className="flex justify-center mb-md"><Icon className="w-8 h-8 text-captain-blue" /></div>
+                  <p className="font-semibold text-captain-text text-sm">{cert.label}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
 

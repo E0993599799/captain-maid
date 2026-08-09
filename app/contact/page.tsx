@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
 import { CONTACT_INFO } from '@/lib/contact'
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-lg mb-2xl">
           {/* Email */}
           <div className="bg-captain-light rounded-sm p-lg text-center">
-            <div className="text-5xl mb-md">📧</div>
+            <div className="flex justify-center mb-md"><Mail className="w-12 h-12 text-captain-blue" /></div>
             <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Email</h3>
             <p className="text-captain-neutral mb-md">For general inquiries and support</p>
             {CONTACT_INFO.email ? (
@@ -42,7 +43,7 @@ export default function ContactPage() {
 
           {/* Phone */}
           <div className="bg-captain-light rounded-sm p-lg text-center">
-            <div className="text-5xl mb-md">📱</div>
+            <div className="flex justify-center mb-md"><Phone className="w-12 h-12 text-captain-blue" /></div>
             <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Phone</h3>
             <p className="text-captain-neutral mb-md">Call our customer service team</p>
             {CONTACT_INFO.phone ? (
@@ -57,7 +58,7 @@ export default function ContactPage() {
 
           {/* Office */}
           <div className="bg-captain-light rounded-sm p-lg text-center">
-            <div className="text-5xl mb-md">🏢</div>
+            <div className="flex justify-center mb-md"><MapPin className="w-12 h-12 text-captain-blue" /></div>
             <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Office</h3>
             <p className="text-captain-neutral mb-md">Visit our Bangkok headquarters</p>
             <p className="text-captain-text font-semibold">{CONTACT_INFO.address || 'ที่อยู่สำนักงานจะแจ้งให้ทราบอีกครั้ง'}</p>
@@ -143,17 +144,17 @@ export default function ContactPage() {
             <div className="bg-captain-light rounded-sm p-lg">
               <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Follow Us</h3>
               <div className="flex gap-md">
-                <a href="https://facebook.com/captainmaid" className="text-2xl hover:opacity-70">
-                  f
+                <a href="https://facebook.com/captainmaid" className="hover:opacity-70">
+                  <Facebook className="w-6 h-6 text-captain-blue" />
                 </a>
-                <a href="https://instagram.com/captainmaid" className="text-2xl hover:opacity-70">
-                  📷
+                <a href="https://instagram.com/captainmaid" className="hover:opacity-70">
+                  <Instagram className="w-6 h-6 text-captain-blue" />
                 </a>
-                <a href="https://twitter.com/captainmaid" className="text-2xl hover:opacity-70">
-                  𝕏
+                <a href="https://twitter.com/captainmaid" className="hover:opacity-70">
+                  <Twitter className="w-6 h-6 text-captain-blue" />
                 </a>
-                <a href="https://youtube.com/captainmaid" className="text-2xl hover:opacity-70">
-                  ▶️
+                <a href="https://youtube.com/captainmaid" className="hover:opacity-70">
+                  <Youtube className="w-6 h-6 text-captain-blue" />
                 </a>
               </div>
             </div>

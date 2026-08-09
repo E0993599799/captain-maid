@@ -1,23 +1,24 @@
 import Link from 'next/link'
+import { LucideIcon } from 'lucide-react'
 
 interface TipCardProps {
   slug: string
-  emoji: string
+  icon: LucideIcon
   category: string
   title: string
   excerpt: string
   readTime: string
 }
 
-export function TipCard({ slug, emoji, category, title, excerpt, readTime }: TipCardProps) {
+export function TipCard({ slug, icon: Icon, category, title, excerpt, readTime }: TipCardProps) {
   return (
     <Link
       href={`/blog/${slug}`}
       className="group flex flex-col h-full bg-captain-light rounded-sm overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer border border-captain-light hover:border-captain-blue"
     >
       {/* Image Background */}
-      <div className="h-48 bg-gradient-to-br from-captain-blue to-captain-yellow flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300">
-        {emoji}
+      <div className="h-48 bg-gradient-to-br from-captain-blue to-captain-yellow flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+        <Icon className="w-20 h-20 text-white" />
       </div>
 
       {/* Content */}
