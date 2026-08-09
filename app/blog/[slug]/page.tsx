@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, Zap, Droplets, Recycle } from 'lucide-react'
 import { TipCard } from '@/components/TipCard'
 
 interface BlogPostProps {
@@ -239,7 +239,7 @@ export async function generateMetadata({ params }: BlogPostProps): Promise<Metad
 const relatedArticles = [
   {
     slug: 'thai-tile-floor-cleaning',
-    emoji: '🏠',
+    icon: Zap,
     category: 'Floor Care',
     title: 'How to Clean Thai Tile Floors in Hot, Humid Weather',
     excerpt: 'Special tips for maintaining tile floors in Southeast Asia\'s unique climate.',
@@ -247,7 +247,7 @@ const relatedArticles = [
   },
   {
     slug: 'bathroom-mold-prevention',
-    emoji: '🚿',
+    icon: Droplets,
     category: 'Bathroom',
     title: 'Preventing Mold & Mildew in Thai Bathrooms',
     excerpt: 'Combat humidity-related bathroom problems with these proven prevention strategies.',
@@ -255,7 +255,7 @@ const relatedArticles = [
   },
   {
     slug: 'sustainable-cleaning',
-    emoji: '♻️',
+    icon: Recycle,
     category: 'Sustainability',
     title: 'Sustainable Cleaning: Reduce Waste, Keep Your Home Clean',
     excerpt: 'Make environmentally conscious choices without sacrificing cleaning power.',

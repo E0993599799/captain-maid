@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
+import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Video } from 'lucide-react'
 import { CONTACT_INFO } from '@/lib/contact'
 
 export const metadata: Metadata = {
@@ -154,7 +154,7 @@ export default function ContactPage() {
                   <Twitter className="w-6 h-6 text-captain-blue" />
                 </a>
                 <a href="https://youtube.com/captainmaid" className="hover:opacity-70">
-                  <Youtube className="w-6 h-6 text-captain-blue" />
+                  <Video className="w-6 h-6 text-captain-blue" />
                 </a>
               </div>
             </div>
