@@ -7,27 +7,27 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/hero/Banner for Phone/Banner for Phone01.jpg',
-    tablet: '/images/hero/Banner for Tablet/Banner for Tablet-01.jpg',
-    desktop: '/images/hero/Banner For Destop/Banner 1920x900-01.jpg',
+    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone01.jpg',
+    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-01.jpg',
+    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-01.jpg',
   },
   {
     id: 'product-range',
-    mobile: '/images/hero/Banner for Phone/Banner for Phone02.jpg',
-    tablet: '/images/hero/Banner for Tablet/Banner for Tablet-03.jpg',
-    desktop: '/images/hero/Banner For Destop/Banner 1920x900-03.jpg',
+    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone02.jpg',
+    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-03.jpg',
+    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-03.jpg',
   },
   {
     id: 'family-pet-safety',
-    mobile: '/images/hero/Banner for Phone/Banner for Phone 03.jpg',
-    tablet: '/images/hero/Banner for Tablet/Banner for Tablet-04.jpg',
-    desktop: '/images/hero/Banner For Destop/Banner 1920x900-04.jpg',
+    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone 03.jpg',
+    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-04.jpg',
+    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-04.jpg',
   },
   {
     id: 'natural-cleaning-tech',
-    mobile: '/images/hero/Banner for Phone/Banner for Phone 04.jpg',
-    tablet: '/images/hero/Banner for Tablet/Banner for Tablet-05.jpg',
-    desktop: '/images/hero/Banner For Destop/Banner 1920x900-05.jpg',
+    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone 04.jpg',
+    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-05.jpg',
+    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-05.jpg',
   },
 ]
 
