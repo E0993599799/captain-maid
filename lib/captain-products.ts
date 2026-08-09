@@ -89,7 +89,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 128,
     scent: { en: 'Lavender Kerry', th: 'ลาเวนเดอร์ เคอรี่' },
-    image: '/images/Photo-for-website-captain-maid/CAPTAINMAID Floor Cleaner Lavender Kerry  900 ml/00_00.webp',
+    image: '/images/products-img/floor-lavender.webp',
     badge: 'BEST SELLER',
     intro: {
       en: [
@@ -121,7 +121,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 96,
     scent: { en: 'Floral Passion', th: 'ฟลอรัล แพสชันเนท' },
-    image: '/images/Photo-for-website-captain-maid/CAPTAINMAID Floor Cleaner Floral Passion  900 ml/00.webp',
+    image: '/images/products-img/floor-floral.webp',
     intro: {
       en: [
         'Captainmaid Floor Cleaner in Floral Passionate cleans your floors in a single pass, lifting dust, stains, and sticky residue without the need to mop over and over.',
@@ -152,7 +152,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 4,
     reviews: 87,
     scent: { en: 'Tea Tree Flash', th: 'ทีทรี แฟลช' },
-    image: '/images/Photo-for-website-captain-maid/CAPTAINMAID Floor Cleaner Tea Tree Flash  900 ml/01_00.webp',
+    image: '/images/products-img/floor-teatree.webp',
     intro: {
       en: [
         'Captainmaid Floor Cleaner in Tea Tree Flash cleans your floors in a single pass, lifting dust, stains, and sticky residue without repeated mopping.',
@@ -183,7 +183,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 96,
     scent: { en: 'Fresh Air', th: 'เฟรชแอร์' },
-    image: '/images/Photo-for-website-captain-maid/CAPTAINMAID Bathroom Cleaner Spray 900 ml/Banner Bathroom Cleaner 500x500-01.jpg',
+    image: '/images/products-img/bathroom.jpg',
     badge: 'NEW',
     intro: {
       en: [
@@ -234,7 +234,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 87,
     scent: { en: 'Citrus Express', th: 'ซิตรัส เอ็กซ์เพรส' },
-    image: '/images/Photo-for-website-captain-maid/CAPTAINMAID Kitchen Cleaner Spray 900 ml/Banner Kitchen Cleaner 500x500-01.jpg',
+    image: '/images/products-img/kitchen.jpg',
     intro: {
       en: [
         'Captainmaid Kitchen Cleaner Spray in Citrus Express cuts through heavy kitchen grease, stubborn food stains, and burnt-on residue, and neutralises food odours at the source, all in one step.',
@@ -282,7 +282,7 @@ export const PRODUCTS: CaptainProduct[] = [
     rating: 5,
     reviews: 112,
     scent: { en: 'Fruity Fresh', th: 'ฟรุตตี้ เฟรช' },
-    image: '/images/Photo-for-website-captain-maid/CAPTAINMAID Glass Cleaner 900 ml/Banner Glass-Cleaner 500x500-01.jpg',
+    image: '/images/products-img/glass.jpg',
     intro: {
       en: [
         'Captainmaid Glass Cleaner in Fruity Fresh delivers streak-free clarity in a single wipe, clearing dust, grease, and fingerprints with no smears or distracting streaks.',
