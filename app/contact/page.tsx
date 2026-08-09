@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Video } from 'lucide-react'
+import { Mail, Phone, MapPin, Globe, Camera, AtSign, Video } from 'lucide-react'
 import { CONTACT_INFO } from '@/lib/contact'
 
 export const metadata: Metadata = {
@@ -144,16 +144,16 @@ export default function ContactPage() {
             <div className="bg-captain-light rounded-sm p-lg">
               <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Follow Us</h3>
               <div className="flex gap-md">
-                <a href="https://facebook.com/captainmaid" className="hover:opacity-70">
-                  <Facebook className="w-6 h-6 text-captain-blue" />
+                <a href="https://facebook.com/captainmaid" className="hover:opacity-70" title="Facebook">
+                  <Globe className="w-6 h-6 text-captain-blue" />
                 </a>
-                <a href="https://instagram.com/captainmaid" className="hover:opacity-70">
-                  <Instagram className="w-6 h-6 text-captain-blue" />
+                <a href="https://instagram.com/captainmaid" className="hover:opacity-70" title="Instagram">
+                  <Camera className="w-6 h-6 text-captain-blue" />
                 </a>
-                <a href="https://twitter.com/captainmaid" className="hover:opacity-70">
-                  <Twitter className="w-6 h-6 text-captain-blue" />
+                <a href="https://twitter.com/captainmaid" className="hover:opacity-70" title="Twitter">
+                  <AtSign className="w-6 h-6 text-captain-blue" />
                 </a>
-                <a href="https://youtube.com/captainmaid" className="hover:opacity-70">
+                <a href="https://youtube.com/captainmaid" className="hover:opacity-70" title="YouTube">
                   <Video className="w-6 h-6 text-captain-blue" />
                 </a>
               </div>
