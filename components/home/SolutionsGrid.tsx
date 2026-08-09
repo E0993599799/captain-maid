@@ -57,13 +57,13 @@ export default function SolutionsGrid() {
             <Link
               key={card.title}
               href={card.href}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10]"
+              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10] bg-gradient-to-br from-slate-100 to-slate-200"
             >
               <Image
                 src={card.img}
                 alt={card.title}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/80 via-transparent to-transparent" />
@@ -78,13 +78,13 @@ export default function SolutionsGrid() {
             <Link
               key={card.title}
               href={card.href}
-              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10]"
+              className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10] bg-gradient-to-br from-slate-100 to-slate-200"
             >
               <Image
                 src={card.img}
                 alt={card.title}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/80 via-transparent to-transparent" />
