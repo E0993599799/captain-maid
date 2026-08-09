@@ -55,7 +55,6 @@ const columns = [
     title: 'ฝ่ายสนับสนุน',
     links: [
       { label: 'เคล็ดลับความสะอาด', href: '/blog' },
-      { label: 'คำถามที่พบบ่อย', href: '/faq' },
       { label: 'ข่าวสาร', href: '/blog' },
     ],
   },
@@ -189,12 +188,12 @@ export function Footer() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
               <p>© 2026 Captain Maid. All rights reserved.</p>
               <div className="flex gap-4">
-                <Link href="/faq" className="hover:text-white/70 transition-colors">
+                <a href="#" className="hover:text-white/70 transition-colors">
                   Privacy Policy
-                </Link>
-                <Link href="/faq" className="hover:text-white/70 transition-colors">
+                </a>
+                <a href="#" className="hover:text-white/70 transition-colors">
                   Terms of Service
-                </Link>
+                </a>
               </div>
             </div>
           </div>
