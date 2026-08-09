@@ -91,7 +91,6 @@ export default function HeroSlider() {
       ))}
 
       {/* One continuous overlay avoids a hard seam while preserving the products. */}
-      <div className="hero-media-overlay" aria-hidden="true" />
 
 
       {/* Arrows */}
