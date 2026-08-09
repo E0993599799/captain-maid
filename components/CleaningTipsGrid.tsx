@@ -1,10 +1,11 @@
 import Link from 'next/link'
+import { Leaf, Heart, CheckCircle2 } from 'lucide-react'
 import { TipCard } from './TipCard'
 
 const tipArticles = [
   {
     slug: 'natural-ingredients-homemade-cleaners',
-    emoji: '🪴',
+    icon: Leaf,
     category: 'Eco-Friendly',
     title: '5 Natural Ingredients for Homemade Cleaners',
     excerpt:
@@ -13,7 +14,7 @@ const tipArticles = [
   },
   {
     slug: 'keeping-home-safe-kids-pets',
-    emoji: '👨‍👩‍👧‍👦',
+    icon: Heart,
     category: 'Family Care',
     title: 'Keeping Your Home Safe for Kids & Pets',
     excerpt:
@@ -22,7 +23,7 @@ const tipArticles = [
   },
   {
     slug: 'monthly-deep-clean-checklist',
-    emoji: '🧼',
+    icon: CheckCircle2,
     category: 'Deep Clean',
     title: 'Monthly Deep Clean Checklist for Your Home',
     excerpt:
