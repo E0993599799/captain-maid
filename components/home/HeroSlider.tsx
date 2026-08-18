@@ -61,7 +61,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="hero-carousel relative isolate h-[430px] w-full overflow-hidden bg-[#0460ab] sm:h-[560px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
+      className="hero-carousel relative isolate h-[360px] w-full overflow-hidden bg-[#0460ab] sm:h-[500px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
       aria-roledescription="carousel"
       aria-label="Captain Maid highlights"
       onMouseEnter={() => setPaused(true)}
@@ -91,7 +91,7 @@ export default function HeroSlider() {
                 height={isBrandHero ? 750 : 900}
                 className={`hero-slide-image h-full w-full ${
                   isBrandHero
-                    ? 'object-contain object-top lg:object-cover lg:object-center'
+                    ? 'object-cover object-[50%_18%] sm:object-[50%_20%] lg:object-center'
                     : 'object-cover'
                 }`}
                 fetchPriority={i === 0 ? 'high' : 'low'}
@@ -104,15 +104,15 @@ export default function HeroSlider() {
       })}
 
       <div
-        className={`absolute inset-x-0 bottom-12 z-[5] px-6 text-center text-white transition-opacity duration-500 sm:bottom-16 sm:px-10 lg:bottom-[15%] lg:left-[6%] lg:right-auto lg:max-w-[620px] lg:px-0 lg:text-left ${
+        className={`absolute inset-x-0 bottom-10 z-[5] px-5 text-center text-white transition-opacity duration-500 sm:bottom-14 sm:px-10 lg:bottom-[15%] lg:left-[6%] lg:right-auto lg:max-w-[620px] lg:px-0 lg:text-left ${
           current === 0 ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={current !== 0}
       >
-        <h1 className="text-balance text-3xl font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-4xl lg:text-5xl xl:text-6xl">
+        <h1 className="text-balance text-2xl font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)] sm:text-4xl lg:text-5xl xl:text-6xl">
           Made for Easy Home Cleaning
         </h1>
-        <p className="mx-auto mt-3 max-w-xl text-balance text-base font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] sm:mt-4 sm:text-xl lg:mx-0 lg:text-2xl">
+        <p className="mx-auto mt-2 max-w-xl text-balance text-sm font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] sm:mt-4 sm:text-xl lg:mx-0 lg:text-2xl">
           Better Living, Taken Care of by Captain Maid.
         </p>
       </div>
@@ -133,7 +133,7 @@ export default function HeroSlider() {
       </button>
 
       <div
-        className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-4 sm:gap-2"
+        className="absolute bottom-1 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-3 sm:gap-2"
         aria-label="Choose slide"
       >
         {slides.map((slide, i) => (
