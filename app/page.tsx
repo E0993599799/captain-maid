@@ -18,10 +18,10 @@ export const metadata: Metadata = {
       'Made for easy home cleaning. Better living, taken care of by Captain Maid.',
     images: [
       {
-        url: '/images/hero/captain-maid-brand-hero.svg',
-        width: 1600,
-        height: 750,
-        alt: 'Captain Maid brand mascot and logo for easy home cleaning',
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Captain Maid – Easy Home Cleaning for Better Living',
       },
     ],
   },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Captain Maid | Easy Home Cleaning for Better Living',
     description: 'Made for easy home cleaning. Better living, taken care of by Captain Maid.',
-    images: ['/images/hero/captain-maid-brand-hero.svg'],
+    images: ['/og-image.jpg'],
   },
 }
 
