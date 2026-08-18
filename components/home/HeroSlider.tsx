@@ -61,7 +61,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="hero-carousel relative isolate w-full min-h-[600px] overflow-hidden bg-[#0460ab] sm:min-h-[640px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
+      className="hero-carousel relative isolate h-[430px] w-full overflow-hidden bg-[#0460ab] sm:h-[560px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
       aria-roledescription="carousel"
       aria-label="Captain Maid highlights"
       onMouseEnter={() => setPaused(true)}
@@ -91,7 +91,7 @@ export default function HeroSlider() {
                 height={isBrandHero ? 750 : 900}
                 className={`hero-slide-image h-full w-full ${
                   isBrandHero
-                    ? 'object-contain object-center lg:object-cover lg:object-center'
+                    ? 'object-contain object-top lg:object-cover lg:object-center'
                     : 'object-cover'
                 }`}
                 fetchPriority={i === 0 ? 'high' : 'low'}
@@ -104,7 +104,7 @@ export default function HeroSlider() {
       })}
 
       <div
-        className={`absolute inset-x-0 bottom-16 z-[5] px-6 text-center text-white transition-opacity duration-500 sm:bottom-20 sm:px-10 lg:bottom-[15%] lg:left-[6%] lg:right-auto lg:max-w-[620px] lg:px-0 lg:text-left ${
+        className={`absolute inset-x-0 bottom-12 z-[5] px-6 text-center text-white transition-opacity duration-500 sm:bottom-16 sm:px-10 lg:bottom-[15%] lg:left-[6%] lg:right-auto lg:max-w-[620px] lg:px-0 lg:text-left ${
           current === 0 ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={current !== 0}
@@ -133,7 +133,7 @@ export default function HeroSlider() {
       </button>
 
       <div
-        className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-5 sm:gap-2"
+        className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-4 sm:gap-2"
         aria-label="Choose slide"
       >
         {slides.map((slide, i) => (
