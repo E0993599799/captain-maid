@@ -27,12 +27,17 @@ test('every hero slide uses its own text-free responsive artwork', () => {
   }
 })
 
-test('hero contains no promotional live text or media treatment', () => {
+test('hero presents responsive live copy without a media treatment', () => {
   const hero = read('components/home/HeroSlider.tsx')
   const styles = read('app/globals.css')
 
-  assert.doesNotMatch(hero, /hero-content-shell|hero-copy-block|hero-title|hero-description/)
-  assert.doesNotMatch(hero, /Made for Easy|Home Cleaning|Better Living/)
+  assert.match(hero, /hero-content-shell/)
+  assert.match(hero, /hero-copy-block/)
+  assert.match(hero, /hero-title--dark-bg/)
+  assert.match(hero, /hero-description/)
+  assert.match(hero, /Made for Easy/)
+  assert.match(hero, /Home Cleaning/)
+  assert.match(hero, /Better Living, Taken Care of by Captain Maid\./)
   assert.doesNotMatch(hero, /hero-media-overlay/)
   assert.doesNotMatch(styles, /\.hero-media-overlay/)
 })

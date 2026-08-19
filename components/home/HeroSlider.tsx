@@ -96,6 +96,23 @@ export default function HeroSlider() {
         </div>
       ))}
 
+      <div className="hero-content-shell pointer-events-none absolute inset-0 z-[5] flex items-end justify-center px-5 pb-16 sm:justify-start sm:px-[7%] sm:pb-[8%] lg:pb-[9%]">
+        <div
+          className={`hero-copy-block w-full max-w-[34rem] text-center text-white transition-opacity duration-500 sm:w-[48%] sm:text-left lg:w-[43%] lg:max-w-[38rem] ${
+            current === 0 ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-hidden={current !== 0}
+        >
+          <h1 className="hero-title--dark-bg">
+            <span className="hero-title__line">Made for Easy</span>
+            <span className="hero-title__line">Home Cleaning</span>
+          </h1>
+          <p className="hero-description">
+            Better Living, Taken Care of by Captain Maid.
+          </p>
+        </div>
+      </div>
+
       <button
         onClick={goPrev}
         aria-label="Previous slide"

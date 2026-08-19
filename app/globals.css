@@ -237,13 +237,13 @@
 @media (max-width: 767px) {
   .hero-content-shell {
     min-height: 100%;
-    align-items: flex-start;
-    padding-top: 42%;
-    padding-bottom: 3.75rem;
+    align-items: flex-end;
+    padding-top: 0;
+    padding-bottom: 4rem;
   }
 
   .hero-content-shell > div {
-    height: 30%;
+    height: auto;
   }
 
   .hero-title--dark-bg {
