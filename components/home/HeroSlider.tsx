@@ -7,31 +7,31 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/hero/captain-maid-hero-mobile.jpg',
-    tablet: '/images/hero/captain-maid-hero-tablet.jpg',
-    desktop: '/images/hero/captain-maid-hero-desktop.jpg',
-    alt: 'Captain Maid — made for easy home cleaning',
+    mobile: '/images/hero/v2/slide-1-brand-mobile.jpg',
+    tablet: '/images/hero/v2/slide-1-brand-tablet.jpg',
+    desktop: '/images/hero/v2/slide-1-brand-desktop.jpg',
+    alt: 'Captain Maid brand mascot and shield',
   },
   {
     id: 'product-range',
-    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone02.jpg',
-    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-03.jpg',
-    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-03.jpg',
-    alt: '',
+    mobile: '/images/hero/v2/slide-2-floor-care-mobile.jpg',
+    tablet: '/images/hero/v2/slide-2-floor-care-tablet.jpg',
+    desktop: '/images/hero/v2/slide-2-floor-care-desktop.jpg',
+    alt: 'Captain Maid floor cleaner range',
   },
   {
     id: 'family-pet-safety',
-    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone 03.jpg',
-    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-04.jpg',
-    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-04.jpg',
-    alt: '',
+    mobile: '/images/hero/v2/slide-3-family-safe-mobile.jpg',
+    tablet: '/images/hero/v2/slide-3-family-safe-tablet.jpg',
+    desktop: '/images/hero/v2/slide-3-family-safe-desktop.jpg',
+    alt: 'A family relaxing with their pets in a clean home',
   },
   {
     id: 'natural-cleaning-tech',
-    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone 04.jpg',
-    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-05.jpg',
-    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-05.jpg',
-    alt: '',
+    mobile: '/images/hero/v2/slide-4-surface-care-mobile.jpg',
+    tablet: '/images/hero/v2/slide-4-surface-care-tablet.jpg',
+    desktop: '/images/hero/v2/slide-4-surface-care-desktop.jpg',
+    alt: 'Captain Maid surface cleaner range in a bright kitchen',
   },
 ]
 
@@ -61,7 +61,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="hero-carousel relative isolate aspect-[1036/1519] w-full overflow-hidden bg-[#0460ab] sm:aspect-[4/3] lg:aspect-[1920/900]"
+      className="hero-carousel relative isolate aspect-[3/4] w-full overflow-hidden bg-[#0460ab] sm:aspect-[4/3] lg:aspect-[1920/900]"
       aria-roledescription="carousel"
       aria-label="Captain Maid highlights"
       onMouseEnter={() => setPaused(true)}
@@ -95,23 +95,6 @@ export default function HeroSlider() {
           </picture>
         </div>
       ))}
-
-      <div className="hero-content-shell pointer-events-none absolute inset-0 z-[5] flex items-start justify-center px-5 pt-[44%] sm:items-end sm:justify-start sm:px-[7%] sm:pb-[9%] sm:pt-0 lg:px-[7%] lg:pb-[10%]">
-        <div
-          className={`hero-copy-block w-full max-w-[34rem] text-center text-white transition-opacity duration-500 sm:w-[48%] sm:text-left lg:w-[43%] lg:max-w-[38rem] ${
-            current === 0 ? 'opacity-100' : 'opacity-0'
-          }`}
-          aria-hidden={current !== 0}
-        >
-          <h1 className="hero-title--dark-bg">
-            <span className="hero-title__line">Made for Easy</span>
-            <span className="hero-title__line">Home Cleaning</span>
-          </h1>
-          <p className="hero-description">
-            Better Living, Taken Care of by Captain Maid.
-          </p>
-        </div>
-      </div>
 
       <button
         onClick={goPrev}

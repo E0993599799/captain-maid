@@ -4,34 +4,35 @@ import test from 'node:test'
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
 
-test('brand hero uses text-free responsive artwork', () => {
+test('every hero slide uses its own text-free responsive artwork', () => {
   const hero = read('components/home/HeroSlider.tsx')
   const cleanAssets = [
-    'public/images/hero/captain-maid-hero-mobile.jpg',
-    'public/images/hero/captain-maid-hero-tablet.jpg',
-    'public/images/hero/captain-maid-hero-desktop.jpg',
+    'slide-1-brand-mobile.jpg',
+    'slide-1-brand-tablet.jpg',
+    'slide-1-brand-desktop.jpg',
+    'slide-2-floor-care-mobile.jpg',
+    'slide-2-floor-care-tablet.jpg',
+    'slide-2-floor-care-desktop.jpg',
+    'slide-3-family-safe-mobile.jpg',
+    'slide-3-family-safe-tablet.jpg',
+    'slide-3-family-safe-desktop.jpg',
+    'slide-4-surface-care-mobile.jpg',
+    'slide-4-surface-care-tablet.jpg',
+    'slide-4-surface-care-desktop.jpg',
   ]
 
   for (const asset of cleanAssets) {
-    assert.ok(existsSync(new URL(`../${asset}`, import.meta.url)), `${asset} must exist`)
-    assert.match(hero, new RegExp(asset.split('/').at(-1).replace('.', '\\.')))
+    assert.ok(existsSync(new URL(`../public/images/hero/v2/${asset}`, import.meta.url)), `${asset} must exist`)
+    assert.match(hero, new RegExp(asset.replace('.', '\\.')))
   }
-
-  assert.doesNotMatch(hero, /Phone01-clean\.jpg'/)
-  assert.doesNotMatch(hero, /Tablet-01-clean\.jpg'/)
-  assert.doesNotMatch(hero, /1920x900-01-clean\.jpg'/)
 })
 
-test('brand hero presents responsive live copy in the image safe area', () => {
+test('hero contains no promotional live text or media treatment', () => {
   const hero = read('components/home/HeroSlider.tsx')
   const styles = read('app/globals.css')
 
-  assert.match(hero, /className={`hero-copy-block /)
-  assert.match(hero, /className="hero-title--dark-bg"/)
-  assert.match(hero, /className="hero-title__line"/)
-  assert.match(hero, /className="hero-description"/)
-  assert.match(hero, /Made for Easy/)
-  assert.match(hero, /Home Cleaning/)
-  assert.match(hero, /Better Living, Taken Care of by Captain Maid\./)
-  assert.match(styles, /\.hero-content-shell \{[\s\S]*padding-top: 42%/)
+  assert.doesNotMatch(hero, /hero-content-shell|hero-copy-block|hero-title|hero-description/)
+  assert.doesNotMatch(hero, /Made for Easy|Home Cleaning|Better Living/)
+  assert.doesNotMatch(hero, /hero-media-overlay/)
+  assert.doesNotMatch(styles, /\.hero-media-overlay/)
 })
