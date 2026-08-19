@@ -7,9 +7,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone01.jpg',
-    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-01.jpg',
-    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-01.jpg',
+    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone01-clean.jpg',
+    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-01-clean.jpg',
+    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-01-clean.jpg',
     alt: 'Captain Maid — made for easy home cleaning',
   },
   {
@@ -97,26 +97,27 @@ export default function HeroSlider() {
       ))}
 
       <div
-        className={`pointer-events-none absolute inset-0 z-[4] transition-opacity duration-500 ${
-          current === 0
-            ? 'opacity-100 bg-gradient-to-t from-[#002d5f]/70 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#002d5f]/60 lg:via-[#002d5f]/10 lg:to-transparent'
-            : 'opacity-0'
+        className={`hero-media-overlay pointer-events-none z-[4] transition-opacity duration-500 ${
+          current === 0 ? 'opacity-100' : 'opacity-0'
         }`}
         aria-hidden="true"
       />
 
-      <div
-        className={`absolute inset-x-0 bottom-12 z-[5] px-6 text-center text-white transition-opacity duration-500 sm:bottom-16 sm:px-10 lg:bottom-[16%] lg:left-[6%] lg:right-auto lg:max-w-[660px] lg:px-0 lg:text-left ${
-          current === 0 ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        aria-hidden={current !== 0}
-      >
-        <h1 className="text-balance text-3xl font-extrabold leading-tight drop-shadow-[0_3px_12px_rgba(0,0,0,0.55)] sm:text-4xl lg:text-5xl xl:text-6xl">
-          Made for Easy Home Cleaning
-        </h1>
-        <p className="mx-auto mt-3 max-w-xl text-balance text-base font-semibold leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] sm:mt-4 sm:text-xl lg:mx-0 lg:text-2xl">
-          Better Living, Taken Care of by Captain Maid.
-        </p>
+      <div className="hero-content-shell pointer-events-none absolute inset-0 z-[5] flex items-start justify-center px-5 pt-[44%] sm:items-end sm:justify-start sm:px-[7%] sm:pb-[9%] sm:pt-0 lg:px-[7%] lg:pb-[10%]">
+        <div
+          className={`hero-copy-block w-full max-w-[34rem] text-center text-white transition-opacity duration-500 sm:w-[48%] sm:text-left lg:w-[43%] lg:max-w-[38rem] ${
+            current === 0 ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-hidden={current !== 0}
+        >
+          <h1 className="hero-title--dark-bg">
+            <span className="hero-title__line">Made for Easy</span>
+            <span className="hero-title__line">Home Cleaning</span>
+          </h1>
+          <p className="hero-description">
+            Better Living, Taken Care of by Captain Maid.
+          </p>
+        </div>
       </div>
 
       <button
