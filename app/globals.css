@@ -220,6 +220,16 @@
   -webkit-text-fill-color: inherit;
 }
 
+.hero-description {
+  max-width: 36rem;
+  margin-top: 0.9rem;
+  font-size: clamp(0.95rem, 1.45vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.5;
+  text-wrap: balance;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
 /* A single full-width layer prevents the visible 50% seam created by two
    half-width overlays. Mobile receives an even wash because copy is centered. */
 .hero-media-overlay {
@@ -242,7 +252,7 @@
   .hero-content-shell {
     min-height: 100%;
     align-items: flex-start;
-    padding-top: max(6.5rem, env(safe-area-inset-top));
+    padding-top: 42%;
     padding-bottom: 3.75rem;
   }
 
@@ -295,6 +305,12 @@
 @media (min-width: 1024px) {
   .hero-slide-image {
     object-position: var(--hero-desktop-position, center top);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-description {
+    margin-inline: 0;
   }
 }
 
