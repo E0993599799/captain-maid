@@ -57,21 +57,22 @@ export default function SolutionsDeepDive() {
             <Link
               key={card.title}
               href={card.href}
-              className={`group relative aspect-[16/10] overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30 sm:aspect-[16/9] ${card.span}`}
+              className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[#d9edf8] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30 ${card.span}`}
             >
-              <Image
-                src={card.img}
-                alt={card.title}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/90 via-[#002d5f]/30 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-white">
-                <h3 className="font-bold text-lg sm:text-2xl mb-1">{card.title}</h3>
-                <p className="text-xs sm:text-sm text-white/75 mb-3 max-w-md line-clamp-2">{card.sub}</p>
-                <span className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold border-b border-white/50 pb-0.5 group-hover:gap-2 transition-all">
-                  เรียนรู้เพิ่มเติม <ArrowRight className="w-3.5 h-3.5" />
+              <div className="solution-card-media relative aspect-[4/3] w-full overflow-hidden bg-white sm:aspect-[16/10]">
+                <Image
+                  src={card.img}
+                  alt={card.title}
+                  fill
+                  className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <div className="solution-card-body flex flex-1 flex-col bg-[#eef7fc] p-5 sm:p-6">
+                <h3 className="mb-1 font-bold text-lg text-[#002d5f] sm:text-2xl">{card.title}</h3>
+                <p className="mb-3 max-w-md text-xs leading-relaxed text-[#526b7f] sm:text-sm">{card.sub}</p>
+                <span className="mt-auto inline-flex w-fit items-center gap-1 border-b border-[#0079c1]/35 pb-0.5 text-xs font-semibold text-[#0079c1] transition-all group-hover:gap-2 sm:text-sm">
+                  เรียนรู้เพิ่มเติม <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </div>
             </Link>
@@ -84,21 +85,22 @@ export default function SolutionsDeepDive() {
             <Link
               key={card.title}
               href={card.href}
-              className="group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#d9edf8] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
             >
-              <Image
-                src={card.img}
-                alt={card.title}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/90 via-[#002d5f]/25 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                <h3 className="font-bold text-sm sm:text-base mb-1">{card.title}</h3>
-                <p className="text-[11px] text-white/75 mb-2 line-clamp-1">{card.sub}</p>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold border-b border-white/50 pb-0.5 group-hover:gap-2 transition-all">
-                  เรียนรู้เพิ่มเติม <ArrowRight className="w-3 h-3" />
+              <div className="solution-card-media relative aspect-[4/3] w-full overflow-hidden bg-white">
+                <Image
+                  src={card.img}
+                  alt={card.title}
+                  fill
+                  className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 33vw"
+                />
+              </div>
+              <div className="solution-card-body flex flex-1 flex-col bg-[#eef7fc] p-5">
+                <h3 className="mb-1 font-bold text-sm text-[#002d5f] sm:text-base">{card.title}</h3>
+                <p className="mb-2 text-[11px] leading-relaxed text-[#526b7f]">{card.sub}</p>
+                <span className="mt-auto inline-flex w-fit items-center gap-1 border-b border-[#0079c1]/35 pb-0.5 text-xs font-semibold text-[#0079c1] transition-all group-hover:gap-2">
+                  เรียนรู้เพิ่มเติม <ArrowRight className="h-3 w-3" />
                 </span>
               </div>
             </Link>
