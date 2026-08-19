@@ -7,9 +7,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone01-clean.jpg',
-    tablet: '/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-01-clean.jpg',
-    desktop: '/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-01-clean.jpg',
+    mobile: '/images/hero/captain-maid-hero-mobile.jpg',
+    tablet: '/images/hero/captain-maid-hero-tablet.jpg',
+    desktop: '/images/hero/captain-maid-hero-desktop.jpg',
     alt: 'Captain Maid — made for easy home cleaning',
   },
   {
@@ -61,7 +61,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="hero-carousel relative isolate h-[min(62svh,560px)] min-h-[440px] w-full overflow-hidden bg-[#0460ab] sm:h-[min(66svh,640px)] sm:min-h-[500px] lg:h-[min(85vh,820px)] lg:min-h-[600px]"
+      className="hero-carousel relative isolate aspect-[1036/1519] w-full overflow-hidden bg-[#0460ab] sm:aspect-[4/3] lg:aspect-[1920/900]"
       aria-roledescription="carousel"
       aria-label="Captain Maid highlights"
       onMouseEnter={() => setPaused(true)}
@@ -95,13 +95,6 @@ export default function HeroSlider() {
           </picture>
         </div>
       ))}
-
-      <div
-        className={`hero-media-overlay pointer-events-none z-[4] transition-opacity duration-500 ${
-          current === 0 ? 'opacity-100' : 'opacity-0'
-        }`}
-        aria-hidden="true"
-      />
 
       <div className="hero-content-shell pointer-events-none absolute inset-0 z-[5] flex items-start justify-center px-5 pt-[44%] sm:items-end sm:justify-start sm:px-[7%] sm:pb-[9%] sm:pt-0 lg:px-[7%] lg:pb-[10%]">
         <div

@@ -7,9 +7,9 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 test('brand hero uses text-free responsive artwork', () => {
   const hero = read('components/home/HeroSlider.tsx')
   const cleanAssets = [
-    'public/images/Photo-for-website-captain-maid/Slide Banner/Banner for Phone/Banner for Phone01-clean.jpg',
-    'public/images/Photo-for-website-captain-maid/Slide Banner/Banner for Tablet/Banner for Tablet-01-clean.jpg',
-    'public/images/Photo-for-website-captain-maid/Slide Banner/Banner For Destop/Banner 1920x900-01-clean.jpg',
+    'public/images/hero/captain-maid-hero-mobile.jpg',
+    'public/images/hero/captain-maid-hero-tablet.jpg',
+    'public/images/hero/captain-maid-hero-desktop.jpg',
   ]
 
   for (const asset of cleanAssets) {
@@ -17,9 +17,9 @@ test('brand hero uses text-free responsive artwork', () => {
     assert.match(hero, new RegExp(asset.split('/').at(-1).replace('.', '\\.')))
   }
 
-  assert.doesNotMatch(hero, /Phone01\.jpg'/)
-  assert.doesNotMatch(hero, /Tablet-01\.jpg'/)
-  assert.doesNotMatch(hero, /1920x900-01\.jpg'/)
+  assert.doesNotMatch(hero, /Phone01-clean\.jpg'/)
+  assert.doesNotMatch(hero, /Tablet-01-clean\.jpg'/)
+  assert.doesNotMatch(hero, /1920x900-01-clean\.jpg'/)
 })
 
 test('brand hero presents responsive live copy in the image safe area', () => {

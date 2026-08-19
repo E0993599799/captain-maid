@@ -230,25 +230,11 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
 }
 
-/* A single full-width layer prevents the visible 50% seam created by two
-   half-width overlays. Mobile receives an even wash because copy is centered. */
-.hero-media-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 45, 95, 0.34) 0%, rgba(0, 45, 95, 0.72) 46%, rgba(0, 31, 67, 0.9) 100%);
-}
-
 .hero-slide-image {
   object-position: center top;
 }
 
 @media (max-width: 767px) {
-  .hero-carousel {
-    height: max(115svh, min(205vw, 1050px));
-    min-height: 760px;
-  }
-
   .hero-content-shell {
     min-height: 100%;
     align-items: flex-start;
@@ -290,16 +276,6 @@
     font-size: 0.78rem;
   }
 
-  .hero-media-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(0, 45, 95, 0.46) 0%,
-      rgba(0, 45, 95, 0.24) 22%,
-      transparent 30%,
-      rgba(0, 31, 67, 0.08) 68%,
-      rgba(0, 31, 67, 0.34) 100%
-    );
-  }
 }
 
 @media (min-width: 1024px) {
@@ -311,21 +287,6 @@
 @media (min-width: 768px) {
   .hero-description {
     margin-inline: 0;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-media-overlay {
-    background:
-      linear-gradient(
-        90deg,
-        rgba(0, 45, 95, 0.86) 0%,
-        rgba(0, 45, 95, 0.76) 32%,
-        rgba(0, 45, 95, 0.42) 50%,
-        rgba(0, 45, 95, 0.1) 68%,
-        rgba(0, 45, 95, 0) 82%
-      ),
-      linear-gradient(0deg, rgba(0, 31, 67, 0.2) 0%, rgba(0, 31, 67, 0) 38%);
   }
 }
 
