@@ -7,9 +7,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0637',
-    tablet: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0637',
-    desktop: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0637',
+    mobile: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0650',
+    tablet: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0650',
+    desktop: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0650',
     alt: 'Captain Maid home cleaning hero',
   },
   {
@@ -87,7 +87,11 @@ export default function HeroSlider() {
               alt={slide.alt}
               width={1920}
               height={900}
-              className="hero-slide-image h-full w-full object-cover object-center"
+              className={`hero-slide-image h-full w-full object-cover ${
+                slide.id === 'brand-hero'
+                  ? 'object-[72%_center] sm:object-[68%_center] lg:object-center'
+                  : 'object-center'
+              }`}
               fetchPriority={i === 0 ? 'high' : 'low'}
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
