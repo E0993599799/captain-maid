@@ -16,7 +16,7 @@ const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "https://cms-arigeo.vercel.ap
 const SITE_SLUG = process.env.CMS_SITE_SLUG || "captain-maid";
 const READ_TOKEN = process.env.CMS_READ_TOKEN || "";
 const PREVIEW_SECRET = process.env.CMS_PREVIEW_SECRET || "";
-const API_TIMEOUT = 10000; // 10 seconds
+const API_TIMEOUT = 10000;
 
 interface RequestOptions extends RequestInit {
   timeout?: number;
@@ -45,10 +45,7 @@ class CMSClient {
 
   private async request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
     const { timeout = API_TIMEOUT, retries = 2, draft = false, ...fetchOptions } = options;
-
-    if (!this.baseUrl) {
-      throw new CMSException("CMS_NOT_CONFIGURED", "CMS URL is not configured", 503);
-    }
+    if (!this.baseUrl) throw new CMSException("CMS_NOT_CONFIGURED", "CMS URL is not configured", 503);
 
     const url = new URL(endpoint, this.baseUrl);
     if (draft && this.previewSecret) {
@@ -116,14 +113,15 @@ class CMSClient {
 
   private async getBrandId(slug: string): Promise<string | number> {
     if (!this.brandIdPromise) {
-      this.brandIdPromise = this.restGet<{ docs?: Array<{ id?: string | number }> }>("brands", {
-        where: { slug: { equals: slug } },
-        limit: 1,
+      this.brandIdPromise = this.restGet<{ docs?: Array<{ id?: string | number; slug?: string }> }>("brands", {
+        limit: 20,
         depth: 0,
       }).then((response) => {
-        const brandId = response.docs?.[0]?.id;
-        if (brandId === undefined || brandId === null) throw new CMSException("CMS_BRAND_NOT_FOUND", `CMS brand not found: ${slug}`, 404);
-        return brandId;
+        const brand = (response.docs || []).find((brand) => brand.slug === slug);
+        if (brand?.id === undefined || brand.id === null) {
+          throw new CMSException("CMS_BRAND_NOT_FOUND", `CMS brand not found: ${slug}`, 404);
+        }
+        return brand.id;
       });
     }
     return this.brandIdPromise;
