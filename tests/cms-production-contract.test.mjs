@@ -10,20 +10,21 @@ test('Captain products use CMS whenever CMS URL is configured and do not require
   assert.doesNotMatch(source, /!process\.env\.NEXT_PUBLIC_CMS_URL \|\| !process\.env\.CMS_READ_TOKEN/)
 })
 
-test('Captain product queries are scoped to the Captain Maid brand', () => {
+test('Captain product queries resolve the Captain Maid brand and scope the relationship by its id', () => {
   const source = read('lib/cms/client.ts')
-  assert.match(source, /brand:\s*\{\s*equals:\s*['"]captain-maid['"]\s*\}/)
+  assert.match(source, /getBrandId\(this\.siteSlug/)
+  assert.match(source, /brand:\s*\{\s*equals:\s*brandId\s*\}/)
 })
 
 test('product list and detail only request approved content', () => {
   const source = read('lib/cms/client.ts')
-  const matches = source.match(/contentStatus:\s*\{\s*equals:\s*['"]approved['"]\s*\}/g) || []
+  const matches = source.match(/contentStatus:\s*\{\s*equals:\s*["']approved["']\s*\}/g) || []
   assert.ok(matches.length >= 2, 'expected approved filter in list and detail queries')
 })
 
 test('signed revalidation invalidates the products cache tag and products route', () => {
   const source = read('app/api/revalidate/route.ts')
-  assert.match(source, /revalidateTag\(['"]products['"]\)/)
+  assert.match(source, /revalidateTag\(["']products["']\)/)
   assert.match(source, /revalidatePath\(route\)/)
   assert.match(source, /REVALIDATE_SECRET/)
 })
