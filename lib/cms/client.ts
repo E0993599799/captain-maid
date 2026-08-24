@@ -29,6 +29,7 @@ class CMSClient {
   private siteSlug: string;
   private readToken: string;
   private previewSecret: string;
+  private brandIdPromise?: Promise<string | number>;
 
   constructor(
     baseUrl: string = API_URL,
@@ -62,13 +63,11 @@ class CMSClient {
 
     const url = new URL(endpoint, this.baseUrl);
 
-    // Add draft mode if requested
     if (draft && this.previewSecret) {
       url.searchParams.append("draft", "true");
       url.searchParams.append("token", this.previewSecret);
     }
 
-    // Add read token to headers
     const headers = new Headers(fetchOptions.headers);
     headers.set("Content-Type", "application/json");
 
@@ -101,19 +100,16 @@ class CMSClient {
       } catch (error) {
         lastError = error instanceof Error ? error : new Error(String(error));
 
-        // Don't retry on 4xx errors (except 429)
         if (error instanceof CMSException && error.statusCode < 500) {
           if (error.statusCode !== 429) {
             throw error;
           }
         }
 
-        // Last attempt failed
         if (attempt === retries) {
           throw lastError;
         }
 
-        // Wait before retry (exponential backoff)
         const delay = Math.pow(2, attempt) * 100;
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
@@ -122,9 +118,6 @@ class CMSClient {
     throw lastError || new Error("Request failed");
   }
 
-  /**
-   * Parse error response from CMS
-   */
   private async parseError(response: Response): Promise<CMSException> {
     try {
       const data = (await response.json()) as {
@@ -147,9 +140,6 @@ class CMSClient {
     }
   }
 
-  /**
-   * Make REST API call
-   */
   async restGet<T>(
     collection: string,
     params: Record<string, unknown> = {},
@@ -157,7 +147,6 @@ class CMSClient {
   ): Promise<T> {
     const url = new URL(`/api/${collection}`, this.baseUrl);
 
-    // Add query parameters
     const appendParam = (key: string, value: unknown) => {
       if (value === undefined || value === null) return;
       if (Array.isArray(value)) {
@@ -181,9 +170,6 @@ class CMSClient {
     });
   }
 
-  /**
-   * Make GraphQL query
-   */
   async query<T>(
     query: string,
     variables?: Record<string, unknown>,
@@ -214,17 +200,43 @@ class CMSClient {
     return response.data;
   }
 
+  private async getBrandId(slug: string): Promise<string | number> {
+    if (!this.brandIdPromise) {
+      this.brandIdPromise = this.restGet<{ docs?: Array<{ id?: string | number }> }>(
+        "brands",
+        {
+          where: { slug: { equals: slug } },
+          limit: 1,
+          depth: 0,
+        }
+      ).then((response) => {
+        const brandId = response.docs?.[0]?.id;
+        if (brandId === undefined || brandId === null) {
+          throw new CMSException("CMS_BRAND_NOT_FOUND", `CMS brand not found: ${slug}`, 404);
+        }
+        return brandId;
+      });
+    }
+
+    return this.brandIdPromise;
+  }
+
   /**
-   * Fetch products for captain-maid site
+   * Fetch products for Captain Maid only.
    */
   async getProducts(
     filters: { locale?: Locale; limit?: number; page?: number } = {},
     options: RequestOptions = {}
   ) {
+    const brandId = await this.getBrandId(this.siteSlug);
+
     return this.restGet(
       "products",
       {
-        where: { contentStatus: { equals: "approved" } },
+        where: {
+          brand: { equals: brandId },
+          contentStatus: { equals: "approved" },
+        },
         locale: filters.locale || "th",
         fallbackLocale: "en",
         depth: 2,
@@ -237,13 +249,16 @@ class CMSClient {
   }
 
   /**
-   * Fetch single product by slug
+   * Fetch a Captain Maid product by slug.
    */
   async getProduct(slug: string, locale: Locale = "th", options: RequestOptions = {}) {
+    const brandId = await this.getBrandId(this.siteSlug);
+
     return this.restGet(
       "products",
       {
         where: {
+          brand: { equals: brandId },
           slug: { equals: slug },
           contentStatus: { equals: "approved" },
         },
@@ -256,9 +271,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch categories
-   */
   async getCategories(filters: { locale?: Locale } = {}, options: RequestOptions = {}) {
     return this.restGet(
       "product-categories",
@@ -273,9 +285,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch solutions (by room or problem)
-   */
   async getSolutions(
     type: "room" | "problem",
     filters: { locale?: Locale } = {},
@@ -295,9 +304,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch solution detail by slug
-   */
   async getSolution(type: "room" | "problem", slug: string, options: RequestOptions = {}) {
     return this.restGet(
       "solutions",
@@ -313,9 +319,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch articles
-   */
   async getArticles(
     filters: { locale?: Locale; limit?: number; page?: number } = {},
     options: RequestOptions = {}
@@ -335,9 +338,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch article detail by slug
-   */
   async getArticle(slug: string, options: RequestOptions = {}) {
     return this.restGet(
       "articles",
@@ -353,9 +353,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch navigation
-   */
   async getNavigation(locale: Locale = "th", options: RequestOptions = {}) {
     return this.restGet(
       "navigation",
@@ -370,9 +367,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch site settings
-   */
   async getSiteSettings(locale: Locale = "th", options: RequestOptions = {}) {
     return this.restGet(
       "site-settings",
@@ -387,9 +381,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Submit form
-   */
   async submitForm(
     formType: string,
     data: Record<string, unknown>,
@@ -409,9 +400,6 @@ class CMSClient {
     );
   }
 
-  /**
-   * Fetch page by slug
-   */
   async getPage(slug: string, locale: Locale = "th", options: RequestOptions = {}): Promise<{ docs?: CMSPage[] }> {
     return this.restGet(
       "pages",
@@ -443,9 +431,6 @@ class CMSClient {
     }, options);
   }
 
-  /**
-   * Check if CMS is available
-   */
   async isHealthy(): Promise<boolean> {
     if (!this.baseUrl) return false;
     try {
@@ -460,7 +445,6 @@ class CMSClient {
   }
 }
 
-// Export singleton instance
 export const cmsClient = new CMSClient();
 
 export default CMSClient;
