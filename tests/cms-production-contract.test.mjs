@@ -4,10 +4,12 @@ import test from 'node:test'
 
 const read = (path) => fs.readFileSync(path, 'utf8')
 
-test('Captain products use CMS whenever CMS URL is configured and do not require a read token', () => {
-  const source = read('lib/cms/captain-products.ts')
-  assert.match(source, /if \(!process\.env\.NEXT_PUBLIC_CMS_URL\) return PRODUCTS/)
-  assert.doesNotMatch(source, /!process\.env\.NEXT_PUBLIC_CMS_URL \|\| !process\.env\.CMS_READ_TOKEN/)
+test('Captain Maid has a canonical CMS URL fallback and never requires a read token for public products', () => {
+  const client = read('lib/cms/client.ts')
+  const products = read('lib/cms/captain-products.ts')
+  assert.match(client, /process\.env\.NEXT_PUBLIC_CMS_URL \|\| ["']https:\/\/cms-arigeo\.vercel\.app["']/)
+  assert.doesNotMatch(products, /if \(!process\.env\.NEXT_PUBLIC_CMS_URL\)/)
+  assert.doesNotMatch(products, /CMS_READ_TOKEN/)
 })
 
 test('Captain product queries resolve the Captain Maid brand and scope the relationship by its id', () => {
