@@ -22,7 +22,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: CMS production contract
-        run: node --test tests/cms-production-contract.test.mjs
+        run: node --test tests/cms-production-contract.test.mjs tests/cms-status-endpoint.test.mjs
       - name: CMS page integration tests
         run: npm run test:cms
       - name: Type check
