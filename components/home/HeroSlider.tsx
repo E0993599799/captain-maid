@@ -109,44 +109,17 @@ export default function HeroSlider() {
           >
             Made for Easy Home Cleaning
           </h1>
-          <p className="hero-description">
-            Better Living, Taken Care of by Captain Maid.
-          </p>
+          <p className="hero-description">Better Living, Taken Care of by Captain Maid.</p>
         </div>
       </div>
 
-      <button
-        onClick={goPrev}
-        aria-label="Previous slide"
-        className="absolute left-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70 sm:left-4 sm:flex sm:h-12 sm:w-12"
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </button>
-      <button
-        onClick={goNext}
-        aria-label="Next slide"
-        className="absolute right-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70 sm:right-4 sm:flex sm:h-12 sm:w-12"
-      >
-        <ChevronRight className="h-5 w-5" />
-      </button>
+      <button onClick={goPrev} aria-label="Previous slide" className="absolute left-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70 sm:left-4 sm:flex sm:h-12 sm:w-12"><ChevronLeft className="h-5 w-5" /></button>
+      <button onClick={goNext} aria-label="Next slide" className="absolute right-3 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/70 sm:right-4 sm:flex sm:h-12 sm:w-12"><ChevronRight className="h-5 w-5" /></button>
 
-      <div
-        className="absolute bottom-1 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-3 sm:gap-2"
-        aria-label="Choose slide"
-      >
+      <div className="absolute bottom-1 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-3 sm:gap-2" aria-label="Choose slide">
         {slides.map((slide, i) => (
-          <button
-            key={slide.id}
-            onClick={() => setCurrent(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            aria-current={i === current}
-            className="flex min-h-11 min-w-11 items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-          >
-            <span
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === current ? 'w-8 bg-white' : 'w-2 bg-white/50'
-              }`}
-            />
+          <button key={slide.id} onClick={() => setCurrent(i)} aria-label={`Go to slide ${i + 1}`} aria-current={i === current} className="flex min-h-11 min-w-11 items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <span className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'w-8 bg-white' : 'w-2 bg-white/50'}`} />
           </button>
         ))}
       </div>
