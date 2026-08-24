@@ -12,10 +12,12 @@ test('Captain Maid has a canonical CMS URL fallback and never requires a read to
   assert.doesNotMatch(products, /CMS_READ_TOKEN/)
 })
 
-test('Captain product queries resolve the Captain Maid brand and scope the relationship by its id', () => {
+test('Captain product queries resolve Captain Maid from the public brand list then scope products by relationship id', () => {
   const source = read('lib/cms/client.ts')
   assert.match(source, /getBrandId\(this\.siteSlug/)
+  assert.match(source, /\.find\(\(brand\) => brand\.slug === slug\)/)
   assert.match(source, /brand:\s*\{\s*equals:\s*brandId\s*\}/)
+  assert.doesNotMatch(source, /where:\s*\{\s*slug:\s*\{\s*equals:\s*slug/)
 })
 
 test('product list and detail only request approved content', () => {
