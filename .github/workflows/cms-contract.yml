@@ -18,12 +18,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
       - run: npm ci
       - name: CMS production contract
         run: node --test tests/cms-production-contract.test.mjs
-      - name: Existing tests
-        run: npm test
+      - name: CMS page integration tests
+        run: npm run test:cms
       - name: Type check
         run: npm run type-check
