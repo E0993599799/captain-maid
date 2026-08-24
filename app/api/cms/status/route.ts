@@ -3,13 +3,6 @@ import { cmsClient } from '@/lib/cms/client'
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  if (!process.env.NEXT_PUBLIC_CMS_URL) {
-    return Response.json(
-      { ok: false, source: 'static', site: 'captain-maid', error: 'CMS_NOT_CONFIGURED' },
-      { status: 503 },
-    )
-  }
-
   try {
     const response = (await cmsClient.getProducts({ locale: 'th', limit: 50 })) as {
       docs?: Array<{ slug?: string }>
