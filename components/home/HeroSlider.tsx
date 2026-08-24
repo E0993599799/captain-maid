@@ -103,9 +103,11 @@ export default function HeroSlider() {
           }`}
           aria-hidden={current !== 0}
         >
-          <h1 className="hero-title--dark-bg">
-            <span className="hero-title__line">Made for Easy</span>
-            <span className="hero-title__line">Home Cleaning</span>
+          <h1
+            className="hero-title--dark-bg"
+            style={{ fontSize: 'clamp(1.15rem, 3vw, 2.75rem)', whiteSpace: 'nowrap' }}
+          >
+            Made for Easy Home Cleaning
           </h1>
           <p className="hero-description">
             Better Living, Taken Care of by Captain Maid.
