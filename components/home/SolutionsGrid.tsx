@@ -45,19 +45,18 @@ function SolutionCard({ card }: { card: (typeof cards)[number] }) {
   return (
     <Link
       href={card.href}
-      className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/10] bg-white"
+      className="group relative block aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
     >
-      {/* Use a native img so local public assets load directly without Next image optimization. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={card.img}
         alt={card.title}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        loading="lazy"
-        decoding="async"
+        className="absolute inset-0 block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="eager"
+        decoding="sync"
       />
-      <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur rounded-full px-4 py-2 shadow">
-        <card.icon className="w-4 h-4 text-[#0079c1]" />
+      <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 shadow backdrop-blur">
+        <card.icon className="h-4 w-4 text-[#0079c1]" />
         <span className="text-sm font-bold text-[#002d5f]">{card.title}</span>
       </div>
     </Link>
@@ -66,19 +65,19 @@ function SolutionCard({ card }: { card: (typeof cards)[number] }) {
 
 export default function SolutionsGrid() {
   return (
-    <section className="py-16 lg:py-20 bg-[#f9fbfd]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-left mb-10">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#002d5f]">
+    <section className="bg-[#f9fbfd] py-16 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mb-10 text-left">
+          <h2 className="text-3xl font-extrabold text-[#002d5f] sm:text-4xl">
             สินค้าทำความสะอาด ครบทุกมุมของบ้าน
           </h2>
         </Reveal>
 
-        <Reveal delayMs={100} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card) => (
             <SolutionCard key={card.title} card={card} />
           ))}
-        </Reveal>
+        </div>
       </div>
     </section>
   )
