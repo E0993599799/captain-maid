@@ -1,4 +1,4 @@
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export async function POST(request: Request) {
   const configuredSecret = process.env.REVALIDATE_SECRET
@@ -20,13 +20,14 @@ export async function POST(request: Request) {
 
   const route = body.route && body.route.startsWith('/') ? body.route : '/products'
 
+  revalidateTag('products')
   revalidatePath(route)
   if (route !== '/products') revalidatePath('/products')
 
   return Response.json({
     ok: true,
     revalidated: route === '/products' ? ['/products'] : [route, '/products'],
-    tag: body.tag || null,
+    tags: ['products'],
     now: Date.now(),
   })
 }
