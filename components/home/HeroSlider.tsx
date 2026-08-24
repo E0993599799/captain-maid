@@ -7,9 +7,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/hero/v2/slide-1-brand-mobile.jpg?v=20260825-0610',
-    tablet: '/images/hero/v2/slide-1-brand-tablet.jpg?v=20260825-0610',
-    desktop: '/images/hero/v2/slide-1-brand-desktop.jpg?v=20260825-0610',
+    mobile: '/images/hero/v2/slide-1-brand-mobile.jpg?v=20260825-0637',
+    tablet: '/images/hero/v2/slide-1-brand-tablet.jpg?v=20260825-0637',
+    desktop: '/images/hero/v2/slide-1-brand-desktop.jpg?v=20260825-0637',
     alt: 'Captain Maid brand mascot and shield',
   },
   {
