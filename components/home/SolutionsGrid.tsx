@@ -66,7 +66,6 @@ export default function SolutionsGrid() {
                 className="object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur rounded-full px-4 py-2 shadow">
                 <card.icon className="w-4 h-4 text-[#0079c1]" />
                 <span className="text-sm font-bold text-[#002d5f]">{card.title}</span>
@@ -87,7 +86,6 @@ export default function SolutionsGrid() {
                 className="object-contain group-hover:scale-105 transition-transform duration-500 p-4"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#002d5f]/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur rounded-full px-4 py-2 shadow">
                 <card.icon className="w-4 h-4 text-[#0079c1]" />
                 <span className="text-sm font-bold text-[#002d5f]">{card.title}</span>
