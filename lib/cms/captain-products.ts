@@ -1,3 +1,4 @@
+import { unstable_cache } from 'next/cache'
 import { cmsClient } from '@/lib/cms/client'
 import { PRODUCTS, type CaptainProduct, type Localized, type ProductCategory } from '@/lib/captain-products'
 import type { Locale } from '@/types/cms'
@@ -33,6 +34,18 @@ interface PayloadProduct {
 interface PayloadProductsResponse {
   docs?: PayloadProduct[]
 }
+
+const getCachedProducts = unstable_cache(
+  async (locale: Locale) => cmsClient.getProducts({ locale, limit: 50 }) as Promise<PayloadProductsResponse>,
+  ['captain-maid-products'],
+  { tags: ['products'] },
+)
+
+const getCachedProduct = unstable_cache(
+  async (idOrSlug: string, locale: Locale) => cmsClient.getProduct(idOrSlug, locale) as Promise<PayloadProductsResponse>,
+  ['captain-maid-product'],
+  { tags: ['products'] },
+)
 
 function localized(value: LocalizedInput, fallback = ''): Localized {
   if (typeof value === 'string') return { th: value, en: value }
@@ -116,7 +129,7 @@ export async function getCaptainProducts(locale: Locale = 'th'): Promise<Captain
   if (!process.env.NEXT_PUBLIC_CMS_URL || !process.env.CMS_READ_TOKEN) return PRODUCTS
 
   try {
-    const response = await cmsClient.getProducts({ locale, limit: 50 }) as PayloadProductsResponse
+    const response = await getCachedProducts(locale)
     const products = (response.docs || []).map(adaptCaptainProduct)
     return products.length > 0 ? products : PRODUCTS
   } catch (error) {
@@ -131,7 +144,7 @@ export async function getCaptainProduct(idOrSlug: string, locale: Locale = 'th')
   }
 
   try {
-    const response = await cmsClient.getProduct(idOrSlug, locale) as PayloadProductsResponse
+    const response = await getCachedProduct(idOrSlug, locale)
     const product = response.docs?.[0]
     return product ? adaptCaptainProduct(product) : PRODUCTS.find((item) => item.id === idOrSlug)
   } catch (error) {
