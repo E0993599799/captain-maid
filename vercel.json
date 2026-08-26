@@ -1,4 +1,6 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "ignoreCommand": "node -e \"const env=process.env.VERCEL_ENV||'';const m=process.env.VERCEL_GIT_COMMIT_MESSAGE||'';const allow=env==='production'||m.includes('[deploy-preview]');console.log('[vercel-gate]',allow?'ALLOW':'SKIP','env='+env);process.exit(allow?1:0)\"",
   "installCommand": "npm install --legacy-peer-deps",
   "buildCommand": "npm run build",
   "env": {
