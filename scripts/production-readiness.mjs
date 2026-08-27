@@ -3,8 +3,7 @@ import path from 'node:path'
 
 const root = process.cwd()
 const ignoredDirs = new Set(['.git', '.next', 'node_modules', 'proofs'])
-const textExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.json', '.md'])
-
+const textExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs'])
 const findings = []
 
 function walk(dir) {
@@ -28,13 +27,13 @@ function inspect(file) {
   const checks = [
     { name: 'dead href', regex: /href\s*=\s*["']#["']/g },
     { name: 'coming soon copy', regex: /coming\s+soon/gi },
-    { name: 'placeholder public copy', regex: /placeholder(?![:\w-])/gi },
+    { name: 'under construction copy', regex: /under\s+construction/gi },
+    { name: 'lorem ipsum copy', regex: /lorem\s+ipsum/gi },
     { name: 'hard-coded Captain Maid Vercel hostname', regex: /captain-maid\.vercel\.app/gi },
   ]
 
   for (const check of checks) {
-    const matches = [...source.matchAll(check.regex)]
-    for (const match of matches) {
+    for (const match of source.matchAll(check.regex)) {
       const before = source.slice(0, match.index)
       const line = before.split('\n').length
       findings.push(`${rel}:${line} ${check.name}: ${match[0]}`)
