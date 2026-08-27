@@ -20,8 +20,8 @@ interface Props {
 type Lang = 'th' | 'en'
 
 const COPY = {
-  th: { eyebrow: 'ผลิตภัณฑ์', title: 'ผลิตภัณฑ์ของเรา', intro: 'เลือกผลิตภัณฑ์ทำความสะอาดที่เหมาะกับทุกพื้นที่ในบ้านของคุณ', filter: 'กรองตามประเภท', view: 'ดูรายละเอียด', emptyTitle: 'กำลังเตรียมสินค้า', emptyBody: 'สินค้าในหมวดนี้กำลังจะมาเร็ว ๆ นี้ โปรดติดตาม' },
-  en: { eyebrow: 'Products', title: 'Find your clean', intro: 'Choose a trusted cleaning solution for every room in your home.', filter: 'Filter by category', view: 'View details', emptyTitle: 'Coming soon', emptyBody: 'Products in this category are coming soon.' },
+  th: { eyebrow: 'ผลิตภัณฑ์', title: 'ผลิตภัณฑ์ของเรา', intro: 'เลือกผลิตภัณฑ์ทำความสะอาดที่เหมาะกับทุกพื้นที่ในบ้านของคุณ', filter: 'กรองตามประเภท', view: 'ดูรายละเอียด', emptyTitle: 'ไม่พบสินค้าในหมวดนี้', emptyBody: 'ลองเลือกหมวดอื่นเพื่อดูสินค้าที่มีอยู่ในขณะนี้' },
+  en: { eyebrow: 'Products', title: 'Find your clean', intro: 'Choose a trusted cleaning solution for every room in your home.', filter: 'Filter by category', view: 'View details', emptyTitle: 'No products found in this category', emptyBody: 'Choose another category to view currently available products.' },
 } as const
 
 function categoryLabel(id: ProductCategory | 'all', lang: Lang): string {
@@ -40,7 +40,6 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
   return (
     <div className="pt-28 pb-20 bg-[#f9fbfd] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
         <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
           <span className="text-xs font-bold text-[#0079c1] tracking-widest uppercase">{copy.eyebrow}</span>
@@ -60,7 +59,6 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
           </div>
         </div>
 
-        {/* Category filter tabs */}
         <div className="mb-8" aria-label={copy.filter}>
         <div className="flex items-center gap-2 overflow-x-auto pb-2">
           {CATEGORIES.map((c) => (
@@ -87,7 +85,6 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
         </div>
         </div>
 
-        {/* Grid */}
         {products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {products.map((p) => (
