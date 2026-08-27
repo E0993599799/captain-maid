@@ -25,16 +25,12 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Static readiness, type-check, tests, build
-        env:
-          NEXT_PUBLIC_SITE_URL: https://captainmaid.com
         run: npm run production:check
 
       - name: Install Chromium
         run: npx playwright install chromium
 
       - name: Start production server
-        env:
-          NEXT_PUBLIC_SITE_URL: https://captainmaid.com
         run: |
           npm run start > /tmp/captain-maid-next.log 2>&1 &
           echo $! > /tmp/captain-maid-next.pid
