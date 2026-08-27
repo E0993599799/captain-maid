@@ -29,9 +29,13 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone()
   url.pathname = `/${parts.slice(1).join('/')}`
   url.search = request.nextUrl.search
-  const response = NextResponse.rewrite(url)
-  response.headers.set('x-captain-maid-locale', locale)
-  return response
+
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-captain-maid-locale', locale)
+
+  return NextResponse.rewrite(url, {
+    request: { headers: requestHeaders },
+  })
 }
 
 export const config = {
