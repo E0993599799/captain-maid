@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import test from 'node:test'
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
@@ -14,60 +14,61 @@ test('root layout installs Roboto for English and regular Noto Sans Thai for Tha
   assert.match(layout, /className=\{`\$\{englishFont\.variable\} \$\{thaiFont\.variable\}`\}/)
 })
 
-test('global typography prevents synthetic Thai bold and uses expanded hero outlines', () => {
+test('global typography prevents synthetic Thai bold and keeps readable hero contrast', () => {
   const styles = read('app/globals.css')
 
   assert.match(styles, /font-family: var\(--font-english\), var\(--font-thai\)/)
   assert.match(styles, /font-synthesis: none/)
-  assert.match(styles, /font-weight: 600/)
-  assert.match(styles, /-webkit-text-stroke: 25\.2px #ffffff/)
-  assert.match(styles, /-webkit-text-stroke: clamp\(8\.4px, 0\.924vw, 16\.8px\) #101849/)
-  assert.match(styles, /letter-spacing: 0\.015em/)
-  assert.match(styles, /letter-spacing: 0\.012em/)
+  assert.match(styles, /\.hero-title--dark-bg/)
+  assert.match(styles, /color: #ffffff/)
+  assert.match(styles, /-webkit-text-fill-color: #ffffff/)
+  assert.match(styles, /-webkit-text-stroke:/)
 })
 
-test('dark hero uses one white treatment for every heading line', () => {
+test('hero keeps live white text and no artificial media overlay', () => {
   const hero = read('components/home/HeroSlider.tsx')
 
   assert.doesNotMatch(hero, /text-\[#4db8ff\]/)
-  assert.match(hero, /className="hero-title__line"/)
-  assert.match(hero, /className="hero-media-overlay"/)
+  assert.match(hero, /className="hero-title--dark-bg"/)
+  assert.match(hero, /className="hero-description"/)
+  assert.doesNotMatch(hero, /hero-media-overlay/)
 })
 
-test('mobile hero preserves portrait artwork and its upper text-safe area', () => {
+test('mobile hero keeps responsive artwork, aspect ratio, and accessible controls', () => {
   const hero = read('components/home/HeroSlider.tsx')
   const styles = read('app/globals.css')
 
-  assert.match(hero, /className="hero-carousel /)
+  assert.match(hero, /className="hero-carousel [^"]*aspect-\[3\/4\]/)
+  assert.match(hero, /sm:aspect-\[4\/3\]/)
+  assert.match(hero, /lg:aspect-\[1920\/900\]/)
   assert.match(hero, /className="hero-content-shell /)
   assert.match(hero, /className={`hero-copy-block /)
-  assert.match(hero, /className="hero-description /)
-  assert.match(hero, /className="hero-actions /)
+  assert.match(hero, /className="hero-description"/)
+  assert.match(hero, /prefers-reduced-motion: reduce/)
   assert.match(styles, /@media \(max-width: 767px\)/)
-  assert.match(styles, /height: max\(115svh, min\(205vw, 1050px\)\)/)
-  assert.match(styles, /align-items: flex-start/)
-  assert.match(styles, /height: 30%/)
-  assert.match(styles, /transparent 30%/)
-  assert.match(styles, /\.hero-actions \{[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/)
+  assert.match(styles, /\.hero-content-shell \{[\s\S]*align-items: flex-end/)
   assert.match(styles, /font-size: clamp\(1\.8rem, 8\.2vw, 2\.35rem\)/)
+  assert.match(hero, /aria-label="Previous slide"/)
+  assert.match(hero, /aria-label="Next slide"/)
 })
 
-test('every catalogue product uses its matching product packshot', () => {
+test('catalogue product packshot mappings point to real repository assets', () => {
   const catalogue = read('lib/captain-products.ts')
-  const productIds = [
-    'floor-cleaner-lavender-kerry',
-    'floor-cleaner-floral-passion',
-    'floor-cleaner-tea-tree-flash',
-    'bathroom-cleaner-spray',
-    'kitchen-cleaner-spray',
-    'glass-cleaner',
-  ]
+  const mappings = {
+    'floor-cleaner-lavender-kerry': 'floor-lavender.webp',
+    'floor-cleaner-floral-passion': 'floor-floral.webp',
+    'floor-cleaner-tea-tree-flash': 'floor-teatree.webp',
+    'bathroom-cleaner-spray': 'bathroom.jpg',
+    'kitchen-cleaner-spray': 'kitchen.jpg',
+    'glass-cleaner': 'glass.jpg',
+  }
 
-  for (const id of productIds) {
+  for (const [id, asset] of Object.entries(mappings)) {
+    assert.ok(existsSync(new URL(`../public/images/products-img/${asset}`, import.meta.url)), `${asset} must exist`)
     assert.match(
       catalogue,
-      new RegExp(`id: '${id}'[\\s\\S]*?image: '/images/products/${id}\\.png'`),
-      `${id} must point to its matching packshot`,
+      new RegExp(`id: '${id}'[\\s\\S]*?image: '/images/products-img/${asset.replace('.', '\\.')}''?`.replace("''?", "'")),
+      `${id} must point to ${asset}`,
     )
   }
 })
@@ -80,10 +81,10 @@ test('header stays visible while scrolling and uses route-aware active state', (
   assert.match(header, /aria-current=\{active \? 'page' : undefined\}/)
 })
 
-test('header switches to its mobile navigation before desktop actions crowd', () => {
+test('header switches to mobile navigation before desktop actions crowd', () => {
   const header = read('components/Header.tsx')
 
-  assert.match(header, /hidden xl:flex/)
+  assert.match(header, /hidden[^\"]*xl:flex/)
   assert.match(header, /xl:hidden/)
   assert.match(header, /document\.body\.style\.overflow = mobileOpen \? 'hidden' : ''/)
   assert.match(header, /<>[\s\S]*<header[\s\S]*<\/header>[\s\S]*\{mobileOpen && \(/)

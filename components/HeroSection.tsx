@@ -67,10 +67,10 @@ export function HeroSection() {
   }
 
   const slide = heroSlides[currentSlide]
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '')
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-captain-blue to-captain-blue-dark text-white overflow-hidden pt-16">
-      {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -78,7 +78,6 @@ export function HeroSection() {
         }}
       />
 
-      {/* Content */}
       <div className="relative z-10 container-safe text-center max-w-2xl px-lg">
         <h1 className="text-5xl md:text-6xl font-serif font-bold mb-md leading-tight">
           {slide.headline}
@@ -94,10 +93,8 @@ export function HeroSection() {
         </Link>
       </div>
 
-      {/* Navigation */}
       <div className="absolute bottom-lg left-0 right-0 z-20">
         <div className="container-safe">
-          {/* Slide Indicators */}
           <div className="flex justify-center gap-md mb-lg">
             {heroSlides.map((_, index) => (
               <button
@@ -114,7 +111,6 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* Arrow Buttons */}
           <div className="flex justify-center gap-md">
             <button
               onClick={prevSlide}
@@ -132,31 +128,31 @@ export function HeroSection() {
             </button>
           </div>
 
-          {/* Slide Counter */}
           <div className="text-center mt-md text-white/70 text-sm">
             {currentSlide + 1} / {heroSlides.length}
           </div>
         </div>
       </div>
 
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Home',
-                item: 'https://captain-maid.vercel.app',
-              },
-            ],
-          }),
-        }}
-      />
+      {siteUrl && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: siteUrl,
+                },
+              ],
+            }),
+          }}
+        />
+      )}
     </section>
   )
 }

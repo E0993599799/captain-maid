@@ -10,7 +10,9 @@
     "test": "node --test tests/*.test.mjs",
     "test:cms": "tsx --test lib/cms/pages.test.ts",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "production:static": "node scripts/production-readiness.mjs",
+    "production:check": "npm run production:static && npm run type-check && npm test && npm run build"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.1",

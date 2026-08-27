@@ -51,7 +51,6 @@ export function getLocalized<T = string>(
   const value = field[locale];
   if (value !== undefined && value !== null) return value;
 
-  // Fallback to other locale
   const otherLocale = locale === "th" ? "en" : "th";
   return field[otherLocale] || fallback;
 }
@@ -102,8 +101,6 @@ export function adaptResponsiveImage(
   const image = adaptImage(media, locale);
   if (!image) return undefined;
 
-  // Generate srcset for different densities
-  // Assumes CMS returns base URL; Next.js Image will handle optimization
   const srcSet = [
     `${image.url} 1x`,
     `${image.url}?q=85&w=${(image.width || 800) * 2} 2x`,
@@ -294,7 +291,6 @@ export function adaptNavigation(
   cmsNav: CMSNavigation,
   locale: Locale = "th"
 ): Navigation {
-  // Transform navigation items recursively
   const transformItems = (items: CMSNavigationItem[]): NavigationItem[] => {
     return items.map((item) => ({
       id: item.id,
@@ -319,27 +315,22 @@ export function adaptNavigation(
  * Get cache options for a route
  */
 export function getCacheOptions(route: string, context?: string): CacheOptions {
-  // Product pages: revalidate every hour
   if (route.startsWith("/products/")) {
     return { revalidate: 3600, tags: ["products", context || "product-detail"] };
   }
 
-  // Solution pages: revalidate every 2 hours
   if (route.startsWith("/solutions/")) {
     return { revalidate: 7200, tags: ["solutions", context || "solution"] };
   }
 
-  // Article pages: revalidate every hour
   if (route.startsWith("/blog/")) {
     return { revalidate: 3600, tags: ["articles", context || "article"] };
   }
 
-  // Homepage: revalidate every 30 minutes
   if (route === "/" || route === "") {
     return { revalidate: 1800, tags: ["homepage"] };
   }
 
-  // Default: 1 hour
   return { revalidate: 3600, tags: [route] };
 }
 
@@ -348,7 +339,7 @@ export function getCacheOptions(route: string, context?: string): CacheOptions {
 // ============================================================================
 
 /**
- * Create fallback product when CMS is unavailable
+ * Create a truthful degraded product model when CMS data is unavailable.
  */
 export function createFallbackProduct(name: string): Product {
   return {
@@ -359,11 +350,17 @@ export function createFallbackProduct(name: string): Product {
     brand: "unknown",
     category: "unknown",
     images: [],
-    shortDescription: { th: "Coming soon", en: "Coming soon" },
-    description: { th: "Coming soon", en: "Coming soon" },
-    usage: { th: "See full details", en: "See full details" },
-    technology: { th: "Advanced", en: "Advanced" },
-    safetyNote: { th: "Follow product instructions", en: "Follow product instructions" },
+    shortDescription: {
+      th: "ไม่สามารถโหลดข้อมูลสินค้านี้ได้ในขณะนี้",
+      en: "Product information is currently unavailable",
+    },
+    description: {
+      th: "ไม่สามารถโหลดรายละเอียดสินค้านี้ได้ในขณะนี้",
+      en: "Product details are currently unavailable",
+    },
+    usage: { th: "โปรดตรวจสอบฉลากผลิตภัณฑ์", en: "Refer to the product label" },
+    technology: { th: "ไม่มีข้อมูล", en: "Not available" },
+    safetyNote: { th: "ปฏิบัติตามคำแนะนำบนฉลากผลิตภัณฑ์", en: "Follow the instructions on the product label" },
     featured: false,
     status: "published",
     suitableSurfaces: [],
@@ -375,16 +372,22 @@ export function createFallbackProduct(name: string): Product {
 }
 
 /**
- * Create fallback article when CMS is unavailable
+ * Create a truthful degraded article model when CMS data is unavailable.
  */
 export function createFallbackArticle(title: string): Article {
   return {
     id: "fallback",
     title: { th: title, en: title },
     slug: title.toLowerCase().replace(/\s+/g, "-"),
-    excerpt: { th: "Coming soon", en: "Coming soon" },
-    content: { th: "Coming soon", en: "Coming soon" },
-    author: "Unknown",
+    excerpt: {
+      th: "ไม่สามารถโหลดบทความนี้ได้ในขณะนี้",
+      en: "This article is currently unavailable",
+    },
+    content: {
+      th: "ไม่สามารถโหลดเนื้อหาบทความนี้ได้ในขณะนี้",
+      en: "Article content is currently unavailable",
+    },
+    author: "Captain Maid",
     featuredImage: {
       id: "fallback",
       url: "/images/placeholder.jpg",

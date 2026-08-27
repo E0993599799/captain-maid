@@ -1,198 +1,100 @@
 import type { Metadata } from 'next'
-import { Mail, Phone, MapPin, Globe, Camera, AtSign, Video } from 'lucide-react'
+import { headers } from 'next/headers'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import { CONTACT_INFO } from '@/lib/contact'
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Captain Maid',
-  description: 'Get in touch with Captain Maid. Email, phone, or fill out our contact form for questions.',
+  title: 'Contact | Captain Maid',
+  description: 'Official Captain Maid contact information.',
   openGraph: {
-    title: 'Contact Us | Captain Maid',
-    description: 'We\'d love to hear from you',
+    title: 'Contact | Captain Maid',
+    description: 'Official Captain Maid contact information.',
     type: 'website',
   },
 }
 
-export default function ContactPage() {
+const COPY = {
+  th: {
+    title: 'ติดต่อ Captain Maid',
+    intro: 'ช่องทางติดต่ออย่างเป็นทางการของ Captain Maid',
+    email: 'อีเมล',
+    phone: 'โทรศัพท์',
+    address: 'ที่อยู่',
+    empty: 'ขณะนี้ไม่มีช่องทางติดต่อสาธารณะที่ได้รับการยืนยันและเผยแพร่บนเว็บไซต์',
+  },
+  en: {
+    title: 'Contact Captain Maid',
+    intro: 'Official contact channels for Captain Maid.',
+    email: 'Email',
+    phone: 'Phone',
+    address: 'Address',
+    empty: 'There are currently no verified public contact channels published on this website.',
+  },
+} as const
+
+export default async function ContactPage() {
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  const t = COPY[locale]
+  const hasContact = Boolean(CONTACT_INFO.email || CONTACT_INFO.phone || CONTACT_INFO.address)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Captain Maid',
+    ...(siteUrl ? { url: siteUrl } : {}),
+    ...(CONTACT_INFO.email ? { email: CONTACT_INFO.email } : {}),
+    ...(CONTACT_INFO.phone ? { telephone: CONTACT_INFO.phone } : {}),
+    ...(CONTACT_INFO.address ? { address: CONTACT_INFO.address } : {}),
+  }
+
   return (
-    <div className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
-      <div className="container-safe">
-        {/* Page Header */}
-        <div className="mb-2xl py-xl text-center">
-          <h1 className="text-5xl font-serif font-bold mb-md text-captain-blue">Get in Touch</h1>
-          <p className="text-xl text-captain-neutral max-prose mx-auto">
-            Have questions or feedback? We&apos;d love to hear from you. Reach out using any method below.
-          </p>
-        </div>
-
-        {/* Contact Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-lg mb-2xl">
-          {/* Email */}
-          <div className="bg-captain-light rounded-sm p-lg text-center">
-            <div className="flex justify-center mb-md"><Mail className="w-12 h-12 text-captain-blue" /></div>
-            <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Email</h3>
-            <p className="text-captain-neutral mb-md">For general inquiries and support</p>
-            {CONTACT_INFO.email ? (
-              <a href={`mailto:${CONTACT_INFO.email}`} className="text-captain-blue font-semibold hover:text-captain-blue-dark break-all">
-                {CONTACT_INFO.email}
-              </a>
-            ) : (
-              <p className="text-captain-blue font-semibold">กรุณาติดต่อผ่านแบบฟอร์มด้านล่าง</p>
-            )}
-            <p className="text-sm text-captain-neutral mt-md">Response time: 24 hours</p>
-          </div>
-
-          {/* Phone */}
-          <div className="bg-captain-light rounded-sm p-lg text-center">
-            <div className="flex justify-center mb-md"><Phone className="w-12 h-12 text-captain-blue" /></div>
-            <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Phone</h3>
-            <p className="text-captain-neutral mb-md">Call our customer service team</p>
-            {CONTACT_INFO.phone ? (
-              <a href={`tel:${CONTACT_INFO.phone}`} className="text-captain-blue font-semibold hover:text-captain-blue-dark text-lg">
-                {CONTACT_INFO.phone}
-              </a>
-            ) : (
-              <p className="text-captain-blue font-semibold">ยังไม่เปิดเผยหมายเลขโทรศัพท์</p>
-            )}
-            <p className="text-sm text-captain-neutral mt-md">Mon–Fri, 9am–6pm</p>
-          </div>
-
-          {/* Office */}
-          <div className="bg-captain-light rounded-sm p-lg text-center">
-            <div className="flex justify-center mb-md"><MapPin className="w-12 h-12 text-captain-blue" /></div>
-            <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Office</h3>
-            <p className="text-captain-neutral mb-md">Visit our Bangkok headquarters</p>
-            <p className="text-captain-text font-semibold">{CONTACT_INFO.address || 'ที่อยู่สำนักงานจะแจ้งให้ทราบอีกครั้ง'}</p>
-            <p className="text-sm text-captain-neutral mt-md">By appointment</p>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2xl mb-2xl">
-          {/* Form */}
-          <div className="bg-captain-light rounded-sm p-2xl">
-            <h2 className="text-2xl font-serif font-bold mb-lg text-captain-text">Send us a Message</h2>
-            <form className="space-y-md">
-              <div>
-                <label className="block text-sm font-semibold text-captain-text mb-sm">Name</label>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  className="w-full px-md py-sm border border-captain-neutral rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-captain-text mb-sm">Email</label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="w-full px-md py-sm border border-captain-neutral rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-captain-text mb-sm">Subject</label>
-                <select className="w-full px-md py-sm border border-captain-neutral rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue">
-                  <option>General Inquiry</option>
-                  <option>Product Question</option>
-                  <option>Bug Report</option>
-                  <option>Feedback</option>
-                  <option>Partnership</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-captain-text mb-sm">Message</label>
-                <textarea
-                  placeholder="Tell us what's on your mind..."
-                  rows={6}
-                  className="w-full px-md py-sm border border-captain-neutral rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white transition-all"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-
-          {/* Information */}
-          <div className="space-y-lg">
-            {/* Business Hours */}
-            <div className="bg-captain-light rounded-sm p-lg">
-              <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Business Hours</h3>
-              <div className="space-y-sm text-captain-neutral">
-                <div className="flex justify-between">
-                  <span>Monday – Friday</span>
-                  <span className="font-semibold">9:00 AM – 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday</span>
-                  <span className="font-semibold">10:00 AM – 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday</span>
-                  <span className="font-semibold">Closed</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Follow Us */}
-            <div className="bg-captain-light rounded-sm p-lg">
-              <h3 className="text-xl font-serif font-bold mb-md text-captain-text">Follow Us</h3>
-              <div className="flex gap-md">
-                <a href="https://facebook.com/captainmaid" className="hover:opacity-70" title="Facebook">
-                  <Globe className="w-6 h-6 text-captain-blue" />
-                </a>
-                <a href="https://instagram.com/captainmaid" className="hover:opacity-70" title="Instagram">
-                  <Camera className="w-6 h-6 text-captain-blue" />
-                </a>
-                <a href="https://twitter.com/captainmaid" className="hover:opacity-70" title="Twitter">
-                  <AtSign className="w-6 h-6 text-captain-blue" />
-                </a>
-                <a href="https://youtube.com/captainmaid" className="hover:opacity-70" title="YouTube">
-                  <Video className="w-6 h-6 text-captain-blue" />
-                </a>
-              </div>
-            </div>
-
-            {/* Newsletter */}
-            <div className="bg-captain-blue text-white rounded-sm p-lg">
-              <h3 className="text-xl font-serif font-bold mb-md">Newsletter</h3>
-              <p className="text-white/90 mb-lg">Get weekly cleaning tips and exclusive offers.</p>
-              <div className="flex gap-sm">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-md py-sm rounded-sm text-captain-text focus:outline-none"
-                />
-                <button className="px-md py-sm bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-white transition-all">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Structured Data */}
+    <div className="min-h-screen bg-[#f7fbfe] pt-24">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Captain Maid',
-            url: 'https://captain-maid.vercel.app',
-            ...(CONTACT_INFO.email ? { email: CONTACT_INFO.email } : {}),
-            ...(CONTACT_INFO.phone ? { telephone: CONTACT_INFO.phone } : {}),
-            ...(CONTACT_INFO.address ? { address: CONTACT_INFO.address } : {}),
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#0079c1]">Captain Maid</p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#002d5f] sm:text-5xl">{t.title}</h1>
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#52697c] sm:text-lg">{t.intro}</p>
+        </div>
+
+        {hasContact ? (
+          <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
+            {CONTACT_INFO.email && (
+              <a href={`mailto:${CONTACT_INFO.email}`} className="rounded-2xl border border-[#dce7ef] bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <Mail className="h-7 w-7 text-[#0079c1]" aria-hidden="true" />
+                <h2 className="mt-5 text-lg font-bold text-[#002d5f]">{t.email}</h2>
+                <p className="mt-2 break-all text-sm leading-6 text-[#52697c]">{CONTACT_INFO.email}</p>
+              </a>
+            )}
+
+            {CONTACT_INFO.phone && (
+              <a href={`tel:${CONTACT_INFO.phone}`} className="rounded-2xl border border-[#dce7ef] bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                <Phone className="h-7 w-7 text-[#0079c1]" aria-hidden="true" />
+                <h2 className="mt-5 text-lg font-bold text-[#002d5f]">{t.phone}</h2>
+                <p className="mt-2 text-sm leading-6 text-[#52697c]">{CONTACT_INFO.phone}</p>
+              </a>
+            )}
+
+            {CONTACT_INFO.address && (
+              <div className="rounded-2xl border border-[#dce7ef] bg-white p-7 shadow-sm">
+                <MapPin className="h-7 w-7 text-[#0079c1]" aria-hidden="true" />
+                <h2 className="mt-5 text-lg font-bold text-[#002d5f]">{t.address}</h2>
+                <p className="mt-2 text-sm leading-6 text-[#52697c]">{CONTACT_INFO.address}</p>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-[#dce7ef] bg-white p-7 text-center text-sm leading-6 text-[#52697c] shadow-sm">
+            {t.empty}
+          </div>
+        )}
+      </section>
     </div>
   )
 }
