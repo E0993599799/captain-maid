@@ -159,7 +159,7 @@ export function Header() {
             </nav>
 
             <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
-              <div className="hidden md:block"><LanguageToggle /></div>
+              <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle /></React.Suspense></div>
               <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className="hidden h-11 w-11 items-center justify-center rounded-full text-[#40596d] hover:bg-[#e6f3fa] hover:text-[#006cad] sm:flex"><Search className="h-5 w-5" /></Link>
               <Link href={`/${locale}/products`} className="hidden min-h-11 items-center rounded-full bg-[#0079c1] px-5 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(0,121,193,0.24)] hover:bg-[#0066a8] lg:inline-flex">{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
               <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full text-[#31495d] hover:bg-[#e6f3fa] xl:hidden" aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
@@ -185,7 +185,7 @@ export function Header() {
                 </div>
               })}
             </nav>
-            <div className="mt-5 border-t border-[#dce7ef] pt-5 md:hidden"><LanguageToggle /></div>
+            <div className="mt-5 border-t border-[#dce7ef] pt-5 md:hidden"><React.Suspense fallback={null}><LanguageToggle /></React.Suspense></div>
           </div>
         </div>
       )}
