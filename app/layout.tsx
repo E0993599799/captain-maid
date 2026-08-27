@@ -3,6 +3,7 @@ import { Noto_Sans_Thai, Roboto } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { CmsInspectorBridge } from '@/components/CmsInspectorBridge'
 
 const englishFont = Roboto({
   subsets: ['latin'],
@@ -98,6 +99,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#0079c1" />
       </head>
       <body className="font-sans">
+        <CmsInspectorBridge />
         <Header />
         <main>{children}</main>
         <Footer />
