@@ -28,6 +28,7 @@ test('central auth adapter enforces OIDC PKCE identity and host-local session co
     'lib/auth/config.ts',
     'lib/auth/session.ts',
     'lib/auth/require-access.ts',
+    'lib/auth/oidc.ts',
     'app/api/auth/login/route.ts',
     'app/api/auth/callback/route.ts',
     'app/api/auth/logout/route.ts',
@@ -36,6 +37,7 @@ test('central auth adapter enforces OIDC PKCE identity and host-local session co
   const config = read('lib/auth/config.ts')
   const session = read('lib/auth/session.ts')
   const access = read('lib/auth/require-access.ts')
+  const oidc = read('lib/auth/oidc.ts')
   const login = read('app/api/auth/login/route.ts')
   const callback = read('app/api/auth/callback/route.ts')
 
@@ -44,10 +46,11 @@ test('central auth adapter enforces OIDC PKCE identity and host-local session co
   assert.match(login, /S256/)
   assert.match(login, /state/)
   assert.match(login, /nonce/)
-  assert.match(callback, /issuer/)
-  assert.match(callback, /audience/)
-  assert.match(callback, /nonce/)
-  assert.match(callback, /sub/)
+  assert.match(oidc, /issuer/)
+  assert.match(oidc, /audience/)
+  assert.match(oidc, /nonce/)
+  assert.match(oidc, /sub/)
+  assert.match(callback, /verifyIdToken/)
   assert.match(session, /httpOnly:\s*true/)
   assert.match(session, /sameSite:\s*['\"]lax['\"]/i)
   assert.doesNotMatch(session, /domain\s*:/i)
