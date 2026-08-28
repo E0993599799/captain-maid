@@ -17,6 +17,7 @@ test('public Captain Maid routes are not globally protected by central auth', ()
 
 test('management routes require the Captain Maid access boundary', () => {
   assert.equal(exists('app/(management)/layout.tsx'), true, 'protected management layout must exist')
+  assert.equal(exists('app/(management)/management/page.tsx'), true, 'default protected /management route must exist')
   const layout = read('app/(management)/layout.tsx')
   assert.match(layout, /requireCaptainAccess/)
   assert.match(layout, /await\s+requireCaptainAccess\s*\(/)
