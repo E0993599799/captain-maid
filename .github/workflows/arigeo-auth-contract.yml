@@ -1,0 +1,39 @@
+name: ARIGEO Captain Maid Auth Contract
+
+on:
+  push:
+    branches:
+      - feat/arigeo-central-auth
+    paths:
+      - 'tests/auth-contract.test.mjs'
+      - 'docs/ARIGEO_IDENTITY_BOUNDARY.md'
+      - '.env.example'
+      - 'app/**'
+      - '.github/workflows/arigeo-auth-contract.yml'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Identity boundary contract
+        run: node --test tests/auth-contract.test.mjs
+      - name: Production check
+        env:
+          NEXT_PUBLIC_SITE_URL: https://www.captain-maid.com
+          NEXT_PUBLIC_CMS_URL: https://cms.arigeo.com
+          CMS_SITE_SLUG: captain-maid
+        run: npm run production:check
