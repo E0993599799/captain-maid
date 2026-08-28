@@ -126,8 +126,6 @@ export function adaptCaptainProduct(record: PayloadProduct): CaptainProduct {
 }
 
 export async function getCaptainProducts(locale: Locale = 'th'): Promise<CaptainProduct[]> {
-  if (!process.env.NEXT_PUBLIC_CMS_URL || !process.env.CMS_READ_TOKEN) return PRODUCTS
-
   try {
     const response = await getCachedProducts(locale)
     const products = (response.docs || []).map(adaptCaptainProduct)
@@ -139,10 +137,6 @@ export async function getCaptainProducts(locale: Locale = 'th'): Promise<Captain
 }
 
 export async function getCaptainProduct(idOrSlug: string, locale: Locale = 'th'): Promise<CaptainProduct | undefined> {
-  if (!process.env.NEXT_PUBLIC_CMS_URL || !process.env.CMS_READ_TOKEN) {
-    return PRODUCTS.find((product) => product.id === idOrSlug)
-  }
-
   try {
     const response = await getCachedProduct(idOrSlug, locale)
     const product = response.docs?.[0]

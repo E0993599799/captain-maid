@@ -1,0 +1,29 @@
+name: CMS Contract
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cms-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: CMS production contract
+        run: node --test tests/cms-production-contract.test.mjs tests/cms-status-endpoint.test.mjs
+      - name: CMS page integration tests
+        run: npm run test:cms
+      - name: Type check
+        run: npm run type-check
