@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import test from 'node:test'
 
 const helper = fs.readFileSync('lib/cms-inspector.ts', 'utf8')
-const bridge = fs.readFileSync('components/cms/InspectorBridge.tsx', 'utf8')
+const bridge = fs.readFileSync('components/CmsInspectorBridge.tsx', 'utf8')
 const layout = fs.readFileSync('app/layout.tsx', 'utf8')
 
 test('inspector is opt-in and production browsing remains isolated', () => {
@@ -20,6 +20,6 @@ test('bridge accepts only trusted CMS origins and token-bound messages', () => {
 })
 
 test('root layout installs bridge once without changing normal page content contract', () => {
-  assert.match(layout, /InspectorBridge/)
-  assert.match(layout, /<InspectorBridge\s*\/>/)
+  assert.match(layout, /CmsInspectorBridge/)
+  assert.match(layout, /<CmsInspectorBridge\s*\/>/)
 })
