@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "generatedFrom": "photo_from_googlr_drive/",
+  "notes": [
+    "Hero slide 1 is intentionally unchanged and remains the brand hero.",
+    "Hero slides 2–4 use art-directed desktop, tablet, and mobile crops.",
+    "Product-card images are the original source files copied byte-for-byte into public/images/products-img/; checksums were compared before registration."
+  ],
+  "hero": [
+    {
+      "id": "brand-hero",
+      "status": "unchanged",
+      "desktop": "/images/hero/v2/slide-1-brand-clean.webp",
+      "tablet": "/images/hero/v2/slide-1-brand-clean.webp",
+      "mobile": "/images/hero/v2/slide-1-brand-clean.webp",
+      "dimensions": "1280x600",
+      "alt": "Captain Maid home cleaning hero",
+      "use": "brand introduction"
+    },
+    {
+      "id": "product-range",
+      "desktop": "/images/hero/v2/slide-2-floor-care-desktop.jpg",
+      "tablet": "/images/hero/v2/slide-2-floor-care-tablet.jpg",
+      "mobile": "/images/hero/v2/slide-2-floor-care-mobile.jpg",
+      "dimensions": {
+        "desktop": "1920x900",
+        "tablet": "1440x1080",
+        "mobile": "1080x1440"
+      },
+      "alt": "Captain Maid floor cleaner range",
+      "use": "floor-care range"
+    },
+    {
+      "id": "family-pet-safety",
+      "desktop": "/images/hero/v2/slide-3-family-safe-desktop.jpg",
+      "tablet": "/images/hero/v2/slide-3-family-safe-tablet.jpg",
+      "mobile": "/images/hero/v2/slide-3-family-safe-mobile.jpg",
+      "dimensions": {
+        "desktop": "1920x900",
+        "tablet": "1440x1080",
+        "mobile": "1080x1440"
+      },
+      "alt": "A family relaxing with their pets in a clean home",
+      "use": "family-safe positioning"
+    },
+    {
+      "id": "natural-cleaning-tech",
+      "desktop": "/images/hero/v2/slide-4-surface-care-desktop.jpg",
+      "tablet": "/images/hero/v2/slide-4-surface-care-tablet.jpg",
+      "mobile": "/images/hero/v2/slide-4-surface-care-mobile.jpg",
+      "dimensions": {
+        "desktop": "1920x900",
+        "tablet": "1440x1080",
+        "mobile": "1080x1440"
+      },
+      "alt": "Captain Maid surface cleaner range in a bright kitchen",
+      "use": "surface-care positioning"
+    }
+  ],
+  "products": [
+    {
+      "id": "floor-cleaner-lavender-kerry",
+      "image": "/images/products-img/floor-lavender.webp",
+      "source": "photo_from_googlr_drive/CAPTAINMAID Floor Cleaner Lavender Kerry  900 ml/00_00.webp",
+      "dimensions": "900x900",
+      "use": "product card and detail primary image"
+    },
+    {
+      "id": "floor-cleaner-floral-passion",
+      "image": "/images/products-img/floor-floral.webp",
+      "source": "photo_from_googlr_drive/CAPTAINMAID Floor Cleaner Floral Passion  900 ml/00.webp",
+      "dimensions": "900x900",
+      "use": "product card and detail primary image"
+    },
+    {
+      "id": "floor-cleaner-tea-tree-flash",
+      "image": "/images/products-img/floor-teatree.webp",
+      "source": "photo_from_googlr_drive/CAPTAINMAID Floor Cleaner Tea Tree Flash  900 ml/01_00.webp",
+      "dimensions": "900x900",
+      "use": "product card and detail primary image"
+    },
+    {
+      "id": "bathroom-cleaner-spray",
+      "image": "/images/products-img/bathroom.jpg",
+      "source": "photo_from_googlr_drive/CAPTAINMAID Bathroom Cleaner Spray 900 ml/Banner Bathroom Cleaner 500x500-01.jpg",
+      "dimensions": "500x500",
+      "use": "product card and detail primary image"
+    },
+    {
+      "id": "kitchen-cleaner-spray",
+      "image": "/images/products-img/kitchen.jpg",
+      "source": "photo_from_googlr_drive/CAPTAINMAID Kitchen Cleaner Spray 900 ml/Banner Kitchen Cleaner 500x500-01.jpg",
+      "dimensions": "500x500",
+      "use": "product card and detail primary image"
+    },
+    {
+      "id": "glass-cleaner",
+      "image": "/images/products-img/glass.jpg",
+      "source": "photo_from_googlr_drive/CAPTAINMAID Glass Cleaner 900 ml/Banner Glass-Cleaner 500x500-01.jpg",
+      "dimensions": "500x500",
+      "use": "product card and detail primary image",
+      "alternateSource": "photo_from_googlr_drive/CAPTAINMAID Glass Cleaner 900 ml/กัปตันเมด ผลิตภัณฑ์เช็ดกระจก กลิ่นฟรุตตี้ เฟรช.png",
+      "alternateUse": "clean product-only detail/gallery image"
+    }
+  ],
+  "selectionRationale": {
+    "hero": "The wide range image is used for desktop; vertical crops preserve the bottles for tablet/mobile. Slide 1 stays on the existing brand artwork.",
+    "productCards": "Square source artwork keeps the bottle and feature callouts readable at card size. The clean glass PNG is retained as a gallery alternate rather than replacing the informative card image."
+  }
+}
