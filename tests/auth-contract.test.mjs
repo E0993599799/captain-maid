@@ -13,8 +13,12 @@ const publicPages = [
 
 test('Captain Maid marketing routes remain public', () => {
   for (const page of publicPages) assert.equal(fs.existsSync(page), true, `Missing public page: ${page}`)
-  assert.equal(fs.existsSync('middleware.ts'), false, 'Global auth middleware must not protect Captain Maid marketing routes')
-  assert.equal(fs.existsSync('middleware.js'), false, 'Global auth middleware must not protect Captain Maid marketing routes')
+
+  const middleware = fs.readFileSync('middleware.ts', 'utf8')
+  assert.match(middleware, /captain_locale/)
+  assert.doesNotMatch(middleware, /auth\.arigeo\.com/i)
+  assert.doesNotMatch(middleware, /\/login/i)
+  assert.doesNotMatch(middleware, /requireCaptainAccess|requireAuth|getSession|Authorization/i)
 })
 
 test('Captain Maid management stays in CMS ARIGEO instead of creating a second login surface', () => {
