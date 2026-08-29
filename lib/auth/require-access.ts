@@ -25,6 +25,6 @@ export async function requireCaptainAccess() {
   const session = await getCaptainSession()
   if (!session) redirect('/api/auth/login?returnTo=/management')
   const decision = await decideCaptainAccess(session.sub)
-  if (!decision.allowed) throw new Error(`ACCESS_NOT_GRANTED:${decision.reason}`)
+  if (!decision.allowed) redirect('/api/auth/access-denied')
   return session
 }
