@@ -1,5 +1,4 @@
 name: Vercel SSO Preview
-# staging-trigger: 2026-08-29T03:03Z
 
 on:
   workflow_dispatch:
@@ -23,32 +22,25 @@ concurrency:
 
 env:
   AUTH_REF: feat/arigeo-central-auth-management
-  VERCEL_PROJECT_ID: prj_U9jZUIfjezqhZ8kaRAC2GEauxKFj
-  STAGING_ALIAS: captain-maid-sso-staging.vercel.app
+  VERCEL_PROJECT_ID: prj_GjONpKCGdN1gd87A4fxdq0b0lN0Z
+  VERCEL_ORG_ID: team_OS8nENECHPCuieeZsEhya9sF
+  STAGING_ALIAS: captain-maid-sso-preview.vercel.app
 
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Preflight staging Vercel credentials
+      - name: Preflight primary Vercel Pro credentials
         shell: bash
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           set -euo pipefail
-          missing=0
-          for key in VERCEL_TOKEN VERCEL_ORG_ID; do
-            if [ -z "${!key:-}" ]; then
-              echo "::error::Missing GitHub Actions secret $key"
-              missing=1
-            fi
-          done
-          if [ "$missing" -ne 0 ]; then exit 2; fi
+          test -n "$VERCEL_TOKEN"
           npx --yes vercel@latest whoami --token="$VERCEL_TOKEN"
 
-      - name: Checkout requested ref
+      - name: Checkout auth branch
         uses: actions/checkout@v5
         with:
           ref: ${{ env.AUTH_REF }}
@@ -63,33 +55,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Production gate before deploy
+      - name: Production gate
         run: npm run production:check
 
-      - name: Seed free staging project and pull settings
+      - name: Seed primary project
         shell: bash
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
         run: |
           set -euo pipefail
           rm -rf .vercel
           mkdir -p .vercel
           printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
-          set +e
+
+      - name: Pull preview settings
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
           npx --yes vercel@latest pull --yes --environment=preview --token="$VERCEL_TOKEN"
-          pull_status=$?
-          set -e
-          test -s .vercel/project.json
-          echo "VERCEL_PULL_STATUS=$pull_status"
-          cat .vercel/project.json
 
       - name: Build preview artifact
         shell: bash
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
-          CAPTAIN_BASE_URL: ${{ secrets.CAPTAIN_STAGING_BASE_URL }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          CAPTAIN_BASE_URL: https://captain-maid-sso-preview.vercel.app
           OIDC_ISSUER: ${{ secrets.OIDC_ISSUER }}
           OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
           OIDC_AUTHORIZATION_ENDPOINT: ${{ secrets.OIDC_AUTHORIZATION_ENDPOINT }}
@@ -104,12 +93,11 @@ jobs:
           set -euo pipefail
           npx --yes vercel@latest build --token="$VERCEL_TOKEN"
 
-      - name: Deploy preview to free staging account
+      - name: Deploy preview on primary Vercel Pro team
         id: deploy
         shell: bash
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           OIDC_ISSUER: ${{ secrets.OIDC_ISSUER }}
           OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
           OIDC_AUTHORIZATION_ENDPOINT: ${{ secrets.OIDC_AUTHORIZATION_ENDPOINT }}
@@ -126,30 +114,25 @@ jobs:
             value="${!key:-}"
             if [ -n "$value" ]; then args+=(--env "$key=$value"); fi
           done
-          args+=(--env COOKIE_SECURE=true)
+          args+=(--env CAPTAIN_BASE_URL=https://captain-maid-sso-preview.vercel.app --env COOKIE_SECURE=true)
           npx --yes vercel@latest deploy "${args[@]}" > /tmp/vercel-deploy.out 2>&1
           cat /tmp/vercel-deploy.out
           url="$(grep -Eo 'https://[^ ]+\.vercel\.app' /tmp/vercel-deploy.out | tail -1 | tr -d '\r')"
-          if [[ "$url" != https://* ]]; then
-            echo "::error::Unable to parse staging deployment URL"
-            exit 4
-          fi
+          test -n "$url"
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
 
-      - name: Bind stable staging alias
+      - name: Bind stable preview alias
         id: alias
         shell: bash
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
         run: |
           set -euo pipefail
           npx --yes vercel@latest alias set "$DEPLOYMENT_URL" "$STAGING_ALIAS" --token="$VERCEL_TOKEN"
-          stable_url="https://$STAGING_ALIAS"
-          echo "url=$stable_url" >> "$GITHUB_OUTPUT"
-          printf '%s\n' "$stable_url" > deployment-url.txt
+          echo "url=https://$STAGING_ALIAS" >> "$GITHUB_OUTPUT"
 
-      - name: Verify public and deny routes
+      - name: Verify staging contract
         shell: bash
         env:
           PREVIEW_URL: ${{ steps.alias.outputs.url }}
@@ -158,50 +141,38 @@ jobs:
           public_status="$(curl -sS -L -o /tmp/public.html -w '%{http_code}' "$PREVIEW_URL/")"
           denied_status="$(curl -sS -o /tmp/denied.txt -w '%{http_code}' "$PREVIEW_URL/api/auth/access-denied")"
           denied_body="$(cat /tmp/denied.txt)"
+          management_status="$(curl -sS -D /tmp/management.headers -o /tmp/management.html -w '%{http_code}' --max-redirs 0 "$PREVIEW_URL/management" || true)"
           echo "PUBLIC_STATUS=$public_status"
           echo "DENIED_STATUS=$denied_status"
           echo "DENIED_BODY=$denied_body"
+          echo "MANAGEMENT_STATUS=$management_status"
           test "$public_status" = "200"
           test "$denied_status" = "403"
           test "$denied_body" = "ACCESS_NOT_GRANTED"
+          case "$management_status" in 301|302|303|307|308) ;; *) exit 5 ;; esac
 
-      - name: Verify management auth boundary
+      - name: Write proof
         shell: bash
         env:
           PREVIEW_URL: ${{ steps.alias.outputs.url }}
         run: |
-          set -euo pipefail
-          status="$(curl -sS -o /tmp/management.html -D /tmp/management.headers -w '%{http_code}' --max-redirs 0 "$PREVIEW_URL/management" || true)"
-          echo "MANAGEMENT_STATUS=$status"
-          case "$status" in 301|302|303|307|308) ;; *) echo '::error::Management did not redirect to authentication'; exit 5 ;; esac
-
-      - name: Write staging proof
-        shell: bash
-        env:
-          PREVIEW_URL: ${{ steps.alias.outputs.url }}
-        run: |
-          set -euo pipefail
           {
-            echo "RESULT=OK"
-            echo "ACTION=VERCEL_FREE_SECONDARY_ACCOUNT_SSO_PREVIEW"
+            echo 'RESULT=OK'
+            echo 'ACTION=VERCEL_PRO_PRIMARY_SSO_PREVIEW'
             echo "REF=$AUTH_REF"
-            echo "GITHUB_SHA=$GITHUB_SHA"
             echo "DEPLOYMENT_URL=$PREVIEW_URL"
             echo "CALLBACK_URL=$PREVIEW_URL/api/auth/callback"
-            echo "PUBLIC_ROUTE_STATUS=200"
-            echo "ACCESS_DENIED_STATUS=403"
-            echo "ACCESS_DENIED_BODY=ACCESS_NOT_GRANTED"
-            echo "MANAGEMENT_UNAUTHENTICATED=REDIRECT"
+            echo 'PUBLIC_ROUTE_STATUS=200'
+            echo 'ACCESS_DENIED_STATUS=403'
+            echo 'ACCESS_DENIED_BODY=ACCESS_NOT_GRANTED'
+            echo 'MANAGEMENT_UNAUTHENTICATED=REDIRECT'
           } > vercel-sso-preview-proof.txt
           cat vercel-sso-preview-proof.txt
           cat vercel-sso-preview-proof.txt >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload preview proof
+      - name: Upload proof
         uses: actions/upload-artifact@v4
         with:
           name: vercel-sso-preview-proof
-          path: |
-            deployment-url.txt
-            vercel-sso-preview-proof.txt
-          if-no-files-found: error
+          path: vercel-sso-preview-proof.txt
           retention-days: 14
