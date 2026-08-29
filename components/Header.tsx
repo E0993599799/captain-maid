@@ -102,11 +102,13 @@ export function Header() {
   const labels = COPY[locale]
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [openMenu, setOpenMenu] = React.useState<string | null>(null)
+  const [scrolled, setScrolled] = React.useState(false)
   const [isLightBackground, setIsLightBackground] = React.useState(false)
   const headerRef = React.useRef<HTMLElement | null>(null)
   const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const pathWithoutLocale = pathname.replace(/^\/(th|en)(?=\/|$)/, '') || '/'
+  const useDarkControls = scrolled || !isLightBackground
   const localize = (href: string) => {
     const [path, query] = href.split('?')
     const localizedPath = path === '/' ? `/${locale}` : `/${locale}${path}`
@@ -116,6 +118,13 @@ export function Header() {
     const path = href.split('?')[0]
     return path === '/' ? pathWithoutLocale === '/' : pathWithoutLocale === path || pathWithoutLocale.startsWith(`${path}/`)
   }
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   React.useEffect(() => {
     let animationFrame = 0
@@ -189,14 +198,14 @@ export function Header() {
 
   return (
     <>
-      <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 bg-transparent transition-colors duration-300">
+      <header ref={headerRef} className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-[#002d5f]' : 'bg-transparent'}`}>
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between gap-4">
             <Link href={`/${locale}`} className="group flex items-center gap-2.5 rounded-lg transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30" aria-label="Captain Maid home">
               <img src="/images/logo.png" alt="Captain Maid" className="h-[62px] w-[62px] object-contain drop-shadow-sm transition-transform duration-300 sm:h-[70px] sm:w-[70px]" />
               <span className="hidden leading-tight md:block">
-                <span className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${isLightBackground ? 'text-[#002d5f]' : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'}`}>Captain Maid</span>
-                <span className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${isLightBackground ? 'text-[#36536f]' : 'text-white/75 drop-shadow-[0_1px_2px_rgba(0,0,0,0.24)]'}`}>กัปตันเมด</span>
+                <span className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${useDarkControls ? 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f]'}`}>Captain Maid</span>
+                <span className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${useDarkControls ? 'text-white/75 drop-shadow-[0_1px_2px_rgba(0,0,0,0.24)]' : 'text-[#36536f]'}`}>กัปตันเมด</span>
               </span>
             </Link>
 
@@ -204,13 +213,13 @@ export function Header() {
               {NAV.map((item) => {
                 const active = item.key !== 'solutions' && isPathActive(item.href)
                 const expanded = openMenu === item.key
-                const adaptiveNav = isLightBackground
+                const adaptiveNav = useDarkControls
                   ? active
-                    ? 'text-[#002d5f] bg-[#002d5f]/10'
-                    : 'text-[#002d5f] hover:bg-[#002d5f]/10'
-                  : active
                     ? 'text-white bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'
                     : 'text-white/95 hover:bg-white/10 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'
+                  : active
+                    ? 'text-[#002d5f] bg-[#002d5f]/10'
+                    : 'text-[#002d5f] hover:bg-[#002d5f]/10'
                 return (
                   <div key={item.key} className="relative" onMouseEnter={() => item.items && openDesktopMenu(item.key)} onMouseLeave={scheduleClose} onFocus={() => item.items && openDesktopMenu(item.key)}>
                     <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} aria-expanded={item.items ? expanded : undefined} aria-controls={item.items ? menuId(item.key) : undefined} className={`group relative flex min-h-11 items-center gap-1 rounded-lg px-3 text-[15px] font-semibold transition-all duration-200 hover:scale-[1.03] ${adaptiveNav}`}>
@@ -230,10 +239,10 @@ export function Header() {
             </nav>
 
             <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
-              <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle isDark={!isLightBackground} /></React.Suspense></div>
-              <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] sm:flex ${isLightBackground ? 'text-[#002d5f] hover:bg-[#002d5f]/10' : 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'}`}><Search className="h-5 w-5" /></Link>
-              <Link href={`/${locale}/products`} className={`hidden min-h-11 items-center rounded-full border px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${isLightBackground ? 'border-[#002d5f]/30 bg-transparent text-[#002d5f] hover:bg-[#002d5f]/10' : 'border-white/55 bg-transparent text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]'}`}>{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
-              <button type="button" className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] xl:hidden ${isLightBackground ? 'text-[#002d5f] hover:bg-[#002d5f]/10' : 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'}`} aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
+              <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle isDark={useDarkControls} /></React.Suspense></div>
+              <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] sm:flex ${useDarkControls ? 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f] hover:bg-[#002d5f]/10'}`}><Search className="h-5 w-5" /></Link>
+              <Link href={`/${locale}/products`} className={`hidden min-h-11 items-center rounded-full border px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${useDarkControls ? 'border-white/55 bg-transparent text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]' : 'border-[#002d5f]/30 bg-transparent text-[#002d5f] hover:bg-[#002d5f]/10'}`}>{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
+              <button type="button" className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] xl:hidden ${useDarkControls ? 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f] hover:bg-[#002d5f]/10'}`} aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
             </div>
           </div>
         </div>
