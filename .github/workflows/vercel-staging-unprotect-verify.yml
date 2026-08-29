@@ -45,7 +45,7 @@ jobs:
           root_status="$(curl -sS -L -o /tmp/root.html -w '%{http_code}' "$STAGING_URL/")"
           denied_status="$(curl -sS -o /tmp/denied.txt -w '%{http_code}' "$STAGING_URL/api/auth/access-denied")"
           denied_body="$(cat /tmp/denied.txt)"
-          management_status="$(curl -sS -D /tmp/management.headers -o /tmp/management.html -w '%{http_code}' --max-redirs 0 "$STAGING_URL/management" || true)"
+          management_status="$(curl -sS -D /tmp/management.headers -o /tmp/management.html -w '%{http_code}' --max-redirs 0 "$STAGING_URL/th/management" || true)"
           management_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/\r$/,""); sub(/^[^:]*:[[:space:]]*/,""); print; exit}' /tmp/management.headers)"
           echo "ROOT_STATUS=$root_status"
           echo "DENIED_STATUS=$denied_status"
@@ -55,7 +55,7 @@ jobs:
           test "$root_status" = "200"
           test "$denied_status" = "403"
           test "$denied_body" = "ACCESS_NOT_GRANTED"
-          case "$management_status" in 301|302|303|307|308) ;; *) exit 3 ;; esac
+          case "$management_status" in 301|302|303|307|308) ;; *) cat /tmp/management.html; exit 3 ;; esac
           printf '%s' "$management_location" | grep -q '/api/auth/login'
 
       - name: Write deployment proof
