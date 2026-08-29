@@ -8,6 +8,10 @@ on:
         required: true
         default: feat/arigeo-central-auth-management
         type: string
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/vercel-sso-preview.yml'
 
 permissions:
   contents: read
@@ -17,6 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  AUTH_REF: feat/arigeo-central-auth-management
   STAGING_PROJECT_NAME: captain-maid-sso-staging
 
 jobs:
@@ -44,7 +49,7 @@ jobs:
       - name: Checkout requested ref
         uses: actions/checkout@v5
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ env.AUTH_REF }}
           fetch-depth: 1
 
       - name: Setup Node
@@ -67,8 +72,6 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf .vercel
-          # VERCEL_ORG_ID selects the secondary Hobby account/team. `link` creates the
-          # staging project when it does not yet exist, and reuses it on later runs.
           npx --yes vercel@latest link --yes --project="$STAGING_PROJECT_NAME" --token="$VERCEL_TOKEN"
           test -s .vercel/project.json
           node -e "const p=require('./.vercel/project.json'); if(p.orgId!==process.env.VERCEL_ORG_ID){console.error('Wrong staging org linked');process.exit(3)}; console.log('STAGING_PROJECT_ID='+p.projectId)"
@@ -160,7 +163,7 @@ jobs:
           {
             echo "RESULT=OK"
             echo "ACTION=VERCEL_FREE_SECONDARY_ACCOUNT_SSO_PREVIEW"
-            echo "REF=${{ inputs.ref }}"
+            echo "REF=$AUTH_REF"
             echo "GITHUB_SHA=$GITHUB_SHA"
             echo "DEPLOYMENT_URL=$PREVIEW_URL"
             echo "CALLBACK_URL=$PREVIEW_URL/api/auth/callback"
