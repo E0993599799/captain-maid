@@ -7,9 +7,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 'brand-hero',
-    mobile: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0650',
-    tablet: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0650',
-    desktop: '/images/hero/v2/slide-1-brand-clean.webp?v=20260825-0650',
+    mobile: '/api/captain-maid-hero-1.webp?v=20260830-hero1',
+    tablet: '/api/captain-maid-hero-1.webp?v=20260830-hero1',
+    desktop: '/api/captain-maid-hero-1.webp?v=20260830-hero1',
     alt: 'Captain Maid home cleaning hero',
   },
   {
@@ -85,8 +85,8 @@ export default function HeroSlider() {
             <img
               src={slide.desktop}
               alt={slide.alt}
-              width={1920}
-              height={900}
+              width={slide.id === 'brand-hero' ? 2560 : 1920}
+              height={slide.id === 'brand-hero' ? 1280 : 900}
               className={`hero-slide-image h-full w-full object-cover ${
                 slide.id === 'brand-hero'
                   ? 'object-[72%_center] sm:object-[68%_center] lg:object-center'
@@ -109,7 +109,12 @@ export default function HeroSlider() {
         >
           <h1
             className="hero-title--dark-bg"
-            style={{ fontSize: 'clamp(1.15rem, 3vw, 2.75rem)', whiteSpace: 'nowrap' }}
+            style={{
+              fontSize: 'clamp(1.15rem, 3vw, 2.75rem)',
+              whiteSpace: 'nowrap',
+              WebkitTextStroke: '0 transparent',
+              textShadow: '0 1px 2px rgba(75, 85, 99, 0.5), 0 2px 5px rgba(31, 41, 55, 0.16)',
+            }}
           >
             Made for Easy Home Cleaning
           </h1>
