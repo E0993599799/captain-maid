@@ -1,4 +1,5 @@
 name: Sync Auth Runtime to Free Vercel Staging
+# staging-trigger: 2026-08-29T03:06Z
 
 on:
   push:
@@ -51,7 +52,6 @@ jobs:
           echo "SOURCE_ENV_HTTP=$code"
           test "$code" = "200"
           jq -e '.envs | type == "array"' /tmp/source-env.json >/dev/null
-          # Never print values. Report only keys that can be migrated.
           jq -r '.envs[] | select(.value != null and .value != "" and .value != "[SENSITIVE]") | .key' /tmp/source-env.json | sort -u > /tmp/source-keys.txt
           echo "SOURCE_ENV_COUNT=$(wc -l < /tmp/source-keys.txt | tr -d ' ')"
           for key in OIDC_ISSUER OIDC_CLIENT_ID OIDC_AUTHORIZATION_ENDPOINT OIDC_TOKEN_ENDPOINT OIDC_JWKS_URI CAPTAIN_SESSION_SECRET ARIGEO_ACCESS_API_KEY; do
@@ -168,7 +168,6 @@ jobs:
           echo "MANAGEMENT_STATUS=$management_status"
           echo "MANAGEMENT_LOCATION=$management_location"
           echo "LOGIN_STATUS=$login_status"
-          # Avoid logging complete authorization URL because it contains state/nonce.
           echo "LOGIN_REDIRECT_PRESENT=$([ -n "$login_location" ] && echo yes || echo no)"
 
           test "$root_status" = "200"
