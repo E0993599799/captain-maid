@@ -7,6 +7,7 @@ import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { LanguageToggle } from './LanguageToggle'
 
 type Locale = 'th' | 'en'
+type HeaderTone = 'light' | 'dark'
 
 type NavItem = {
   key: string
@@ -65,18 +66,47 @@ const COPY: Record<Locale, Record<string, string>> = {
 
 const menuId = (key: string) => `desktop-menu-${key}`
 
+const parseColor = (color: string) => {
+  const values = color.match(/[\d.]+/g)?.map(Number)
+  if (!values || values.length < 3) return null
+  return { r: values[0], g: values[1], b: values[2], a: values[3] ?? 1 }
+}
+
+const backgroundToneForElement = (element: Element): HeaderTone | null => {
+  let current: Element | null = element
+
+  while (current) {
+    const explicitTone = current.getAttribute('data-header-tone')
+    if (explicitTone === 'light' || explicitTone === 'dark') return explicitTone
+
+    const backgroundColor = window.getComputedStyle(current).backgroundColor
+    const rgba = parseColor(backgroundColor)
+    if (rgba && rgba.a > 0.05) {
+      const toLinear = (channel: number) => {
+        const value = channel / 255
+        return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4
+      }
+      const luminance = 0.2126 * toLinear(rgba.r) + 0.7152 * toLinear(rgba.g) + 0.0722 * toLinear(rgba.b)
+      return luminance >= 0.58 ? 'light' : 'dark'
+    }
+
+    current = current.parentElement
+  }
+
+  return null
+}
+
 export function Header() {
   const pathname = usePathname() ?? '/th'
   const locale: Locale = pathname.startsWith('/en') ? 'en' : 'th'
   const labels = COPY[locale]
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [openMenu, setOpenMenu] = React.useState<string | null>(null)
-  const [scrolled, setScrolled] = React.useState(false)
+  const [isLightBackground, setIsLightBackground] = React.useState(false)
+  const headerRef = React.useRef<HTMLElement | null>(null)
   const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const pathWithoutLocale = pathname.replace(/^\/(th|en)(?=\/|$)/, '') || '/'
-  const isHome = pathWithoutLocale === '/'
-  const darkHeader = isHome && !scrolled
   const localize = (href: string) => {
     const [path, query] = href.split('?')
     const localizedPath = path === '/' ? `/${locale}` : `/${locale}${path}`
@@ -88,11 +118,43 @@ export function Header() {
   }
 
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    let animationFrame = 0
+
+    const updateHeaderTone = () => {
+      window.cancelAnimationFrame(animationFrame)
+      animationFrame = window.requestAnimationFrame(() => {
+        const header = headerRef.current
+        if (!header) return
+
+        const rect = header.getBoundingClientRect()
+        const y = Math.max(1, Math.min(window.innerHeight - 1, rect.height * 0.5))
+        const samplePoints = [window.innerWidth * 0.2, window.innerWidth * 0.5, window.innerWidth * 0.8]
+        const tones = samplePoints
+          .map((x) => {
+            const underlying = document.elementsFromPoint(x, y).find((candidate) => candidate !== header && !header.contains(candidate))
+            return underlying ? backgroundToneForElement(underlying) : null
+          })
+          .filter((tone): tone is HeaderTone => tone !== null)
+
+        if (tones.length) {
+          const lightVotes = tones.filter((tone) => tone === 'light').length
+          setIsLightBackground(lightVotes > tones.length / 2)
+          return
+        }
+
+        setIsLightBackground(pathWithoutLocale !== '/')
+      })
+    }
+
+    updateHeaderTone()
+    window.addEventListener('scroll', updateHeaderTone, { passive: true })
+    window.addEventListener('resize', updateHeaderTone)
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener('scroll', updateHeaderTone)
+      window.removeEventListener('resize', updateHeaderTone)
+    }
+  }, [pathWithoutLocale])
 
   React.useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
@@ -127,14 +189,14 @@ export function Header() {
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${darkHeader ? 'border-white/15 bg-[#002d5f]/82 shadow-[0_10px_34px_rgba(0,24,52,0.16)] backdrop-blur-xl' : 'border-[#dbe5ec] bg-white shadow-[0_8px_28px_rgba(0,45,95,0.08)]'}`}>
+      <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 bg-transparent transition-colors duration-300">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-          <div className={`flex items-center justify-between gap-4 transition-[height] duration-300 ${scrolled ? 'h-16' : 'h-20'}`}>
+          <div className="flex h-20 items-center justify-between gap-4">
             <Link href={`/${locale}`} className="group flex items-center gap-2.5 rounded-lg transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30" aria-label="Captain Maid home">
-              <img src="/images/logo.png" alt="Captain Maid" className={`${scrolled ? 'h-12 w-12' : 'h-14 w-14 sm:h-16 sm:w-16'} ${darkHeader ? 'brightness-0 invert drop-shadow-[0_2px_10px_rgba(255,255,255,0.24)]' : 'drop-shadow-sm'} object-contain transition-all duration-300`} />
+              <img src="/images/logo.png" alt="Captain Maid" className="h-[62px] w-[62px] object-contain drop-shadow-sm transition-transform duration-300 sm:h-[70px] sm:w-[70px]" />
               <span className="hidden leading-tight md:block">
-                <span className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${darkHeader ? 'text-white' : 'text-[#002d5f]'}`}>Captain Maid</span>
-                <span className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${darkHeader ? 'text-white/70' : 'text-[#667b8d]'}`}>กัปตันเมด</span>
+                <span className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${isLightBackground ? 'text-[#002d5f]' : 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'}`}>Captain Maid</span>
+                <span className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${isLightBackground ? 'text-[#36536f]' : 'text-white/75 drop-shadow-[0_1px_2px_rgba(0,0,0,0.24)]'}`}>กัปตันเมด</span>
               </span>
             </Link>
 
@@ -142,9 +204,16 @@ export function Header() {
               {NAV.map((item) => {
                 const active = item.key !== 'solutions' && isPathActive(item.href)
                 const expanded = openMenu === item.key
+                const adaptiveNav = isLightBackground
+                  ? active
+                    ? 'text-[#002d5f] bg-[#002d5f]/10'
+                    : 'text-[#002d5f] hover:bg-[#002d5f]/10'
+                  : active
+                    ? 'text-white bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'
+                    : 'text-white/95 hover:bg-white/10 hover:text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'
                 return (
                   <div key={item.key} className="relative" onMouseEnter={() => item.items && openDesktopMenu(item.key)} onMouseLeave={scheduleClose} onFocus={() => item.items && openDesktopMenu(item.key)}>
-                    <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} aria-expanded={item.items ? expanded : undefined} aria-controls={item.items ? menuId(item.key) : undefined} className={`group relative flex min-h-11 items-center gap-1 rounded-lg px-3 text-[15px] font-semibold transition-all duration-200 hover:scale-[1.03] ${darkHeader ? (active ? 'bg-white/10 text-white' : 'text-white/90 hover:bg-white/10 hover:text-white') : (active ? 'text-[#006cad]' : 'text-[#31495d] hover:bg-[#eaf5fb] hover:text-[#006cad]')}`}>
+                    <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} aria-expanded={item.items ? expanded : undefined} aria-controls={item.items ? menuId(item.key) : undefined} className={`group relative flex min-h-11 items-center gap-1 rounded-lg px-3 text-[15px] font-semibold transition-all duration-200 hover:scale-[1.03] ${adaptiveNav}`}>
                       {labels[item.key]}
                       {item.items && <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />}
                     </Link>
@@ -161,17 +230,17 @@ export function Header() {
             </nav>
 
             <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
-              <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle isDark={darkHeader} /></React.Suspense></div>
-              <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] sm:flex ${darkHeader ? 'text-white hover:bg-white/10' : 'text-[#40596d] hover:bg-[#e6f3fa] hover:text-[#006cad]'}`}><Search className="h-5 w-5" /></Link>
-              <Link href={`/${locale}/products`} className={`hidden min-h-11 items-center rounded-full px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${darkHeader ? 'border border-white/45 bg-white/10 text-white hover:bg-white/20' : 'bg-[#0079c1] text-white shadow-[0_8px_20px_rgba(0,121,193,0.24)] hover:bg-[#0066a8]'}`}>{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
-              <button type="button" className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] xl:hidden ${darkHeader ? 'text-white hover:bg-white/10' : 'text-[#31495d] hover:bg-[#e6f3fa]'}`} aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
+              <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle isDark={!isLightBackground} /></React.Suspense></div>
+              <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] sm:flex ${isLightBackground ? 'text-[#002d5f] hover:bg-[#002d5f]/10' : 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'}`}><Search className="h-5 w-5" /></Link>
+              <Link href={`/${locale}/products`} className={`hidden min-h-11 items-center rounded-full border px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${isLightBackground ? 'border-[#002d5f]/30 bg-transparent text-[#002d5f] hover:bg-[#002d5f]/10' : 'border-white/55 bg-transparent text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]'}`}>{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
+              <button type="button" className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] xl:hidden ${isLightBackground ? 'text-[#002d5f] hover:bg-[#002d5f]/10' : 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]'}`} aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
             </div>
           </div>
         </div>
       </header>
 
       {mobileOpen && (
-        <div id="captain-maid-mobile-menu" className={`fixed inset-x-0 bottom-0 z-[60] xl:hidden ${scrolled ? 'top-16' : 'top-20'}`}>
+        <div id="captain-maid-mobile-menu" className="fixed inset-x-0 bottom-0 top-20 z-[60] xl:hidden">
           <button type="button" className="absolute inset-0 h-full w-full bg-[#002d5f]/35 backdrop-blur-[2px]" aria-label={locale === 'th' ? 'ปิดเมนู' : 'Close menu'} onClick={() => setMobileOpen(false)} />
           <div className="absolute right-0 top-0 h-full w-full max-w-[420px] overflow-y-auto border-l border-[#dce7ef] bg-white px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-5 shadow-2xl">
             <nav className="flex flex-col gap-1" aria-label={locale === 'th' ? 'เมนูมือถือ' : 'Mobile navigation'}>
