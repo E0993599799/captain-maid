@@ -1,4 +1,5 @@
 name: Vercel SSO Preview
+# staging-trigger: 2026-08-29T02:59Z
 
 on:
   workflow_dispatch:
