@@ -19,6 +19,20 @@ const forbidden = [
   'lib/auth/session.ts',
 ]
 
+const authEnvironmentNames = [
+  'OIDC_ISSUER',
+  'OIDC_CLIENT_ID',
+  'OIDC_AUTHORIZATION_ENDPOINT',
+  'OIDC_TOKEN_ENDPOINT',
+  'OIDC_JWKS_URI',
+  'OIDC_SCOPES',
+  'CAPTAIN_SESSION_SECRET',
+  'ARIGEO_ENTITLEMENT_ENDPOINT',
+  'ARIGEO_ACCESS_API_KEY',
+  'COOKIE_SECURE',
+  'SESSION_TTL_SECONDS',
+]
+
 test('Captain Maid owns no local authentication runtime', () => {
   for (const path of forbidden) assert.equal(exists(path), false, `${path} must not exist`)
 })
@@ -34,4 +48,9 @@ test('header exposes public My ARIGEO handoff for both navigation modes', () => 
 test('Captain Maid header does not implement an OIDC or session flow', () => {
   const header = read('components/Header.tsx')
   assert.doesNotMatch(header, /OIDC_|code_challenge|CAPTAIN_SESSION_SECRET|ARIGEO_ACCESS_API_KEY|\/api\/auth\//)
+})
+
+test('Captain Maid environment template has no application-auth configuration', () => {
+  const envExample = read('.env.example')
+  for (const name of authEnvironmentNames) assert.doesNotMatch(envExample, new RegExp(`^${name}=`, 'm'))
 })
