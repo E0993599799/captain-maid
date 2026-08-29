@@ -25,10 +25,10 @@ test('Captain Maid owns no local authentication runtime', () => {
 
 test('header exposes public My ARIGEO handoff for both navigation modes', () => {
   const header = read('components/Header.tsx')
-  assert.match(header, /https:\/\/auth\.arigeo\.com/)
+  assert.match(header, /const ARIGEO_PORTAL_URL = 'https:\/\/auth\.arigeo\.com'/)
   assert.match(header, /Login \/ My ARIGEO/)
   assert.match(header, /เข้าสู่ระบบ \/ My ARIGEO/)
-  assert.ok((header.match(/https:\/\/auth\.arigeo\.com/g) || []).length >= 2)
+  assert.ok((header.match(/href=\{ARIGEO_PORTAL_URL\}/g) || []).length >= 2)
 })
 
 test('Captain Maid header does not implement an OIDC or session flow', () => {
