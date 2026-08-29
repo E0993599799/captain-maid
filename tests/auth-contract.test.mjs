@@ -23,6 +23,17 @@ test('management routes require the Captain Maid access boundary', () => {
   assert.match(layout, /await\s+requireCaptainAccess\s*\(/)
 })
 
+test('authenticated users without Captain Maid entitlement receive explicit HTTP 403', () => {
+  const accessDeniedRoute = 'app/api/auth/access-denied/route.ts'
+  assert.equal(exists(accessDeniedRoute), true, 'explicit access-denied route must exist')
+  const access = read('lib/auth/require-access.ts')
+  const denied = read(accessDeniedRoute)
+  assert.doesNotMatch(access, /throw\s+new\s+Error\s*\(\s*`ACCESS_NOT_GRANTED/)
+  assert.match(access, /access-denied/)
+  assert.match(denied, /ACCESS_NOT_GRANTED/)
+  assert.match(denied, /status:\s*403/)
+})
+
 test('central auth adapter enforces OIDC PKCE identity and host-local session contract', () => {
   for (const path of [
     'lib/auth/config.ts',
