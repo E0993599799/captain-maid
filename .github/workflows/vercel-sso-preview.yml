@@ -22,7 +22,7 @@ concurrency:
 
 env:
   AUTH_REF: feat/arigeo-central-auth-management
-  STAGING_PROJECT_NAME: captain-maid-sso-staging
+  VERCEL_PROJECT_ID: prj_U9jZUIfjezqhZ8kaRAC2GEauxKFj
 
 jobs:
   deploy-preview:
@@ -64,7 +64,7 @@ jobs:
       - name: Production gate before deploy
         run: npm run production:check
 
-      - name: Create or link free staging project
+      - name: Seed free staging project and pull settings
         shell: bash
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
@@ -72,9 +72,15 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf .vercel
-          npx --yes vercel@latest link --yes --project="$STAGING_PROJECT_NAME" --token="$VERCEL_TOKEN"
+          mkdir -p .vercel
+          printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
+          set +e
+          npx --yes vercel@latest pull --yes --environment=preview --token="$VERCEL_TOKEN"
+          pull_status=$?
+          set -e
           test -s .vercel/project.json
-          node -e "const p=require('./.vercel/project.json'); if(p.orgId!==process.env.VERCEL_ORG_ID){console.error('Wrong staging org linked');process.exit(3)}; console.log('STAGING_PROJECT_ID='+p.projectId)"
+          echo "VERCEL_PULL_STATUS=$pull_status"
+          cat .vercel/project.json
 
       - name: Build preview artifact
         shell: bash
@@ -119,14 +125,15 @@ jobs:
             if [ -n "$value" ]; then args+=(--env "$key=$value"); fi
           done
           args+=(--env COOKIE_SECURE=true)
-          url="$(npx --yes vercel@latest deploy "${args[@]}" | tail -n 1 | tr -d '\r')"
+          npx --yes vercel@latest deploy "${args[@]}" > /tmp/vercel-deploy.out 2>&1
+          cat /tmp/vercel-deploy.out
+          url="$(grep -Eo 'https://[^ ]+\.vercel\.app' /tmp/vercel-deploy.out | tail -1 | tr -d '\r')"
           if [[ "$url" != https://* ]]; then
-            echo "::error::Unable to parse staging deployment URL: $url"
+            echo "::error::Unable to parse staging deployment URL"
             exit 4
           fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
           printf '%s\n' "$url" > deployment-url.txt
-          echo "Deployment URL: $url"
 
       - name: Verify public and deny routes
         shell: bash
