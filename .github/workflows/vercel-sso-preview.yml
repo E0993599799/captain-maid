@@ -1,5 +1,5 @@
 name: Vercel SSO Preview
-# staging-trigger: 2026-08-29T02:59Z
+# staging-trigger: 2026-08-29T03:03Z
 
 on:
   workflow_dispatch:
@@ -24,6 +24,7 @@ concurrency:
 env:
   AUTH_REF: feat/arigeo-central-auth-management
   VERCEL_PROJECT_ID: prj_U9jZUIfjezqhZ8kaRAC2GEauxKFj
+  STAGING_ALIAS: captain-maid-sso-staging.vercel.app
 
 jobs:
   deploy-preview:
@@ -133,16 +134,28 @@ jobs:
             echo "::error::Unable to parse staging deployment URL"
             exit 4
           fi
-          echo "url=$url" >> "$GITHUB_OUTPUT"
-          printf '%s\n' "$url" > deployment-url.txt
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Bind stable staging alias
+        id: alias
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment_url }}
+        run: |
+          set -euo pipefail
+          npx --yes vercel@latest alias set "$DEPLOYMENT_URL" "$STAGING_ALIAS" --token="$VERCEL_TOKEN"
+          stable_url="https://$STAGING_ALIAS"
+          echo "url=$stable_url" >> "$GITHUB_OUTPUT"
+          printf '%s\n' "$stable_url" > deployment-url.txt
 
       - name: Verify public and deny routes
         shell: bash
         env:
-          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+          PREVIEW_URL: ${{ steps.alias.outputs.url }}
         run: |
           set -euo pipefail
-          public_status="$(curl -sS -o /tmp/public.html -w '%{http_code}' "$PREVIEW_URL/")"
+          public_status="$(curl -sS -L -o /tmp/public.html -w '%{http_code}' "$PREVIEW_URL/")"
           denied_status="$(curl -sS -o /tmp/denied.txt -w '%{http_code}' "$PREVIEW_URL/api/auth/access-denied")"
           denied_body="$(cat /tmp/denied.txt)"
           echo "PUBLIC_STATUS=$public_status"
@@ -155,7 +168,7 @@ jobs:
       - name: Verify management auth boundary
         shell: bash
         env:
-          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+          PREVIEW_URL: ${{ steps.alias.outputs.url }}
         run: |
           set -euo pipefail
           status="$(curl -sS -o /tmp/management.html -D /tmp/management.headers -w '%{http_code}' --max-redirs 0 "$PREVIEW_URL/management" || true)"
@@ -165,7 +178,7 @@ jobs:
       - name: Write staging proof
         shell: bash
         env:
-          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+          PREVIEW_URL: ${{ steps.alias.outputs.url }}
         run: |
           set -euo pipefail
           {
