@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import test from 'node:test'
 
@@ -22,9 +23,22 @@ test('hero uses approved responsive artwork and preserves art direction', () => 
   assert.match(hero, /\/api\/captain-maid-hero-1\.webp\?v=20260830-hero1/)
   assert.match(route, /'Content-Type': 'image\/webp'/)
   assert.match(route, /max-age=31536000, immutable/)
-  for (let part = 1; part <= 6; part += 1) {
-    assert.ok(existsSync(new URL(`../lib/assets/hero-brand/part${part}.ts`, import.meta.url)), `hero WebP part ${part} must exist`)
-  }
+
+  const encodedHero = Array.from({ length: 6 }, (_, index) => {
+    const part = index + 1
+    const partUrl = new URL(`../lib/assets/hero-brand/part${part}.ts`, import.meta.url)
+    assert.ok(existsSync(partUrl), `hero WebP part ${part} must exist`)
+    const source = read(`lib/assets/hero-brand/part${part}.ts`)
+    const match = source.match(/= '([^']+)'/)
+    assert.ok(match, `hero WebP part ${part} must contain base64 payload`)
+    return match[1]
+  }).join('')
+
+  const heroWebp = Buffer.from(encodedHero, 'base64')
+  assert.equal(heroWebp.byteLength, 67072)
+  assert.equal(heroWebp.subarray(0, 4).toString('ascii'), 'RIFF')
+  assert.equal(heroWebp.subarray(8, 12).toString('ascii'), 'WEBP')
+  assert.equal(createHash('sha256').update(heroWebp).digest('hex'), 'bff25c9e33f79d3985cbf45e0c0d5efb674a3810665a4673a72b2bb569cd6714')
 
   for (const asset of assets) {
     assert.ok(existsSync(new URL(`../public/images/hero/v2/${asset}`, import.meta.url)), `${asset} must exist`)
