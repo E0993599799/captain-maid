@@ -91,18 +91,16 @@ test('header switches to mobile navigation before desktop actions crowd', () => 
   assert.match(header, /fixed inset-x-0 bottom-0 z-\[60\] xl:hidden|fixed inset-x-0 bottom-0 top-20 z-\[60\] xl:hidden/)
 })
 
-test('header is fully transparent, keeps the normal logo larger, and adapts controls to the background beneath it', () => {
+test('header is transparent at top, then becomes solid navy with white controls after scroll in 300ms', () => {
   const header = read('components/Header.tsx')
 
-  assert.match(header, /const \[isLightBackground, setIsLightBackground\] = React\.useState\(false\)/)
-  assert.match(header, /document\.elementsFromPoint/)
-  assert.match(header, /data-header-tone/)
-  assert.match(header, /backgroundColor/)
-  assert.match(header, /const luminance =/)
-  assert.match(header, /className="fixed inset-x-0 top-0 z-50 bg-transparent transition-colors duration-300"/)
+  assert.match(header, /const \[scrolled, setScrolled\] = React\.useState\(false\)/)
+  assert.match(header, /setScrolled\(window\.scrollY > 12\)/)
+  assert.match(header, /const useDarkControls = scrolled \|\| !isLightBackground/)
+  assert.match(header, /scrolled \? 'bg-\[#002d5f\]' : 'bg-transparent'/)
+  assert.match(header, /transition-colors duration-300/)
+  assert.match(header, /useDarkControls \? 'text-white/)
+  assert.match(header, /<LanguageToggle isDark=\{useDarkControls\} \/>/)
   assert.match(header, /h-\[62px\] w-\[62px\][^\"]*sm:h-\[70px\] sm:w-\[70px\]/)
   assert.doesNotMatch(header, /brightness-0 invert/)
-  assert.doesNotMatch(header, /backdrop-blur-xl|bg-white shadow-\[0_8px_28px/)
-  assert.match(header, /isLightBackground \? 'text-\[#002d5f\]'/)
-  assert.match(header, /<LanguageToggle isDark=\{!isLightBackground\} \/>/)
 })
