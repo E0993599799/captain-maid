@@ -27,24 +27,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if (parts.length === 1) {
-    const response = NextResponse.next()
-    response.cookies.set(LOCALE_COOKIE, routeLocale, {
-      path: '/',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 365,
-    })
-    return response
-  }
-
-  const url = request.nextUrl.clone()
-  url.pathname = `/${parts.slice(1).join('/')}`
-  url.search = request.nextUrl.search
-
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-captain-maid-locale', routeLocale)
 
-  const response = NextResponse.rewrite(url, {
+  const response = NextResponse.next({
     request: { headers: requestHeaders },
   })
   response.cookies.set(LOCALE_COOKIE, routeLocale, {

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
   const route = body.route && body.route.startsWith('/') ? body.route : '/products'
 
-  revalidateTag('products')
+  revalidateTag('products', 'max')
   revalidatePath(route)
   if (route !== '/products') revalidatePath('/products')
 

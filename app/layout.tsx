@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Noto_Sans_Thai, Roboto } from 'next/font/google'
+import { headers } from 'next/headers'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -83,14 +84,16 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
   return (
     <html
-      lang="th"
+      lang={locale}
       className={`${englishFont.variable} ${thaiFont.variable}`}
       suppressHydrationWarning
     >

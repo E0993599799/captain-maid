@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import HomePage from '@/app/page'
+import { localizedMetadata } from './seo'
 
 type Locale = 'th' | 'en'
 
@@ -31,8 +32,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const selected = copy[locale as Locale]
 
   return {
+    ...localizedMetadata(locale as Locale),
     ...selected,
     openGraph: {
+      locale: locale === 'en' ? 'en_US' : 'th_TH',
       title: selected.title,
       description: selected.description,
       images: [

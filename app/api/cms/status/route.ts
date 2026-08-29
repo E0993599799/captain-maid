@@ -18,13 +18,13 @@ export async function GET() {
       productCount: slugs.length,
       slugs,
     })
-  } catch (error) {
+  } catch {
     return Response.json(
       {
         ok: false,
         source: 'cms',
         site: 'captain-maid',
-        error: error instanceof Error ? error.message : 'CMS_UNAVAILABLE',
+        error: 'CMS_UNAVAILABLE',
       },
       { status: 503 },
     )

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'FAQ | Frequently Asked Questions | Captain Maid',
-  description: 'Answers to common questions about Captain Maid products, usage, shipping, and safety.',
+  description: 'Answers to common questions about Captain Maid products, usage, and safety.',
   openGraph: {
     title: 'FAQ | Captain Maid',
     description: 'Frequently asked questions about our cleaning products',
@@ -60,33 +60,7 @@ const faqCategories = [
       },
       {
         q: 'หากกลืนกินผลิตภัณฑ์โดยไม่ได้ตั้งใจ ควรทำอย่างไร?',
-        a: 'ควรติดต่อสถานพยาบาลหรือศูนย์พิษวิทยาใกล้บ้านทันที และนำฉลากผลิตภัณฑ์ติดตัวไปด้วยเพื่อให้ข้อมูลกับแพทย์ สำหรับประเทศไทย สามารถติดต่อโรงพยาบาลรัฐที่ใกล้ที่สุด หรือศูนย์ควบคุมโรคในจังหวัดของท่าน',
-      },
-    ],
-  },
-  {
-    category: 'การจัดส่งและการคืนสินค้า',
-    questions: [
-      {
-        q: 'ระยะเวลาจัดส่งใช้เวลานานเท่าไร?',
-        a: 'ระยะเวลาจัดส่งปกติ 3-5 วันทำการสำหรับพื้นที่ในเขตกรุงเทพและปริมณฑล สำหรับจังหวัดอื่น ๆ อาจใช้เวลา 5-7 วันทำการ โปรดติดต่อเราเพื่อทราบรายละเอียดเพิ่มเติม',
-      },
-      {
-        q: 'มีค่าจัดส่งหรือไม่?',
-        a: 'ค่าจัดส่งขึ้นอยู่กับน้ำหนักและพื้นที่จัดส่ง สำหรับการสั่งซื้อขั้นต่ำ อาจมีค่าจัดส่ง แต่สำหรับการสั่งซื้อจำนวนมากอาจได้รับส่วนลดค่าจัดส่ง โปรดติดต่อทีมขายของเราเพื่อทราบราคากำหนด',
-      },
-      {
-        q: 'นโยบายการคืนสินค้าเป็นอย่างไร?',
-        a: 'หากสินค้าเกิดความเสียหายในการจัดส่ง หรือไม่ตรงกับที่สั่งซื้อ สามารถขอคืนสินค้าได้ภายใน 7 วัน นับจากวันที่ได้รับสินค้า โปรดติดต่อทีมสนับสนุนของเรา พร้อมภาพประกอบและรายละเอียด เราจะดำเนินการแลกเปลี่ยนหรือคืนเงินให้ท่าน',
-      },
-    ],
-  },
-  {
-    category: 'ความยั่งยืน',
-    questions: [
-      {
-        q: 'บรรจุภัณฑ์เป็นมิตรต่อสิ่งแวดล้อมหรือไม่?',
-        a: 'เรามุ่งมั่นในการใช้บรรจุภัณฑ์ที่เป็นมิตรต่อสิ่งแวดล้อม ขวดและฝาปิดของเราทำจากพลาสติกรีไซเคิล ซึ่งสามารถนำไปรีไซเคิลได้อีกครั้ง เราพยายามลดการใช้พลาสติก และทำงานเพื่อเพิ่มสัดส่วนวัสดุรีไซเคิลให้มากขึ้นในอนาคต',
+        a: 'ควรติดต่อสถานพยาบาลหรือศูนย์พิษวิทยาใกล้บ้านทันที และนำฉลากผลิตภัณฑ์ติดตัวไปด้วยเพื่อให้ข้อมูลกับแพทย์',
       },
     ],
   },
@@ -102,18 +76,6 @@ export default function FAQPage() {
           <p className="text-xl text-captain-neutral max-prose mx-auto">
             คำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับผลิตภัณฑ์ กัปตันเมด การใช้งาน และการจัดส่ง
           </p>
-        </div>
-
-        {/* Search (Placeholder) */}
-        <div className="mb-2xl">
-          <input
-            id="faq-search"
-            name="faq-search"
-            type="text"
-            aria-label="ค้นหาคำถามที่พบบ่อย"
-            placeholder="ค้นหาคำถามที่พบบ่อย..."
-            className="w-full px-lg py-md border border-captain-light rounded-sm focus:outline-none focus:ring-2 focus:ring-captain-blue"
-          />
         </div>
 
         {/* FAQ Sections */}
@@ -142,7 +104,7 @@ export default function FAQPage() {
         <div className="bg-captain-light rounded-sm p-2xl text-center my-2xl">
           <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">ไม่พบคำตอบที่คุณต้องการใช่ไหม?</h2>
           <p className="text-lg text-captain-neutral mb-lg">
-            เราพร้อมช่วยเหลือคุณ! ติดต่อทีมสนับสนุนของเรา แล้วเราจะติดต่อกลับภายใน 24 ชั่วโมง
+            ติดต่อทีมสนับสนุนของเราสำหรับข้อมูลเพิ่มเติม
           </p>
           <Link
             href="/contact"

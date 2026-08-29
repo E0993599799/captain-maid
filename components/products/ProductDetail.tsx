@@ -31,8 +31,8 @@ const LABELS: Record<Lang, { benefits: string; suitable: string; freeFrom: strin
   },
 }
 
-export default function ProductDetail({ product }: { product: CaptainProduct }) {
-  const [lang, setLang] = React.useState<Lang>('th')
+export default function ProductDetail({ product, initialLocale = 'th' }: { product: CaptainProduct; initialLocale?: Lang }) {
+  const [lang, setLang] = React.useState<Lang>(initialLocale)
   const t = LABELS[lang]
 
   const categoryLabel =
@@ -46,7 +46,7 @@ export default function ProductDetail({ product }: { product: CaptainProduct }) 
         {/* Breadcrumb + language toggle */}
         <div className="flex items-center justify-between mb-8">
           <Link
-            href="/products"
+            href={`/${lang}/products`}
             className="inline-flex items-center gap-1 text-sm font-semibold text-[#0079c1] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] focus-visible:ring-offset-2 rounded"
           >
             <ChevronLeft className="w-4 h-4" />

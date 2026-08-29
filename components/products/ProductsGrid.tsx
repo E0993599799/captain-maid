@@ -15,6 +15,7 @@ import {
 interface Props {
   initialCategory: ProductCategory | 'all'
   initialProducts?: CaptainProduct[]
+  initialLocale?: Lang
 }
 
 type Lang = 'th' | 'en'
@@ -28,9 +29,9 @@ function categoryLabel(id: ProductCategory | 'all', lang: Lang): string {
   return CATEGORIES.find((c) => c.id === id)?.label[lang] ?? id
 }
 
-export default function ProductsGrid({ initialCategory, initialProducts = PRODUCTS }: Props) {
+export default function ProductsGrid({ initialCategory, initialProducts = PRODUCTS, initialLocale = 'th' }: Props) {
   const [category, setCategory] = React.useState<ProductCategory | 'all'>(initialCategory)
-  const [lang, setLang] = React.useState<Lang>('th')
+  const [lang, setLang] = React.useState<Lang>(initialLocale)
   const router = useRouter()
   const copy = COPY[lang]
 
@@ -66,7 +67,7 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
               key={c.id}
               onClick={() => {
                 setCategory(c.id)
-                router.replace(c.id === 'all' ? '/products' : `/products?category=${c.id}`, { scroll: false })
+                router.replace(c.id === 'all' ? `/${lang}/products` : `/${lang}/products?category=${c.id}`, { scroll: false })
               }}
               aria-pressed={category === c.id}
               aria-label={`${copy.filter}: ${c.label[lang]}`}
@@ -90,7 +91,7 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
             {products.map((p) => (
               <Link
                 key={p.id}
-                href={`/products/${p.id}`}
+                href={`/${lang}/products/${p.id}`}
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">

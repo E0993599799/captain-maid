@@ -4,7 +4,7 @@ import test from 'node:test'
 
 const read = (path) => fs.readFileSync(path, 'utf8')
 
-test('CMS status endpoint probes live Captain Maid products without exposing secrets or env-only gating', () => {
+test('CMS status endpoint probes live Captain Maid products without exposing secrets, env-only gating, or upstream error details', () => {
   const route = read('app/api/cms/status/route.ts')
   assert.match(route, /cmsClient\.getProducts/)
   assert.match(route, /source:\s*['"]cms['"]/)
@@ -14,4 +14,7 @@ test('CMS status endpoint probes live Captain Maid products without exposing sec
   assert.doesNotMatch(route, /NEXT_PUBLIC_CMS_URL/)
   assert.doesNotMatch(route, /CMS_READ_TOKEN/)
   assert.doesNotMatch(route, /REVALIDATE_SECRET/)
+  assert.match(route, /error:\s*['"]CMS_UNAVAILABLE['"]/, 'public callers receive a stable availability code')
+  assert.doesNotMatch(route, /error instanceof Error/)
+  assert.doesNotMatch(route, /\.message/)
 })

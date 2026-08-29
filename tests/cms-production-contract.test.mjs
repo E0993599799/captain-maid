@@ -28,7 +28,7 @@ test('product list and detail only request approved content', () => {
 
 test('signed revalidation invalidates the products cache tag and products route', () => {
   const source = read('app/api/revalidate/route.ts')
-  assert.match(source, /revalidateTag\(["']products["']\)/)
+  assert.match(source, /revalidateTag\(["']products["'],\s*["']max["']\)/)
   assert.match(source, /revalidatePath\(route\)/)
   assert.match(source, /REVALIDATE_SECRET/)
 })

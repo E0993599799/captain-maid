@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import ProductsGrid from '@/components/products/ProductsGrid'
 import type { ProductCategory } from '@/lib/captain-products'
 import { getCaptainProducts } from '@/lib/cms/captain-products'
+import type { Locale } from '@/types/cms'
 
 export const metadata: Metadata = {
   title: 'Products | Captain Maid',
@@ -25,12 +26,14 @@ interface PageProps {
 
 export const revalidate = 3600
 
-export default async function ProductsPage({ searchParams }: PageProps) {
+export async function ProductsPage({ searchParams, locale = 'th' }: PageProps & { locale?: Locale }) {
   const { category } = await searchParams
   const initial = (VALID as string[]).includes(category ?? '')
     ? ((category as ProductCategory | 'all') ?? 'all')
     : 'all'
 
-  const products = await getCaptainProducts('th')
-  return <ProductsGrid initialCategory={initial} initialProducts={products} />
+  const products = await getCaptainProducts(locale)
+  return <ProductsGrid initialCategory={initial} initialProducts={products} initialLocale={locale} />
 }
+
+export default ProductsPage
