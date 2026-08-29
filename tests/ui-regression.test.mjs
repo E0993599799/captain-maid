@@ -90,3 +90,16 @@ test('header switches to mobile navigation before desktop actions crowd', () => 
   assert.match(header, /<>[\s\S]*<header[\s\S]*<\/header>[\s\S]*\{mobileOpen && \(/)
   assert.match(header, /fixed inset-x-0 bottom-0 z-\[60\] xl:hidden/)
 })
+
+test('home header starts dark with white controls and becomes solid after scroll', () => {
+  const header = read('components/Header.tsx')
+
+  assert.match(header, /const isHome = pathWithoutLocale === '\/'/)
+  assert.match(header, /const darkHeader = isHome && !scrolled/)
+  assert.match(header, /darkHeader \? 'border-white\/15 bg-\[#002d5f\]\/82/)
+  assert.match(header, /darkHeader \? 'text-white'/)
+  assert.match(header, /darkHeader \? 'brightness-0 invert drop-shadow/)
+  assert.match(header, /hover:scale-\[1\.03\]/)
+  assert.match(header, /<LanguageToggle isDark=\{darkHeader\} \/>/)
+  assert.match(header, /scrolled \? 'h-16' : 'h-20'/)
+})
