@@ -1,0 +1,210 @@
+name: Sync Auth Runtime to Free Vercel Staging
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/vercel-staging-sync-auth.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AUTH_REF: feat/arigeo-central-auth-management
+  SOURCE_PROJECT_ID: prj_GjONpKCGdN1gd87A4fxdq0b0lN0Z
+  SOURCE_ORG_ID: team_OS8nENECHPCuieeZsEhya9sF
+  STAGING_PROJECT_ID: prj_U9jZUIfjezqhZ8kaRAC2GEauxKFj
+  STAGING_URL: https://captain-maid-sso-staging.vercel.app
+
+jobs:
+  sync-deploy-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Preflight credentials
+        shell: bash
+        env:
+          SOURCE_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          STAGING_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          STAGING_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for key in SOURCE_TOKEN STAGING_TOKEN STAGING_ORG_ID; do
+            if [ -z "${!key:-}" ]; then
+              echo "::error::Missing required secret $key"
+              missing=1
+            fi
+          done
+          test "$missing" -eq 0
+
+      - name: Read decrypted runtime configuration from source Vercel project
+        shell: bash
+        env:
+          SOURCE_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          code="$(curl -sS -o /tmp/source-env.json -w '%{http_code}' \
+            "https://api.vercel.com/v10/projects/$SOURCE_PROJECT_ID/env?decrypt=true&teamId=$SOURCE_ORG_ID" \
+            -H "Authorization: Bearer $SOURCE_TOKEN")"
+          echo "SOURCE_ENV_HTTP=$code"
+          test "$code" = "200"
+          jq -e '.envs | type == "array"' /tmp/source-env.json >/dev/null
+          # Never print values. Report only keys that can be migrated.
+          jq -r '.envs[] | select(.value != null and .value != "" and .value != "[SENSITIVE]") | .key' /tmp/source-env.json | sort -u > /tmp/source-keys.txt
+          echo "SOURCE_ENV_COUNT=$(wc -l < /tmp/source-keys.txt | tr -d ' ')"
+          for key in OIDC_ISSUER OIDC_CLIENT_ID OIDC_AUTHORIZATION_ENDPOINT OIDC_TOKEN_ENDPOINT OIDC_JWKS_URI CAPTAIN_SESSION_SECRET ARIGEO_ACCESS_API_KEY; do
+            if ! grep -Fxq "$key" /tmp/source-keys.txt; then
+              echo "::error::Required source runtime variable is unavailable: $key"
+              exit 3
+            fi
+          done
+
+      - name: Sync runtime configuration into free staging project
+        shell: bash
+        env:
+          STAGING_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          STAGING_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+        run: |
+          set -euo pipefail
+          jq --arg base "$STAGING_URL" '
+            [
+              .envs[]
+              | select(.value != null and .value != "" and .value != "[SENSITIVE]")
+              | select(.key | startswith("VERCEL_") | not)
+              | {key, value, type:"encrypted", target:["production","preview"]}
+            ]
+            | map(select(.key != "CAPTAIN_BASE_URL"))
+            + [{key:"CAPTAIN_BASE_URL",value:$base,type:"encrypted",target:["production","preview"]},
+               {key:"COOKIE_SECURE",value:"true",type:"plain",target:["production","preview"]}]
+          ' /tmp/source-env.json > /tmp/staging-env.json
+
+          code="$(curl -sS -o /tmp/staging-env-response.json -w '%{http_code}' \
+            -X POST "https://api.vercel.com/v10/projects/$STAGING_PROJECT_ID/env?upsert=true&teamId=$STAGING_ORG_ID" \
+            -H "Authorization: Bearer $STAGING_TOKEN" \
+            -H 'Content-Type: application/json' \
+            --data-binary @/tmp/staging-env.json)"
+          rm -f /tmp/staging-env.json
+          echo "STAGING_ENV_SYNC_HTTP=$code"
+          case "$code" in 200|201) ;; *) cat /tmp/staging-env-response.json; exit 4 ;; esac
+
+      - name: Checkout auth branch
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ env.AUTH_REF }}
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies and production gate
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run production:check
+
+      - name: Pull staging runtime and build production artifact
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.STAGING_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          rm -rf .vercel
+          mkdir -p .vercel
+          printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
+          npx --yes vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx --yes vercel@latest build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy authenticated staging runtime
+        id: deploy
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.STAGING_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes vercel@latest deploy --prebuilt --prod --yes --token="$VERCEL_TOKEN" > /tmp/deploy.log 2>&1
+          cat /tmp/deploy.log
+          url="$(grep -Eo 'https://[^ ]+\.vercel\.app' /tmp/deploy.log | head -1 | tr -d '\r')"
+          test -n "$url"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure staging platform auth remains disabled
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_STAGING_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_STAGING_ORG_ID }}
+        run: |
+          set -euo pipefail
+          code="$(curl -sS -o /tmp/project-patch.json -w '%{http_code}' -X PATCH \
+            "https://api.vercel.com/v9/projects/$STAGING_PROJECT_ID?teamId=$VERCEL_ORG_ID" \
+            -H "Authorization: Bearer $VERCEL_TOKEN" \
+            -H 'Content-Type: application/json' \
+            --data '{"ssoProtection":null}')"
+          test "$code" = "200"
+
+      - name: Verify app and central IdP boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          root_status="$(curl -sS -L -o /tmp/root.html -w '%{http_code}' "$STAGING_URL/")"
+          denied_status="$(curl -sS -o /tmp/denied.txt -w '%{http_code}' "$STAGING_URL/api/auth/access-denied")"
+          denied_body="$(cat /tmp/denied.txt)"
+          management_status="$(curl -sS -D /tmp/mgmt.headers -o /tmp/mgmt.html -w '%{http_code}' --max-redirs 0 "$STAGING_URL/th/management" || true)"
+          management_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/\r$/,""); sub(/^[^:]*:[[:space:]]*/,""); print; exit}' /tmp/mgmt.headers)"
+          login_status="$(curl -sS -D /tmp/login.headers -o /tmp/login.html -w '%{http_code}' --max-redirs 0 "$STAGING_URL/api/auth/login?returnTo=/management" || true)"
+          login_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/\r$/,""); sub(/^[^:]*:[[:space:]]*/,""); print; exit}' /tmp/login.headers)"
+
+          echo "ROOT_STATUS=$root_status"
+          echo "DENIED_STATUS=$denied_status"
+          echo "DENIED_BODY=$denied_body"
+          echo "MANAGEMENT_STATUS=$management_status"
+          echo "MANAGEMENT_LOCATION=$management_location"
+          echo "LOGIN_STATUS=$login_status"
+          # Avoid logging complete authorization URL because it contains state/nonce.
+          echo "LOGIN_REDIRECT_PRESENT=$([ -n "$login_location" ] && echo yes || echo no)"
+
+          test "$root_status" = "200"
+          test "$denied_status" = "403"
+          test "$denied_body" = "ACCESS_NOT_GRANTED"
+          case "$management_status" in 301|302|303|307|308) ;; *) exit 5 ;; esac
+          printf '%s' "$management_location" | grep -q '/api/auth/login'
+          case "$login_status" in 301|302|303|307|308) ;; *) cat /tmp/login.html; exit 6 ;; esac
+          printf '%s' "$login_location" | grep -Eq '^https://auth\.arigeo\.com/'
+          printf '%s' "$login_location" | grep -q 'code_challenge='
+          printf '%s' "$login_location" | grep -q 'state='
+          printf '%s' "$login_location" | grep -q 'nonce='
+
+      - name: Write authenticated staging proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo 'RESULT=OK'
+            echo 'ACTION=VERCEL_FREE_STAGING_AUTH_RUNTIME'
+            echo 'REF=feat/arigeo-central-auth-management'
+            echo 'STAGING_URL=https://captain-maid-sso-staging.vercel.app'
+            echo 'CALLBACK_URL=https://captain-maid-sso-staging.vercel.app/api/auth/callback'
+            echo 'PUBLIC_ROUTE_STATUS=200'
+            echo 'ACCESS_DENIED_STATUS=403'
+            echo 'ACCESS_DENIED_BODY=ACCESS_NOT_GRANTED'
+            echo 'MANAGEMENT_UNAUTHENTICATED=REDIRECT_TO_LOGIN'
+            echo 'CENTRAL_IDP_REDIRECT=auth.arigeo.com'
+            echo 'OIDC_PKCE_STATE_NONCE=PRESENT'
+          } > vercel-staging-auth-proof.txt
+          cat vercel-staging-auth-proof.txt
+          cat vercel-staging-auth-proof.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload authenticated staging proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: vercel-staging-auth-proof
+          path: vercel-staging-auth-proof.txt
+          retention-days: 14
