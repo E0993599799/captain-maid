@@ -63,6 +63,13 @@ const COPY: Record<Locale, Record<string, string>> = {
   },
 }
 
+const ARIGEO_PORTAL_URL = 'https://auth.arigeo.com'
+
+const ARIGEO_LOGIN_COPY: Record<Locale, string> = {
+  th: 'เข้าสู่ระบบ / My ARIGEO',
+  en: 'Login / My ARIGEO',
+}
+
 const menuId = (key: string) => `desktop-menu-${key}`
 
 export function Header() {
@@ -163,6 +170,7 @@ export function Header() {
             <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
               <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle isDark={darkHeader} /></React.Suspense></div>
               <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] sm:flex ${darkHeader ? 'text-white hover:bg-white/10' : 'text-[#40596d] hover:bg-[#e6f3fa] hover:text-[#006cad]'}`}><Search className="h-5 w-5" /></Link>
+              <a href={ARIGEO_PORTAL_URL} className={`hidden min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${darkHeader ? 'border-white/45 bg-white/10 text-white hover:bg-white/20' : 'border-[#0079c1]/25 text-[#006cad] hover:bg-[#e6f3fa]'}`}>{ARIGEO_LOGIN_COPY[locale]}</a>
               <Link href={`/${locale}/products`} className={`hidden min-h-11 items-center rounded-full px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${darkHeader ? 'border border-white/45 bg-white/10 text-white hover:bg-white/20' : 'bg-[#0079c1] text-white shadow-[0_8px_20px_rgba(0,121,193,0.24)] hover:bg-[#0066a8]'}`}>{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
               <button type="button" className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] xl:hidden ${darkHeader ? 'text-white hover:bg-white/10' : 'text-[#31495d] hover:bg-[#e6f3fa]'}`} aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
             </div>
@@ -187,6 +195,7 @@ export function Header() {
                 </div>
               })}
             </nav>
+            <a href={ARIGEO_PORTAL_URL} className="mt-5 flex min-h-12 w-full items-center justify-center rounded-full border border-[#0079c1]/25 px-4 text-sm font-semibold text-[#006cad] hover:bg-[#e6f3fa]" onClick={() => setMobileOpen(false)}>{ARIGEO_LOGIN_COPY[locale]}</a>
             <div className="mt-5 border-t border-[#dce7ef] pt-5 md:hidden"><React.Suspense fallback={null}><LanguageToggle /></React.Suspense></div>
           </div>
         </div>
