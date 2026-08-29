@@ -1,0 +1,136 @@
+name: Vercel SSO Preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref/branch/SHA to deploy
+        required: true
+        default: feat/arigeo-central-auth-management
+        type: string
+      alias:
+        description: Stable preview alias for OIDC callback
+        required: true
+        default: captain-maid-sso-preview.vercel.app
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: captain-maid-sso-preview
+  cancel-in-progress: true
+
+env:
+  VERCEL_ORG_ID: team_OS8nENECHPCuieeZsEhya9sF
+  VERCEL_PROJECT_ID: prj_GjONpKCGdN1gd87A4fxdq0b0lN0Z
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Preflight Vercel token
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "::error::Missing GitHub Actions secret VERCEL_TOKEN"
+            echo "Add a Vercel token as repository secret VERCEL_TOKEN, then re-run this workflow."
+            exit 2
+          fi
+
+      - name: Checkout requested ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production gate before deploy
+        run: npm run production:check
+
+      - name: Pull Vercel preview configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@latest pull --yes --environment=preview --token="$VERCEL_TOKEN"
+
+      - name: Build preview artifact
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          CAPTAIN_BASE_URL: https://${{ inputs.alias }}
+        run: npx --yes vercel@latest build --token="$VERCEL_TOKEN"
+
+      - name: Deploy preview directly
+        id: deploy
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          url="$(npx --yes vercel@latest deploy --prebuilt --yes --token="$VERCEL_TOKEN" --env CAPTAIN_BASE_URL=https://${{ inputs.alias }})"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          printf '%s\n' "$url" > deployment-url.txt
+          echo "Deployment URL: $url"
+
+      - name: Assign stable SSO preview alias
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          npx --yes vercel@latest alias set "${{ steps.deploy.outputs.url }}" "${{ inputs.alias }}" --token="$VERCEL_TOKEN"
+
+      - name: Verify stable preview routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://${{ inputs.alias }}"
+          public_status="$(curl -sS -o /tmp/public.html -w '%{http_code}' "$base/")"
+          denied_status="$(curl -sS -o /tmp/denied.txt -w '%{http_code}' "$base/api/auth/access-denied")"
+          denied_body="$(cat /tmp/denied.txt)"
+          echo "PUBLIC_STATUS=$public_status"
+          echo "DENIED_STATUS=$denied_status"
+          echo "DENIED_BODY=$denied_body"
+          test "$public_status" = "200"
+          test "$denied_status" = "403"
+          test "$denied_body" = "ACCESS_NOT_GRANTED"
+
+      - name: Write deployment proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "RESULT=OK"
+            echo "ACTION=VERCEL_SSO_PREVIEW_DEPLOY"
+            echo "REF=${{ inputs.ref }}"
+            echo "GITHUB_SHA=$GITHUB_SHA"
+            echo "DEPLOYMENT_URL=${{ steps.deploy.outputs.url }}"
+            echo "STABLE_ALIAS=https://${{ inputs.alias }}"
+            echo "CALLBACK_URL=https://${{ inputs.alias }}/api/auth/callback"
+            echo "PUBLIC_ROUTE_STATUS=200"
+            echo "ACCESS_DENIED_STATUS=403"
+            echo "ACCESS_DENIED_BODY=ACCESS_NOT_GRANTED"
+          } > vercel-sso-preview-proof.txt
+          cat vercel-sso-preview-proof.txt
+          cat vercel-sso-preview-proof.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload preview proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: vercel-sso-preview-proof
+          path: |
+            deployment-url.txt
+            vercel-sso-preview-proof.txt
+          if-no-files-found: error
+          retention-days: 14
