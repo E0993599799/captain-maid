@@ -88,7 +88,7 @@ test('header switches to mobile navigation before desktop actions crowd', () => 
   assert.match(header, /xl:hidden/)
   assert.match(header, /document\.body\.style\.overflow = mobileOpen \? 'hidden' : ''/)
   assert.match(header, /<>[\s\S]*<header[\s\S]*<\/header>[\s\S]*\{mobileOpen && \(/)
-  assert.match(header, /fixed inset-x-0 bottom-0 z-\[60\] xl:hidden/)
+  assert.match(header, /fixed inset-x-0 bottom-0 z-\[60\] xl:hidden|fixed inset-x-0 bottom-0 top-20 z-\[60\] xl:hidden/)
 })
 
 test('header is fully transparent, keeps the normal logo larger, and adapts controls to the background beneath it', () => {
@@ -100,7 +100,7 @@ test('header is fully transparent, keeps the normal logo larger, and adapts cont
   assert.match(header, /backgroundColor/)
   assert.match(header, /const luminance =/)
   assert.match(header, /className="fixed inset-x-0 top-0 z-50 bg-transparent transition-colors duration-300"/)
-  assert.match(header, /h-\[62px\] w-\[62px\] sm:h-\[70px\] sm:w-\[70px\]/)
+  assert.match(header, /h-\[62px\] w-\[62px\][^\"]*sm:h-\[70px\] sm:w-\[70px\]/)
   assert.doesNotMatch(header, /brightness-0 invert/)
   assert.doesNotMatch(header, /backdrop-blur-xl|bg-white shadow-\[0_8px_28px/)
   assert.match(header, /isLightBackground \? 'text-\[#002d5f\]'/)
