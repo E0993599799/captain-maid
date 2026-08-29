@@ -1,0 +1,213 @@
+name: Cloudflare SSO Preview Fallback
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cloudflare-sso-preview.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: captain-maid-cloudflare-sso-preview
+  cancel-in-progress: true
+
+env:
+  AUTH_REF: feat/arigeo-central-auth-management
+  WORKER_NAME: captain-maid-sso-preview
+  VERCEL_ORG_ID: team_OS8nENECHPCuieeZsEhya9sF
+  VERCEL_PROJECT_ID: prj_GjONpKCGdN1gd87A4fxdq0b0lN0Z
+  VERCEL_SCOPE: omega--project
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Preflight deployment credentials
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for key in VERCEL_TOKEN CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!key:-}" ]; then
+              echo "::error::Missing GitHub Actions secret $key"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then exit 2; fi
+
+      - name: Checkout auth branch
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ env.AUTH_REF }}
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production gate before fallback deploy
+        run: npm run production:check
+
+      - name: Pull existing preview runtime configuration
+        shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          rm -rf .vercel
+          mkdir -p .vercel
+          printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
+          npx --yes vercel@latest pull --yes --environment=preview --scope="$VERCEL_SCOPE" --token="$VERCEL_TOKEN"
+          test -s .env.local
+
+      - name: Prepare OpenNext Cloudflare adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save @opennextjs/cloudflare@latest wrangler@latest dotenv@latest
+          cat > wrangler.jsonc <<'EOF'
+          {
+            "$schema": "node_modules/wrangler/config-schema.json",
+            "name": "captain-maid-sso-preview",
+            "main": ".open-next/worker.js",
+            "compatibility_date": "2026-08-29",
+            "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+            "assets": {
+              "directory": ".open-next/assets",
+              "binding": "ASSETS"
+            },
+            "services": [
+              {
+                "binding": "WORKER_SELF_REFERENCE",
+                "service": "captain-maid-sso-preview"
+              }
+            ]
+          }
+          EOF
+          cat > open-next.config.ts <<'EOF'
+          import { defineCloudflareConfig } from '@opennextjs/cloudflare'
+          export default defineCloudflareConfig({})
+          EOF
+
+      - name: Build Cloudflare Worker artifact
+        shell: bash
+        env:
+          NEXTJS_ENV: production
+        run: |
+          set -euo pipefail
+          npx @opennextjs/cloudflare build
+          test -f .open-next/worker.js
+
+      - name: Deploy worker bootstrap
+        id: deploy
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx wrangler deploy --config wrangler.jsonc 2>&1 | tee cloudflare-deploy.log
+          url="$(grep -Eo 'https://[A-Za-z0-9._-]+\.workers\.dev' cloudflare-deploy.log | tail -1 || true)"
+          if [ -z "$url" ]; then
+            echo "::error::Cloudflare deployment succeeded without a discoverable workers.dev URL"
+            exit 3
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          printf '%s\n' "$url" > deployment-url.txt
+
+      - name: Install runtime secrets on Worker
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('fs')
+          const dotenv = require('dotenv')
+          const parsed = dotenv.parse(fs.readFileSync('.env.local'))
+          delete parsed.VERCEL_OIDC_TOKEN
+          parsed.CAPTAIN_BASE_URL = process.env.PREVIEW_URL
+          fs.writeFileSync('cloudflare-secrets.json', JSON.stringify(parsed))
+          NODE
+          npx wrangler secret bulk cloudflare-secrets.json --config wrangler.jsonc --name "$WORKER_NAME"
+          rm -f cloudflare-secrets.json
+
+      - name: Verify deployed fallback routes
+        shell: bash
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          public_status="$(curl -sS -o /tmp/public.html -w '%{http_code}' "$PREVIEW_URL/")"
+          denied_status="$(curl -sS -o /tmp/denied.txt -w '%{http_code}' "$PREVIEW_URL/api/auth/access-denied")"
+          denied_body="$(cat /tmp/denied.txt)"
+          management_status="$(curl -sS -o /dev/null -w '%{http_code}' --max-redirs 0 "$PREVIEW_URL/management" || true)"
+          echo "PUBLIC_STATUS=$public_status"
+          echo "DENIED_STATUS=$denied_status"
+          echo "DENIED_BODY=$denied_body"
+          echo "MANAGEMENT_STATUS=$management_status"
+          test "$public_status" = "200"
+          test "$denied_status" = "403"
+          test "$denied_body" = "ACCESS_NOT_GRANTED"
+          case "$management_status" in 301|302|303|307|308) ;; *) exit 4 ;; esac
+
+      - name: Verify login redirects to central ARIGEO IdP
+        shell: bash
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          curl -sS -D "$headers" -o /dev/null --max-redirs 0 "$PREVIEW_URL/api/auth/login?returnTo=/management" || true
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/\r$/,""); sub(/^[^:]*:[[:space:]]*/,""); print; exit}' "$headers")"
+          echo "LOGIN_LOCATION=$location"
+          test -n "$location"
+          printf '%s' "$location" | grep -Eq '^https://auth\.arigeo\.com/'
+
+      - name: Write fallback deployment proof
+        shell: bash
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          {
+            echo "RESULT=OK"
+            echo "ACTION=CLOUDFLARE_SSO_PREVIEW_FALLBACK"
+            echo "REF=$AUTH_REF"
+            echo "GITHUB_SHA=$GITHUB_SHA"
+            echo "DEPLOYMENT_URL=$PREVIEW_URL"
+            echo "CALLBACK_URL=$PREVIEW_URL/api/auth/callback"
+            echo "PUBLIC_ROUTE_STATUS=200"
+            echo "ACCESS_DENIED_STATUS=403"
+            echo "ACCESS_DENIED_BODY=ACCESS_NOT_GRANTED"
+            echo "MANAGEMENT_UNAUTHENTICATED=REDIRECT"
+            echo "LOGIN_IDP=auth.arigeo.com"
+          } > cloudflare-sso-preview-proof.txt
+          cat cloudflare-sso-preview-proof.txt
+          cat cloudflare-sso-preview-proof.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload fallback proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-sso-preview-proof
+          path: |
+            deployment-url.txt
+            cloudflare-sso-preview-proof.txt
+            cloudflare-deploy.log
+          if-no-files-found: error
+          retention-days: 14
