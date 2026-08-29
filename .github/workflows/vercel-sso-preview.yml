@@ -91,11 +91,45 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          set -euo pipefail
-          url="$(npx --yes vercel@latest deploy --prebuilt --yes --scope="$VERCEL_SCOPE" --token="$VERCEL_TOKEN" --env CAPTAIN_BASE_URL=https://${{ inputs.alias }})"
+          set +e
+          npx --yes vercel@latest deploy --prebuilt --yes --scope="$VERCEL_SCOPE" --token="$VERCEL_TOKEN" --env CAPTAIN_BASE_URL=https://${{ inputs.alias }} > /tmp/vercel-deploy.out 2>&1
+          status=$?
+          cat /tmp/vercel-deploy.out
+          if [ "$status" -ne 0 ]; then
+            if grep -q 'api-deployments-free-per-day' /tmp/vercel-deploy.out; then
+              {
+                echo 'RESULT=BLOCKED'
+                echo 'ACTION=VERCEL_SSO_PREVIEW_DEPLOY'
+                echo 'BLOCKER=VERCEL_DAILY_DEPLOYMENT_QUOTA'
+                echo 'ERROR_CODE=api-deployments-free-per-day'
+                echo 'RETRY_POLICY=DO_NOT_RETRY_UNTIL_QUOTA_RESETS_OR_PLAN_CHANGES'
+                echo 'REF=${{ inputs.ref }}'
+                echo "GITHUB_SHA=$GITHUB_SHA"
+              } > vercel-sso-preview-blocked.txt
+              cat vercel-sso-preview-blocked.txt
+              cat vercel-sso-preview-blocked.txt >> "$GITHUB_STEP_SUMMARY"
+              echo '::error::Vercel Hobby daily deployment quota reached. Do not rerun until quota resets or the plan changes.'
+              exit 78
+            fi
+            exit "$status"
+          fi
+          url="$(tail -n 1 /tmp/vercel-deploy.out | tr -d '\r')"
+          if [[ "$url" != https://* ]]; then
+            echo '::error::Vercel deployment completed but deployment URL could not be parsed.'
+            exit 1
+          fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
           printf '%s\n' "$url" > deployment-url.txt
           echo "Deployment URL: $url"
+
+      - name: Upload blocked proof
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vercel-sso-preview-blocked-proof
+          path: vercel-sso-preview-blocked.txt
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Assign stable SSO preview alias
         shell: bash
