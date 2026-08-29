@@ -43,6 +43,7 @@ test('header exposes public My ARIGEO handoff for both navigation modes', () => 
   assert.match(header, /Login \/ My ARIGEO/)
   assert.match(header, /เข้าสู่ระบบ \/ My ARIGEO/)
   assert.ok((header.match(/href=\{ARIGEO_PORTAL_URL\}/g) || []).length >= 2)
+  assert.doesNotMatch(header, /https:\/\/auth\.arigeo\.com\?/)
 })
 
 test('Captain Maid header does not implement an OIDC or session flow', () => {
