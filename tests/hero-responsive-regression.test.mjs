@@ -7,9 +7,10 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 test('hero uses the approved responsive artwork at each breakpoint', () => {
   const hero = read('components/home/HeroSlider.tsx')
 
-  assert.equal((hero.match(/mobile: '\/images\/hero\/v2\//g) ?? []).length, 4)
-  assert.equal((hero.match(/tablet: '\/images\/hero\/v2\//g) ?? []).length, 4)
-  assert.equal((hero.match(/desktop: '\/images\/hero\/v2\//g) ?? []).length, 4)
+  assert.equal((hero.match(/mobile: '\/images\/hero\/v2\//g) ?? []).length, 3)
+  assert.equal((hero.match(/tablet: '\/images\/hero\/v2\//g) ?? []).length, 3)
+  assert.equal((hero.match(/desktop: '\/images\/hero\/v2\//g) ?? []).length, 3)
+  assert.match(hero, /desktop: '\/images\/hero\/captain-maid-hero-desktop\.jpg(?:\?[^']+)?'/)
   assert.match(hero, /media="\(max-width: 767px\)"/)
   assert.match(hero, /media="\(max-width: 1023px\)"/)
 })

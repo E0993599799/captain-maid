@@ -9,7 +9,7 @@ const slides = [
     id: 'brand-hero',
     mobile: '/api/captain-maid-hero-1.webp?v=20260830-recovery',
     tablet: '/api/captain-maid-hero-1.webp?v=20260830-recovery',
-    desktop: '/api/captain-maid-hero-1.webp?v=20260830-recovery',
+    desktop: '/images/hero/captain-maid-hero-desktop.jpg?v=20260830-0000',
     alt: 'Captain Maid home cleaning hero',
   },
   {
