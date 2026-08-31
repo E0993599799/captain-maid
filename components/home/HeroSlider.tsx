@@ -14,24 +14,24 @@ const slides = [
   },
   {
     id: 'product-range',
-    mobile: '/images/hero/v2/slide-2-floor-care-mobile.jpg',
-    tablet: '/images/hero/v2/slide-2-floor-care-tablet.jpg',
-    desktop: '/images/hero/v2/slide-2-floor-care-desktop.jpg',
-    alt: 'Captain Maid floor cleaner range',
+    mobile: '/images/hero/v2/slide-2-floor-care-mobile.jpg?v=20260829-0000',
+    tablet: '/images/hero/v2/slide-2-floor-care-tablet.jpg?v=20260829-0000',
+    desktop: '/images/hero/v2/slide-2-floor-care-desktop.jpg?v=20260829-0000',
+    alt: 'Captain Maid floor cleaner range for every floor type',
   },
   {
     id: 'family-pet-safety',
-    mobile: '/images/hero/v2/slide-3-family-safe-mobile.jpg',
-    tablet: '/images/hero/v2/slide-3-family-safe-tablet.jpg',
-    desktop: '/images/hero/v2/slide-3-family-safe-desktop.jpg',
-    alt: 'A family relaxing with their pets in a clean home',
+    mobile: '/images/hero/v2/slide-3-family-safe-mobile.jpg?v=20260829-0000',
+    tablet: '/images/hero/v2/slide-3-family-safe-tablet.jpg?v=20260829-0000',
+    desktop: '/images/hero/v2/slide-3-family-safe-desktop.jpg?v=20260829-0000',
+    alt: 'A family relaxing with their dog while a robot mop cleans the floor',
   },
   {
     id: 'natural-cleaning-tech',
-    mobile: '/images/hero/v2/slide-4-surface-care-mobile.jpg',
-    tablet: '/images/hero/v2/slide-4-surface-care-tablet.jpg',
-    desktop: '/images/hero/v2/slide-4-surface-care-desktop.jpg',
-    alt: 'Captain Maid surface cleaner range in a bright kitchen',
+    mobile: '/images/hero/v2/slide-4-surface-care-mobile.jpg?v=20260829-0000',
+    tablet: '/images/hero/v2/slide-4-surface-care-tablet.jpg?v=20260829-0000',
+    desktop: '/images/hero/v2/slide-4-surface-care-desktop.jpg?v=20260829-0000',
+    alt: 'Captain Maid kitchen, bathroom, and glass cleaner range in a bright kitchen',
   },
 ]
 
@@ -74,7 +74,9 @@ export default function HeroSlider() {
       {slides.map((slide, i) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 ${reducedMotion ? '' : 'transition-opacity duration-700'}`}
+          className={`absolute inset-0 ${reducedMotion ? '' : 'transition-opacity duration-700'} ${
+            slide.id === 'brand-hero' ? '' : 'pt-[76px]'
+          }`}
           style={{ opacity: i === current ? 1 : 0 }}
           aria-hidden={i !== current}
         >
@@ -90,7 +92,7 @@ export default function HeroSlider() {
               className={`hero-slide-image h-full w-full object-cover ${
                 slide.id === 'brand-hero'
                   ? 'object-[72%_center] sm:object-[68%_center] lg:object-center'
-                  : 'object-center'
+                  : 'object-top sm:object-center lg:object-center'
               }`}
               fetchPriority={i === 0 ? 'high' : 'low'}
               loading={i === 0 ? 'eager' : 'lazy'}
@@ -102,8 +104,10 @@ export default function HeroSlider() {
 
       <div className="hero-content-shell pointer-events-none absolute inset-0 z-[5] flex items-end justify-center px-5 pb-16 sm:justify-start sm:px-[7%] sm:pb-[8%] lg:pb-[9%]">
         <div
-          className={`hero-copy-block w-full max-w-[34rem] text-center text-white transition-opacity duration-500 sm:w-[48%] sm:text-left lg:w-[43%] lg:max-w-[38rem] ${
-            current === 0 ? 'opacity-100' : 'opacity-0'
+          className={`hero-copy-block w-full max-w-[34rem] text-center text-white transition-opacity duration-500 ${
+            current === 0
+              ? 'opacity-100 sm:absolute sm:w-[30%] sm:max-w-[22rem] sm:text-left sm:left-[42%] sm:top-[35%] sm:-translate-y-1/2 lg:w-[26%] lg:left-[43%]'
+              : 'opacity-0 sm:w-[48%] sm:text-left lg:w-[43%] lg:max-w-[38rem]'
           }`}
           aria-hidden={current !== 0}
         >
@@ -111,7 +115,6 @@ export default function HeroSlider() {
             className="hero-title--dark-bg"
             style={{
               fontSize: 'clamp(1.15rem, 3vw, 2.75rem)',
-              whiteSpace: 'nowrap',
               WebkitTextStroke: '0 transparent',
               textShadow: '0 1px 2px rgba(75, 85, 99, 0.5), 0 2px 5px rgba(31, 41, 55, 0.16)',
             }}
