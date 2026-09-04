@@ -83,7 +83,7 @@ NEXT_PUBLIC_CMS_URL=http://localhost:3000
 # NEXT_PUBLIC_CMS_URL=https://cms-staging.vercel.app
 
 # Production (Supabase prod)
-# NEXT_PUBLIC_CMS_URL=https://cms.company-domain.com
+# NEXT_PUBLIC_CMS_URL=https://cms.arigeo.com
 
 # These remain the same
 CMS_SITE_SLUG=captain-maid

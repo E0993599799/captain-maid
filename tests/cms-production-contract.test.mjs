@@ -7,7 +7,7 @@ const read = (path) => fs.readFileSync(path, 'utf8')
 test('Captain Maid has a canonical CMS URL fallback and never requires a read token for public products', () => {
   const client = read('lib/cms/client.ts')
   const products = read('lib/cms/captain-products.ts')
-  assert.match(client, /process\.env\.NEXT_PUBLIC_CMS_URL \|\| ["']https:\/\/cms-arigeo\.vercel\.app["']/)
+  assert.match(client, /process\.env\.NEXT_PUBLIC_CMS_URL \|\| ["']https:\/\/cms\.arigeo\.com["']/)
   assert.doesNotMatch(products, /if \(!process\.env\.NEXT_PUBLIC_CMS_URL\)/)
   assert.doesNotMatch(products, /CMS_READ_TOKEN/)
 })

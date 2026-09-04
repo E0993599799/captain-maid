@@ -12,7 +12,7 @@
 
 import { CMSException, GraphQLResponse, Locale, CmsSectionResponse, CMSPage } from "../../types/cms";
 
-const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "https://cms-arigeo.vercel.app";
+const API_URL = process.env.NEXT_PUBLIC_CMS_URL || "https://cms.arigeo.com";
 const SITE_SLUG = process.env.CMS_SITE_SLUG || "captain-maid";
 const READ_TOKEN = process.env.CMS_READ_TOKEN || "";
 const PREVIEW_SECRET = process.env.CMS_PREVIEW_SECRET || "";

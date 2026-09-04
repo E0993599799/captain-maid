@@ -1,4 +1,4 @@
-const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'https://cms-arigeo.vercel.app'
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'https://cms.arigeo.com'
 
 function getCmsImageRemotePattern(cmsUrl) {
   try {
