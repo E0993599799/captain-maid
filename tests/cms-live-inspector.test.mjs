@@ -22,7 +22,8 @@ test('root layout mounts the CMS inspector bridge', () => {
 test('bridge implements the secure Captain Maid inspector protocol', () => {
   const bridge = read('components/cms/CmsInspectorBridge.tsx')
   assert.match(bridge, /CMS_PARENT_ORIGIN\s*=\s*['"]https:\/\/cms\.arigeo\.com['"]/)
-  assert.match(bridge, /message\.site !== ['"]captain-maid['"]/)
+  assert.match(bridge, /SITE\s*=\s*['"]captain-maid['"]/)
+  assert.match(bridge, /message\.site\s*!==\s*SITE/)
   assert.match(bridge, /cms-inspector:element-context/)
   assert.match(bridge, /cms-inspector:preview-element-style/)
   assert.match(bridge, /cms-inspector:preview-element-content/)
