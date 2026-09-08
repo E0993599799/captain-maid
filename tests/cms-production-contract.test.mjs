@@ -1,26 +1,29 @@
+import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import test from 'node:test'
-import assert from 'node:assert/strict'
 
 const read = (path) => fs.readFileSync(path, 'utf8')
 
 test('Captain Maid has a canonical CMS URL fallback and never requires a read token for public products', () => {
-  const source = read('lib/cms.ts')
-  assert.match(source, /https:\/\/cms\.arigeo\.com/)
-  assert.doesNotMatch(source, /CMS_READ_TOKEN/)
+  const client = read('lib/cms/client.ts')
+  const products = read('lib/cms/captain-products.ts')
+  assert.match(client, /process\.env\.NEXT_PUBLIC_CMS_URL \|\| ["']https:\/\/cms\.arigeo\.com["']/)
+  assert.doesNotMatch(products, /if \(!process\.env\.NEXT_PUBLIC_CMS_URL\)/)
+  assert.doesNotMatch(products, /CMS_READ_TOKEN/)
 })
 
 test('Captain product queries resolve Captain Maid from the public brand list then scope products by relationship id', () => {
-  const source = read('lib/cms.ts')
-  assert.match(source, /\/api\/brands/)
-  assert.match(source, /Captain Maid/i)
-  assert.match(source, /brand/)
+  const source = read('lib/cms/client.ts')
+  assert.match(source, /getBrandId\(this\.siteSlug/)
+  assert.match(source, /\.find\(\(brand\) => brand\.slug === slug\)/)
+  assert.match(source, /brand:\s*\{\s*equals:\s*brandId\s*\}/)
+  assert.doesNotMatch(source, /where:\s*\{\s*slug:\s*\{\s*equals:\s*slug/)
 })
 
 test('product list and detail only request approved content', () => {
-  const source = read('lib/cms.ts')
-  assert.doesNotMatch(source, /draft=true/)
-  assert.doesNotMatch(source, /overrideAccess/)
+  const source = read('lib/cms/client.ts')
+  const matches = source.match(/contentStatus:\s*\{\s*equals:\s*["']approved["']\s*\}/g) || []
+  assert.ok(matches.length >= 2, 'expected approved filter in list and detail queries')
 })
 
 test('signed revalidation invalidates the products cache tag and products route', () => {
