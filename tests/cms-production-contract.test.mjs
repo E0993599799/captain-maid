@@ -32,3 +32,18 @@ test('signed revalidation invalidates the products cache tag and products route'
   assert.match(source, /revalidatePath\(route\)/)
   assert.match(source, /REVALIDATE_SECRET/)
 })
+
+test('root layout mounts the token-bound CMS inspector bridge for inspector mode', () => {
+  assert.equal(fs.existsSync('lib/cms-inspector.ts'), true, 'expected CMS inspector helper')
+  assert.equal(fs.existsSync('components/CmsInspectorBridge.tsx'), true, 'expected CMS inspector bridge component')
+  const helper = read('lib/cms-inspector.ts')
+  const bridge = read('components/CmsInspectorBridge.tsx')
+  const layout = read('app/layout.tsx')
+  assert.match(helper, /origin === ['"]https:\/\/cms\.arigeo\.com['"]/)
+  assert.match(helper, /cmsInspector.*=== ['"]1['"]/s)
+  assert.match(bridge, /isInspectorRequested\(window\.location\.search\)/)
+  assert.match(bridge, /cms-inspector:init/)
+  assert.match(bridge, /cms-inspector:ready/)
+  assert.match(layout, /import \{ CmsInspectorBridge \} from ['"]@\/components\/CmsInspectorBridge['"]/)
+  assert.match(layout, /<CmsInspectorBridge\s*\/>/)
+})
