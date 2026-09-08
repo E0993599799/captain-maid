@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 const PUBLIC_FILE = /\.[^/]+$/
 const LOCALES = new Set(['th', 'en'])
 const LOCALE_COOKIE = 'captain_locale'
+const LOCALIZED_LEGACY_ROOTS = new Set(['about', 'blog', 'faq', 'contact'])
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -29,6 +30,21 @@ export function middleware(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-captain-maid-locale', routeLocale)
+
+  const legacyRoot = parts[1]
+  if (legacyRoot && LOCALIZED_LEGACY_ROOTS.has(legacyRoot)) {
+    const internalUrl = request.nextUrl.clone()
+    internalUrl.pathname = `/${parts.slice(1).join('/')}`
+    const response = NextResponse.rewrite(internalUrl, {
+      request: { headers: requestHeaders },
+    })
+    response.cookies.set(LOCALE_COOKIE, routeLocale, {
+      path: '/',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 365,
+    })
+    return response
+  }
 
   const response = NextResponse.next({
     request: { headers: requestHeaders },
