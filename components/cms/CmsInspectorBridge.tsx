@@ -48,15 +48,16 @@ function cssPath(element: Element) {
       parts.unshift(selector)
       break
     }
-    const classes = Array.from(current.classList).slice(0, 3).map((v) => `.${CSS.escape(v)}`).join('')
+    const classes = Array.from(current.classList).slice(0, 3).map((value: string) => `.${CSS.escape(value)}`).join('')
     if (classes) selector += classes
-    const parent = current.parentElement
-    if (parent) {
-      const siblings = Array.from(parent.children).filter((node) => node.tagName === current?.tagName)
-      if (siblings.length > 1) selector += `:nth-of-type(${siblings.indexOf(current) + 1})`
+    const parentElement: Element | null = current.parentElement
+    if (parentElement) {
+      const siblings: Element[] = Array.from(parentElement.children) as Element[]
+      const sameTag = siblings.filter((node: Element) => node.tagName === current!.tagName)
+      if (sameTag.length > 1) selector += `:nth-of-type(${sameTag.indexOf(current) + 1})`
     }
     parts.unshift(selector)
-    current = parent
+    current = parentElement
   }
   return parts.join(' > ')
 }
@@ -120,18 +121,13 @@ function collectElementContext(target: HTMLElement, context: InspectorContext) {
   const identity = identityFor(mappedElement(target), context)
   const source = sourceFor(target, context)
   return {
-    selector: cssPath(target),
-    tagName: target.tagName.toLowerCase(),
+    selector: cssPath(target), tagName: target.tagName.toLowerCase(),
     text: (target.innerText || target.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 1400),
-    attributes,
-    computed: computedSnapshot(target),
-    rect: rectSnapshot(target),
+    attributes, computed: computedSnapshot(target), rect: rectSnapshot(target),
     nearbyText: (target.parentElement?.innerText ?? '').replace(/\s+/g, ' ').trim().slice(0, 700),
     imageSource: target instanceof HTMLImageElement ? target.currentSrc || target.src || null : null,
     linkTarget: target instanceof HTMLAnchorElement ? target.href || null : null,
-    identity,
-    source,
-    wired: Boolean(identity || source),
+    identity, source, wired: Boolean(identity || source),
   }
 }
 
@@ -139,14 +135,12 @@ function ensureOverlay() {
   let highlight = document.getElementById(HIGHLIGHT_ID) as HTMLDivElement | null
   let label = document.getElementById(LABEL_ID) as HTMLDivElement | null
   if (!highlight) {
-    highlight = document.createElement('div')
-    highlight.id = HIGHLIGHT_ID
+    highlight = document.createElement('div'); highlight.id = HIGHLIGHT_ID
     Object.assign(highlight.style, { position: 'fixed', pointerEvents: 'none', zIndex: '2147483000', border: '2px solid #2563eb', background: 'rgba(37,99,235,.08)', boxSizing: 'border-box', display: 'none' })
     document.documentElement.append(highlight)
   }
   if (!label) {
-    label = document.createElement('div')
-    label.id = LABEL_ID
+    label = document.createElement('div'); label.id = LABEL_ID
     Object.assign(label.style, { position: 'fixed', pointerEvents: 'none', zIndex: '2147483001', padding: '5px 8px', borderRadius: '6px', background: '#111827', color: '#fff', font: '12px/1.35 ui-monospace,monospace', display: 'none', maxWidth: 'min(520px,calc(100vw - 16px))', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' })
     document.documentElement.append(label)
   }
@@ -154,8 +148,7 @@ function ensureOverlay() {
 }
 
 function showHighlight(element: HTMLElement) {
-  const { highlight, label } = ensureOverlay()
-  const rect = element.getBoundingClientRect()
+  const { highlight, label } = ensureOverlay(); const rect = element.getBoundingClientRect()
   Object.assign(highlight.style, { display: 'block', left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px` })
   label.textContent = `${element.tagName.toLowerCase()} · ${element.matches('[data-cms-instance], [data-cms-source-kind]') ? 'CMS' : 'Editable'} · ${cssPath(element)}`
   Object.assign(label.style, { display: 'block', left: `${Math.max(8, Math.min(window.innerWidth - 340, rect.left))}px`, top: `${Math.max(8, rect.top - 30)}px` })
@@ -185,13 +178,9 @@ function applyAllowedStylePatch(target: HTMLElement, patch: StylePatch) {
     }
     if ((key === 'objectPositionX' || key === 'objectPositionY') && target instanceof HTMLImageElement && typeof value === 'number') {
       const [x = '50%', y = '50%'] = (target.style.objectPosition || '50% 50%').split(/\s+/)
-      target.style.objectPosition = key === 'objectPositionX' ? `${value}% ${y}` : `${x} ${value}%`
-      continue
+      target.style.objectPosition = key === 'objectPositionX' ? `${value}% ${y}` : `${x} ${value}%`; continue
     }
-    if (key === 'imageZoom' && target instanceof HTMLImageElement && typeof value === 'number') {
-      target.style.transform = `scale(${Math.max(0.1, value)})`
-      continue
-    }
+    if (key === 'imageZoom' && target instanceof HTMLImageElement && typeof value === 'number') { target.style.transform = `scale(${Math.max(0.1, value)})`; continue }
     if (typeof value === 'string' || typeof value === 'number') (target.style as unknown as Record<string, string>)[key] = scalarStyleValue(key, value)
   }
 }
@@ -204,23 +193,14 @@ function findExactElement(selector: string) {
 function safeUrl(value: string) {
   if (!value || value.includes('\0')) return null
   if (value.startsWith('/') || value.startsWith('#') || value.startsWith('?')) return value
-  try {
-    const url = new URL(value, window.location.origin)
-    return url.protocol === 'http:' || url.protocol === 'https:' ? value : null
-  } catch { return null }
+  try { const url = new URL(value, window.location.origin); return url.protocol === 'http:' || url.protocol === 'https:' ? value : null } catch { return null }
 }
 
 function applyElementAttribute(target: HTMLElement, attribute: unknown, value: unknown) {
   if (typeof attribute !== 'string' || typeof value !== 'string' || value.length > 4096 || value.includes('\0')) return
   if (attribute === 'alt' && target instanceof HTMLImageElement) target.alt = value
-  if (attribute === 'href' && target instanceof HTMLAnchorElement) {
-    const next = safeUrl(value)
-    if (next !== null) target.setAttribute('href', next)
-  }
-  if (attribute === 'src' && target instanceof HTMLImageElement) {
-    const next = safeUrl(value)
-    if (next !== null) target.setAttribute('src', next)
-  }
+  if (attribute === 'href' && target instanceof HTMLAnchorElement) { const next = safeUrl(value); if (next !== null) target.setAttribute('href', next) }
+  if (attribute === 'src' && target instanceof HTMLImageElement) { const next = safeUrl(value); if (next !== null) target.setAttribute('src', next) }
 }
 
 export default function CmsInspectorBridge() {
@@ -228,12 +208,10 @@ export default function CmsInspectorBridge() {
     const params = new URLSearchParams(window.location.search)
     if (params.get('cmsInspector') !== '1') return
     let context: InspectorContext | null = null
-
     const post = (payload: Record<string, unknown>) => {
       if (!context || window.parent === window) return
       window.parent.postMessage({ ...payload, token: context.token }, CMS_PARENT_ORIGIN)
     }
-
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== CMS_PARENT_ORIGIN || event.source !== window.parent) return
       const message = event.data as Record<string, unknown> | null
@@ -241,8 +219,7 @@ export default function CmsInspectorBridge() {
       if (message.type === 'cms-inspector:init') {
         if (message.site !== 'captain-maid' || typeof message.token !== 'string' || typeof message.pageId !== 'string') return
         context = { token: message.token, pageId: message.pageId, locale: message.locale === 'en' ? 'en' : 'th' }
-        post({ type: 'cms-inspector:ready' })
-        return
+        post({ type: 'cms-inspector:ready' }); return
       }
       if (!context || message.token !== context.token) return
       if (message.type === 'cms-inspector:preview-element-style') {
@@ -268,7 +245,6 @@ export default function CmsInspectorBridge() {
       if (message.type === 'cms-inspector:preview-content' && typeof message.value === 'string') target.textContent = message.value
       if (message.type === 'cms-inspector:preview-style' && isRecord(message.patch)) applyAllowedStylePatch(target, message.patch)
     }
-
     const onMove = (event: MouseEvent) => {
       if (!context) return
       const target = event.target instanceof HTMLElement ? event.target : null
@@ -284,16 +260,12 @@ export default function CmsInspectorBridge() {
       post({ type: 'cms-inspector:selected', identity: elementContext.identity, rect: elementContext.rect, computed: elementContext.computed })
       showHighlight(target)
     }
-
     window.addEventListener('message', onMessage)
     document.addEventListener('mousemove', onMove, true)
     document.addEventListener('click', onClick, true)
     return () => {
-      window.removeEventListener('message', onMessage)
-      document.removeEventListener('mousemove', onMove, true)
-      document.removeEventListener('click', onClick, true)
-      document.getElementById(HIGHLIGHT_ID)?.remove()
-      document.getElementById(LABEL_ID)?.remove()
+      window.removeEventListener('message', onMessage); document.removeEventListener('mousemove', onMove, true); document.removeEventListener('click', onClick, true)
+      document.getElementById(HIGHLIGHT_ID)?.remove(); document.getElementById(LABEL_ID)?.remove()
     }
   }, [])
   return null
