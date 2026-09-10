@@ -13,6 +13,7 @@ type NavItem = {
   key: string
   href: string
   items?: { key: string; href: string }[]
+  expandOnly?: boolean
 }
 
 const NAV: NavItem[] = [
@@ -33,6 +34,7 @@ const NAV: NavItem[] = [
   {
     key: 'solutions',
     href: '/blog',
+    expandOnly: true,
     items: [
       { key: 'clogs', href: '/blog?topic=clogs' },
       { key: 'dirt', href: '/blog?topic=dirt-grime' },
@@ -211,7 +213,7 @@ export function Header() {
 
             <nav className="hidden flex-1 items-center justify-center gap-1 xl:flex" aria-label={locale === 'th' ? 'เมนูหลัก' : 'Primary navigation'}>
               {NAV.map((item) => {
-                const active = item.key !== 'solutions' && isPathActive(item.href)
+                const active = !item.expandOnly && isPathActive(item.href)
                 const expanded = openMenu === item.key
                 const adaptiveNav = useDarkControls
                   ? active
@@ -220,12 +222,20 @@ export function Header() {
                   : active
                     ? 'text-[#002d5f] bg-[#002d5f]/10'
                     : 'text-[#002d5f] hover:bg-[#002d5f]/10'
+                const navItemClass = `group relative flex min-h-11 items-center gap-1 rounded-lg px-3.5 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] transition-all duration-200 hover:scale-[1.03] ${adaptiveNav}`
                 return (
                   <div key={item.key} className="relative" onMouseEnter={() => item.items && openDesktopMenu(item.key)} onMouseLeave={scheduleClose} onFocus={() => item.items && openDesktopMenu(item.key)}>
-                    <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} aria-expanded={item.items ? expanded : undefined} aria-controls={item.items ? menuId(item.key) : undefined} className={`group relative flex min-h-11 items-center gap-1 rounded-lg px-3.5 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] transition-all duration-200 hover:scale-[1.03] ${adaptiveNav}`}>
-                      {labels[item.key]}
-                      {item.items && <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />}
-                    </Link>
+                    {item.expandOnly ? (
+                      <button type="button" aria-expanded={expanded} aria-controls={menuId(item.key)} onClick={() => setOpenMenu(expanded ? null : item.key)} className={navItemClass}>
+                        {labels[item.key]}
+                        <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    ) : (
+                      <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} aria-expanded={item.items ? expanded : undefined} aria-controls={item.items ? menuId(item.key) : undefined} className={navItemClass}>
+                        {labels[item.key]}
+                        {item.items && <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />}
+                      </Link>
+                    )}
                     {item.items && expanded && (
                       <div id={menuId(item.key)} className="absolute left-0 top-full z-50 pt-2" onMouseEnter={() => openDesktopMenu(item.key)} onMouseLeave={scheduleClose}>
                         <div className="min-w-[270px] overflow-hidden rounded-2xl border border-[#dce7ef] bg-white p-2 shadow-[0_20px_55px_rgba(0,45,95,0.16)]">
@@ -254,12 +264,21 @@ export function Header() {
           <div className="absolute right-0 top-0 h-full w-full max-w-[420px] overflow-y-auto border-l border-[#dce7ef] bg-white px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-5 shadow-2xl">
             <nav className="flex flex-col gap-1" aria-label={locale === 'th' ? 'เมนูมือถือ' : 'Mobile navigation'}>
               {NAV.map((item) => {
-                const active = item.key !== 'solutions' && isPathActive(item.href)
+                const active = !item.expandOnly && isPathActive(item.href)
                 const expanded = openMenu === item.key
                 return <div key={item.key} className="border-b border-[#edf2f6] py-1">
                   <div className="flex min-h-12 items-center gap-2">
-                    <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} className={`flex min-h-11 flex-1 items-center rounded-lg px-3 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] ${active ? 'bg-[#e6f3fa] text-[#006cad]' : 'text-[#31495d] hover:bg-[#f2f8fc]'}`} onClick={() => setMobileOpen(false)}>{labels[item.key]}</Link>
-                    {item.items && <button type="button" aria-label={`${expanded ? 'Collapse' : 'Expand'} ${labels[item.key]}`} aria-expanded={expanded} onClick={() => setOpenMenu(expanded ? null : item.key)} className="flex h-11 w-11 items-center justify-center rounded-lg text-[#40596d] hover:bg-[#e6f3fa]"><ChevronDown className={`h-5 w-5 transition-transform ${expanded ? 'rotate-180' : ''}`} /></button>}
+                    {item.expandOnly ? (
+                      <button type="button" aria-expanded={expanded} onClick={() => setOpenMenu(expanded ? null : item.key)} className="flex min-h-11 flex-1 items-center justify-between rounded-lg px-3 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] text-[#31495d] hover:bg-[#f2f8fc]">
+                        <span>{labels[item.key]}</span>
+                        <ChevronDown className={`h-5 w-5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                      </button>
+                    ) : (
+                      <>
+                        <Link href={localize(item.href)} aria-current={active ? 'page' : undefined} className={`flex min-h-11 flex-1 items-center rounded-lg px-3 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] ${active ? 'bg-[#e6f3fa] text-[#006cad]' : 'text-[#31495d] hover:bg-[#f2f8fc]'}`} onClick={() => setMobileOpen(false)}>{labels[item.key]}</Link>
+                        {item.items && <button type="button" aria-label={`${expanded ? 'Collapse' : 'Expand'} ${labels[item.key]}`} aria-expanded={expanded} onClick={() => setOpenMenu(expanded ? null : item.key)} className="flex h-11 w-11 items-center justify-center rounded-lg text-[#40596d] hover:bg-[#e6f3fa]"><ChevronDown className={`h-5 w-5 transition-transform ${expanded ? 'rotate-180' : ''}`} /></button>}
+                      </>
+                    )}
                   </div>
                   {item.items && expanded && <div className="pb-2 pl-3">{item.items.map((sub) => <Link key={sub.key} href={localize(sub.href)} className="block min-h-11 rounded-lg px-4 py-2.5 text-[15px] font-normal tracking-[-0.01em] [text-rendering:geometricPrecision] text-[#536b7d] hover:bg-[#e6f3fa]" onClick={() => setMobileOpen(false)}>{labels[sub.key]}</Link>)}</div>}
                 </div>
