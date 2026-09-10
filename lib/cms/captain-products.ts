@@ -1,6 +1,6 @@
 import { unstable_cache } from 'next/cache'
 import { cmsClient } from '@/lib/cms/client'
-import { PRODUCTS, type CaptainProduct, type Localized, type ProductCategory } from '@/lib/captain-products'
+import { PRODUCTS, type CaptainProduct, type CaptainProductSeo, type Localized, type ProductCategory } from '@/lib/captain-products'
 import type { Locale } from '@/types/cms'
 
 type LocalizedInput = string | { th?: string; en?: string } | null | undefined
@@ -16,6 +16,13 @@ interface PayloadRelation {
   name?: LocalizedInput
 }
 
+interface PayloadSeo {
+  metaTitle?: LocalizedInput
+  metaDescription?: LocalizedInput
+  ogImage?: string | PayloadMedia
+  noIndex?: boolean
+}
+
 interface PayloadProduct {
   id?: string
   name?: LocalizedInput
@@ -29,6 +36,7 @@ interface PayloadProduct {
   category?: string | PayloadRelation
   technology?: Array<{ value?: LocalizedInput }>
   safetyRemark?: LocalizedInput
+  seo?: PayloadSeo
 }
 
 interface PayloadProductsResponse {
@@ -100,6 +108,20 @@ function imageUrl(image: string | PayloadMedia | undefined): string {
   return image?.url || '/images/product-floor.png'
 }
 
+function optionalImageUrl(image: string | PayloadMedia | undefined): string | undefined {
+  if (typeof image === 'string') return image || undefined
+  return image?.url || undefined
+}
+
+function seo(value: PayloadSeo | undefined): CaptainProductSeo | undefined {
+  if (!value) return undefined
+  const metaTitle = value.metaTitle ? localized(value.metaTitle) : undefined
+  const metaDescription = value.metaDescription ? localized(value.metaDescription) : undefined
+  const ogImage = optionalImageUrl(value.ogImage)
+  if (!metaTitle && !metaDescription && !ogImage && !value.noIndex) return undefined
+  return { metaTitle, metaDescription, ogImage, noIndex: value.noIndex }
+}
+
 export function adaptCaptainProduct(record: PayloadProduct): CaptainProduct {
   const name = localized(record.name, 'Captain Maid product')
   const intro = localizedRichText(record.intro)
@@ -122,6 +144,7 @@ export function adaptCaptainProduct(record: PayloadProduct): CaptainProduct {
     benefits,
     suitableFor: { en: suitableFor.en.join(' • '), th: suitableFor.th.join(' • ') },
     freeFrom: record.freeFrom,
+    seo: seo(record.seo),
   }
 }
 

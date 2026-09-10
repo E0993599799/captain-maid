@@ -21,6 +21,13 @@ export interface LocalizedList {
   th: string[]
 }
 
+export interface CaptainProductSeo {
+  metaTitle?: Localized
+  metaDescription?: Localized
+  ogImage?: string
+  noIndex?: boolean
+}
+
 export interface CaptainProduct {
   id: string
   category: ProductCategory
@@ -36,6 +43,7 @@ export interface CaptainProduct {
   benefits: LocalizedList
   suitableFor: Localized
   freeFrom?: string[]
+  seo?: CaptainProductSeo
 }
 
 export const CATEGORIES: { id: ProductCategory | 'all'; label: Localized }[] = [
