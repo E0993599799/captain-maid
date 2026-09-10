@@ -72,15 +72,16 @@ function richTextToString(value: unknown): string {
   return children.map(richTextToString).filter(Boolean).join(' ')
 }
 
-function localizedRichText(value: unknown): Localized {
+function localizedRichText(value: unknown, fallback: Localized): Localized {
   if (typeof value === 'object' && value !== null) {
     const record = value as Record<string, unknown>
     return localized({
-      th: richTextToString(record.th),
-      en: richTextToString(record.en),
+      th: richTextToString(record.th) || fallback.th,
+      en: richTextToString(record.en) || fallback.en,
     })
   }
-  return localized(richTextToString(value))
+  const text = richTextToString(value)
+  return text ? localized(text) : fallback
 }
 
 function list(values: Array<{ value?: LocalizedInput }> | undefined, fallback: Localized): { en: string[]; th: string[] } {
@@ -124,7 +125,10 @@ function seo(value: PayloadSeo | undefined): CaptainProductSeo | undefined {
 
 export function adaptCaptainProduct(record: PayloadProduct): CaptainProduct {
   const name = localized(record.name, 'Captain Maid product')
-  const intro = localizedRichText(record.intro)
+  const intro = localizedRichText(record.intro, {
+    th: 'ผลิตภัณฑ์ทำความสะอาดคุณภาพดีจาก Captain Maid เพื่อบ้านที่สะอาดและปลอดภัยยิ่งขึ้น',
+    en: 'A trusted Captain Maid cleaning product for a cleaner, safer home.',
+  })
   const benefits = list(record.keyBenefits, { th: 'คุณภาพที่ไว้ใจได้สำหรับบ้านทุกวัน', en: 'A trusted clean for everyday homes' })
   const suitableFor = list(record.suitableFor, { th: 'พื้นผิวทั่วไปภายในบ้าน', en: 'Everyday surfaces around the home' })
   const technology = list(record.technology, { th: '', en: '' })
