@@ -28,7 +28,24 @@ export async function ProductDetailPage({ params, locale = 'th' }: PageProps & {
   const product = await getCaptainProduct(id, locale)
   if (!product) notFound()
 
-  return <ProductDetail product={product} initialLocale={locale} />
+  return (
+    <>
+      <ProductDetail product={product} initialLocale={locale} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: `${product.name[locale]} ${product.size}`.trim(),
+            description: product.seo?.metaDescription?.[locale] || product.intro[locale][0] || `${product.name[locale]} ${product.size}`.trim(),
+            image: product.image,
+            brand: { '@type': 'Brand', name: 'Captain Maid' },
+          }),
+        }}
+      />
+    </>
+  )
 }
 
 export default ProductDetailPage
