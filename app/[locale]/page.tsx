@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import HomePage from '@/app/page'
+import { getCmsPage } from '@/lib/cms/pages'
 import { localizedMetadata } from './seo'
 
 type Locale = 'th' | 'en'
@@ -30,28 +31,28 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const { locale } = await params
   if (!(locale in copy)) return {}
   const selected = copy[locale as Locale]
+  const cmsPage = await getCmsPage('home', locale as Locale, [])
+  const cmsSeo = cmsPage?.seo
+  const title = cmsSeo?.title?.[locale as Locale] || selected.title
+  const description = cmsSeo?.description?.[locale as Locale] || selected.description
 
   return {
     ...localizedMetadata(locale as Locale),
-    ...selected,
+    title,
+    description,
     openGraph: {
       locale: locale === 'en' ? 'en_US' : 'th_TH',
-      title: selected.title,
-      description: selected.description,
-      images: [
-        {
-          url: '/og-image.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'Captain Maid – Easy Home Cleaning for Better Living',
-        },
-      ],
+      title,
+      description,
+      ...(cmsSeo?.ogImage?.url ? { images: [{ url: cmsSeo.ogImage.url }] } : { images: ['/og-image.jpg'] }),
     },
+    ...(cmsSeo?.canonicalUrl ? { alternates: { canonical: cmsSeo.canonicalUrl } } : {}),
+    ...(cmsSeo?.robotsIndex === false ? { robots: { index: false } } : {}),
     twitter: {
       card: 'summary_large_image',
-      title: selected.title,
-      description: selected.description,
-      images: ['/og-image.jpg'],
+      title,
+      description,
+      images: cmsSeo?.ogImage?.url ? [cmsSeo.ogImage.url] : ['/og-image.jpg'],
     },
   }
 }
