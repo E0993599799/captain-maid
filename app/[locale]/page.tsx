@@ -36,7 +36,10 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const cmsSeo = cmsPage?.seo
   const title = cmsSeo?.title?.[locale as Locale] || selected.title
   const description = cmsSeo?.description?.[locale as Locale] || selected.description
-  const canonicalUrl = cmsSeo?.canonicalUrl?.startsWith('/') && !cmsSeo.canonicalUrl.startsWith('//')
+  const canonicalUrl = cmsSeo?.canonicalUrl &&
+    cmsSeo.canonicalUrl.startsWith('/') &&
+    !cmsSeo.canonicalUrl.startsWith('//') &&
+    !/[\\\u0000-\u001f\u007f]/.test(cmsSeo.canonicalUrl)
     ? cmsSeo.canonicalUrl
     : undefined
   const baseAlternates = baseMetadata.alternates || {}
