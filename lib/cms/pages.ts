@@ -22,6 +22,20 @@ export function resolvePageLayout(
     : (page.layout || page.blocks || staticFallback)
 }
 
+export async function getCmsPageMetadata(
+  slug: string,
+  locale: Locale,
+  client: CmsPageClient = cmsClient,
+): Promise<Pick<ResolvedCmsPage, 'title' | 'seo'> | null> {
+  try {
+    const pageResponse = await client.getPage(slug, locale, { timeout: 10000 })
+    const page = pageResponse.docs?.[0]
+    return page ? { title: page.title, seo: page.seo } : null
+  } catch {
+    return null
+  }
+}
+
 export async function getCmsPage(
   slug: string,
   locale: Locale,

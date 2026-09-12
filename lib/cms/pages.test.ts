@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { getCmsPageLayout, resolvePageLayout, type CmsPageClient } from './pages'
+import { getCmsPageLayout, getCmsPageMetadata, resolvePageLayout, type CmsPageClient } from './pages'
 import type { CMSPage, CmsSection } from '../../types/cms'
 
 const block = (id: string) => ({ id, type: 'hero', data: {} })
@@ -28,6 +28,19 @@ test('CMS failure uses the static fallback', async () => {
   }
   assert.deepEqual(await getCmsPageLayout('home', 'en', [block('static')], client), [block('static')])
 })
+
+test('CMS metadata does not depend on section loading', async () => {
+  const pageWithSeo: CMSPage = {
+    ...page,
+    seo: { title: { en: 'CMS title' }, description: { en: 'CMS description' } },
+  }
+  const client: CmsPageClient = {
+    getPage: async () => ({ docs: [pageWithSeo] }),
+    getSections: async () => { throw new Error('sections should not be loaded') },
+  }
+  assert.deepEqual(await getCmsPageMetadata('home', 'en', client), { title: {}, seo: pageWithSeo.seo })
+})
+
 
 test('locale is forwarded to section loading', async () => {
   let requestedLocale = ''
