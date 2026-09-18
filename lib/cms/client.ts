@@ -164,11 +164,34 @@ class CMSClient {
   }
 
   async getArticles(filters: { locale?: Locale; limit?: number; page?: number } = {}, options: RequestOptions = {}) {
-    return this.restGet("articles", { where: { site: { equals: this.siteSlug }, status: { equals: "published" } }, limit: filters.limit || 10, page: filters.page || 1, sort: "-publishedAt" }, options);
+    return this.restGet("posts", {
+      where: {
+        site: { equals: this.siteSlug },
+        postType: { equals: "article" },
+        _status: { equals: "published" },
+      },
+      locale: filters.locale || "th",
+      fallbackLocale: "en",
+      depth: 1,
+      limit: filters.limit || 10,
+      page: filters.page || 1,
+      sort: "-publishedAt",
+    }, options);
   }
 
-  async getArticle(slug: string, options: RequestOptions = {}) {
-    return this.restGet("articles", { where: { site: { equals: this.siteSlug }, slug: { equals: slug }, status: { equals: "published" } }, limit: 1 }, options);
+  async getArticle(slug: string, locale: Locale = "th", options: RequestOptions = {}) {
+    return this.restGet("posts", {
+      where: {
+        site: { equals: this.siteSlug },
+        postType: { equals: "article" },
+        slug: { equals: slug },
+        _status: { equals: "published" },
+      },
+      locale,
+      fallbackLocale: "en",
+      depth: 1,
+      limit: 1,
+    }, options);
   }
 
   async getNavigation(locale: Locale = "th", options: RequestOptions = {}) {
