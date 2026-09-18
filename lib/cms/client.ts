@@ -175,7 +175,7 @@ class CMSClient {
       depth: 1,
       limit: filters.limit || 10,
       page: filters.page || 1,
-      sort: "-publishedAt",
+      sort: "-publishedDate",
     }, options);
   }
 
