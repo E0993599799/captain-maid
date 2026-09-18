@@ -38,17 +38,19 @@ export function mapCmsBlogPost(raw: RawPost, locale: Locale = 'th'): BlogPost | 
     slug,
     title,
     excerpt: localized(raw.excerpt, locale),
-    category: Array.isArray(raw.categories) && raw.categories[0]
-      ? localized(raw.categories[0].name, locale) || String(raw.categories[0].slug || '')
+    category: typeof raw.newsCategory === 'string' && raw.newsCategory.trim()
+      ? raw.newsCategory.trim()
       : 'Blog',
-    author: typeof raw.author === 'object' && raw.author?.name ? String(raw.author.name) : 'Captain Maid',
+    author: 'Captain Maid',
     readTime: Number.isFinite(Number(raw.readTime)) ? Number(raw.readTime) : 1,
-    publishedAt: typeof raw.publishedAt === 'string' ? raw.publishedAt : String(raw.updatedAt || raw.createdAt || ''),
-    content: raw.content ?? null,
-    heroImage: media(raw.heroImage),
+    publishedAt: typeof raw.publishedDate === 'string'
+      ? raw.publishedDate
+      : String(raw.updatedAt || raw.createdAt || ''),
+    content: raw.body ?? null,
+    heroImage: media(raw.coverImage),
     seo: raw.seo ? {
-      title: localized(raw.seo.title, locale),
-      description: localized(raw.seo.description, locale),
+      title: localized(raw.seo.metaTitle, locale),
+      description: localized(raw.seo.metaDescription, locale),
     } : undefined,
   }
 }
