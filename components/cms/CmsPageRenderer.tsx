@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { CmsRichText } from './CmsRichText'
 
-type CmsBlock = { id?: string; blockType?: string; type?: string; [key: string]: unknown }
+type CmsBlock = any
 
 type Localized = string | { th?: string; en?: string } | null | undefined
 
@@ -31,6 +31,7 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
   const type = blockType(block)
   const title = localized(block.title as Localized, locale)
   const body = block.body ?? block.content
+  const hasBody = body !== null && body !== undefined && body !== ''
   const image = block.image
   const imageSrc = mediaUrl(image)
   const imageAlt = mediaAlt(image, locale)
@@ -42,8 +43,8 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
         <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-captain-yellow">{localized(block.eyebrow as Localized, locale)}</p>
           <h1 className="mt-4 max-w-4xl text-4xl font-serif font-bold sm:text-6xl">{localized(block.headline as Localized, locale)}</h1>
-          {body && <div className="mt-6 max-w-2xl text-lg leading-8"><CmsRichText value={body} /></div>}
-          {block.ctaUrl && <Link href={String(block.ctaUrl)} className="mt-8 inline-flex rounded-sm bg-captain-yellow px-6 py-3 font-semibold text-captain-text">{localized(block.ctaLabel as Localized, locale)}</Link>}
+          {hasBody && <div className="mt-6 max-w-2xl text-lg leading-8"><CmsRichText value={body} /></div>}
+          {Boolean(block.ctaUrl) && <Link href={String(block.ctaUrl)} className="mt-8 inline-flex rounded-sm bg-captain-yellow px-6 py-3 font-semibold text-captain-text">{localized(block.ctaLabel as Localized, locale)}</Link>}
         </div>
       </section>
     )
@@ -72,7 +73,7 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
   }
 
   if (type === 'ctaBanner' || type === 'newsletterSignup') {
-    return <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8"><div className="rounded-sm bg-captain-blue px-8 py-12 text-center text-white"><h2 className="text-3xl font-serif font-bold">{title || localized(block.headline as Localized, locale)}</h2><p className="mx-auto mt-4 max-w-2xl text-white/80">{localized(block.body as Localized, locale)}</p>{block.ctaUrl && <Link href={String(block.ctaUrl)} className="mt-7 inline-flex rounded-sm bg-captain-yellow px-5 py-3 font-semibold text-captain-text">{localized(block.ctaLabel as Localized, locale)}</Link>}</div></section>
+    return <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8"><div className="rounded-sm bg-captain-blue px-8 py-12 text-center text-white"><h2 className="text-3xl font-serif font-bold">{title || localized(block.headline as Localized, locale)}</h2><p className="mx-auto mt-4 max-w-2xl text-white/80">{localized(block.body as Localized, locale)}</p>{Boolean(block.ctaUrl) && <Link href={String(block.ctaUrl)} className="mt-7 inline-flex rounded-sm bg-captain-yellow px-5 py-3 font-semibold text-captain-text">{localized(block.ctaLabel as Localized, locale)}</Link>}</div></section>
   }
 
   if (type === 'categoryCards' || type === 'brandGrid' || type === 'solutionGrid' || type === 'newsFeed' || type === 'testimonialCarousel') {
@@ -83,6 +84,6 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
   return null
 }
 
-export function CmsPageRenderer({ blocks, locale }: { blocks: CmsBlock[]; locale: 'th' | 'en' }) {
+export function CmsPageRenderer({ blocks, locale }: { blocks: any[]; locale: 'th' | 'en' }) {
   return <main className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark">{blocks.map((block, index) => <Block key={block.id || index} block={block} locale={locale} />)}</main>
 }
