@@ -56,7 +56,7 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
         <div className={block.imagePosition === 'left' ? 'lg:order-2' : ''}>
           <p className="text-sm font-bold uppercase tracking-[0.16em] text-captain-blue">{localized(block.eyebrow as Localized, locale)}</p>
           <CmsRichText value={body} />
-          <div className="mt-6 flex flex-wrap gap-3">{Array.isArray(block.links) && block.links.map((link: any, index) => <Link key={link?.id || index} href={String(link?.url || '#')} className="rounded-sm bg-captain-yellow px-5 py-3 font-semibold text-captain-text">{localized(link?.label, locale)}</Link>)}</div>
+          <div className="mt-6 flex flex-wrap gap-3">{Array.isArray(block.links) && block.links.map((link: any, index: number) => <Link key={link?.id || index} href={String(link?.url || '#')} className="rounded-sm bg-captain-yellow px-5 py-3 font-semibold text-captain-text">{localized(link?.label, locale)}</Link>)}</div>
         </div>
         {imageSrc && <img src={imageSrc} alt={imageAlt} className="aspect-[4/3] w-full rounded-sm object-cover" />}
       </section>
@@ -65,7 +65,7 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
 
   if (type === 'valueProps' || type === 'trustStats') {
     const items = Array.isArray(block.items) ? block.items : []
-    return <section className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">{items.map((item: any, index) => <article key={item?.id || index} className="rounded-sm bg-captain-light p-6"><p className="text-2xl font-bold text-captain-blue">{item?.value}</p><h2 className="mt-2 text-lg font-semibold text-captain-text">{localized(item?.title || item?.label, locale)}</h2><p className="mt-2 text-captain-neutral">{localized(item?.body, locale)}</p></article>)}</section>
+    return <section className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">{items.map((item: any, index: number) => <article key={item?.id || index} className="rounded-sm bg-captain-light p-6"><p className="text-2xl font-bold text-captain-blue">{item?.value}</p><h2 className="mt-2 text-lg font-semibold text-captain-text">{localized(item?.title || item?.label, locale)}</h2><p className="mt-2 text-captain-neutral">{localized(item?.body, locale)}</p></article>)}</section>
   }
 
   if (type === 'richTextSection') {
@@ -78,7 +78,7 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
 
   if (type === 'categoryCards' || type === 'brandGrid' || type === 'solutionGrid' || type === 'newsFeed' || type === 'testimonialCarousel') {
     const items = Array.isArray(block.items) ? block.items : []
-    return <section className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-6 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">{items.map((item: any, index) => { const name = localized(item?.name || item?.title || item?.quote, locale); const href = item?.slug ? `/products/${item.slug}` : undefined; return <article key={item?.id || index} className="rounded-sm border border-captain-light bg-white p-6"><h2 className="text-xl font-serif font-bold text-captain-blue">{name || `Item ${index + 1}`}</h2>{item?.description && <p className="mt-3 text-captain-neutral">{localized(item.description, locale)}</p>}{href && <Link href={href} className="mt-5 inline-block font-semibold text-captain-blue">{locale === 'th' ? 'ดูรายละเอียด →' : 'View details →'}</Link>}</article> })}</section>
+    return <section className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-6 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">{items.map((item: any, index: number) => { const name = localized(item?.name || item?.title || item?.quote, locale); const href = item?.slug ? `/products/${item.slug}` : undefined; return <article key={item?.id || index} className="rounded-sm border border-captain-light bg-white p-6"><h2 className="text-xl font-serif font-bold text-captain-blue">{name || `Item ${index + 1}`}</h2>{item?.description && <p className="mt-3 text-captain-neutral">{localized(item.description, locale)}</p>}{href && <Link href={href} className="mt-5 inline-block font-semibold text-captain-blue">{locale === 'th' ? 'ดูรายละเอียด →' : 'View details →'}</Link>}</article> })}</section>
   }
 
   return null
