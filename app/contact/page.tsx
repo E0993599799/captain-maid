@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { CONTACT_INFO } from '@/lib/contact'
+import { getCmsPage } from '@/lib/cms/pages'
+import { CmsPageRenderer } from '@/components/cms/CmsPageRenderer'
 
 export const metadata: Metadata = {
   title: 'Contact | Captain Maid',
@@ -35,6 +37,8 @@ const COPY = {
 export default async function ContactPage() {
   const requestHeaders = await headers()
   const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  const cmsPage = await getCmsPage('contact', locale, [])
+  if (cmsPage?.layout.length) return <CmsPageRenderer blocks={cmsPage.layout} locale={locale} />
   const t = COPY[locale]
   const hasContact = Boolean(CONTACT_INFO.email || CONTACT_INFO.phone || CONTACT_INFO.address)
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL

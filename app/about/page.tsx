@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Check, Leaf, Beaker, Heart } from 'lucide-react'
+import { getCmsPage } from '@/lib/cms/pages'
+import { CmsPageRenderer } from '@/components/cms/CmsPageRenderer'
 
 export const metadata: Metadata = {
   title: 'About Captain Maid | Our Story & Mission',
@@ -13,7 +15,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const cmsPage = await getCmsPage('about', 'th', [])
+  if (cmsPage?.layout.length) return <CmsPageRenderer blocks={cmsPage.layout} locale="th" />
   return (
     <div className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
       <div className="container-safe">

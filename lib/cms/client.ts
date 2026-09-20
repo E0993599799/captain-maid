@@ -195,11 +195,15 @@ class CMSClient {
   }
 
   async getNavigation(locale: Locale = "th", options: RequestOptions = {}) {
-    return this.restGet("navigation", { where: { site: { equals: this.siteSlug }, locale: { equals: locale } }, limit: 1 }, options);
+    return this.restGet("navigation", {
+      where: { site: { equals: this.siteSlug }, menuKey: { equals: "header" } },
+      locale,
+      limit: 1,
+    }, options);
   }
 
   async getSiteSettings(locale: Locale = "th", options: RequestOptions = {}) {
-    return this.restGet("site-settings", { where: { site: { equals: this.siteSlug }, locale: { equals: locale } }, limit: 1 }, options);
+    return this.restGet("site-settings", { where: { site: { equals: this.siteSlug }, }, locale, limit: 1 }, options);
   }
 
   async submitForm(formType: string, data: Record<string, unknown>, options: RequestOptions = {}) {

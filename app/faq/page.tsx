@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { getCmsPage } from '@/lib/cms/pages'
+import { CmsPageRenderer } from '@/components/cms/CmsPageRenderer'
 
 export const metadata: Metadata = {
   title: 'FAQ | Frequently Asked Questions | Captain Maid',
@@ -66,7 +68,9 @@ const faqCategories = [
   },
 ]
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  const cmsPage = await getCmsPage('faq', 'th', [])
+  if (cmsPage?.layout.length) return <CmsPageRenderer blocks={cmsPage.layout} locale="th" />
   return (
     <div className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
       <div className="container-safe">
