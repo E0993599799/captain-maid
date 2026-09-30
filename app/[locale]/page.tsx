@@ -67,5 +67,5 @@ export default async function LocalePage({ params }: LocalePageProps) {
     const homeHero = await getCaptainMaidHomeHero()
     return <CmsPageRenderer blocks={cmsPage.layout} locale={locale as Locale} heroSlides={homeHero?.slides} />
   }
-  return <HomePage locale={locale as Locale} />
+  return <HomePage />
 }
