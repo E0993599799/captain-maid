@@ -4,6 +4,7 @@ import HomePage from '@/app/page'
 import { localizedMetadata } from './seo'
 import { getCmsPage } from '@/lib/cms/pages'
 import { CmsPageRenderer } from '@/components/cms/CmsPageRenderer'
+import { getCaptainMaidHomeHero } from '@/lib/cms/home-hero'
 
 type Locale = 'th' | 'en'
 
@@ -63,7 +64,8 @@ export default async function LocalePage({ params }: LocalePageProps) {
   if (!(locale in copy)) notFound()
   const cmsPage = await getCmsPage('home', locale as Locale, [])
   if (cmsPage?.layout.length) {
-    return <CmsPageRenderer blocks={cmsPage.layout} locale={locale as Locale} />
+    const homeHero = await getCaptainMaidHomeHero()
+    return <CmsPageRenderer blocks={cmsPage.layout} locale={locale as Locale} heroSlides={homeHero?.slides} />
   }
   return <HomePage />
 }
