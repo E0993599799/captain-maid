@@ -7,6 +7,7 @@ import FeaturedProducts from '@/components/home/FeaturedProducts'
 import TrustBanner from '@/components/home/TrustBanner'
 import WhyCaptainMaid from '@/components/home/WhyCaptainMaid'
 import BlogTestimonial from '@/components/home/BlogTestimonial'
+import { getCaptainMaidHomeHero } from '@/lib/cms/home-hero'
 
 export const metadata: Metadata = {
   title: 'Captain Maid | Easy Home Cleaning for Better Living',
@@ -33,7 +34,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [homeHero] = await Promise.all([
+    getCaptainMaidHomeHero(),
+  ])
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const brandSchema = {
     '@context': 'https://schema.org',
@@ -50,7 +54,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
       />
-      <HeroSlider />
+      <HeroSlider cmsSlides={homeHero?.slides} />
       <ValueProps />
       <SolutionsGrid />
       <SolutionsDeepDive />
