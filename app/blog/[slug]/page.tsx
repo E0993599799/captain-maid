@@ -1,15 +1,19 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { headers } from 'next/headers'
 import { CmsRichText } from '@/components/cms/CmsRichText'
 import { getBlogPost } from '@/lib/cms/blog'
 
 interface BlogPostProps { params: Promise<{ slug: string }> }
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
   const { slug } = await params
-  const post = await getBlogPost(slug, 'th')
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  const post = await getBlogPost(slug, locale)
   if (!post) return { title: 'Post Not Found', robots: { index: false, follow: false } }
   return {
     title: post.seo?.title || `${post.title} | Captain Maid Blog`,
@@ -20,16 +24,18 @@ export async function generateMetadata({ params }: BlogPostProps): Promise<Metad
 
 export default async function BlogPostPage({ params }: BlogPostProps) {
   const { slug } = await params
-  const post = await getBlogPost(slug, 'th')
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  const post = await getBlogPost(slug, locale)
   if (!post) notFound()
   return (
     <main className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
       <div className="container-safe">
-        <Link href="/blog" className="inline-flex items-center text-captain-blue hover:text-captain-blue-dark mb-2xl">← Back to Blog</Link>
+        <Link href={`/${locale}/blog`} className="inline-flex items-center text-captain-blue hover:text-captain-blue-dark mb-2xl">← Back to Blog</Link>
         {post.heroImage ? <img src={post.heroImage.url} alt={post.heroImage.alt || post.title} className="w-full aspect-video object-cover rounded-sm mb-2xl" /> : null}
         <div className="flex flex-wrap items-center gap-lg mb-lg text-sm text-captain-neutral">
           <span className="px-sm py-xs bg-captain-blue text-white rounded text-xs font-semibold uppercase">{post.category}</span>
-          {post.publishedAt ? <time dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('th-TH')}</time> : null}
+          {post.publishedAt ? <time dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString(locale === 'en' ? 'en-US' : 'th-TH')}</time> : null}
           <span>{post.readTime} min read</span><span>By {post.author}</span>
         </div>
         <h1 className="text-5xl font-serif font-bold mb-2xl text-captain-text">{post.title}</h1>

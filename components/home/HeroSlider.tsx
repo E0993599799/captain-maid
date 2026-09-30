@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import type { CaptainMaidHeroSlide } from '@/lib/builder-home-hero'
+import type { CaptainMaidHeroSlide } from '@/lib/cms/home-hero'
 
 /** Hero slider — art-directed presentation across mobile, tablet, and desktop. */
 const fallbackSlides: CaptainMaidHeroSlide[] = [
@@ -36,7 +36,13 @@ const fallbackSlides: CaptainMaidHeroSlide[] = [
   },
 ]
 
-export default function HeroSlider({ slides = fallbackSlides }: { slides?: CaptainMaidHeroSlide[] }) {
+export default function HeroSlider({ cmsSlides }: { cmsSlides?: CaptainMaidHeroSlide[] | null }) {
+  const slides = React.useMemo(() => {
+    if (!cmsSlides?.length) return fallbackSlides
+    const valid = cmsSlides.filter((slide) => slide.desktop || slide.tablet || slide.mobile)
+    return valid.length > 0 ? valid : fallbackSlides
+  }, [cmsSlides])
+
   const [current, setCurrent] = React.useState(0)
   const [paused, setPaused] = React.useState(false)
   const [reducedMotion, setReducedMotion] = React.useState(false)
@@ -55,7 +61,7 @@ export default function HeroSlider({ slides = fallbackSlides }: { slides?: Capta
       setCurrent((prev) => (prev + 1) % slides.length)
     }, 8000)
     return () => clearInterval(timer)
-  }, [paused, reducedMotion])
+  }, [paused, reducedMotion, slides.length])
 
   const goPrev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)
   const goNext = () => setCurrent((prev) => (prev + 1) % slides.length)
@@ -76,7 +82,7 @@ export default function HeroSlider({ slides = fallbackSlides }: { slides?: Capta
         <div
           key={slide.id}
           className={`absolute inset-0 ${reducedMotion ? '' : 'transition-opacity duration-700'} ${
-            slide.id === 'brand-hero' ? '' : 'pt-[76px]'
+            i === 0 ? '' : 'pt-[76px]'
           }`}
           style={{ opacity: i === current ? 1 : 0 }}
           aria-hidden={i !== current}
@@ -88,10 +94,10 @@ export default function HeroSlider({ slides = fallbackSlides }: { slides?: Capta
             <img
               src={slide.desktop}
               alt={slide.alt}
-              width={slide.id === 'brand-hero' ? 2560 : 1920}
-              height={slide.id === 'brand-hero' ? 1280 : 900}
+              width={i === 0 ? 2560 : 1920}
+              height={i === 0 ? 1280 : 900}
               className={`hero-slide-image h-full w-full object-cover ${
-                slide.id === 'brand-hero'
+                i === 0
                   ? 'object-[72%_center] sm:object-[68%_center] lg:object-center'
                   : 'object-top sm:object-center lg:object-center'
               }`}
