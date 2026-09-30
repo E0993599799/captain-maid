@@ -65,5 +65,5 @@ export default async function LocalePage({ params }: LocalePageProps) {
   if (cmsPage?.layout.length) {
     return <CmsPageRenderer blocks={cmsPage.layout} locale={locale as Locale} />
   }
-  return <HomePage />
+  return <HomePage locale={locale as Locale} />
 }

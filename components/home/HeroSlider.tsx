@@ -2,9 +2,10 @@
 
 import React from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import type { CaptainMaidHeroSlide } from '@/lib/builder-home-hero'
 
 /** Hero slider — art-directed presentation across mobile, tablet, and desktop. */
-const slides = [
+const fallbackSlides: CaptainMaidHeroSlide[] = [
   {
     id: 'brand-hero',
     mobile: '/api/captain-maid-hero-1.webp?v=20260830-recovery',
@@ -35,7 +36,7 @@ const slides = [
   },
 ]
 
-export default function HeroSlider() {
+export default function HeroSlider({ slides = fallbackSlides }: { slides?: CaptainMaidHeroSlide[] }) {
   const [current, setCurrent] = React.useState(0)
   const [paused, setPaused] = React.useState(false)
   const [reducedMotion, setReducedMotion] = React.useState(false)

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import HeroSlider from '@/components/home/HeroSlider'
+import { getBuilderHomeHero } from '@/lib/builder-home-hero'
 import ValueProps from '@/components/home/ValueProps'
 import SolutionsGrid from '@/components/home/SolutionsGrid'
 import SolutionsDeepDive from '@/components/home/SolutionsDeepDive'
@@ -33,7 +34,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HomePage() {
+export default async function HomePage({ locale = 'th' }: { locale?: 'th' | 'en' }) {
+  const builderHero = await getBuilderHomeHero(locale)
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const brandSchema = {
     '@context': 'https://schema.org',
@@ -50,7 +52,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
       />
-      <HeroSlider />
+      <HeroSlider slides={builderHero ?? undefined} />
       <ValueProps />
       <SolutionsGrid />
       <SolutionsDeepDive />
