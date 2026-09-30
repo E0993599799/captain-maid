@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { CmsRichText } from './CmsRichText'
+import type { CaptainMaidHeroSlide } from '@/lib/cms/home-hero'
 
 type CmsBlock = any
 
@@ -27,7 +28,7 @@ function blockType(block: CmsBlock): string {
   return String(block.blockType || block.type || '')
 }
 
-function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): React.ReactNode {
+function Block({ block, locale, heroSlides }: { block: CmsBlock; locale: 'th' | 'en'; heroSlides?: CaptainMaidHeroSlide[] | null }): React.ReactNode {
   const type = blockType(block)
   const title = localized(block.title as Localized, locale)
   const body = block.body ?? block.content
@@ -37,9 +38,18 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
   const imageAlt = mediaAlt(image, locale)
 
   if (type === 'hero') {
+    const cmsHero = heroSlides?.[0]
     return (
       <section className="relative overflow-hidden bg-captain-blue text-white">
-        {imageSrc && <img src={imageSrc} alt={imageAlt} className="absolute inset-0 h-full w-full object-cover opacity-35" />}
+        {cmsHero ? (
+          <picture className="absolute inset-0 block h-full w-full">
+            <source media="(max-width: 767px)" srcSet={cmsHero.mobile} />
+            <source media="(max-width: 1023px)" srcSet={cmsHero.tablet} />
+            <img src={cmsHero.desktop} alt={cmsHero.alt} className="h-full w-full object-cover opacity-35" />
+          </picture>
+        ) : imageSrc ? (
+          <img src={imageSrc} alt={imageAlt} className="absolute inset-0 h-full w-full object-cover opacity-35" />
+        ) : null}
         <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-captain-yellow">{localized(block.eyebrow as Localized, locale)}</p>
           <h1 className="mt-4 max-w-4xl text-4xl font-serif font-bold sm:text-6xl">{localized(block.headline as Localized, locale)}</h1>
@@ -84,6 +94,6 @@ function Block({ block, locale }: { block: CmsBlock; locale: 'th' | 'en' }): Rea
   return null
 }
 
-export function CmsPageRenderer({ blocks, locale }: { blocks: any[]; locale: 'th' | 'en' }) {
-  return <main className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark">{blocks.map((block, index) => <Block key={block.id || index} block={block} locale={locale} />)}</main>
+export function CmsPageRenderer({ blocks, locale, heroSlides }: { blocks: any[]; locale: 'th' | 'en'; heroSlides?: CaptainMaidHeroSlide[] | null }) {
+  return <main className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark">{blocks.map((block, index) => <Block key={block.id || index} block={block} locale={locale} heroSlides={heroSlides} />)}</main>
 }
