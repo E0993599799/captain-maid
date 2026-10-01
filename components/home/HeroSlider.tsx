@@ -8,8 +8,8 @@ import type { CaptainMaidHeroSlide } from '@/lib/cms/home-hero'
 const fallbackSlides: CaptainMaidHeroSlide[] = [
   {
     id: 'brand-hero',
-    mobile: '/api/captain-maid-hero-1.webp?v=20260830-recovery',
-    tablet: '/api/captain-maid-hero-1.webp?v=20260830-recovery',
+    mobile: '/images/hero/v2/slide-1-brand-mobile.jpg?v=20261002-static-fix',
+    tablet: '/images/hero/v2/slide-1-brand-tablet.jpg?v=20261002-static-fix',
     desktop: '/images/hero/captain-maid-hero-desktop.jpg?v=20260830-0000',
     alt: 'Captain Maid home cleaning hero',
   },
