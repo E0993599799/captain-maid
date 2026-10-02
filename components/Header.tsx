@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { LanguageToggle } from './LanguageToggle'
-import { cmsImage, cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import { cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 type Locale = 'th' | 'en'
 type HeaderTone = 'light' | 'dark'
@@ -104,7 +105,6 @@ export function Header({ bindings = {} }: { bindings?: CmsBindings }) {
   const locale: Locale = pathname.startsWith('/en') ? 'en' : 'th'
   const labels = COPY[locale]
   const label = (key: string, fallback = labels[key] || key) => cmsText(bindings, `global.header.nav.${key}`, fallback)
-  const logo = cmsImage(bindings, 'global.header.logo', { src: '/images/logo.png', alt: 'Captain Maid' })
   const shop = cmsLink(bindings, 'global.header.shop', {
     text: locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products',
     href: `/${locale}/products`,
@@ -211,7 +211,16 @@ export function Header({ bindings = {} }: { bindings?: CmsBindings }) {
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between gap-4">
             <Link href={`/${locale}`} className="group flex items-center gap-2.5 rounded-lg transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30" aria-label="Captain Maid home">
-              <img data-cms-key="global.header.logo" src={logo.desktop} alt={logo.alt} className="h-[62px] w-[62px] object-contain drop-shadow-sm transition-transform duration-300 sm:h-[70px] sm:w-[70px]" />
+              <CmsPicture
+                bindings={bindings}
+                cmsKey="global.header.logo"
+                fallback={{ src: '/images/logo.png', alt: 'Captain Maid' }}
+                pictureClassName="block h-[62px] w-[62px] sm:h-[70px] sm:w-[70px]"
+                imgClassName="h-full w-full object-contain drop-shadow-sm transition-transform duration-300"
+                width={70}
+                height={70}
+                loading="eager"
+              />
               <span className="hidden leading-tight md:block">
                 <span data-cms-key="global.header.brand.en" className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${useDarkControls ? 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f]'}`}>{cmsText(bindings, 'global.header.brand.en', 'Captain Maid')}</span>
                 <span data-cms-key="global.header.brand.th" className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${useDarkControls ? 'text-white/75 drop-shadow-[0_1px_2px_rgba(0,0,0,0.24)]' : 'text-[#36536f]'}`}>{cmsText(bindings, 'global.header.brand.th', 'กัปตันเมด')}</span>
