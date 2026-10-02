@@ -43,11 +43,11 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-          <span className="text-xs font-bold text-[#0079c1] tracking-widest uppercase">{copy.eyebrow}</span>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold text-[#002d5f]">
+          <span data-cms-key="products.eyebrow" className="text-xs font-bold text-[#0079c1] tracking-widest uppercase">{copy.eyebrow}</span>
+          <h1 data-cms-key="products.title" className="mt-2 text-3xl sm:text-4xl font-extrabold text-[#002d5f]">
             {copy.title}
           </h1>
-          <p className="mt-3 text-gray-500 max-w-xl">
+          <p data-cms-key="products.intro" className="mt-3 text-gray-500 max-w-xl">
             {copy.intro}
           </p>
           </div>
@@ -143,8 +143,8 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-100 p-14 text-center text-gray-400">
-            <p className="font-semibold text-[#002d5f] mb-1">{copy.emptyTitle}</p>
-            <p className="text-sm">{copy.emptyBody}</p>
+            <p data-cms-key="products.empty.title" className="font-semibold text-[#002d5f] mb-1">{copy.emptyTitle}</p>
+            <p data-cms-key="products.empty.description" className="text-sm">{copy.emptyBody}</p>
           </div>
         )}
       </div>
