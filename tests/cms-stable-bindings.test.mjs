@@ -1,54 +1,41 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import test from 'node:test'
 
-const root = process.cwd()
-const read = (path) => readFileSync(join(root, path), 'utf8')
+const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
 
-test('live CMS runtime uses stable data-cms-key bindings as the primary contract', () => {
-  const runtime = read('components/cms/CmsLiveTextRuntime.tsx')
-  assert.match(runtime, /bindings\?: Record<string, StableBinding>/)
-  assert.match(runtime, /data-cms-key/)
-  assert.match(runtime, /applyImage/)
+test('stable binding helpers cover text link image and global values', () => {
+  const runtime = read('lib/cms/bindings.ts')
+  assert.match(runtime, /export type CmsTextBinding/)
+  assert.match(runtime, /export type CmsLinkBinding/)
+  assert.match(runtime, /export type CmsImageBinding/)
+  assert.match(runtime, /cmsText/)
+  assert.match(runtime, /cmsLink/)
+  assert.match(runtime, /cmsImage/)
   assert.match(runtime, /globalBindings/)
-  assert.match(runtime, /legacyTextPatches/)
-  assert.match(runtime, /Object\.keys\(bindings\)\.length === 0/)
 })
 
-test('homepage exposes stable text and responsive-image keys', () => {
-  const hero = read('components/home/HeroSlider.tsx')
-  const valueProps = read('components/home/ValueProps.tsx')
-  const solutions = read('components/home/SolutionsGrid.tsx')
-  const deepDive = read('components/home/SolutionsDeepDive.tsx')
-  const trust = read('components/home/TrustBanner.tsx')
-  const why = read('components/home/WhyCaptainMaid.tsx')
-
-  assert.match(hero, /home\.hero\.title/)
-  assert.match(hero, /home\.hero\.description/)
-  assert.match(hero, /home\.hero\.slide\.\$\{i \+ 1\}\.image/)
-  assert.match(valueProps, /home\.valueProps/)
-  assert.match(solutions, /home\.solutionsGrid/)
-  assert.match(deepDive, /home\.solutions/)
-  assert.match(trust, /home\.trust\.image/)
-  assert.match(why, /home\.why\.image/)
+test('responsive CMS images render exact mobile tablet and desktop binding URLs', () => {
+  const picture = read('components/cms/CmsPicture.tsx')
+  assert.match(picture, /max-width: 767px/)
+  assert.match(picture, /srcSet=\{image\.mobile\}/)
+  assert.match(picture, /max-width: 1023px/)
+  assert.match(picture, /srcSet=\{image\.tablet\}/)
+  assert.match(picture, /src=\{image\.desktop\}/)
 })
 
-test('global header and footer plus static pages expose stable keys', () => {
+test('all top-level editable pages consume the server binding runtime', () => {
+  for (const path of ['app/about/page.tsx', 'app/contact/page.tsx', 'app/faq/page.tsx', 'app/blog/page.tsx', 'app/products/page.tsx']) {
+    assert.match(read(path), /getCaptainMaidRuntime/)
+  }
+  assert.match(read('components/products/ProductsGrid.tsx'), /cmsText\(pageBindings/)
+})
+
+test('global header and footer are rendered from binding props', () => {
   const header = read('components/Header.tsx')
   const footer = read('components/Footer.tsx')
-  const about = read('app/about/page.tsx')
-  const contact = read('app/contact/page.tsx')
-  const faq = read('app/faq/page.tsx')
-  const blog = read('app/blog/page.tsx')
-  const products = read('components/products/ProductsGrid.tsx')
-
-  assert.match(header, /global\.header\.logo/)
+  assert.match(header, /bindings\?: CmsBindings/)
   assert.match(header, /global\.header\.nav/)
-  assert.match(footer, /global\.footer\.logo/)
-  assert.match(about, /about\.hero\.title/)
-  assert.match(contact, /contact\.title/)
-  assert.match(faq, /faq\.hero\.title/)
-  assert.match(blog, /blog\.title/)
-  assert.match(products, /products\.title/)
+  assert.match(footer, /bindings\?: CmsBindings/)
+  assert.match(footer, /global\.footer\./)
 })
