@@ -10,6 +10,8 @@ export interface CaptainMaidHeroSlide {
 
 export interface CaptainMaidHomeHero {
   slides: CaptainMaidHeroSlide[]
+  title?: string
+  description?: string
 }
 
 export async function getCaptainMaidHomeHero(): Promise<CaptainMaidHomeHero | null> {
@@ -20,7 +22,7 @@ export async function getCaptainMaidHomeHero(): Promise<CaptainMaidHomeHero | nu
     })
     if (!response.ok) return null
 
-    const value = await response.json() as { slides?: unknown }
+    const value = await response.json() as { slides?: unknown; title?: unknown; description?: unknown }
     if (!Array.isArray(value.slides)) return null
 
     const slides = value.slides.flatMap((item, index) => {
@@ -40,7 +42,11 @@ export async function getCaptainMaidHomeHero(): Promise<CaptainMaidHomeHero | nu
       }]
     })
 
-    return slides.length > 0 ? { slides } : null
+    return slides.length > 0 ? {
+      slides,
+      title: typeof value.title === 'string' ? value.title.trim() : undefined,
+      description: typeof value.description === 'string' ? value.description.trim() : undefined,
+    } : null
   } catch (error) {
     console.error('[cms] Captain Maid Home Hero unavailable', error)
     return null
