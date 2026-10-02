@@ -2,8 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import Reveal from '@/components/Reveal'
+import { cmsImage, cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
-export default function TrustBanner() {
+export default function TrustBanner({ bindings = {} }: { bindings?: CmsBindings }) {
+  const image = cmsImage(bindings, 'home.trust.image', { src: '/images/trust-banner.png', alt: 'Trust quality you can count on' })
+  const cta = cmsLink(bindings, 'home.trust.cta', { text: 'เกี่ยวกับเรา', href: '/about' })
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="trust-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,8 +14,8 @@ export default function TrustBanner() {
           <Reveal className="absolute inset-0">
             <Image
               data-cms-key="home.trust.image"
-              src="/images/trust-banner.png"
-              alt="Trust quality you can count on"
+              src={image.desktop}
+              alt={image.alt}
               fill
               className="object-cover"
               sizes="(max-width: 640px) 100vw, 100vw"
@@ -22,21 +25,19 @@ export default function TrustBanner() {
 
           <Reveal delayMs={100} className="relative max-w-lg p-5 sm:p-12">
             <div className="rounded-3xl bg-[#002d5f]/85 p-7 text-white shadow-2xl backdrop-blur sm:p-10">
-              <p data-cms-key="home.trust.eyebrow" className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8ed7ff]">Our promise</p>
+              <p data-cms-key="home.trust.eyebrow" className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8ed7ff]">{cmsText(bindings, 'home.trust.eyebrow', 'Our promise')}</p>
               <h2 data-cms-key="home.trust.title" id="trust-title" className="text-3xl font-extrabold leading-tight sm:text-4xl">
-                Trust quality
-                <span className="block">you can count on.</span>
+                {cmsText(bindings, 'home.trust.title', 'Trust quality you can count on.')}
               </h2>
               <p data-cms-key="home.trust.description" className="mt-4 text-white/75 text-sm sm:text-base leading-relaxed">
-                เราคัดสรรวัตถุดิบคุณภาพสูง พัฒนาด้วยนวัตกรรม
-                เพื่อให้ทุกบ้านสะอาด ปลอดภัย และคุณวางใจได้ทุกวัน
+                {cmsText(bindings, 'home.trust.description', 'เราคัดสรรวัตถุดิบคุณภาพสูง พัฒนาด้วยนวัตกรรม เพื่อให้ทุกบ้านสะอาด ปลอดภัย และคุณวางใจได้ทุกวัน')}
               </p>
               <Link
                 data-cms-key="home.trust.cta"
-                href="/about"
+                href={cta.href}
                 className="mt-6 inline-flex items-center gap-2 text-sm font-semibold border-b border-white/60 pb-0.5 hover:gap-3 transition-all"
               >
-                เกี่ยวกับเรา <ArrowRight className="w-4 h-4" />
+                {cta.text} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </Reveal>
