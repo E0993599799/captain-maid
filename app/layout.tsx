@@ -5,7 +5,7 @@ import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import CmsInspectorBridge from '@/components/cms/CmsInspectorBridge'
-import CmsLiveTextRuntime from '@/components/cms/CmsLiveTextRuntime'
+import { getCaptainMaidRuntime, globalBindings } from '@/lib/cms/bindings'
 
 const englishFont = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'], variable: '--font-english', display: 'swap' })
 const thaiFont = Noto_Sans_Thai({ subsets: ['thai', 'latin'], weight: ['400'], variable: '--font-thai', display: 'swap' })
@@ -32,15 +32,16 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, maxi
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const requestHeaders = await headers()
   const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  const homeRuntime = await getCaptainMaidRuntime('home', locale)
+  const globals = globalBindings(homeRuntime.bindings)
   return (
     <html lang={locale} className={`${englishFont.variable} ${thaiFont.variable}`} suppressHydrationWarning>
       <head><meta name="theme-color" content="#0079c1" /></head>
       <body className="font-sans">
         <CmsInspectorBridge />
-        <CmsLiveTextRuntime />
-        <Header />
+        <Header bindings={globals} />
         <main>{children}</main>
-        <Footer />
+        <Footer bindings={globals} />
       </body>
     </html>
   )
