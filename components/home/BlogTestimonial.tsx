@@ -3,10 +3,10 @@ import Image from 'next/image'
 import { Quote, ArrowRight } from 'lucide-react'
 import { getAllBlogPosts } from '@/lib/blog'
 import Reveal from '@/components/Reveal'
-import { cmsImage, cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import { cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 export default function BlogTestimonial({ bindings = {} }: { bindings?: CmsBindings }) {
-  const testimonialImage = cmsImage(bindings, 'home.community.testimonial.image', { src: '/images/testimonial.png', alt: 'Captain Maid customer' })
   const viewAll = cmsLink(bindings, 'home.blog.viewAll', { text: 'View All', href: '/blog' })
   const allPosts = getAllBlogPosts()
   const blogPosts = allPosts.slice(0, 3)
@@ -23,13 +23,14 @@ export default function BlogTestimonial({ bindings = {} }: { bindings?: CmsBindi
               <Quote className="absolute top-6 right-6 w-16 h-16 text-[#0079c1]/10" />
               <div className="relative">
                 <div className="flex items-center gap-3 mb-4">
-                  <Image
-                    data-cms-key="home.community.testimonial.image"
-                    src={testimonialImage.desktop}
-                    alt={testimonialImage.alt}
+                  <CmsPicture
+                    bindings={bindings}
+                    cmsKey="home.community.testimonial.image"
+                    fallback={{ src: '/images/testimonial.png', alt: 'Captain Maid customer' }}
+                    pictureClassName="block h-14 w-14"
+                    imgClassName="h-14 w-14 rounded-full object-cover ring-2 ring-white shadow-md"
                     width={56}
                     height={56}
-                    className="rounded-full object-cover ring-2 ring-white shadow-md"
                   />
                   <div className="flex gap-1">
                     {[0, 1, 2, 3, 4].map((i) => (
