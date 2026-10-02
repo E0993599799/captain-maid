@@ -71,10 +71,11 @@ export default function FeaturedProducts() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Everyday essentials</p>
-            <h2 id="featured-products-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">สินค้ายอดนิยม</h2>
+            <p data-cms-key="home.featured.eyebrow" className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Everyday essentials</p>
+            <h2 data-cms-key="home.featured.heading" id="featured-products-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">สินค้ายอดนิยม</h2>
           </div>
           <Link
+            data-cms-key="home.featured.viewAll"
             href="/products"
             className="inline-flex min-h-11 items-center gap-1 self-start text-sm font-semibold text-[#0079c1] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] sm:self-auto"
           >

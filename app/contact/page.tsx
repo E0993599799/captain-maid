@@ -62,9 +62,9 @@ export default async function ContactPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#0079c1]">Captain Maid</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#002d5f] sm:text-5xl">{t.title}</h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#52697c] sm:text-lg">{t.intro}</p>
+          <p data-cms-key="contact.eyebrow" className="text-sm font-bold uppercase tracking-[0.16em] text-[#0079c1]">Captain Maid</p>
+          <h1 data-cms-key="contact.title" className="mt-3 text-4xl font-bold tracking-tight text-[#002d5f] sm:text-5xl">{t.title}</h1>
+          <p data-cms-key="contact.intro" className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#52697c] sm:text-lg">{t.intro}</p>
         </div>
 
         {hasContact ? (
@@ -72,29 +72,29 @@ export default async function ContactPage() {
             {CONTACT_INFO.email && (
               <a href={`mailto:${CONTACT_INFO.email}`} className="rounded-2xl border border-[#dce7ef] bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
                 <Mail className="h-7 w-7 text-[#0079c1]" aria-hidden="true" />
-                <h2 className="mt-5 text-lg font-bold text-[#002d5f]">{t.email}</h2>
-                <p className="mt-2 break-all text-sm leading-6 text-[#52697c]">{CONTACT_INFO.email}</p>
+                <h2 data-cms-key="contact.email.label" className="mt-5 text-lg font-bold text-[#002d5f]">{t.email}</h2>
+                <p data-cms-key="contact.email.value" className="mt-2 break-all text-sm leading-6 text-[#52697c]">{CONTACT_INFO.email}</p>
               </a>
             )}
 
             {CONTACT_INFO.phone && (
               <a href={`tel:${CONTACT_INFO.phone}`} className="rounded-2xl border border-[#dce7ef] bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
                 <Phone className="h-7 w-7 text-[#0079c1]" aria-hidden="true" />
-                <h2 className="mt-5 text-lg font-bold text-[#002d5f]">{t.phone}</h2>
-                <p className="mt-2 text-sm leading-6 text-[#52697c]">{CONTACT_INFO.phone}</p>
+                <h2 data-cms-key="contact.phone.label" className="mt-5 text-lg font-bold text-[#002d5f]">{t.phone}</h2>
+                <p data-cms-key="contact.phone.value" className="mt-2 text-sm leading-6 text-[#52697c]">{CONTACT_INFO.phone}</p>
               </a>
             )}
 
             {CONTACT_INFO.address && (
               <div className="rounded-2xl border border-[#dce7ef] bg-white p-7 shadow-sm">
                 <MapPin className="h-7 w-7 text-[#0079c1]" aria-hidden="true" />
-                <h2 className="mt-5 text-lg font-bold text-[#002d5f]">{t.address}</h2>
-                <p className="mt-2 text-sm leading-6 text-[#52697c]">{CONTACT_INFO.address}</p>
+                <h2 data-cms-key="contact.address.label" className="mt-5 text-lg font-bold text-[#002d5f]">{t.address}</h2>
+                <p data-cms-key="contact.address.value" className="mt-2 text-sm leading-6 text-[#52697c]">{CONTACT_INFO.address}</p>
               </div>
             )}
           </div>
         ) : (
-          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-[#dce7ef] bg-white p-7 text-center text-sm leading-6 text-[#52697c] shadow-sm">
+          <div data-cms-key="contact.empty" className="mx-auto mt-12 max-w-2xl rounded-2xl border border-[#dce7ef] bg-white p-7 text-center text-sm leading-6 text-[#52697c] shadow-sm">
             {t.empty}
           </div>
         )}

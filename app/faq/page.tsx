@@ -76,8 +76,8 @@ export default async function FAQPage() {
       <div className="container-safe">
         {/* Page Header */}
         <div className="mb-2xl py-xl text-center">
-          <h1 className="text-5xl font-serif font-bold mb-md text-captain-blue">คำถามที่พบบ่อย</h1>
-          <p className="text-xl text-captain-neutral max-prose mx-auto">
+          <h1 data-cms-key="faq.hero.title" className="text-5xl font-serif font-bold mb-md text-captain-blue">คำถามที่พบบ่อย</h1>
+          <p data-cms-key="faq.hero.description" className="text-xl text-captain-neutral max-prose mx-auto">
             คำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับผลิตภัณฑ์ กัปตันเมด การใช้งาน และการจัดส่ง
           </p>
         </div>
@@ -85,17 +85,17 @@ export default async function FAQPage() {
         {/* FAQ Sections */}
         {faqCategories.map((section, sectionIndex) => (
           <div key={sectionIndex} className="mb-2xl">
-            <h2 className="text-3xl font-serif font-bold mb-lg text-captain-blue">{section.category}</h2>
+            <h2 data-cms-key={`faq.section.${sectionIndex + 1}.title`} className="text-3xl font-serif font-bold mb-lg text-captain-blue">{section.category}</h2>
 
             <div className="space-y-md">
               {section.questions.map((item, itemIndex) => (
                 <details key={itemIndex} className="bg-white dark:bg-captain-cream-dark rounded-sm border border-captain-light overflow-hidden group cursor-pointer hover:border-captain-blue transition-colors">
                   <summary className="flex items-center justify-between p-lg font-semibold text-captain-text hover:bg-captain-light/50 transition-colors">
-                    <span className="text-lg">{item.q}</span>
+                    <span data-cms-key={`faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.title`} className="text-lg">{item.q}</span>
                     <span className="text-captain-blue group-open:rotate-180 transition-transform">▼</span>
                   </summary>
 
-                  <div className="px-lg pb-lg pt-0 text-captain-neutral leading-relaxed bg-captain-light/30 border-t border-captain-light">
+                  <div data-cms-key={`faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.answer`} className="px-lg pb-lg pt-0 text-captain-neutral leading-relaxed bg-captain-light/30 border-t border-captain-light">
                     {item.a}
                   </div>
                 </details>
@@ -106,11 +106,12 @@ export default async function FAQPage() {
 
         {/* Still Have Questions */}
         <div className="bg-captain-light rounded-sm p-2xl text-center my-2xl">
-          <h2 className="text-3xl font-serif font-bold mb-md text-captain-text">ไม่พบคำตอบที่คุณต้องการใช่ไหม?</h2>
-          <p className="text-lg text-captain-neutral mb-lg">
+          <h2 data-cms-key="faq.cta.title" className="text-3xl font-serif font-bold mb-md text-captain-text">ไม่พบคำตอบที่คุณต้องการใช่ไหม?</h2>
+          <p data-cms-key="faq.cta.description" className="text-lg text-captain-neutral mb-lg">
             ติดต่อทีมสนับสนุนของเราสำหรับข้อมูลเพิ่มเติม
           </p>
           <Link
+            data-cms-key="faq.cta.link"
             href="/contact"
             className="inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white transition-all"
           >

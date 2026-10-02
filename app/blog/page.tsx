@@ -19,11 +19,11 @@ export default async function BlogPage() {
     <main className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
       <div className="container-safe">
         <div className="mb-2xl py-xl">
-          <h1 className="text-5xl font-serif font-bold mb-md text-captain-blue">Cleaning Tips &amp; Solutions</h1>
-          <p className="text-xl text-captain-neutral max-prose">Practical home-care guidance from Captain Maid.</p>
+          <h1 data-cms-key="blog.title" className="text-5xl font-serif font-bold mb-md text-captain-blue">Cleaning Tips &amp; Solutions</h1>
+          <p data-cms-key="blog.description" className="text-xl text-captain-neutral max-prose">Practical home-care guidance from Captain Maid.</p>
         </div>
         {posts.length === 0 ? (
-          <p className="py-2xl text-captain-neutral">ยังไม่มีบทความที่เผยแพร่</p>
+          <p data-cms-key="blog.empty" className="py-2xl text-captain-neutral">ยังไม่มีบทความที่เผยแพร่</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg mb-2xl">
             {posts.map((post) => (
