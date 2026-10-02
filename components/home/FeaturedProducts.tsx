@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Star, ArrowRight } from 'lucide-react'
 import { PRODUCTS, CaptainProduct, CATEGORIES } from '@/lib/captain-products'
 import Reveal from '@/components/Reveal'
+import { cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
 const featured: CaptainProduct[] = [
   PRODUCTS.find((p) => p.id === 'floor-cleaner-lavender-kerry')!,
@@ -65,21 +66,22 @@ function ProductCard({ product }: { product: CaptainProduct }) {
   )
 }
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({ bindings = {} }: { bindings?: CmsBindings }) {
+  const viewAll = cmsLink(bindings, 'home.featured.viewAll', { text: 'View All', href: '/products' })
   return (
     <section className="bg-[#f9fbfd] py-16 sm:py-20 lg:py-24" aria-labelledby="featured-products-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p data-cms-key="home.featured.eyebrow" className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">Everyday essentials</p>
-            <h2 data-cms-key="home.featured.heading" id="featured-products-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">สินค้ายอดนิยม</h2>
+            <p data-cms-key="home.featured.eyebrow" className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-[#0079c1]">{cmsText(bindings, 'home.featured.eyebrow', 'Everyday essentials')}</p>
+            <h2 data-cms-key="home.featured.heading" id="featured-products-title" className="text-3xl font-extrabold leading-tight text-[#002d5f] sm:text-4xl">{cmsText(bindings, 'home.featured.heading', 'สินค้ายอดนิยม')}</h2>
           </div>
           <Link
             data-cms-key="home.featured.viewAll"
-            href="/products"
+            href={viewAll.href}
             className="inline-flex min-h-11 items-center gap-1 self-start text-sm font-semibold text-[#0079c1] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1] sm:self-auto"
           >
-            View All <ArrowRight className="w-4 h-4" />
+            {viewAll.text} <ArrowRight className="w-4 h-4" />
           </Link>
         </Reveal>
 
