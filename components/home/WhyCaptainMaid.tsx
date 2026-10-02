@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import { Shield, Beaker, Leaf } from 'lucide-react'
-import { cmsImage, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import { cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 const benefits = [
   {
@@ -27,8 +27,6 @@ const stats = [
 ]
 
 export default function WhyCaptainMaid({ bindings = {} }: { bindings?: CmsBindings }) {
-  const heroImage = cmsImage(bindings, 'home.why.image', { src: '/images/why-us.png', alt: 'Captain Maid family care' })
-  const logo = cmsImage(bindings, 'home.why.logo', { src: '/images/logo.png', alt: 'Captain Maid' })
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="why-captain-maid-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,13 +39,12 @@ export default function WhyCaptainMaid({ bindings = {} }: { bindings?: CmsBindin
           {/* Image */}
           <div className="lg:col-span-4">
             <div className="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] lg:aspect-[4/5] relative">
-              <Image
-                data-cms-key="home.why.image"
-                src={heroImage.desktop}
-                alt={heroImage.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 33vw"
+              <CmsPicture
+                bindings={bindings}
+                cmsKey="home.why.image"
+                fallback={{ src: '/images/why-us.png', alt: 'Captain Maid family care' }}
+                pictureClassName="absolute inset-0 block h-full w-full"
+                imgClassName="h-full w-full object-cover"
               />
             </div>
           </div>
@@ -71,14 +68,14 @@ export default function WhyCaptainMaid({ bindings = {} }: { bindings?: CmsBindin
 
           {/* Brand logo + stats */}
           <div className="lg:col-span-3 flex flex-col items-center gap-8">
-            <Image
-              data-cms-key="home.why.logo"
-              src={logo.desktop}
-              alt={logo.alt}
+            <CmsPicture
+              bindings={bindings}
+              cmsKey="home.why.logo"
+              fallback={{ src: '/images/logo.png', alt: 'Captain Maid' }}
+              pictureClassName="block w-44 sm:w-52 lg:w-56"
+              imgClassName="h-auto w-full object-contain"
               width={240}
               height={328}
-              className="h-auto w-44 object-contain sm:w-52 lg:w-56"
-              sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 224px"
             />
             <div className="grid grid-cols-3 lg:grid-cols-1 gap-6 text-center">
               {stats.map((s, index) => (
