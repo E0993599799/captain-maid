@@ -1,32 +1,27 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import test from 'node:test'
 
-const root = process.cwd()
-const read = (path) => readFileSync(join(root, path), 'utf8')
+const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
 
-test('published Vvveb text runtime is mounted globally', () => {
+test('published CMS bindings are fetched on the server and MutationObserver runtime is not mounted', () => {
   const layout = read('app/layout.tsx')
-  const runtime = read('components/cms/CmsLiveTextRuntime.tsx')
-
-  assert.match(layout, /CmsLiveTextRuntime/)
-  assert.match(runtime, /usePathname/)
-  assert.match(runtime, /runtime\/captain-maid/)
-  assert.match(runtime, /textPatches/)
-  assert.match(runtime, /MutationObserver/)
-  assert.match(runtime, /querySelectorAll\(patch\.tag\)/)
+  const client = read('lib/cms/bindings.ts')
+  assert.match(layout, /getCaptainMaidRuntime/)
+  assert.match(layout, /globalBindings/)
+  assert.doesNotMatch(layout, /CmsLiveTextRuntime/)
+  assert.match(client, /runtime\/captain-maid/)
+  assert.match(client, /cache: 'no-store'/)
 })
 
-test('homepage hero consumes CMS title and description', () => {
-  const loader = read('lib/cms/home-hero.ts')
-  const hero = read('components/home/HeroSlider.tsx')
+test('home React components receive generic published bindings directly', () => {
   const page = read('app/page.tsx')
-
-  assert.match(loader, /title\?: string/)
-  assert.match(loader, /description\?: string/)
-  assert.match(hero, /cmsTitle/)
-  assert.match(hero, /cmsDescription/)
-  assert.match(page, /cmsTitle=\{homeHero\?\.title\}/)
-  assert.match(page, /cmsDescription=\{homeHero\?\.description\}/)
+  const localized = read('app/[locale]/page.tsx')
+  const hero = read('components/home/HeroSlider.tsx')
+  assert.match(page, /getCaptainMaidRuntime\('home', locale\)/)
+  assert.match(page, /<HeroSlider bindings=\{bindings\}/)
+  assert.match(page, /<TrustBanner bindings=\{bindings\}/)
+  assert.match(localized, /<HomeContent locale=\{locale as Locale\}/)
+  assert.match(hero, /home\.hero\.title/)
+  assert.match(hero, /home\.hero\.slide/)
 })
