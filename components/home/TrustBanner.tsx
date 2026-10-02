@@ -10,6 +10,7 @@ export default function TrustBanner() {
         <div className="relative flex min-h-[460px] items-center overflow-hidden rounded-3xl shadow-xl sm:min-h-[420px]">
           <Reveal className="absolute inset-0">
             <Image
+              data-cms-key="home.trust.image"
               src="/images/trust-banner.png"
               alt="Trust quality you can count on"
               fill
@@ -21,16 +22,17 @@ export default function TrustBanner() {
 
           <Reveal delayMs={100} className="relative max-w-lg p-5 sm:p-12">
             <div className="rounded-3xl bg-[#002d5f]/85 p-7 text-white shadow-2xl backdrop-blur sm:p-10">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8ed7ff]">Our promise</p>
-              <h2 id="trust-title" className="text-3xl font-extrabold leading-tight sm:text-4xl">
+              <p data-cms-key="home.trust.eyebrow" className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#8ed7ff]">Our promise</p>
+              <h2 data-cms-key="home.trust.title" id="trust-title" className="text-3xl font-extrabold leading-tight sm:text-4xl">
                 Trust quality
                 <span className="block">you can count on.</span>
               </h2>
-              <p className="mt-4 text-white/75 text-sm sm:text-base leading-relaxed">
+              <p data-cms-key="home.trust.description" className="mt-4 text-white/75 text-sm sm:text-base leading-relaxed">
                 เราคัดสรรวัตถุดิบคุณภาพสูง พัฒนาด้วยนวัตกรรม
                 เพื่อให้ทุกบ้านสะอาด ปลอดภัย และคุณวางใจได้ทุกวัน
               </p>
               <Link
+                data-cms-key="home.trust.cta"
                 href="/about"
                 className="mt-6 inline-flex items-center gap-2 text-sm font-semibold border-b border-white/60 pb-0.5 hover:gap-3 transition-all"
               >
