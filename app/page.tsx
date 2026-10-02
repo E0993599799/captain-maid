@@ -7,7 +7,8 @@ import FeaturedProducts from '@/components/home/FeaturedProducts'
 import TrustBanner from '@/components/home/TrustBanner'
 import WhyCaptainMaid from '@/components/home/WhyCaptainMaid'
 import BlogTestimonial from '@/components/home/BlogTestimonial'
-import { getCaptainMaidHomeHero } from '@/lib/cms/home-hero'
+import { headers } from 'next/headers'
+import { getCaptainMaidRuntime, type CmsBindings } from '@/lib/cms/bindings'
 
 export const metadata: Metadata = {
   title: 'Captain Maid | Easy Home Cleaning for Better Living',
@@ -34,10 +35,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function HomePage() {
-  const [homeHero] = await Promise.all([
-    getCaptainMaidHomeHero(),
-  ])
+export async function HomeContent({ locale }: { locale: 'th' | 'en' }) {
+  const runtime = await getCaptainMaidRuntime('home', locale)
+  const bindings: CmsBindings = runtime.bindings
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const brandSchema = {
     '@context': 'https://schema.org',
@@ -54,14 +54,21 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
       />
-      <HeroSlider cmsSlides={homeHero?.slides} cmsTitle={homeHero?.title} cmsDescription={homeHero?.description} />
-      <ValueProps />
-      <SolutionsGrid />
-      <SolutionsDeepDive />
-      <FeaturedProducts />
-      <TrustBanner />
-      <WhyCaptainMaid />
-      <BlogTestimonial />
+      <HeroSlider bindings={bindings} />
+      <ValueProps bindings={bindings} />
+      <SolutionsGrid bindings={bindings} />
+      <SolutionsDeepDive bindings={bindings} />
+      <FeaturedProducts bindings={bindings} />
+      <TrustBanner bindings={bindings} />
+      <WhyCaptainMaid bindings={bindings} />
+      <BlogTestimonial bindings={bindings} />
     </>
   )
+}
+
+
+export default async function HomePage() {
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  return <HomeContent locale={locale} />
 }

@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { LanguageToggle } from './LanguageToggle'
+import { cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 type Locale = 'th' | 'en'
 type HeaderTone = 'light' | 'dark'
@@ -98,10 +100,15 @@ const backgroundToneForElement = (element: Element): HeaderTone | null => {
   return null
 }
 
-export function Header() {
+export function Header({ bindings = {} }: { bindings?: CmsBindings }) {
   const pathname = usePathname() ?? '/th'
   const locale: Locale = pathname.startsWith('/en') ? 'en' : 'th'
   const labels = COPY[locale]
+  const label = (key: string, fallback = labels[key] || key) => cmsText(bindings, `global.header.nav.${key}`, fallback)
+  const shop = cmsLink(bindings, 'global.header.shop', {
+    text: locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products',
+    href: `/${locale}/products`,
+  })
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [openMenu, setOpenMenu] = React.useState<string | null>(null)
   const [scrolled, setScrolled] = React.useState(false)
@@ -204,10 +211,19 @@ export function Header() {
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between gap-4">
             <Link href={`/${locale}`} className="group flex items-center gap-2.5 rounded-lg transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30" aria-label="Captain Maid home">
-              <img data-cms-key="global.header.logo" src="/images/logo.png" alt="Captain Maid" className="h-[62px] w-[62px] object-contain drop-shadow-sm transition-transform duration-300 sm:h-[70px] sm:w-[70px]" />
+              <CmsPicture
+                bindings={bindings}
+                cmsKey="global.header.logo"
+                fallback={{ src: '/images/logo.png', alt: 'Captain Maid' }}
+                pictureClassName="block h-[62px] w-[62px] sm:h-[70px] sm:w-[70px]"
+                imgClassName="h-full w-full object-contain drop-shadow-sm transition-transform duration-300"
+                width={70}
+                height={70}
+                loading="eager"
+              />
               <span className="hidden leading-tight md:block">
-                <span data-cms-key="global.header.brand.en" className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${useDarkControls ? 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f]'}`}>Captain Maid</span>
-                <span data-cms-key="global.header.brand.th" className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${useDarkControls ? 'text-white/75 drop-shadow-[0_1px_2px_rgba(0,0,0,0.24)]' : 'text-[#36536f]'}`}>กัปตันเมด</span>
+                <span data-cms-key="global.header.brand.en" className={`block whitespace-nowrap text-base font-bold tracking-[-0.02em] transition-colors duration-300 ${useDarkControls ? 'text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f]'}`}>{cmsText(bindings, 'global.header.brand.en', 'Captain Maid')}</span>
+                <span data-cms-key="global.header.brand.th" className={`block text-[10px] font-medium tracking-[0.12em] transition-colors duration-300 ${useDarkControls ? 'text-white/75 drop-shadow-[0_1px_2px_rgba(0,0,0,0.24)]' : 'text-[#36536f]'}`}>{cmsText(bindings, 'global.header.brand.th', 'กัปตันเมด')}</span>
               </span>
             </Link>
 
@@ -227,19 +243,19 @@ export function Header() {
                   <div key={item.key} className="relative" onMouseEnter={() => item.items && openDesktopMenu(item.key)} onMouseLeave={scheduleClose} onFocus={() => item.items && openDesktopMenu(item.key)}>
                     {item.expandOnly ? (
                       <button data-cms-key={`global.header.nav.${item.key}`} type="button" aria-expanded={expanded} aria-controls={menuId(item.key)} onClick={() => setOpenMenu(expanded ? null : item.key)} className={navItemClass}>
-                        {labels[item.key]}
+                        {label(item.key)}
                         <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
                       </button>
                     ) : (
                       <Link data-cms-key={`global.header.nav.${item.key}`} href={localize(item.href)} aria-current={active ? 'page' : undefined} aria-expanded={item.items ? expanded : undefined} aria-controls={item.items ? menuId(item.key) : undefined} className={navItemClass}>
-                        {labels[item.key]}
+                        {label(item.key)}
                         {item.items && <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />}
                       </Link>
                     )}
                     {item.items && expanded && (
                       <div id={menuId(item.key)} className="absolute left-0 top-full z-50 pt-2" onMouseEnter={() => openDesktopMenu(item.key)} onMouseLeave={scheduleClose}>
                         <div className="min-w-[270px] overflow-hidden rounded-2xl border border-[#dce7ef] bg-white p-2 shadow-[0_20px_55px_rgba(0,45,95,0.16)]">
-                          {item.items.map((sub) => <Link data-cms-key={`global.header.nav.${item.key}.${sub.key}`} key={sub.key} href={localize(sub.href)} className="block rounded-xl px-4 py-2.5 text-[15px] font-normal tracking-[-0.01em] [text-rendering:geometricPrecision] text-[#425a6d] hover:bg-[#e6f3fa] hover:text-[#006cad]" onClick={() => setOpenMenu(null)}>{labels[sub.key]}</Link>)}
+                          {item.items.map((sub) => <Link data-cms-key={`global.header.nav.${item.key}.${sub.key}`} key={sub.key} href={localize(sub.href)} className="block rounded-xl px-4 py-2.5 text-[15px] font-normal tracking-[-0.01em] [text-rendering:geometricPrecision] text-[#425a6d] hover:bg-[#e6f3fa] hover:text-[#006cad]" onClick={() => setOpenMenu(null)}>{cmsText(bindings, `global.header.nav.${item.key}.${sub.key}`, labels[sub.key])}</Link>)}
                         </div>
                       </div>
                     )}
@@ -251,7 +267,7 @@ export function Header() {
             <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-2">
               <div className="hidden md:block"><React.Suspense fallback={null}><LanguageToggle isDark={useDarkControls} /></React.Suspense></div>
               <Link href={`/${locale}/products`} aria-label={locale === 'th' ? 'ค้นหาสินค้า' : 'Search products'} className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] sm:flex ${useDarkControls ? 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f] hover:bg-[#002d5f]/10'}`}><Search className="h-5 w-5" /></Link>
-              <Link data-cms-key="global.header.shop" href={`/${locale}/products`} className={`hidden min-h-11 items-center rounded-full border px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${useDarkControls ? 'border-white/55 bg-transparent text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]' : 'border-[#002d5f]/30 bg-transparent text-[#002d5f] hover:bg-[#002d5f]/10'}`}>{locale === 'th' ? 'เลือกซื้อสินค้า' : 'Shop products'}</Link>
+              <Link data-cms-key="global.header.shop" href={shop.href} className={`hidden min-h-11 items-center rounded-full border px-5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] lg:inline-flex ${useDarkControls ? 'border-white/55 bg-transparent text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]' : 'border-[#002d5f]/30 bg-transparent text-[#002d5f] hover:bg-[#002d5f]/10'}`}>{shop.text}</Link>
               <button type="button" className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-[1.03] xl:hidden ${useDarkControls ? 'text-white hover:bg-white/10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.28)]' : 'text-[#002d5f] hover:bg-[#002d5f]/10'}`} aria-label={mobileOpen ? (locale === 'th' ? 'ปิดเมนู' : 'Close menu') : (locale === 'th' ? 'เปิดเมนู' : 'Open menu')} aria-expanded={mobileOpen} aria-controls="captain-maid-mobile-menu" onClick={() => setMobileOpen((v) => !v)}>{mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
             </div>
           </div>
@@ -270,17 +286,17 @@ export function Header() {
                   <div className="flex min-h-12 items-center gap-2">
                     {item.expandOnly ? (
                       <button data-cms-key={`global.header.nav.${item.key}`} type="button" aria-expanded={expanded} onClick={() => setOpenMenu(expanded ? null : item.key)} className="flex min-h-11 flex-1 items-center justify-between rounded-lg px-3 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] text-[#31495d] hover:bg-[#f2f8fc]">
-                        <span>{labels[item.key]}</span>
+                        <span>{label(item.key)}</span>
                         <ChevronDown className={`h-5 w-5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
                       </button>
                     ) : (
                       <>
-                        <Link data-cms-key={`global.header.nav.${item.key}`} href={localize(item.href)} aria-current={active ? 'page' : undefined} className={`flex min-h-11 flex-1 items-center rounded-lg px-3 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] ${active ? 'bg-[#e6f3fa] text-[#006cad]' : 'text-[#31495d] hover:bg-[#f2f8fc]'}`} onClick={() => setMobileOpen(false)}>{labels[item.key]}</Link>
-                        {item.items && <button type="button" aria-label={`${expanded ? 'Collapse' : 'Expand'} ${labels[item.key]}`} aria-expanded={expanded} onClick={() => setOpenMenu(expanded ? null : item.key)} className="flex h-11 w-11 items-center justify-center rounded-lg text-[#40596d] hover:bg-[#e6f3fa]"><ChevronDown className={`h-5 w-5 transition-transform ${expanded ? 'rotate-180' : ''}`} /></button>}
+                        <Link data-cms-key={`global.header.nav.${item.key}`} href={localize(item.href)} aria-current={active ? 'page' : undefined} className={`flex min-h-11 flex-1 items-center rounded-lg px-3 text-[17px] font-medium tracking-[-0.015em] [text-rendering:geometricPrecision] ${active ? 'bg-[#e6f3fa] text-[#006cad]' : 'text-[#31495d] hover:bg-[#f2f8fc]'}`} onClick={() => setMobileOpen(false)}>{label(item.key)}</Link>
+                        {item.items && <button type="button" aria-label={`${expanded ? 'Collapse' : 'Expand'} ${label(item.key)}`} aria-expanded={expanded} onClick={() => setOpenMenu(expanded ? null : item.key)} className="flex h-11 w-11 items-center justify-center rounded-lg text-[#40596d] hover:bg-[#e6f3fa]"><ChevronDown className={`h-5 w-5 transition-transform ${expanded ? 'rotate-180' : ''}`} /></button>}
                       </>
                     )}
                   </div>
-                  {item.items && expanded && <div className="pb-2 pl-3">{item.items.map((sub) => <Link data-cms-key={`global.header.nav.${item.key}.${sub.key}`} key={sub.key} href={localize(sub.href)} className="block min-h-11 rounded-lg px-4 py-2.5 text-[15px] font-normal tracking-[-0.01em] [text-rendering:geometricPrecision] text-[#536b7d] hover:bg-[#e6f3fa]" onClick={() => setMobileOpen(false)}>{labels[sub.key]}</Link>)}</div>}
+                  {item.items && expanded && <div className="pb-2 pl-3">{item.items.map((sub) => <Link data-cms-key={`global.header.nav.${item.key}.${sub.key}`} key={sub.key} href={localize(sub.href)} className="block min-h-11 rounded-lg px-4 py-2.5 text-[15px] font-normal tracking-[-0.01em] [text-rendering:geometricPrecision] text-[#536b7d] hover:bg-[#e6f3fa]" onClick={() => setMobileOpen(false)}>{cmsText(bindings, `global.header.nav.${item.key}.${sub.key}`, labels[sub.key])}</Link>)}</div>}
                 </div>
               })}
             </nav>

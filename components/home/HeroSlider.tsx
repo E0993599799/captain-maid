@@ -3,6 +3,7 @@
 import React from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { CaptainMaidHeroSlide } from '@/lib/cms/home-hero'
+import { cmsImage, cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
 /** Hero slider — art-directed presentation across mobile, tablet, and desktop. */
 const fallbackSlides: CaptainMaidHeroSlide[] = [
@@ -36,12 +37,13 @@ const fallbackSlides: CaptainMaidHeroSlide[] = [
   },
 ]
 
-export default function HeroSlider({ cmsSlides, cmsTitle, cmsDescription }: { cmsSlides?: CaptainMaidHeroSlide[] | null; cmsTitle?: string; cmsDescription?: string }) {
-  const slides = React.useMemo(() => {
-    if (!cmsSlides?.length) return fallbackSlides
-    const valid = cmsSlides.filter((slide) => slide.desktop || slide.tablet || slide.mobile)
-    return valid.length > 0 ? valid : fallbackSlides
-  }, [cmsSlides])
+export default function HeroSlider({ bindings = {} }: { bindings?: CmsBindings }) {
+  const slides = React.useMemo(() => fallbackSlides.map((slide, index) => {
+    const image = cmsImage(bindings, `home.hero.slide.${index + 1}.image`, { src: slide.desktop, desktop: slide.desktop, tablet: slide.tablet, mobile: slide.mobile, alt: slide.alt })
+    return { ...slide, ...image }
+  }), [bindings])
+  const cmsTitle = cmsText(bindings, 'home.hero.title', 'Made for Easy Home Cleaning')
+  const cmsDescription = cmsText(bindings, 'home.hero.description', 'Better Living, Taken Care of by Captain Maid.')
 
   const [current, setCurrent] = React.useState(0)
   const [paused, setPaused] = React.useState(false)
@@ -127,9 +129,9 @@ export default function HeroSlider({ cmsSlides, cmsTitle, cmsDescription }: { cm
               textShadow: '0 1px 2px rgba(75, 85, 99, 0.5), 0 2px 5px rgba(31, 41, 55, 0.16)',
             }}
           >
-            {cmsTitle || 'Made for Easy Home Cleaning'}
+            {cmsTitle}
           </h1>
-          <p data-cms-key="home.hero.description" className="hero-description">{cmsDescription || 'Better Living, Taken Care of by Captain Maid.'}</p>
+          <p data-cms-key="home.hero.description" className="hero-description">{cmsDescription}</p>
         </div>
       </div>
 

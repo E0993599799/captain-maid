@@ -11,11 +11,13 @@ import {
   CaptainProduct,
   ProductCategory,
 } from '@/lib/captain-products'
+import { cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
 interface Props {
   initialCategory: ProductCategory | 'all'
   initialProducts?: CaptainProduct[]
   initialLocale?: Lang
+  bindings?: CmsBindings
 }
 
 type Lang = 'th' | 'en'
@@ -29,11 +31,12 @@ function categoryLabel(id: ProductCategory | 'all', lang: Lang): string {
   return CATEGORIES.find((c) => c.id === id)?.label[lang] ?? id
 }
 
-export default function ProductsGrid({ initialCategory, initialProducts = PRODUCTS, initialLocale = 'th' }: Props) {
+export default function ProductsGrid({ initialCategory, initialProducts = PRODUCTS, initialLocale = 'th', bindings = {} }: Props) {
   const [category, setCategory] = React.useState<ProductCategory | 'all'>(initialCategory)
   const [lang, setLang] = React.useState<Lang>(initialLocale)
   const router = useRouter()
   const copy = COPY[lang]
+  const pageBindings = lang === initialLocale ? bindings : {}
 
   const products: CaptainProduct[] =
     category === 'all' ? initialProducts : initialProducts.filter((p) => p.category === category)
@@ -43,12 +46,12 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-          <span data-cms-key="products.eyebrow" className="text-xs font-bold text-[#0079c1] tracking-widest uppercase">{copy.eyebrow}</span>
+          <span data-cms-key="products.eyebrow" className="text-xs font-bold text-[#0079c1] tracking-widest uppercase">{cmsText(pageBindings, 'products.eyebrow', copy.eyebrow)}</span>
           <h1 data-cms-key="products.title" className="mt-2 text-3xl sm:text-4xl font-extrabold text-[#002d5f]">
-            {copy.title}
+            {cmsText(pageBindings, 'products.title', copy.title)}
           </h1>
           <p data-cms-key="products.intro" className="mt-3 text-gray-500 max-w-xl">
-            {copy.intro}
+            {cmsText(pageBindings, 'products.intro', copy.intro)}
           </p>
           </div>
           <div className="inline-flex self-start rounded-full border border-[#d9eaf4] bg-white p-1 shadow-sm" aria-label="Choose language">
@@ -143,8 +146,8 @@ export default function ProductsGrid({ initialCategory, initialProducts = PRODUC
           </div>
         ) : (
           <div className="bg-white rounded-2xl border border-gray-100 p-14 text-center text-gray-400">
-            <p data-cms-key="products.empty.title" className="font-semibold text-[#002d5f] mb-1">{copy.emptyTitle}</p>
-            <p data-cms-key="products.empty.description" className="text-sm">{copy.emptyBody}</p>
+            <p data-cms-key="products.empty.title" className="font-semibold text-[#002d5f] mb-1">{cmsText(pageBindings, 'products.empty.title', copy.emptyTitle)}</p>
+            <p data-cms-key="products.empty.description" className="text-sm">{cmsText(pageBindings, 'products.empty.description', copy.emptyBody)}</p>
           </div>
         )}
       </div>

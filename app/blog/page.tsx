@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { headers } from 'next/headers'
 import { getBlogPosts } from '@/lib/cms/blog'
+import { cmsText, getCaptainMaidRuntime } from '@/lib/cms/bindings'
 
 export const metadata: Metadata = {
   title: 'Blog | Cleaning Tips & Solutions | Captain Maid',
@@ -14,16 +15,20 @@ export const revalidate = 0
 export default async function BlogPage() {
   const requestHeaders = await headers()
   const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
-  const posts = await getBlogPosts(locale)
+  const [posts, runtime] = await Promise.all([
+    getBlogPosts(locale),
+    getCaptainMaidRuntime('blog', locale),
+  ])
+  const bindings = runtime.bindings
   return (
     <main className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
       <div className="container-safe">
         <div className="mb-2xl py-xl">
-          <h1 data-cms-key="blog.title" className="text-5xl font-serif font-bold mb-md text-captain-blue">Cleaning Tips &amp; Solutions</h1>
-          <p data-cms-key="blog.description" className="text-xl text-captain-neutral max-prose">Practical home-care guidance from Captain Maid.</p>
+          <h1 data-cms-key="blog.title" className="text-5xl font-serif font-bold mb-md text-captain-blue">{cmsText(bindings, 'blog.title', 'Cleaning Tips & Solutions')}</h1>
+          <p data-cms-key="blog.description" className="text-xl text-captain-neutral max-prose">{cmsText(bindings, 'blog.description', 'Practical home-care guidance from Captain Maid.')}</p>
         </div>
         {posts.length === 0 ? (
-          <p data-cms-key="blog.empty" className="py-2xl text-captain-neutral">ยังไม่มีบทความที่เผยแพร่</p>
+          <p data-cms-key="blog.empty" className="py-2xl text-captain-neutral">{cmsText(bindings, 'blog.empty', 'ยังไม่มีบทความที่เผยแพร่')}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg mb-2xl">
             {posts.map((post) => (

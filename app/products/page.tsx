@@ -3,6 +3,7 @@ import ProductsGrid from '@/components/products/ProductsGrid'
 import type { ProductCategory } from '@/lib/captain-products'
 import { getCaptainProducts } from '@/lib/cms/captain-products'
 import type { Locale } from '@/types/cms'
+import { getCaptainMaidRuntime } from '@/lib/cms/bindings'
 
 export const metadata: Metadata = {
   title: 'Products | Captain Maid',
@@ -32,8 +33,11 @@ export async function ProductsPage({ searchParams, locale = 'th' }: PageProps & 
     ? ((category as ProductCategory | 'all') ?? 'all')
     : 'all'
 
-  const products = await getCaptainProducts(locale)
-  return <ProductsGrid initialCategory={initial} initialProducts={products} initialLocale={locale} />
+  const [products, runtime] = await Promise.all([
+    getCaptainProducts(locale),
+    getCaptainMaidRuntime('products', locale),
+  ])
+  return <ProductsGrid initialCategory={initial} initialProducts={products} initialLocale={locale} bindings={runtime.bindings} />
 }
 
 export default ProductsPage
