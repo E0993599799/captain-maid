@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import Reveal from '@/components/Reveal'
-import { cmsImage, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import { cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 const largeCards = [
   {
@@ -55,7 +55,6 @@ export default function SolutionsDeepDive({ bindings = {} }: { bindings?: CmsBin
         {/* Large cards */}
         <Reveal className="grid lg:grid-cols-12 gap-4 mb-4">
           {largeCards.map((card, index) => {
-            const image = cmsImage(bindings, `home.solutions.large.${index + 1}.image`, { src: card.img, alt: card.title })
             return (
             <Link
               key={card.title}
@@ -63,13 +62,12 @@ export default function SolutionsDeepDive({ bindings = {} }: { bindings?: CmsBin
               className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[#d9edf8] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30 ${card.span}`}
             >
               <div className="solution-card-media relative aspect-[4/3] w-full overflow-hidden bg-white sm:aspect-[16/10]">
-                <Image
-                  data-cms-key={`home.solutions.large.${index + 1}.image`}
-                  src={image.desktop}
-                  alt={image.alt}
-                  fill
-                  className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                <CmsPicture
+                  bindings={bindings}
+                  cmsKey={`home.solutions.large.${index + 1}.image`}
+                  fallback={{ src: card.img, alt: card.title }}
+                  pictureClassName="absolute inset-0 block h-full w-full"
+                  imgClassName="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </div>
               <div className="solution-card-body flex flex-1 flex-col bg-[#eef7fc] p-5 sm:p-6">
@@ -87,7 +85,6 @@ export default function SolutionsDeepDive({ bindings = {} }: { bindings?: CmsBin
         {/* Small cards */}
         <Reveal delayMs={100} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {smallCards.map((card, index) => {
-            const image = cmsImage(bindings, `home.solutions.small.${index + 1}.image`, { src: card.img, alt: card.title })
             return (
             <Link
               key={card.title}
@@ -95,13 +92,12 @@ export default function SolutionsDeepDive({ bindings = {} }: { bindings?: CmsBin
               className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#d9edf8] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0079c1]/30"
             >
               <div className="solution-card-media relative aspect-[4/3] w-full overflow-hidden bg-white">
-                <Image
-                  data-cms-key={`home.solutions.small.${index + 1}.image`}
-                  src={image.desktop}
-                  alt={image.alt}
-                  fill
-                  className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 33vw"
+                <CmsPicture
+                  bindings={bindings}
+                  cmsKey={`home.solutions.small.${index + 1}.image`}
+                  fallback={{ src: card.img, alt: card.title }}
+                  pictureClassName="absolute inset-0 block h-full w-full"
+                  imgClassName="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </div>
               <div className="solution-card-body flex flex-1 flex-col bg-[#eef7fc] p-5">
