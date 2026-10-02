@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getCmsPage } from '@/lib/cms/pages'
-import { CmsPageRenderer } from '@/components/cms/CmsPageRenderer'
+import { headers } from 'next/headers'
+import { cmsLink, cmsText, getCaptainMaidRuntime } from '@/lib/cms/bindings'
 
 export const metadata: Metadata = {
   title: 'FAQ | Frequently Asked Questions | Captain Maid',
@@ -69,34 +69,34 @@ const faqCategories = [
 ]
 
 export default async function FAQPage() {
-  const cmsPage = await getCmsPage('faq', 'th', [])
-  if (cmsPage?.layout.length) return <CmsPageRenderer blocks={cmsPage.layout} locale="th" />
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
+  const { bindings } = await getCaptainMaidRuntime('faq', locale)
+  const cta = cmsLink(bindings, 'faq.cta.link', { text: 'ติดต่อฝ่ายสนับสนุน →', href: `/${locale}/contact` })
   return (
     <div className="min-h-screen bg-captain-cream dark:bg-captain-cream-dark pt-24">
       <div className="container-safe">
         {/* Page Header */}
         <div className="mb-2xl py-xl text-center">
-          <h1 data-cms-key="faq.hero.title" className="text-5xl font-serif font-bold mb-md text-captain-blue">คำถามที่พบบ่อย</h1>
-          <p data-cms-key="faq.hero.description" className="text-xl text-captain-neutral max-prose mx-auto">
-            คำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับผลิตภัณฑ์ กัปตันเมด การใช้งาน และการจัดส่ง
-          </p>
+          <h1 data-cms-key="faq.hero.title" className="text-5xl font-serif font-bold mb-md text-captain-blue">{cmsText(bindings, 'faq.hero.title', 'คำถามที่พบบ่อย')}</h1>
+          <p data-cms-key="faq.hero.description" className="text-xl text-captain-neutral max-prose mx-auto">{cmsText(bindings, 'faq.hero.description', 'คำตอบสำหรับคำถามที่พบบ่อยเกี่ยวกับผลิตภัณฑ์ กัปตันเมด การใช้งาน และการจัดส่ง')}</p>
         </div>
 
         {/* FAQ Sections */}
         {faqCategories.map((section, sectionIndex) => (
           <div key={sectionIndex} className="mb-2xl">
-            <h2 data-cms-key={`faq.section.${sectionIndex + 1}.title`} className="text-3xl font-serif font-bold mb-lg text-captain-blue">{section.category}</h2>
+            <h2 data-cms-key={`faq.section.${sectionIndex + 1}.title`} className="text-3xl font-serif font-bold mb-lg text-captain-blue">{cmsText(bindings, `faq.section.${sectionIndex + 1}.title`, section.category)}</h2>
 
             <div className="space-y-md">
               {section.questions.map((item, itemIndex) => (
                 <details key={itemIndex} className="bg-white dark:bg-captain-cream-dark rounded-sm border border-captain-light overflow-hidden group cursor-pointer hover:border-captain-blue transition-colors">
                   <summary className="flex items-center justify-between p-lg font-semibold text-captain-text hover:bg-captain-light/50 transition-colors">
-                    <span data-cms-key={`faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.title`} className="text-lg">{item.q}</span>
+                    <span data-cms-key={`faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.title`} className="text-lg">{cmsText(bindings, `faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.title`, item.q)}</span>
                     <span className="text-captain-blue group-open:rotate-180 transition-transform">▼</span>
                   </summary>
 
                   <div data-cms-key={`faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.answer`} className="px-lg pb-lg pt-0 text-captain-neutral leading-relaxed bg-captain-light/30 border-t border-captain-light">
-                    {item.a}
+                    {cmsText(bindings, `faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.answer`, item.a)}
                   </div>
                 </details>
               ))}
@@ -106,16 +106,14 @@ export default async function FAQPage() {
 
         {/* Still Have Questions */}
         <div className="bg-captain-light rounded-sm p-2xl text-center my-2xl">
-          <h2 data-cms-key="faq.cta.title" className="text-3xl font-serif font-bold mb-md text-captain-text">ไม่พบคำตอบที่คุณต้องการใช่ไหม?</h2>
-          <p data-cms-key="faq.cta.description" className="text-lg text-captain-neutral mb-lg">
-            ติดต่อทีมสนับสนุนของเราสำหรับข้อมูลเพิ่มเติม
-          </p>
+          <h2 data-cms-key="faq.cta.title" className="text-3xl font-serif font-bold mb-md text-captain-text">{cmsText(bindings, 'faq.cta.title', 'ไม่พบคำตอบที่คุณต้องการใช่ไหม?')}</h2>
+          <p data-cms-key="faq.cta.description" className="text-lg text-captain-neutral mb-lg">{cmsText(bindings, 'faq.cta.description', 'ติดต่อทีมสนับสนุนของเราสำหรับข้อมูลเพิ่มเติม')}</p>
           <Link
             data-cms-key="faq.cta.link"
-            href="/contact"
+            href={cta.href}
             className="inline-flex items-center gap-sm px-lg py-md bg-captain-yellow text-captain-text rounded-sm font-semibold hover:bg-captain-blue hover:text-white transition-all"
           >
-            ติดต่อฝ่ายสนับสนุน →
+            {cta.text}
           </Link>
         </div>
       </div>
@@ -127,13 +125,13 @@ export default async function FAQPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: faqCategories.flatMap((section) =>
-              section.questions.map((q) => ({
+            mainEntity: faqCategories.flatMap((section, sectionIndex) =>
+              section.questions.map((q, itemIndex) => ({
                 '@type': 'Question',
-                name: q.q,
+                name: cmsText(bindings, `faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.title`, q.q),
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: q.a,
+                  text: cmsText(bindings, `faq.section.${sectionIndex + 1}.question.${itemIndex + 1}.answer`, q.a),
                 },
               }))
             ),
