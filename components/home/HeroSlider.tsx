@@ -87,7 +87,7 @@ export default function HeroSlider({ cmsSlides, cmsTitle, cmsDescription }: { cm
           style={{ opacity: i === current ? 1 : 0 }}
           aria-hidden={i !== current}
         >
-          <picture className="block h-full w-full">
+          <picture data-cms-key={`home.hero.slide.${i + 1}.image`} className="block h-full w-full">
             <source media="(max-width: 767px)" srcSet={slide.mobile} />
             <source media="(max-width: 1023px)" srcSet={slide.tablet} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -119,6 +119,7 @@ export default function HeroSlider({ cmsSlides, cmsTitle, cmsDescription }: { cm
           aria-hidden={current !== 0}
         >
           <h1
+            data-cms-key="home.hero.title"
             className="hero-title--dark-bg"
             style={{
               fontSize: 'clamp(1.15rem, 3vw, 2.75rem)',
@@ -128,7 +129,7 @@ export default function HeroSlider({ cmsSlides, cmsTitle, cmsDescription }: { cm
           >
             {cmsTitle || 'Made for Easy Home Cleaning'}
           </h1>
-          <p className="hero-description">{cmsDescription || 'Better Living, Taken Care of by Captain Maid.'}</p>
+          <p data-cms-key="home.hero.description" className="hero-description">{cmsDescription || 'Better Living, Taken Care of by Captain Maid.'}</p>
         </div>
       </div>
 
