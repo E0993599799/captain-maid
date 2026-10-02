@@ -32,7 +32,8 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1, maxi
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const requestHeaders = await headers()
   const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
-  const homeRuntime = await getCaptainMaidRuntime('home', locale)
+  const editorSource = requestHeaders.get('x-arigeo-editor-source') === '1'
+  const homeRuntime = await getCaptainMaidRuntime('home', locale, { skipRemote: editorSource })
   const globals = globalBindings(homeRuntime.bindings)
   return (
     <html lang={locale} className={`${englishFont.variable} ${thaiFont.variable}`} suppressHydrationWarning>
