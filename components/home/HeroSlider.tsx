@@ -36,7 +36,7 @@ const fallbackSlides: CaptainMaidHeroSlide[] = [
   },
 ]
 
-export default function HeroSlider({ cmsSlides }: { cmsSlides?: CaptainMaidHeroSlide[] | null }) {
+export default function HeroSlider({ cmsSlides, cmsTitle, cmsDescription }: { cmsSlides?: CaptainMaidHeroSlide[] | null; cmsTitle?: string; cmsDescription?: string }) {
   const slides = React.useMemo(() => {
     if (!cmsSlides?.length) return fallbackSlides
     const valid = cmsSlides.filter((slide) => slide.desktop || slide.tablet || slide.mobile)
@@ -126,9 +126,9 @@ export default function HeroSlider({ cmsSlides }: { cmsSlides?: CaptainMaidHeroS
               textShadow: '0 1px 2px rgba(75, 85, 99, 0.5), 0 2px 5px rgba(31, 41, 55, 0.16)',
             }}
           >
-            Made for Easy Home Cleaning
+            {cmsTitle || 'Made for Easy Home Cleaning'}
           </h1>
-          <p className="hero-description">Better Living, Taken Care of by Captain Maid.</p>
+          <p className="hero-description">{cmsDescription || 'Better Living, Taken Care of by Captain Maid.'}</p>
         </div>
       </div>
 
