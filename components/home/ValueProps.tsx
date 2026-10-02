@@ -1,5 +1,6 @@
 import { Shield, Star, Sparkles, Heart } from 'lucide-react'
 import Reveal from '@/components/Reveal'
+import { cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
 const values = [
   { icon: Shield, title: 'Family Safe', sub: 'ปลอดภัยสำหรับทุกคนในบ้าน' },
@@ -8,7 +9,7 @@ const values = [
   { icon: Heart, title: 'Trusted Care', sub: 'ดูแลบ้านด้วยความใส่ใจ' },
 ]
 
-export default function ValueProps() {
+export default function ValueProps({ bindings = {} }: { bindings?: CmsBindings }) {
   return (
     <section className="py-12 bg-white border-b border-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,8 +19,8 @@ export default function ValueProps() {
               <div className="w-16 h-16 rounded-2xl bg-[#e6f3fa] flex items-center justify-center mb-3 group-hover:bg-[#0079c1] transition-all duration-300">
                 <v.icon className="w-7 h-7 text-[#0079c1] group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 data-cms-key={`home.valueProps.${index + 1}.title`} className="text-sm font-bold text-[#002d5f]">{v.title}</h3>
-              <p data-cms-key={`home.valueProps.${index + 1}.description`} className="text-xs text-gray-400 mt-0.5">{v.sub}</p>
+              <h3 data-cms-key={`home.valueProps.${index + 1}.title`} className="text-sm font-bold text-[#002d5f]">{cmsText(bindings, `home.valueProps.${index + 1}.title`, v.title)}</h3>
+              <p data-cms-key={`home.valueProps.${index + 1}.description`} className="text-xs text-gray-400 mt-0.5">{cmsText(bindings, `home.valueProps.${index + 1}.description`, v.sub)}</p>
             </div>
           ))}
         </Reveal>
