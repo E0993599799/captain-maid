@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CONTACT_INFO } from '@/lib/contact'
+import { cmsImage, cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
 type Locale = 'th' | 'en'
 
@@ -35,11 +36,13 @@ const COPY = {
   },
 } satisfies Record<Locale, Record<string, string>>
 
-export function Footer() {
+export function Footer({ bindings = {} }: { bindings?: CmsBindings }) {
   const pathname = usePathname() ?? '/th'
   const locale: Locale = pathname.startsWith('/en') ? 'en' : 'th'
   const t = COPY[locale]
   const href = (path: string) => `/${locale}${path === '/' ? '' : path}`
+  const logo = cmsImage(bindings, 'global.footer.logo', { src: '/images/logo.png', alt: 'Captain Maid' })
+  const boundLink = (key: string, text: string, url: string) => cmsLink(bindings, key, { text, href: url })
 
   return (
     <footer className="bg-[#002d5f] text-white">
@@ -47,13 +50,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link href={href('/')} className="inline-flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30">
-              <img data-cms-key="global.footer.logo" src="/images/logo.png" alt="Captain Maid" className="h-12 w-12 object-contain" />
+              <img data-cms-key="global.footer.logo" src={logo.desktop} alt={logo.alt} className="h-12 w-12 object-contain" />
               <div className="leading-tight">
-                <div data-cms-key="global.footer.brand.en" className="font-bold">Captain Maid</div>
-                <div data-cms-key="global.footer.brand.th" className="text-xs text-white/60">กัปตันเมด</div>
+                <div data-cms-key="global.footer.brand.en" className="font-bold">{cmsText(bindings, 'global.footer.brand.en', 'Captain Maid')}</div>
+                <div data-cms-key="global.footer.brand.th" className="text-xs text-white/60">{cmsText(bindings, 'global.footer.brand.th', 'กัปตันเมด')}</div>
               </div>
             </Link>
-            <p data-cms-key="global.footer.tagline" className="mt-4 max-w-xs text-sm leading-6 text-white/70">{t.tagline}</p>
+            <p data-cms-key="global.footer.tagline" className="mt-4 max-w-xs text-sm leading-6 text-white/70">{cmsText(bindings, 'global.footer.tagline', t.tagline)}</p>
             {(CONTACT_INFO.phone || CONTACT_INFO.email || CONTACT_INFO.address) && (
               <div className="mt-5 space-y-2 text-sm text-white/70">
                 {CONTACT_INFO.phone && <a className="block hover:text-white" href={`tel:${CONTACT_INFO.phone}`}>{CONTACT_INFO.phone}</a>}
@@ -64,27 +67,27 @@ export function Footer() {
           </div>
 
           <div>
-            <h2 data-cms-key="global.footer.products.heading" className="text-sm font-bold uppercase tracking-[0.12em] text-white/90">{t.products}</h2>
+            <h2 data-cms-key="global.footer.products.heading" className="text-sm font-bold uppercase tracking-[0.12em] text-white/90">{cmsText(bindings, 'global.footer.products.heading', t.products)}</h2>
             <nav className="mt-4 space-y-3 text-sm text-white/70" aria-label={t.products}>
               <Link data-cms-key="global.footer.products.floor" className="block hover:text-white" href={`${href('/products')}?category=floor`}>{t.floor}</Link>
               <Link data-cms-key="global.footer.products.bathroom" className="block hover:text-white" href={`${href('/products')}?category=bathroom`}>{t.bathroom}</Link>
               <Link data-cms-key="global.footer.products.kitchen" className="block hover:text-white" href={`${href('/products')}?category=kitchen`}>{t.kitchen}</Link>
-              <Link data-cms-key="global.footer.products.all" className="block font-semibold text-white hover:text-[#7dd3fc]" href={href('/products')}>{t.all}</Link>
+              <Link data-cms-key="global.footer.products.all" className="block font-semibold text-white hover:text-[#7dd3fc]" href={boundLink('global.footer.products.all', t.all, href('/products')).href}>{boundLink('global.footer.products.all', t.all, href('/products')).text}</Link>
             </nav>
           </div>
 
           <div>
-            <h2 data-cms-key="global.footer.company.heading" className="text-sm font-bold uppercase tracking-[0.12em] text-white/90">{t.company}</h2>
+            <h2 data-cms-key="global.footer.company.heading" className="text-sm font-bold uppercase tracking-[0.12em] text-white/90">{cmsText(bindings, 'global.footer.company.heading', t.company)}</h2>
             <nav className="mt-4 space-y-3 text-sm text-white/70" aria-label={t.company}>
-              <Link data-cms-key="global.footer.company.about" className="block hover:text-white" href={href('/about')}>{t.about}</Link>
-              <Link data-cms-key="global.footer.company.blog" className="block hover:text-white" href={href('/blog')}>{t.blog}</Link>
-              <Link data-cms-key="global.footer.company.contact" className="block hover:text-white" href={href('/contact')}>{t.contact}</Link>
+              <Link data-cms-key="global.footer.company.about" className="block hover:text-white" href={boundLink('global.footer.company.about', t.about, href('/about')).href}>{boundLink('global.footer.company.about', t.about, href('/about')).text}</Link>
+              <Link data-cms-key="global.footer.company.blog" className="block hover:text-white" href={boundLink('global.footer.company.blog', t.blog, href('/blog')).href}>{boundLink('global.footer.company.blog', t.blog, href('/blog')).text}</Link>
+              <Link data-cms-key="global.footer.company.contact" className="block hover:text-white" href={boundLink('global.footer.company.contact', t.contact, href('/contact')).href}>{boundLink('global.footer.company.contact', t.contact, href('/contact')).text}</Link>
             </nav>
           </div>
 
           <div className="lg:text-right">
-            <p data-cms-key="global.footer.promise.title" className="text-sm font-semibold text-white">Made for Easy Home Cleaning</p>
-            <p data-cms-key="global.footer.promise.description" className="mt-2 text-sm leading-6 text-white/60">Better Living, Taken Care of by Captain Maid.</p>
+            <p data-cms-key="global.footer.promise.title" className="text-sm font-semibold text-white">{cmsText(bindings, 'global.footer.promise.title', 'Made for Easy Home Cleaning')}</p>
+            <p data-cms-key="global.footer.promise.description" className="mt-2 text-sm leading-6 text-white/60">{cmsText(bindings, 'global.footer.promise.description', 'Better Living, Taken Care of by Captain Maid.')}</p>
           </div>
         </div>
 
