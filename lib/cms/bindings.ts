@@ -28,7 +28,12 @@ function resolveCmsMediaUrl(value: string): string {
   return value
 }
 
-export async function getCaptainMaidRuntime(slug: string, locale: 'th' | 'en'): Promise<CmsRuntime> {
+export async function getCaptainMaidRuntime(
+  slug: string,
+  locale: 'th' | 'en',
+  options: { skipRemote?: boolean } = {},
+): Promise<CmsRuntime> {
+  if (options.skipRemote) return { bindings: {} }
   try {
     const response = await fetch(
       `${CMS_URL}/api/public/builder-v2/runtime/captain-maid/${encodeURIComponent(slug)}?locale=${locale}`,
