@@ -39,7 +39,7 @@ const fallbackSlides: CaptainMaidHeroSlide[] = [
 
 export default function HeroSlider({ bindings = {} }: { bindings?: CmsBindings }) {
   const slides = React.useMemo(() => fallbackSlides.map((slide, index) => {
-    const image = cmsImage(bindings, `home.hero.slide.${index + 1}.image`, slide)
+    const image = cmsImage(bindings, `home.hero.slide.${index + 1}.image`, { src: slide.desktop, desktop: slide.desktop, tablet: slide.tablet, mobile: slide.mobile, alt: slide.alt })
     return { ...slide, ...image }
   }), [bindings])
   const cmsTitle = cmsText(bindings, 'home.hero.title', 'Made for Easy Home Cleaning')
