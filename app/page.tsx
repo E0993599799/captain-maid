@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
 }
 
-export async function HomeContent({ locale }: { locale: 'th' | 'en' }) {
-  const runtime = await getCaptainMaidRuntime('home', locale)
+export async function HomeContent({ locale, editorSource = false }: { locale: 'th' | 'en'; editorSource?: boolean }) {
+  const runtime = await getCaptainMaidRuntime('home', locale, { skipRemote: editorSource })
   const bindings: CmsBindings = runtime.bindings
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const brandSchema = {
@@ -70,5 +70,6 @@ export async function HomeContent({ locale }: { locale: 'th' | 'en' }) {
 export default async function HomePage() {
   const requestHeaders = await headers()
   const locale = requestHeaders.get('x-captain-maid-locale') === 'en' ? 'en' : 'th'
-  return <HomeContent locale={locale} />
+  const editorSource = requestHeaders.get('x-arigeo-editor-source') === '1'
+  return <HomeContent locale={locale} editorSource={editorSource} />
 }
