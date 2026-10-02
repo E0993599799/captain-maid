@@ -3,8 +3,11 @@ import Image from 'next/image'
 import { Quote, ArrowRight } from 'lucide-react'
 import { getAllBlogPosts } from '@/lib/blog'
 import Reveal from '@/components/Reveal'
+import { cmsImage, cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
 
-export default function BlogTestimonial() {
+export default function BlogTestimonial({ bindings = {} }: { bindings?: CmsBindings }) {
+  const testimonialImage = cmsImage(bindings, 'home.community.testimonial.image', { src: '/images/testimonial.png', alt: 'Captain Maid customer' })
+  const viewAll = cmsLink(bindings, 'home.blog.viewAll', { text: 'View All', href: '/blog' })
   const allPosts = getAllBlogPosts()
   const blogPosts = allPosts.slice(0, 3)
   return (
@@ -14,8 +17,7 @@ export default function BlogTestimonial() {
           {/* Testimonial */}
           <Reveal className="lg:col-span-5">
             <h2 data-cms-key="home.community.heading" id="community-title" className="mb-5 text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">
-              เสียงจาก
-              <br className="hidden lg:block" /> ครอบครัวของเรา
+              {cmsText(bindings, 'home.community.heading', 'เสียงจาก ครอบครัวของเรา')}
             </h2>
             <div className="bg-gradient-to-br from-[#e6f3fa] to-white rounded-3xl p-6 sm:p-8 relative overflow-hidden">
               <Quote className="absolute top-6 right-6 w-16 h-16 text-[#0079c1]/10" />
@@ -23,8 +25,8 @@ export default function BlogTestimonial() {
                 <div className="flex items-center gap-3 mb-4">
                   <Image
                     data-cms-key="home.community.testimonial.image"
-                    src="/images/testimonial.png"
-                    alt="Captain Maid customer"
+                    src={testimonialImage.desktop}
+                    alt={testimonialImage.alt}
                     width={56}
                     height={56}
                     className="rounded-full object-cover ring-2 ring-white shadow-md"
@@ -38,12 +40,11 @@ export default function BlogTestimonial() {
                   </div>
                 </div>
                 <p data-cms-key="home.community.testimonial.quote" className="text-base text-[#002d5f] font-medium leading-relaxed">
-                  “บ้านสะอาด หอมสดชื่น ปลอดภัยกับลูกๆ ค่ะ Captain Maid
-                  ทำความสะอาดได้ดีมาก และช่วยให้แม่บ้านสบายขึ้นเยอะเลย”
+                  {cmsText(bindings, 'home.community.testimonial.quote', '“บ้านสะอาด หอมสดชื่น ปลอดภัยกับลูกๆ ค่ะ Captain Maid ทำความสะอาดได้ดีมาก และช่วยให้แม่บ้านสบายขึ้นเยอะเลย”')}
                 </p>
                 <div className="mt-5">
-                  <div data-cms-key="home.community.testimonial.name" className="font-bold text-sm text-[#002d5f]">คุณนิดา สุขมานนท์</div>
-                  <div data-cms-key="home.community.testimonial.role" className="text-xs text-gray-400">คุณแม่ลูก 2</div>
+                  <div data-cms-key="home.community.testimonial.name" className="font-bold text-sm text-[#002d5f]">{cmsText(bindings, 'home.community.testimonial.name', 'คุณนิดา สุขมานนท์')}</div>
+                  <div data-cms-key="home.community.testimonial.role" className="text-xs text-gray-400">{cmsText(bindings, 'home.community.testimonial.role', 'คุณแม่ลูก 2')}</div>
                 </div>
               </div>
             </div>
@@ -52,13 +53,13 @@ export default function BlogTestimonial() {
           {/* Blog posts */}
           <Reveal delayMs={100} className="lg:col-span-7">
             <div className="flex items-end justify-between mb-5">
-              <h2 data-cms-key="home.blog.heading" className="text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">บทความน่าอ่าน</h2>
+              <h2 data-cms-key="home.blog.heading" className="text-2xl font-extrabold leading-tight text-[#002d5f] sm:text-3xl">{cmsText(bindings, 'home.blog.heading', 'บทความน่าอ่าน')}</h2>
               <Link
                 data-cms-key="home.blog.viewAll"
-                href="/blog"
+                href={viewAll.href}
                 className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-[#0079c1] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0079c1]"
               >
-                View All <ArrowRight className="w-4 h-4" />
+                {viewAll.text} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <div className="grid sm:grid-cols-3 gap-4">
