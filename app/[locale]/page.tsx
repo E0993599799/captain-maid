@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import HomePage from '@/app/page'
+import { HomeContent } from '@/app/page'
 import { localizedMetadata } from './seo'
-import { getCmsPage } from '@/lib/cms/pages'
-import { CmsPageRenderer } from '@/components/cms/CmsPageRenderer'
-import { getCaptainMaidHomeHero } from '@/lib/cms/home-hero'
 
 type Locale = 'th' | 'en'
 
@@ -62,10 +59,5 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
 export default async function LocalePage({ params }: LocalePageProps) {
   const { locale } = await params
   if (!(locale in copy)) notFound()
-  const cmsPage = await getCmsPage('home', locale as Locale, [])
-  if (cmsPage?.layout.length) {
-    const homeHero = await getCaptainMaidHomeHero()
-    return <CmsPageRenderer blocks={cmsPage.layout} locale={locale as Locale} heroSlides={homeHero?.slides} />
-  }
-  return <HomePage />
+  return <HomeContent locale={locale as Locale} />
 }
