@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CONTACT_INFO } from '@/lib/contact'
-import { cmsImage, cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import { cmsLink, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 type Locale = 'th' | 'en'
 
@@ -41,7 +42,6 @@ export function Footer({ bindings = {} }: { bindings?: CmsBindings }) {
   const locale: Locale = pathname.startsWith('/en') ? 'en' : 'th'
   const t = COPY[locale]
   const href = (path: string) => `/${locale}${path === '/' ? '' : path}`
-  const logo = cmsImage(bindings, 'global.footer.logo', { src: '/images/logo.png', alt: 'Captain Maid' })
   const boundLink = (key: string, text: string, url: string) => cmsLink(bindings, key, { text, href: url })
 
   return (
@@ -50,7 +50,15 @@ export function Footer({ bindings = {} }: { bindings?: CmsBindings }) {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link href={href('/')} className="inline-flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30">
-              <img data-cms-key="global.footer.logo" src={logo.desktop} alt={logo.alt} className="h-12 w-12 object-contain" />
+              <CmsPicture
+                bindings={bindings}
+                cmsKey="global.footer.logo"
+                fallback={{ src: '/images/logo.png', alt: 'Captain Maid' }}
+                pictureClassName="block h-12 w-12"
+                imgClassName="h-12 w-12 object-contain"
+                width={48}
+                height={48}
+              />
               <div className="leading-tight">
                 <div data-cms-key="global.footer.brand.en" className="font-bold">{cmsText(bindings, 'global.footer.brand.en', 'Captain Maid')}</div>
                 <div data-cms-key="global.footer.brand.th" className="text-xs text-white/60">{cmsText(bindings, 'global.footer.brand.th', 'กัปตันเมด')}</div>
