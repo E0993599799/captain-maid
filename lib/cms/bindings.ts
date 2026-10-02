@@ -21,6 +21,13 @@ export type CmsRuntime = {
 
 const CMS_URL = (process.env.NEXT_PUBLIC_CMS_URL || 'https://cms.arigeo.com').replace(/\/$/, '')
 
+function resolveCmsMediaUrl(value: string): string {
+  if (!value) return value
+  if (/^(?:https?:)?\/\//i.test(value) || /^(?:data:|blob:)/i.test(value)) return value
+  if (value.startsWith('/api/media/file/')) return `${CMS_URL}${value}`
+  return value
+}
+
 export async function getCaptainMaidRuntime(slug: string, locale: 'th' | 'en'): Promise<CmsRuntime> {
   try {
     const response = await fetch(
@@ -76,12 +83,14 @@ export function cmsImage(
       alt: fallback.alt || '',
     }
   }
-  const desktop = binding.desktop || binding.src || fallback.desktop || fallback.src
+  const desktop = resolveCmsMediaUrl(binding.desktop || binding.src || fallback.desktop || fallback.src)
+  const tablet = resolveCmsMediaUrl(binding.tablet || desktop)
+  const mobile = resolveCmsMediaUrl(binding.mobile || binding.tablet || desktop)
   return {
     src: desktop,
     desktop,
-    tablet: binding.tablet || desktop,
-    mobile: binding.mobile || binding.tablet || desktop,
+    tablet,
+    mobile,
     alt: binding.alt ?? fallback.alt ?? '',
   }
 }
