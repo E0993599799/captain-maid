@@ -54,7 +54,7 @@ export async function getCaptainMaidRuntime(
 
 export function cmsText(bindings: CmsBindings | undefined, key: string, fallback: string): string {
   const binding = bindings?.[key]
-  return binding && (binding.type === 'text' || binding.type === 'link') && binding.text
+  return binding && (binding.type === 'text' || binding.type === 'link') && typeof binding.text === 'string'
     ? binding.text
     : fallback
 }
@@ -67,7 +67,7 @@ export function cmsLink(
   const binding = bindings?.[key]
   if (!binding || binding.type !== 'link') return fallback
   return {
-    text: binding.text || fallback.text,
+    text: typeof binding.text === 'string' ? binding.text : fallback.text,
     href: binding.href || fallback.href,
   }
 }
