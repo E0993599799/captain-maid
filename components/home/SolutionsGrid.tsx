@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { Droplet, Waves, Flame, Zap, Wind, Sparkles } from 'lucide-react'
 import Reveal from '@/components/Reveal'
-import { cmsImage, cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import { cmsText, type CmsBindings } from '@/lib/cms/bindings'
+import CmsPicture from '@/components/cms/CmsPicture'
 
 const cards = [
   {
@@ -43,18 +44,17 @@ const cards = [
 ]
 
 function SolutionCard({ card, index, bindings }: { card: (typeof cards)[number]; index: number; bindings: CmsBindings }) {
-  const image = cmsImage(bindings, `home.solutionsGrid.${index + 1}.image`, { src: card.img, alt: card.title })
   return (
     <Link
       href={card.href}
       className="group relative block aspect-[16/10] overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        data-cms-key={`home.solutionsGrid.${index + 1}.image`}
-        src={image.desktop}
-        alt={image.alt}
-        className="absolute inset-0 block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      <CmsPicture
+        bindings={bindings}
+        cmsKey={`home.solutionsGrid.${index + 1}.image`}
+        fallback={{ src: card.img, alt: card.title }}
+        pictureClassName="absolute inset-0 block h-full w-full"
+        imgClassName="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         loading="eager"
         decoding="sync"
       />
