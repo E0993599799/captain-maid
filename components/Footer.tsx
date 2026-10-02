@@ -69,9 +69,9 @@ export function Footer({ bindings = {} }: { bindings?: CmsBindings }) {
           <div>
             <h2 data-cms-key="global.footer.products.heading" className="text-sm font-bold uppercase tracking-[0.12em] text-white/90">{cmsText(bindings, 'global.footer.products.heading', t.products)}</h2>
             <nav className="mt-4 space-y-3 text-sm text-white/70" aria-label={t.products}>
-              <Link data-cms-key="global.footer.products.floor" className="block hover:text-white" href={`${href('/products')}?category=floor`}>{t.floor}</Link>
-              <Link data-cms-key="global.footer.products.bathroom" className="block hover:text-white" href={`${href('/products')}?category=bathroom`}>{t.bathroom}</Link>
-              <Link data-cms-key="global.footer.products.kitchen" className="block hover:text-white" href={`${href('/products')}?category=kitchen`}>{t.kitchen}</Link>
+              <Link data-cms-key="global.footer.products.floor" className="block hover:text-white" href={boundLink('global.footer.products.floor', t.floor, `${href('/products')}?category=floor`).href}>{boundLink('global.footer.products.floor', t.floor, `${href('/products')}?category=floor`).text}</Link>
+              <Link data-cms-key="global.footer.products.bathroom" className="block hover:text-white" href={boundLink('global.footer.products.bathroom', t.bathroom, `${href('/products')}?category=bathroom`).href}>{boundLink('global.footer.products.bathroom', t.bathroom, `${href('/products')}?category=bathroom`).text}</Link>
+              <Link data-cms-key="global.footer.products.kitchen" className="block hover:text-white" href={boundLink('global.footer.products.kitchen', t.kitchen, `${href('/products')}?category=kitchen`).href}>{boundLink('global.footer.products.kitchen', t.kitchen, `${href('/products')}?category=kitchen`).text}</Link>
               <Link data-cms-key="global.footer.products.all" className="block font-semibold text-white hover:text-[#7dd3fc]" href={boundLink('global.footer.products.all', t.all, href('/products')).href}>{boundLink('global.footer.products.all', t.all, href('/products')).text}</Link>
             </nav>
           </div>
