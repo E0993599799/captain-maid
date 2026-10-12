@@ -24,7 +24,7 @@ jobs:
       - name: CMS production contract
         run: node --test tests/cms-production-contract.test.mjs tests/cms-status-endpoint.test.mjs
       - name: CMS blog wiring TDD contract
-        run: node --test scripts/cms-blog-wiring.test.mjs
+        run: node --test scripts/cms-blog-wiring.test.mjs scripts/cms-blog-home-sitemap.test.mjs
       - name: CMS page integration tests
         run: npm run test:cms
       - name: Type check
