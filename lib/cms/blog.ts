@@ -17,7 +17,12 @@ export type BlogPost = {
   seo?: { title?: string; description?: string }
 }
 
-type RawPost = Record<string, unknown>
+type RawPost = Record<string, unknown> & {
+  seo?: {
+    metaTitle?: unknown
+    metaDescription?: unknown
+  }
+}
 
 function localized(value: unknown, locale: Locale): string {
   if (typeof value === 'string') return value
@@ -36,11 +41,6 @@ function media(value: unknown) {
     url: row.url,
     alt: localized(row.alt, 'th') || (typeof row.filename === 'string' ? row.filename : ''),
   }
-}
-
-function seoValue(value: unknown, key: 'metaTitle' | 'metaDescription', locale: Locale): string {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return ''
-  return localized((value as Record<string, unknown>)[key], locale)
 }
 
 export function mapCmsBlogPost(raw: RawPost, locale: Locale = 'th'): BlogPost | null {
@@ -65,8 +65,8 @@ export function mapCmsBlogPost(raw: RawPost, locale: Locale = 'th'): BlogPost | 
     articleLayout: mapArticleLayout(raw.articleLayout),
     heroImage: media(raw.coverImage),
     seo: raw.seo ? {
-      title: seoValue(raw.seo, 'metaTitle', locale),
-      description: seoValue(raw.seo, 'metaDescription', locale),
+      title: localized(raw.seo.metaTitle, locale),
+      description: localized(raw.seo.metaDescription, locale),
     } : undefined,
   }
 }
