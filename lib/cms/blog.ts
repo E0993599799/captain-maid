@@ -18,7 +18,6 @@ export type BlogPost = {
 }
 
 type RawPost = Record<string, unknown>
-type Localized = string | { th?: string; en?: string } | null | undefined
 
 function localized(value: unknown, locale: Locale): string {
   if (typeof value === 'string') return value
