@@ -8,6 +8,7 @@ import TrustBanner from '@/components/home/TrustBanner'
 import WhyCaptainMaid from '@/components/home/WhyCaptainMaid'
 import BlogTestimonial from '@/components/home/BlogTestimonial'
 import { headers } from 'next/headers'
+import { getBlogPosts } from '@/lib/cms/blog'
 import { getCaptainMaidRuntime, type CmsBindings } from '@/lib/cms/bindings'
 
 export const metadata: Metadata = {
@@ -36,7 +37,10 @@ export const metadata: Metadata = {
 }
 
 export async function HomeContent({ locale, editorSource = false }: { locale: 'th' | 'en'; editorSource?: boolean }) {
-  const runtime = await getCaptainMaidRuntime('home', locale, { skipRemote: editorSource })
+  const runtimePromise = editorSource
+    ? getCaptainMaidRuntime('home', locale, { skipRemote: true })
+    : getCaptainMaidRuntime('home', locale)
+  const [runtime, posts] = await Promise.all([runtimePromise, getBlogPosts(locale)])
   const bindings: CmsBindings = runtime.bindings
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   const brandSchema = {
@@ -61,11 +65,10 @@ export async function HomeContent({ locale, editorSource = false }: { locale: 't
       <FeaturedProducts bindings={bindings} />
       <TrustBanner bindings={bindings} />
       <WhyCaptainMaid bindings={bindings} />
-      <BlogTestimonial bindings={bindings} />
+      <BlogTestimonial bindings={bindings} posts={posts.slice(0, 3)} locale={locale} />
     </>
   )
 }
-
 
 export default async function HomePage() {
   const requestHeaders = await headers()
