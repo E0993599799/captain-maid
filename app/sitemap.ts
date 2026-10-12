@@ -1,8 +1,14 @@
 import type { MetadataRoute } from 'next'
+import { getBlogPosts } from '@/lib/cms/blog'
 import { getCaptainProducts } from '@/lib/cms/captain-products'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 const LOCALES = ['th', 'en'] as const
+
+function safeDate(value: string): Date {
+  const date = new Date(value)
+  return value && !Number.isNaN(date.getTime()) ? date : new Date()
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (!siteUrl) return []
@@ -32,5 +38,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
   ).flat()
 
-  return [...staticEntries, ...productEntries]
+  const blogEntries: MetadataRoute.Sitemap = (
+    await Promise.all(
+      LOCALES.map(async (locale) => {
+        const posts = await getBlogPosts(locale)
+        const seen = new Set<string>()
+        return posts.flatMap((post) => {
+          const url = `${siteUrl}/${locale}/blog/${post.slug}`
+          if (seen.has(url)) return []
+          seen.add(url)
+          return [{
+            url,
+            lastModified: safeDate(post.publishedAt),
+            changeFrequency: 'monthly' as const,
+            priority: 0.7,
+          }]
+        })
+      })
+    )
+  ).flat()
+
+  return [...staticEntries, ...productEntries, ...blogEntries]
 }

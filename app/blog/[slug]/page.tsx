@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { headers } from 'next/headers'
-import { CmsRichText } from '@/components/cms/CmsRichText'
+import { ArticleBody } from '@/components/cms/ArticleBody'
 import { getBlogPost } from '@/lib/cms/blog'
 
 interface BlogPostProps { params: Promise<{ slug: string }> }
@@ -40,7 +40,7 @@ export default async function BlogPostPage({ params }: BlogPostProps) {
         </div>
         <h1 className="text-5xl font-serif font-bold mb-2xl text-captain-text">{post.title}</h1>
         {post.excerpt ? <p className="text-xl text-captain-neutral max-prose mb-xl">{post.excerpt}</p> : null}
-        <CmsRichText value={post.content} />
+        <ArticleBody articleLayout={post.articleLayout} body={post.content} />
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.title,
