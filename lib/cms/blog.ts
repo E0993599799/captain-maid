@@ -1,4 +1,5 @@
 import { cmsClient } from './client'
+import { mapArticleLayout, type CmsArticleBlock } from './article-layout'
 import type { Locale } from '@/types/cms'
 
 export type BlogPost = {
@@ -11,21 +12,36 @@ export type BlogPost = {
   readTime: number
   publishedAt: string
   content: unknown
+  articleLayout: CmsArticleBlock[]
   heroImage?: { url: string; alt: string }
   seo?: { title?: string; description?: string }
 }
 
-type RawPost = Record<string, any>
+type RawPost = Record<string, unknown>
 type Localized = string | { th?: string; en?: string } | null | undefined
 
-function localized(value: Localized, locale: Locale): string {
+function localized(value: unknown, locale: Locale): string {
   if (typeof value === 'string') return value
-  return value?.[locale] || value?.[locale === 'th' ? 'en' : 'th'] || ''
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return ''
+  const row = value as { th?: unknown; en?: unknown }
+  const primary = row[locale]
+  const fallback = row[locale === 'th' ? 'en' : 'th']
+  return typeof primary === 'string' ? primary : typeof fallback === 'string' ? fallback : ''
 }
 
-function media(value: any) {
-  if (!value || typeof value !== 'object' || typeof value.url !== 'string') return undefined
-  return { url: value.url, alt: localized(value.alt, 'th') || value.filename || '' }
+function media(value: unknown) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined
+  const row = value as Record<string, unknown>
+  if (typeof row.url !== 'string') return undefined
+  return {
+    url: row.url,
+    alt: localized(row.alt, 'th') || (typeof row.filename === 'string' ? row.filename : ''),
+  }
+}
+
+function seoValue(value: unknown, key: 'metaTitle' | 'metaDescription', locale: Locale): string {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return ''
+  return localized((value as Record<string, unknown>)[key], locale)
 }
 
 export function mapCmsBlogPost(raw: RawPost, locale: Locale = 'th'): BlogPost | null {
@@ -47,10 +63,11 @@ export function mapCmsBlogPost(raw: RawPost, locale: Locale = 'th'): BlogPost | 
       ? raw.publishedDate
       : String(raw.updatedAt || raw.createdAt || ''),
     content: raw.body ?? null,
+    articleLayout: mapArticleLayout(raw.articleLayout),
     heroImage: media(raw.coverImage),
     seo: raw.seo ? {
-      title: localized(raw.seo.metaTitle, locale),
-      description: localized(raw.seo.metaDescription, locale),
+      title: seoValue(raw.seo, 'metaTitle', locale),
+      description: seoValue(raw.seo, 'metaDescription', locale),
     } : undefined,
   }
 }
